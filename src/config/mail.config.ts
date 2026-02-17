@@ -1,4 +1,3 @@
-
 export interface MailConfig {
   host: string;
   port: number;
