@@ -27,8 +27,8 @@ export * from "./enums"
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more AdminActivityLogs
+ * const adminActivityLogs = await prisma.adminActivityLog.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -37,4 +37,133 @@ export const PrismaClient = $Class.getPrismaClientClass()
 export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>
 export { Prisma }
 
-
+/**
+ * Model AdminActivityLog
+ * 
+ */
+export type AdminActivityLog = Prisma.AdminActivityLogModel
+/**
+ * Model BackgroundCheck
+ * 
+ */
+export type BackgroundCheck = Prisma.BackgroundCheckModel
+/**
+ * Model ConversationMember
+ * 
+ */
+export type ConversationMember = Prisma.ConversationMemberModel
+/**
+ * Model Conversation
+ * 
+ */
+export type Conversation = Prisma.ConversationModel
+/**
+ * Model Document
+ * 
+ */
+export type Document = Prisma.DocumentModel
+/**
+ * Model Earning
+ * 
+ */
+export type Earning = Prisma.EarningModel
+/**
+ * Model EmployeeProfile
+ * 
+ */
+export type EmployeeProfile = Prisma.EmployeeProfileModel
+/**
+ * Model EmployeeSkill
+ * 
+ */
+export type EmployeeSkill = Prisma.EmployeeSkillModel
+/**
+ * Model EmployerProfile
+ * 
+ */
+export type EmployerProfile = Prisma.EmployerProfileModel
+/**
+ * Model FavoriteWorker
+ * 
+ */
+export type FavoriteWorker = Prisma.FavoriteWorkerModel
+/**
+ * Model JobApplication
+ * 
+ */
+export type JobApplication = Prisma.JobApplicationModel
+/**
+ * Model JobAssignment
+ * 
+ */
+export type JobAssignment = Prisma.JobAssignmentModel
+/**
+ * Model JobSkill
+ * 
+ */
+export type JobSkill = Prisma.JobSkillModel
+/**
+ * Model Job
+ * 
+ */
+export type Job = Prisma.JobModel
+/**
+ * Model MessageRead
+ * 
+ */
+export type MessageRead = Prisma.MessageReadModel
+/**
+ * Model Message
+ * 
+ */
+export type Message = Prisma.MessageModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
+/**
+ * Model OtpVerification
+ * 
+ */
+export type OtpVerification = Prisma.OtpVerificationModel
+/**
+ * Model Payment
+ * 
+ */
+export type Payment = Prisma.PaymentModel
+/**
+ * Model Review
+ * 
+ */
+export type Review = Prisma.ReviewModel
+/**
+ * Model Shift
+ * 
+ */
+export type Shift = Prisma.ShiftModel
+/**
+ * Model Skill
+ * 
+ */
+export type Skill = Prisma.SkillModel
+/**
+ * Model Subscription
+ * 
+ */
+export type Subscription = Prisma.SubscriptionModel
+/**
+ * Model SystemSetting
+ * 
+ */
+export type SystemSetting = Prisma.SystemSettingModel
+/**
+ * Model UserAuthProvider
+ * 
+ */
+export type UserAuthProvider = Prisma.UserAuthProviderModel
+/**
+ * Model User
+ * 
+ */
+export type User = Prisma.UserModel

@@ -1,0 +1,29 @@
+model EmployeeProfile {
+  id                String    @id @default(uuid()) @db.Uuid
+  user_id           String    @unique @db.Uuid
+  date_of_birth     DateTime? @db.Date
+  address           String?
+  latitude          Float?
+  longitude         Float?
+  experience_years  Int?
+  bio               String?
+  profile_photo_url String?
+  rating            Float     @default(0)
+  total_reviews     Int       @default(0)
+  total_jobs        Int       @default(0)
+  total_hours       Float     @default(0)
+  total_earned      Decimal   @default(0) @db.Decimal(12, 2)
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @updatedAt
+
+  user             User             @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  employee_skills  EmployeeSkill[]
+  job_applications JobApplication[]
+  job_assignments  JobAssignment[]
+  shifts           Shift[]
+  earnings         Earning[]
+  received_reviews Review[]
+  favorite_workers FavoriteWorker[]
+
+  @@map("employee_profiles")
+}

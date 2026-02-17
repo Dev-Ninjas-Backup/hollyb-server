@@ -1,0 +1,15 @@
+model UserAuthProvider {
+  id               String       @id @default(uuid()) @db.Uuid
+  user_id          String       @db.Uuid
+  provider         AuthProvider
+  provider_user_id String
+  access_token     String?
+  refresh_token    String?
+  expires_at       DateTime?
+  created_at       DateTime     @default(now())
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([provider, provider_user_id])
+  @@map("user_auth_providers")
+}
