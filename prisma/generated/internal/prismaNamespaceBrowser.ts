@@ -51,7 +51,32 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-
+  AdminActivityLog: 'AdminActivityLog',
+  BackgroundCheck: 'BackgroundCheck',
+  ConversationMember: 'ConversationMember',
+  Conversation: 'Conversation',
+  Document: 'Document',
+  Earning: 'Earning',
+  EmployeeProfile: 'EmployeeProfile',
+  EmployeeSkill: 'EmployeeSkill',
+  EmployerProfile: 'EmployerProfile',
+  FavoriteWorker: 'FavoriteWorker',
+  JobApplication: 'JobApplication',
+  JobAssignment: 'JobAssignment',
+  JobSkill: 'JobSkill',
+  Job: 'Job',
+  MessageRead: 'MessageRead',
+  Message: 'Message',
+  Notification: 'Notification',
+  OtpVerification: 'OtpVerification',
+  Payment: 'Payment',
+  Review: 'Review',
+  Shift: 'Shift',
+  Skill: 'Skill',
+  Subscription: 'Subscription',
+  SystemSetting: 'SystemSetting',
+  UserAuthProvider: 'UserAuthProvider',
+  User: 'User'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -68,4 +93,406 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const AdminActivityLogScalarFieldEnum = {
+  id: 'id',
+  admin_id: 'admin_id',
+  action: 'action',
+  target_type: 'target_type',
+  target_id: 'target_id',
+  meta: 'meta',
+  created_at: 'created_at'
+} as const
+
+export type AdminActivityLogScalarFieldEnum = (typeof AdminActivityLogScalarFieldEnum)[keyof typeof AdminActivityLogScalarFieldEnum]
+
+
+export const BackgroundCheckScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  fee: 'fee',
+  payment_id: 'payment_id',
+  status: 'status',
+  notes: 'notes',
+  checked_at: 'checked_at',
+  created_at: 'created_at'
+} as const
+
+export type BackgroundCheckScalarFieldEnum = (typeof BackgroundCheckScalarFieldEnum)[keyof typeof BackgroundCheckScalarFieldEnum]
+
+
+export const ConversationMemberScalarFieldEnum = {
+  id: 'id',
+  conversation_id: 'conversation_id',
+  user_id: 'user_id',
+  joined_at: 'joined_at',
+  last_read_at: 'last_read_at'
+} as const
+
+export type ConversationMemberScalarFieldEnum = (typeof ConversationMemberScalarFieldEnum)[keyof typeof ConversationMemberScalarFieldEnum]
+
+
+export const ConversationScalarFieldEnum = {
+  id: 'id',
+  job_id: 'job_id',
+  title: 'title',
+  created_at: 'created_at'
+} as const
+
+export type ConversationScalarFieldEnum = (typeof ConversationScalarFieldEnum)[keyof typeof ConversationScalarFieldEnum]
+
+
+export const DocumentScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  type: 'type',
+  file_url: 'file_url',
+  status: 'status',
+  rejection_reason: 'rejection_reason',
+  uploaded_at: 'uploaded_at',
+  reviewed_at: 'reviewed_at'
+} as const
+
+export type DocumentScalarFieldEnum = (typeof DocumentScalarFieldEnum)[keyof typeof DocumentScalarFieldEnum]
+
+
+export const EarningScalarFieldEnum = {
+  id: 'id',
+  shift_id: 'shift_id',
+  employee_id: 'employee_id',
+  gross_amount: 'gross_amount',
+  platform_fee: 'platform_fee',
+  net_amount: 'net_amount',
+  is_paid: 'is_paid',
+  paid_at: 'paid_at',
+  created_at: 'created_at'
+} as const
+
+export type EarningScalarFieldEnum = (typeof EarningScalarFieldEnum)[keyof typeof EarningScalarFieldEnum]
+
+
+export const EmployeeProfileScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  date_of_birth: 'date_of_birth',
+  address: 'address',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  experience_years: 'experience_years',
+  bio: 'bio',
+  profile_photo_url: 'profile_photo_url',
+  rating: 'rating',
+  total_reviews: 'total_reviews',
+  total_jobs: 'total_jobs',
+  total_hours: 'total_hours',
+  total_earned: 'total_earned',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type EmployeeProfileScalarFieldEnum = (typeof EmployeeProfileScalarFieldEnum)[keyof typeof EmployeeProfileScalarFieldEnum]
+
+
+export const EmployeeSkillScalarFieldEnum = {
+  id: 'id',
+  employee_id: 'employee_id',
+  skill_id: 'skill_id'
+} as const
+
+export type EmployeeSkillScalarFieldEnum = (typeof EmployeeSkillScalarFieldEnum)[keyof typeof EmployeeSkillScalarFieldEnum]
+
+
+export const EmployerProfileScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  company_name: 'company_name',
+  address: 'address',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  profile_photo_url: 'profile_photo_url',
+  rating: 'rating',
+  total_reviews: 'total_reviews',
+  total_hires: 'total_hires',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type EmployerProfileScalarFieldEnum = (typeof EmployerProfileScalarFieldEnum)[keyof typeof EmployerProfileScalarFieldEnum]
+
+
+export const FavoriteWorkerScalarFieldEnum = {
+  id: 'id',
+  employer_id: 'employer_id',
+  employee_id: 'employee_id',
+  created_at: 'created_at'
+} as const
+
+export type FavoriteWorkerScalarFieldEnum = (typeof FavoriteWorkerScalarFieldEnum)[keyof typeof FavoriteWorkerScalarFieldEnum]
+
+
+export const JobApplicationScalarFieldEnum = {
+  id: 'id',
+  job_id: 'job_id',
+  employee_id: 'employee_id',
+  cover_note: 'cover_note',
+  status: 'status',
+  applied_at: 'applied_at',
+  updated_at: 'updated_at'
+} as const
+
+export type JobApplicationScalarFieldEnum = (typeof JobApplicationScalarFieldEnum)[keyof typeof JobApplicationScalarFieldEnum]
+
+
+export const JobAssignmentScalarFieldEnum = {
+  id: 'id',
+  job_id: 'job_id',
+  employee_id: 'employee_id',
+  application_id: 'application_id',
+  assigned_at: 'assigned_at'
+} as const
+
+export type JobAssignmentScalarFieldEnum = (typeof JobAssignmentScalarFieldEnum)[keyof typeof JobAssignmentScalarFieldEnum]
+
+
+export const JobSkillScalarFieldEnum = {
+  id: 'id',
+  job_id: 'job_id',
+  skill_id: 'skill_id'
+} as const
+
+export type JobSkillScalarFieldEnum = (typeof JobSkillScalarFieldEnum)[keyof typeof JobSkillScalarFieldEnum]
+
+
+export const JobScalarFieldEnum = {
+  id: 'id',
+  employer_id: 'employer_id',
+  title: 'title',
+  category: 'category',
+  description: 'description',
+  job_type: 'job_type',
+  is_urgent: 'is_urgent',
+  start_date: 'start_date',
+  end_date: 'end_date',
+  start_time: 'start_time',
+  end_time: 'end_time',
+  payment_type: 'payment_type',
+  amount: 'amount',
+  location: 'location',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  status: 'status',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum]
+
+
+export const MessageReadScalarFieldEnum = {
+  id: 'id',
+  message_id: 'message_id',
+  user_id: 'user_id',
+  read_at: 'read_at'
+} as const
+
+export type MessageReadScalarFieldEnum = (typeof MessageReadScalarFieldEnum)[keyof typeof MessageReadScalarFieldEnum]
+
+
+export const MessageScalarFieldEnum = {
+  id: 'id',
+  conversation_id: 'conversation_id',
+  sender_id: 'sender_id',
+  message: 'message',
+  attachment_url: 'attachment_url',
+  is_deleted: 'is_deleted',
+  created_at: 'created_at'
+} as const
+
+export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  title: 'title',
+  body: 'body',
+  type: 'type',
+  reference_id: 'reference_id',
+  reference_type: 'reference_type',
+  is_read: 'is_read',
+  created_at: 'created_at'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const OtpVerificationScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  code: 'code',
+  type: 'type',
+  is_used: 'is_used',
+  expires_at: 'expires_at',
+  created_at: 'created_at'
+} as const
+
+export type OtpVerificationScalarFieldEnum = (typeof OtpVerificationScalarFieldEnum)[keyof typeof OtpVerificationScalarFieldEnum]
+
+
+export const PaymentScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  job_id: 'job_id',
+  type: 'type',
+  amount: 'amount',
+  currency: 'currency',
+  payment_method: 'payment_method',
+  transaction_id: 'transaction_id',
+  status: 'status',
+  paid_at: 'paid_at',
+  created_at: 'created_at'
+} as const
+
+export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
+
+
+export const ReviewScalarFieldEnum = {
+  id: 'id',
+  job_id: 'job_id',
+  employer_id: 'employer_id',
+  employee_id: 'employee_id',
+  reviewer_type: 'reviewer_type',
+  rating: 'rating',
+  comment: 'comment',
+  created_at: 'created_at'
+} as const
+
+export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
+
+
+export const ShiftScalarFieldEnum = {
+  id: 'id',
+  job_id: 'job_id',
+  assignment_id: 'assignment_id',
+  employee_id: 'employee_id',
+  check_in: 'check_in',
+  check_out: 'check_out',
+  break_minutes: 'break_minutes',
+  total_hours: 'total_hours',
+  status: 'status',
+  created_at: 'created_at'
+} as const
+
+export type ShiftScalarFieldEnum = (typeof ShiftScalarFieldEnum)[keyof typeof ShiftScalarFieldEnum]
+
+
+export const SkillScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  category: 'category'
+} as const
+
+export type SkillScalarFieldEnum = (typeof SkillScalarFieldEnum)[keyof typeof SkillScalarFieldEnum]
+
+
+export const SubscriptionScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  plan_type: 'plan_type',
+  amount: 'amount',
+  payment_id: 'payment_id',
+  start_date: 'start_date',
+  end_date: 'end_date',
+  status: 'status',
+  created_at: 'created_at'
+} as const
+
+export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]
+
+
+export const SystemSettingScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  value: 'value',
+  description: 'description',
+  updated_by: 'updated_by',
+  updated_at: 'updated_at'
+} as const
+
+export type SystemSettingScalarFieldEnum = (typeof SystemSettingScalarFieldEnum)[keyof typeof SystemSettingScalarFieldEnum]
+
+
+export const UserAuthProviderScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  provider: 'provider',
+  provider_user_id: 'provider_user_id',
+  access_token: 'access_token',
+  refresh_token: 'refresh_token',
+  expires_at: 'expires_at',
+  created_at: 'created_at'
+} as const
+
+export type UserAuthProviderScalarFieldEnum = (typeof UserAuthProviderScalarFieldEnum)[keyof typeof UserAuthProviderScalarFieldEnum]
+
+
+export const UserScalarFieldEnum = {
+  id: 'id',
+  full_name: 'full_name',
+  email: 'email',
+  role: 'role',
+  password_hash: 'password_hash',
+  account_status: 'account_status',
+  is_active: 'is_active',
+  is_verified: 'is_verified',
+  is_deleted: 'is_deleted',
+  last_active_at: 'last_active_at',
+  last_login_at: 'last_login_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const SortOrder = {
+  asc: 'asc',
+  desc: 'desc'
+} as const
+
+export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+} as const
+
+export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

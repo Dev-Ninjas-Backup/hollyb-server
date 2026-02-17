@@ -1,0 +1,32 @@
+model User {
+  id             String   @id @default(uuid()) @db.Uuid
+  full_name      String
+  email          String?  @unique
+  role           UserRole
+  password_hash  String?
+  account_status AccountStatus
+  is_active      Boolean  @default(true)
+  is_verified    Boolean  @default(false)
+  is_deleted     Boolean  @default(false)
+  last_active_at DateTime?
+  last_login_at  DateTime?
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+
+  auth_providers       UserAuthProvider[]
+  otp_verifications    OtpVerification[]
+  documents            Document[]
+  background_checks    BackgroundCheck[]
+  subscriptions        Subscription[]
+  payments             Payment[]
+  conversation_members ConversationMember[]
+  sent_messages        Message[]
+  message_reads        MessageRead[]
+  notifications        Notification[]
+  admin_activity_logs  AdminActivityLog[] @relation("AdminLogs")
+  updated_settings     SystemSetting[]    @relation("SystemSettingUpdatedBy")
+  employee_profile     EmployeeProfile?
+  employer_profile     EmployerProfile?
+
+  @@map("users")
+}

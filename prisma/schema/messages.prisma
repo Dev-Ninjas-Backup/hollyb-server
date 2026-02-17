@@ -1,0 +1,15 @@
+model Message {
+  id              String   @id @default(uuid()) @db.Uuid
+  conversation_id String   @db.Uuid
+  sender_id       String   @db.Uuid
+  message         String
+  attachment_url  String?
+  is_deleted      Boolean  @default(false)
+  created_at      DateTime @default(now())
+
+  conversation  Conversation @relation(fields: [conversation_id], references: [id], onDelete: Cascade)
+  sender        User         @relation(fields: [sender_id], references: [id], onDelete: Cascade)
+  message_reads MessageRead[]
+
+  @@map("messages")
+}

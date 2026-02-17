@@ -1,0 +1,132 @@
+enum UserRole {
+  employee
+  employer
+  admin
+}
+
+enum AccountStatus {
+  active
+  blocked
+  pending
+  suspended
+}
+
+enum AuthProvider {
+  google
+  facebook
+  credentials
+}
+
+enum OtpType {
+  email
+  phone
+  password_reset
+}
+
+enum DocumentType {
+  profile_photo
+  nid_front
+  nid_back
+  passport_front
+  passport_back
+  trade_license
+  utility_bill
+}
+
+enum ReviewStatus {
+  pending
+  approved
+  rejected
+}
+
+enum BackgroundCheckStatus {
+  pending
+  passed
+  failed
+}
+
+enum SubscriptionPlanType {
+  employer_premium
+  employee_premium
+}
+
+enum SubscriptionStatus {
+  active
+  expired
+  cancelled
+}
+
+enum JobType {
+  hourly
+  daily
+  weekly
+  full_time
+  part_time
+  contract
+}
+
+enum JobPaymentType {
+  hourly
+  fixed
+}
+
+enum JobStatus {
+  open
+  assigned
+  completed
+  cancelled
+}
+
+enum JobApplicationStatus {
+  applied
+  accepted
+  rejected
+  withdrawn
+  confirmed
+}
+
+enum ShiftStatus {
+  in_progress
+  completed
+  disputed
+}
+
+enum PaymentType {
+  job_payment
+  background_fee
+  subscription
+}
+
+enum PaymentMethod {
+  card
+  mobile_banking
+  bank_transfer
+  wallet
+}
+
+enum PaymentStatus {
+  pending
+  success
+  failed
+  refunded
+}
+
+enum ReviewerType {
+  employer
+  employee
+}
+
+enum NotificationType {
+  job_update
+  message
+  payment
+  system
+  review
+}
+
+enum ReferenceType {
+  jobs
+  payments
+  messages
+  reviews
+}
