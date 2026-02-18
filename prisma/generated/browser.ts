@@ -17,4 +17,133 @@ import * as Prisma from './internal/prismaNamespaceBrowser'
 export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
-
+/**
+ * Model AdminActivityLog
+ * 
+ */
+export type AdminActivityLog = Prisma.AdminActivityLogModel
+/**
+ * Model BackgroundCheck
+ * 
+ */
+export type BackgroundCheck = Prisma.BackgroundCheckModel
+/**
+ * Model Document
+ * 
+ */
+export type Document = Prisma.DocumentModel
+/**
+ * Model Earning
+ * 
+ */
+export type Earning = Prisma.EarningModel
+/**
+ * Model EmployeeProfile
+ * 
+ */
+export type EmployeeProfile = Prisma.EmployeeProfileModel
+/**
+ * Model EmployeeSkill
+ * 
+ */
+export type EmployeeSkill = Prisma.EmployeeSkillModel
+/**
+ * Model EmployerProfile
+ * 
+ */
+export type EmployerProfile = Prisma.EmployerProfileModel
+/**
+ * Model FavoriteWorker
+ * 
+ */
+export type FavoriteWorker = Prisma.FavoriteWorkerModel
+/**
+ * Model FileInstance
+ * 
+ */
+export type FileInstance = Prisma.FileInstanceModel
+/**
+ * Model JobApplication
+ * 
+ */
+export type JobApplication = Prisma.JobApplicationModel
+/**
+ * Model JobAssignment
+ * 
+ */
+export type JobAssignment = Prisma.JobAssignmentModel
+/**
+ * Model JobSkill
+ * 
+ */
+export type JobSkill = Prisma.JobSkillModel
+/**
+ * Model Job
+ * 
+ */
+export type Job = Prisma.JobModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
+/**
+ * Model OtpVerification
+ * 
+ */
+export type OtpVerification = Prisma.OtpVerificationModel
+/**
+ * Model Payment
+ * 
+ */
+export type Payment = Prisma.PaymentModel
+/**
+ * Model PrivateConversation
+ * 
+ */
+export type PrivateConversation = Prisma.PrivateConversationModel
+/**
+ * Model PrivateMessage
+ * 
+ */
+export type PrivateMessage = Prisma.PrivateMessageModel
+/**
+ * Model PrivateMessageStatus
+ * 
+ */
+export type PrivateMessageStatus = Prisma.PrivateMessageStatusModel
+/**
+ * Model Review
+ * 
+ */
+export type Review = Prisma.ReviewModel
+/**
+ * Model Shift
+ * 
+ */
+export type Shift = Prisma.ShiftModel
+/**
+ * Model Skill
+ * 
+ */
+export type Skill = Prisma.SkillModel
+/**
+ * Model Subscription
+ * 
+ */
+export type Subscription = Prisma.SubscriptionModel
+/**
+ * Model SystemSetting
+ * 
+ */
+export type SystemSetting = Prisma.SystemSettingModel
+/**
+ * Model UserAuthProvider
+ * 
+ */
+export type UserAuthProvider = Prisma.UserAuthProviderModel
+/**
+ * Model User
+ * 
+ */
+export type User = Prisma.UserModel

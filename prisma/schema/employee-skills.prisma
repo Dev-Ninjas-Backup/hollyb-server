@@ -1,0 +1,11 @@
+model EmployeeSkill {
+  id          String @id @default(uuid()) @db.Uuid
+  employee_id String @db.Uuid
+  skill_id    String @db.Uuid
+
+  employee EmployeeProfile @relation(fields: [employee_id], references: [id], onDelete: Cascade)
+  skill    Skill           @relation(fields: [skill_id], references: [id], onDelete: Cascade)
+
+  @@unique([employee_id, skill_id])
+  @@map("employee_skills")
+}

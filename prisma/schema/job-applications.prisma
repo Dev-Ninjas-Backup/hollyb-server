@@ -1,0 +1,15 @@
+model JobApplication {
+  id          String               @id @default(uuid()) @db.Uuid
+  job_id      String               @db.Uuid
+  employee_id String               @db.Uuid
+  cover_note  String?
+  status      JobApplicationStatus
+  applied_at  DateTime             @default(now())
+  updated_at  DateTime             @updatedAt
+
+  job            Job             @relation(fields: [job_id], references: [id], onDelete: Cascade)
+  employee       EmployeeProfile @relation(fields: [employee_id], references: [id], onDelete: Cascade)
+  job_assignment JobAssignment?
+
+  @@map("job_applications")
+}

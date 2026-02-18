@@ -1,0 +1,12 @@
+model SystemSetting {
+  id          String   @id @default(uuid()) @db.Uuid
+  key         String   @unique
+  value       String?
+  description String?
+  updated_by  String?  @db.Uuid
+  updated_at  DateTime @updatedAt
+
+  updater User? @relation("SystemSettingUpdatedBy", fields: [updated_by], references: [id], onDelete: SetNull)
+
+  @@map("system_settings")
+}
