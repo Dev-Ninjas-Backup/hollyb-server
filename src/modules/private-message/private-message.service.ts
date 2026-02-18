@@ -122,7 +122,8 @@ export class PrivateChatService {
     });
 
     const formattedPrivateChats = privateChats.map((chat: any) => {
-      const otherUser = chat.initiatorId === userId ? chat.receiver : chat.initiator;
+      const otherUser =
+        chat.initiatorId === userId ? chat.receiver : chat.initiator;
       return {
         type: 'private',
         chatId: chat.id,
@@ -161,10 +162,7 @@ export class PrivateChatService {
     const [initiatorId, receiverId] = [userA, userB].sort();
     return this.prisma.client.privateConversation.findFirst({
       where: {
-        AND: [
-          { initiatorId },
-          { receiverId },
-        ],
+        AND: [{ initiatorId }, { receiverId }],
       },
     });
   }
@@ -226,8 +224,8 @@ export class PrivateChatService {
 
   @HandleError("Error getting user's conversations", 'PRIVATE_CHAT')
   async getUserNewConversations(userId: string) {
-    const conversation =
-      await this.prisma.client.privateConversation.findFirst({
+    const conversation = await this.prisma.client.privateConversation.findFirst(
+      {
         where: {
           OR: [{ initiatorId: userId }, { receiverId: userId }],
         },
@@ -260,7 +258,8 @@ export class PrivateChatService {
           },
         },
         orderBy: { updatedAt: 'desc' },
-      });
+      },
+    );
 
     return ResponseHelper.success(
       conversation,
@@ -311,7 +310,8 @@ export class PrivateChatService {
     );
 
     const formattedConversations = conversations.map((chat: any) => {
-      const otherUser = chat.initiatorId === userId ? chat.receiver : chat.initiator;
+      const otherUser =
+        chat.initiatorId === userId ? chat.receiver : chat.initiator;
       return {
         type: 'private',
         chatId: chat.id,

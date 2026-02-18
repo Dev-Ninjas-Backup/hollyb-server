@@ -15,7 +15,7 @@ import { Server, Socket } from 'socket.io';
 import { WEBSOCKET_CORS_CONFIG } from 'src/common/constants/cors.constant';
 import { SocketAuthMiddleware } from 'src/common/jwt/socket-auth.middleware';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { PrivateChatService } from './private-message.service';;
+import { PrivateChatService } from './private-message.service';
 
 enum PrivateChatEvents {
   ERROR = 'private:error',

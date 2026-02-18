@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { ModulesModule } from './modules/modules.module';
 import { validationSchema } from './config/env.config';
+import { UploadModule } from './common/upload/upload.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { validationSchema } from './config/env.config';
       validate: (config) => validationSchema.parse(config),
     }),
     PrismaModule,
+    UploadModule,
     ModulesModule,
   ],
   controllers: [AppController],
