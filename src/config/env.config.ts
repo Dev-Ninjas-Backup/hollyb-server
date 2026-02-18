@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const validationSchema = z
   .object({
-    NODE_ENV: z.enum(['development', 'production']).default('development'),
+    NODE_ENV: z.enum(['development', 'production']).default('production'),
     PORT: z.coerce.number().default(3000),
     DATABASE_URL: z.string().url(),
     JWT_ACCESS_SECRET: z.string().min(32),
