@@ -9,7 +9,6 @@ import { ConfigService } from '@nestjs/config';
 import { compare } from 'bcryptjs';
 import { PrismaService } from '@/prisma/prisma.service';
 import { BusinessException } from '@/common/exceptions/business.exception';
-import { AuthProvider } from '@prisma';
 import type { Request } from 'express';
 
 export type AuthenticatedRequest = Request & {
@@ -55,23 +54,27 @@ export class JwtAuthGuard implements CanActivate {
       throw new BusinessException('Invalid token', HttpStatus.UNAUTHORIZED);
     }
 
-    const provider = await this.prismaService.client.userAuthProvider.findFirst(
-      {
-        where: {
-          user_id: payload.sub,
-          provider: AuthProvider.credentials,
-        },
-        select: {
-          access_token: true,
-        },
+    const providers = await this.prismaService.client.userAuthProvider.findMany({
+      where: {
+        user_id: payload.sub,
+        access_token: { not: null },
       },
-    );
+      select: {
+        access_token: true,
+      },
+    });
 
-    if (!provider?.access_token) {
-      throw new BusinessException('Unauthorized', HttpStatus.UNAUTHORIZED);
+    let isMatched = false;
+    for (const provider of providers) {
+      if (!provider.access_token) {
+        continue;
+      }
+      if (await compare(token, provider.access_token)) {
+        isMatched = true;
+        break;
+      }
     }
 
-    const isMatched = await compare(token, provider.access_token);
     if (!isMatched) {
       throw new BusinessException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }
