@@ -597,6 +597,13 @@ export class AuthService {
       where: { email: decodedToken.email },
     });
 
+    if (user && dto.role && user.role !== dto.role) {
+      throw new BusinessException(
+        `Role mismatch: this account is already registered as ${user.role}`,
+        HttpStatus.CONFLICT,
+      );
+    }
+
     if (!user) {
       user = await this.prismaService.client.user.create({
         data: {
