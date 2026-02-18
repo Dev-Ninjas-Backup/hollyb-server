@@ -252,14 +252,15 @@ export type UserWhereInput = {
   background_checks?: Prisma.BackgroundCheckListRelationFilter
   subscriptions?: Prisma.SubscriptionListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
-  conversation_members?: Prisma.ConversationMemberListRelationFilter
-  sent_messages?: Prisma.MessageListRelationFilter
-  message_reads?: Prisma.MessageReadListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   admin_activity_logs?: Prisma.AdminActivityLogListRelationFilter
   updated_settings?: Prisma.SystemSettingListRelationFilter
   employee_profile?: Prisma.XOR<Prisma.EmployeeProfileNullableScalarRelationFilter, Prisma.EmployeeProfileWhereInput> | null
   employer_profile?: Prisma.XOR<Prisma.EmployerProfileNullableScalarRelationFilter, Prisma.EmployerProfileWhereInput> | null
+  messageStatuses?: Prisma.PrivateMessageStatusListRelationFilter
+  messagesSent?: Prisma.PrivateMessageListRelationFilter
+  conversationsInitiated?: Prisma.PrivateConversationListRelationFilter
+  conversationsReceived?: Prisma.PrivateConversationListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -282,14 +283,15 @@ export type UserOrderByWithRelationInput = {
   background_checks?: Prisma.BackgroundCheckOrderByRelationAggregateInput
   subscriptions?: Prisma.SubscriptionOrderByRelationAggregateInput
   payments?: Prisma.PaymentOrderByRelationAggregateInput
-  conversation_members?: Prisma.ConversationMemberOrderByRelationAggregateInput
-  sent_messages?: Prisma.MessageOrderByRelationAggregateInput
-  message_reads?: Prisma.MessageReadOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   admin_activity_logs?: Prisma.AdminActivityLogOrderByRelationAggregateInput
   updated_settings?: Prisma.SystemSettingOrderByRelationAggregateInput
   employee_profile?: Prisma.EmployeeProfileOrderByWithRelationInput
   employer_profile?: Prisma.EmployerProfileOrderByWithRelationInput
+  messageStatuses?: Prisma.PrivateMessageStatusOrderByRelationAggregateInput
+  messagesSent?: Prisma.PrivateMessageOrderByRelationAggregateInput
+  conversationsInitiated?: Prisma.PrivateConversationOrderByRelationAggregateInput
+  conversationsReceived?: Prisma.PrivateConversationOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -315,14 +317,15 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   background_checks?: Prisma.BackgroundCheckListRelationFilter
   subscriptions?: Prisma.SubscriptionListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
-  conversation_members?: Prisma.ConversationMemberListRelationFilter
-  sent_messages?: Prisma.MessageListRelationFilter
-  message_reads?: Prisma.MessageReadListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   admin_activity_logs?: Prisma.AdminActivityLogListRelationFilter
   updated_settings?: Prisma.SystemSettingListRelationFilter
   employee_profile?: Prisma.XOR<Prisma.EmployeeProfileNullableScalarRelationFilter, Prisma.EmployeeProfileWhereInput> | null
   employer_profile?: Prisma.XOR<Prisma.EmployerProfileNullableScalarRelationFilter, Prisma.EmployerProfileWhereInput> | null
+  messageStatuses?: Prisma.PrivateMessageStatusListRelationFilter
+  messagesSent?: Prisma.PrivateMessageListRelationFilter
+  conversationsInitiated?: Prisma.PrivateConversationListRelationFilter
+  conversationsReceived?: Prisma.PrivateConversationListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -383,14 +386,15 @@ export type UserCreateInput = {
   background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -413,14 +417,15 @@ export type UserUncheckedCreateInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberUncheckedCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUpdateInput = {
@@ -443,14 +448,15 @@ export type UserUpdateInput = {
   background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -473,14 +479,15 @@ export type UserUncheckedUpdateInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUncheckedUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -617,20 +624,6 @@ export type UserUpdateOneRequiredWithoutBackground_checksNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBackground_checksInput, Prisma.UserUpdateWithoutBackground_checksInput>, Prisma.UserUncheckedUpdateWithoutBackground_checksInput>
 }
 
-export type UserCreateNestedOneWithoutConversation_membersInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutConversation_membersInput, Prisma.UserUncheckedCreateWithoutConversation_membersInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversation_membersInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutConversation_membersNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutConversation_membersInput, Prisma.UserUncheckedCreateWithoutConversation_membersInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversation_membersInput
-  upsert?: Prisma.UserUpsertWithoutConversation_membersInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutConversation_membersInput, Prisma.UserUpdateWithoutConversation_membersInput>, Prisma.UserUncheckedUpdateWithoutConversation_membersInput>
-}
-
 export type UserCreateNestedOneWithoutDocumentsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutDocumentsInput, Prisma.UserUncheckedCreateWithoutDocumentsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutDocumentsInput
@@ -673,34 +666,6 @@ export type UserUpdateOneRequiredWithoutEmployer_profileNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutEmployer_profileInput, Prisma.UserUpdateWithoutEmployer_profileInput>, Prisma.UserUncheckedUpdateWithoutEmployer_profileInput>
 }
 
-export type UserCreateNestedOneWithoutMessage_readsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutMessage_readsInput, Prisma.UserUncheckedCreateWithoutMessage_readsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessage_readsInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutMessage_readsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutMessage_readsInput, Prisma.UserUncheckedCreateWithoutMessage_readsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessage_readsInput
-  upsert?: Prisma.UserUpsertWithoutMessage_readsInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMessage_readsInput, Prisma.UserUpdateWithoutMessage_readsInput>, Prisma.UserUncheckedUpdateWithoutMessage_readsInput>
-}
-
-export type UserCreateNestedOneWithoutSent_messagesInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutSent_messagesInput, Prisma.UserUncheckedCreateWithoutSent_messagesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSent_messagesInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutSent_messagesNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutSent_messagesInput, Prisma.UserUncheckedCreateWithoutSent_messagesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSent_messagesInput
-  upsert?: Prisma.UserUpsertWithoutSent_messagesInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSent_messagesInput, Prisma.UserUpdateWithoutSent_messagesInput>, Prisma.UserUncheckedUpdateWithoutSent_messagesInput>
-}
-
 export type UserCreateNestedOneWithoutNotificationsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
@@ -741,6 +706,62 @@ export type UserUpdateOneRequiredWithoutPaymentsNestedInput = {
   upsert?: Prisma.UserUpsertWithoutPaymentsInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPaymentsInput, Prisma.UserUpdateWithoutPaymentsInput>, Prisma.UserUncheckedUpdateWithoutPaymentsInput>
+}
+
+export type UserCreateNestedOneWithoutConversationsInitiatedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationsInitiatedInput, Prisma.UserUncheckedCreateWithoutConversationsInitiatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationsInitiatedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutConversationsReceivedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationsReceivedInput, Prisma.UserUncheckedCreateWithoutConversationsReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationsReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutConversationsInitiatedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationsInitiatedInput, Prisma.UserUncheckedCreateWithoutConversationsInitiatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationsInitiatedInput
+  upsert?: Prisma.UserUpsertWithoutConversationsInitiatedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutConversationsInitiatedInput, Prisma.UserUpdateWithoutConversationsInitiatedInput>, Prisma.UserUncheckedUpdateWithoutConversationsInitiatedInput>
+}
+
+export type UserUpdateOneRequiredWithoutConversationsReceivedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConversationsReceivedInput, Prisma.UserUncheckedCreateWithoutConversationsReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConversationsReceivedInput
+  upsert?: Prisma.UserUpsertWithoutConversationsReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutConversationsReceivedInput, Prisma.UserUpdateWithoutConversationsReceivedInput>, Prisma.UserUncheckedUpdateWithoutConversationsReceivedInput>
+}
+
+export type UserCreateNestedOneWithoutMessagesSentInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessagesSentInput, Prisma.UserUncheckedCreateWithoutMessagesSentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagesSentInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutMessagesSentNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessagesSentInput, Prisma.UserUncheckedCreateWithoutMessagesSentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagesSentInput
+  upsert?: Prisma.UserUpsertWithoutMessagesSentInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMessagesSentInput, Prisma.UserUpdateWithoutMessagesSentInput>, Prisma.UserUncheckedUpdateWithoutMessagesSentInput>
+}
+
+export type UserCreateNestedOneWithoutMessageStatusesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessageStatusesInput, Prisma.UserUncheckedCreateWithoutMessageStatusesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessageStatusesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutMessageStatusesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessageStatusesInput, Prisma.UserUncheckedCreateWithoutMessageStatusesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessageStatusesInput
+  upsert?: Prisma.UserUpsertWithoutMessageStatusesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMessageStatusesInput, Prisma.UserUpdateWithoutMessageStatusesInput>, Prisma.UserUncheckedUpdateWithoutMessageStatusesInput>
 }
 
 export type UserCreateNestedOneWithoutSubscriptionsInput = {
@@ -815,13 +836,14 @@ export type UserCreateWithoutAdmin_activity_logsInput = {
   background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateWithoutAdmin_activity_logsInput = {
@@ -844,13 +866,14 @@ export type UserUncheckedCreateWithoutAdmin_activity_logsInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberUncheckedCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserCreateOrConnectWithoutAdmin_activity_logsInput = {
@@ -889,13 +912,14 @@ export type UserUpdateWithoutAdmin_activity_logsInput = {
   background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAdmin_activity_logsInput = {
@@ -918,13 +942,14 @@ export type UserUncheckedUpdateWithoutAdmin_activity_logsInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUncheckedUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserCreateWithoutBackground_checksInput = {
@@ -946,14 +971,15 @@ export type UserCreateWithoutBackground_checksInput = {
   documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateWithoutBackground_checksInput = {
@@ -975,14 +1001,15 @@ export type UserUncheckedCreateWithoutBackground_checksInput = {
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberUncheckedCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserCreateOrConnectWithoutBackground_checksInput = {
@@ -1020,14 +1047,15 @@ export type UserUpdateWithoutBackground_checksInput = {
   documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBackground_checksInput = {
@@ -1049,146 +1077,15 @@ export type UserUncheckedUpdateWithoutBackground_checksInput = {
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUncheckedUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
-}
-
-export type UserCreateWithoutConversation_membersInput = {
-  id?: string
-  full_name: string
-  email?: string | null
-  role: $Enums.UserRole
-  password_hash?: string | null
-  account_status: $Enums.AccountStatus
-  is_active?: boolean
-  is_verified?: boolean
-  is_deleted?: boolean
-  last_active_at?: Date | string | null
-  last_login_at?: Date | string | null
-  created_at?: Date | string
-  updated_at?: Date | string
-  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
-  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
-  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
-  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
-  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadCreateNestedManyWithoutUserInput
-  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
-  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
-  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
-  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
-  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutConversation_membersInput = {
-  id?: string
-  full_name: string
-  email?: string | null
-  role: $Enums.UserRole
-  password_hash?: string | null
-  account_status: $Enums.AccountStatus
-  is_active?: boolean
-  is_verified?: boolean
-  is_deleted?: boolean
-  last_active_at?: Date | string | null
-  last_login_at?: Date | string | null
-  created_at?: Date | string
-  updated_at?: Date | string
-  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
-  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
-  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
-  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
-  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadUncheckedCreateNestedManyWithoutUserInput
-  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
-  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
-  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
-  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
-  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutConversation_membersInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutConversation_membersInput, Prisma.UserUncheckedCreateWithoutConversation_membersInput>
-}
-
-export type UserUpsertWithoutConversation_membersInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutConversation_membersInput, Prisma.UserUncheckedUpdateWithoutConversation_membersInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutConversation_membersInput, Prisma.UserUncheckedCreateWithoutConversation_membersInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutConversation_membersInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutConversation_membersInput, Prisma.UserUncheckedUpdateWithoutConversation_membersInput>
-}
-
-export type UserUpdateWithoutConversation_membersInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  full_name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
-  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
-  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
-  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
-  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
-  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUpdateManyWithoutUserNestedInput
-  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
-  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
-  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
-  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
-  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutConversation_membersInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  full_name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
-  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
-  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
-  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
-  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
-  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUncheckedUpdateManyWithoutUserNestedInput
-  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
-  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
-  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
-  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
-  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserCreateWithoutDocumentsInput = {
@@ -1210,14 +1107,15 @@ export type UserCreateWithoutDocumentsInput = {
   background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateWithoutDocumentsInput = {
@@ -1239,14 +1137,15 @@ export type UserUncheckedCreateWithoutDocumentsInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberUncheckedCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserCreateOrConnectWithoutDocumentsInput = {
@@ -1284,14 +1183,15 @@ export type UserUpdateWithoutDocumentsInput = {
   background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDocumentsInput = {
@@ -1313,14 +1213,15 @@ export type UserUncheckedUpdateWithoutDocumentsInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUncheckedUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserCreateWithoutEmployee_profileInput = {
@@ -1343,13 +1244,14 @@ export type UserCreateWithoutEmployee_profileInput = {
   background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateWithoutEmployee_profileInput = {
@@ -1372,13 +1274,14 @@ export type UserUncheckedCreateWithoutEmployee_profileInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberUncheckedCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserCreateOrConnectWithoutEmployee_profileInput = {
@@ -1417,13 +1320,14 @@ export type UserUpdateWithoutEmployee_profileInput = {
   background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmployee_profileInput = {
@@ -1446,13 +1350,14 @@ export type UserUncheckedUpdateWithoutEmployee_profileInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUncheckedUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserCreateWithoutEmployer_profileInput = {
@@ -1475,13 +1380,14 @@ export type UserCreateWithoutEmployer_profileInput = {
   background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateWithoutEmployer_profileInput = {
@@ -1504,13 +1410,14 @@ export type UserUncheckedCreateWithoutEmployer_profileInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberUncheckedCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserCreateOrConnectWithoutEmployer_profileInput = {
@@ -1549,13 +1456,14 @@ export type UserUpdateWithoutEmployer_profileInput = {
   background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmployer_profileInput = {
@@ -1578,277 +1486,14 @@ export type UserUncheckedUpdateWithoutEmployer_profileInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUncheckedUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
-}
-
-export type UserCreateWithoutMessage_readsInput = {
-  id?: string
-  full_name: string
-  email?: string | null
-  role: $Enums.UserRole
-  password_hash?: string | null
-  account_status: $Enums.AccountStatus
-  is_active?: boolean
-  is_verified?: boolean
-  is_deleted?: boolean
-  last_active_at?: Date | string | null
-  last_login_at?: Date | string | null
-  created_at?: Date | string
-  updated_at?: Date | string
-  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
-  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
-  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
-  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
-  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
-  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
-  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
-  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
-  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
-  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutMessage_readsInput = {
-  id?: string
-  full_name: string
-  email?: string | null
-  role: $Enums.UserRole
-  password_hash?: string | null
-  account_status: $Enums.AccountStatus
-  is_active?: boolean
-  is_verified?: boolean
-  is_deleted?: boolean
-  last_active_at?: Date | string | null
-  last_login_at?: Date | string | null
-  created_at?: Date | string
-  updated_at?: Date | string
-  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
-  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
-  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
-  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
-  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberUncheckedCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
-  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
-  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
-  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
-  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
-  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutMessage_readsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutMessage_readsInput, Prisma.UserUncheckedCreateWithoutMessage_readsInput>
-}
-
-export type UserUpsertWithoutMessage_readsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutMessage_readsInput, Prisma.UserUncheckedUpdateWithoutMessage_readsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutMessage_readsInput, Prisma.UserUncheckedCreateWithoutMessage_readsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutMessage_readsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutMessage_readsInput, Prisma.UserUncheckedUpdateWithoutMessage_readsInput>
-}
-
-export type UserUpdateWithoutMessage_readsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  full_name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
-  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
-  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
-  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
-  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
-  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
-  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
-  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
-  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
-  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
-  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutMessage_readsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  full_name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
-  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
-  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
-  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
-  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
-  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUncheckedUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
-  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
-  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
-  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
-  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
-  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
-}
-
-export type UserCreateWithoutSent_messagesInput = {
-  id?: string
-  full_name: string
-  email?: string | null
-  role: $Enums.UserRole
-  password_hash?: string | null
-  account_status: $Enums.AccountStatus
-  is_active?: boolean
-  is_verified?: boolean
-  is_deleted?: boolean
-  last_active_at?: Date | string | null
-  last_login_at?: Date | string | null
-  created_at?: Date | string
-  updated_at?: Date | string
-  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
-  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
-  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
-  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
-  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberCreateNestedManyWithoutUserInput
-  message_reads?: Prisma.MessageReadCreateNestedManyWithoutUserInput
-  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
-  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
-  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
-  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
-  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutSent_messagesInput = {
-  id?: string
-  full_name: string
-  email?: string | null
-  role: $Enums.UserRole
-  password_hash?: string | null
-  account_status: $Enums.AccountStatus
-  is_active?: boolean
-  is_verified?: boolean
-  is_deleted?: boolean
-  last_active_at?: Date | string | null
-  last_login_at?: Date | string | null
-  created_at?: Date | string
-  updated_at?: Date | string
-  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
-  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
-  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
-  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
-  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberUncheckedCreateNestedManyWithoutUserInput
-  message_reads?: Prisma.MessageReadUncheckedCreateNestedManyWithoutUserInput
-  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
-  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
-  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
-  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
-  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutSent_messagesInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutSent_messagesInput, Prisma.UserUncheckedCreateWithoutSent_messagesInput>
-}
-
-export type UserUpsertWithoutSent_messagesInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutSent_messagesInput, Prisma.UserUncheckedUpdateWithoutSent_messagesInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutSent_messagesInput, Prisma.UserUncheckedCreateWithoutSent_messagesInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutSent_messagesInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutSent_messagesInput, Prisma.UserUncheckedUpdateWithoutSent_messagesInput>
-}
-
-export type UserUpdateWithoutSent_messagesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  full_name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
-  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
-  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
-  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
-  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
-  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUpdateManyWithoutUserNestedInput
-  message_reads?: Prisma.MessageReadUpdateManyWithoutUserNestedInput
-  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
-  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
-  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
-  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
-  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutSent_messagesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  full_name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
-  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
-  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
-  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
-  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
-  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUncheckedUpdateManyWithoutUserNestedInput
-  message_reads?: Prisma.MessageReadUncheckedUpdateManyWithoutUserNestedInput
-  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
-  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
-  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
-  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
-  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -1871,13 +1516,14 @@ export type UserCreateWithoutNotificationsInput = {
   background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -1900,13 +1546,14 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberUncheckedCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -1945,13 +1592,14 @@ export type UserUpdateWithoutNotificationsInput = {
   background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -1974,13 +1622,14 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUncheckedUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserCreateWithoutOtp_verificationsInput = {
@@ -2002,14 +1651,15 @@ export type UserCreateWithoutOtp_verificationsInput = {
   background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateWithoutOtp_verificationsInput = {
@@ -2031,14 +1681,15 @@ export type UserUncheckedCreateWithoutOtp_verificationsInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberUncheckedCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserCreateOrConnectWithoutOtp_verificationsInput = {
@@ -2076,14 +1727,15 @@ export type UserUpdateWithoutOtp_verificationsInput = {
   background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOtp_verificationsInput = {
@@ -2105,14 +1757,15 @@ export type UserUncheckedUpdateWithoutOtp_verificationsInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUncheckedUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserCreateWithoutPaymentsInput = {
@@ -2134,14 +1787,15 @@ export type UserCreateWithoutPaymentsInput = {
   documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
   background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateWithoutPaymentsInput = {
@@ -2163,14 +1817,15 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
   background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberUncheckedCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserCreateOrConnectWithoutPaymentsInput = {
@@ -2208,14 +1863,15 @@ export type UserUpdateWithoutPaymentsInput = {
   documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
   background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentsInput = {
@@ -2237,14 +1893,559 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
   background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUncheckedUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserCreateWithoutConversationsInitiatedInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
+}
+
+export type UserUncheckedCreateWithoutConversationsInitiatedInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
+}
+
+export type UserCreateOrConnectWithoutConversationsInitiatedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationsInitiatedInput, Prisma.UserUncheckedCreateWithoutConversationsInitiatedInput>
+}
+
+export type UserCreateWithoutConversationsReceivedInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+}
+
+export type UserUncheckedCreateWithoutConversationsReceivedInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+}
+
+export type UserCreateOrConnectWithoutConversationsReceivedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationsReceivedInput, Prisma.UserUncheckedCreateWithoutConversationsReceivedInput>
+}
+
+export type UserUpsertWithoutConversationsInitiatedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutConversationsInitiatedInput, Prisma.UserUncheckedUpdateWithoutConversationsInitiatedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationsInitiatedInput, Prisma.UserUncheckedCreateWithoutConversationsInitiatedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutConversationsInitiatedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutConversationsInitiatedInput, Prisma.UserUncheckedUpdateWithoutConversationsInitiatedInput>
+}
+
+export type UserUpdateWithoutConversationsInitiatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUncheckedUpdateWithoutConversationsInitiatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUpsertWithoutConversationsReceivedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutConversationsReceivedInput, Prisma.UserUncheckedUpdateWithoutConversationsReceivedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutConversationsReceivedInput, Prisma.UserUncheckedCreateWithoutConversationsReceivedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutConversationsReceivedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutConversationsReceivedInput, Prisma.UserUncheckedUpdateWithoutConversationsReceivedInput>
+}
+
+export type UserUpdateWithoutConversationsReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutConversationsReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+}
+
+export type UserCreateWithoutMessagesSentInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
+}
+
+export type UserUncheckedCreateWithoutMessagesSentInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
+}
+
+export type UserCreateOrConnectWithoutMessagesSentInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessagesSentInput, Prisma.UserUncheckedCreateWithoutMessagesSentInput>
+}
+
+export type UserUpsertWithoutMessagesSentInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMessagesSentInput, Prisma.UserUncheckedUpdateWithoutMessagesSentInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessagesSentInput, Prisma.UserUncheckedCreateWithoutMessagesSentInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMessagesSentInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMessagesSentInput, Prisma.UserUncheckedUpdateWithoutMessagesSentInput>
+}
+
+export type UserUpdateWithoutMessagesSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMessagesSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserCreateWithoutMessageStatusesInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
+}
+
+export type UserUncheckedCreateWithoutMessageStatusesInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
+}
+
+export type UserCreateOrConnectWithoutMessageStatusesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessageStatusesInput, Prisma.UserUncheckedCreateWithoutMessageStatusesInput>
+}
+
+export type UserUpsertWithoutMessageStatusesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMessageStatusesInput, Prisma.UserUncheckedUpdateWithoutMessageStatusesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessageStatusesInput, Prisma.UserUncheckedCreateWithoutMessageStatusesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMessageStatusesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMessageStatusesInput, Prisma.UserUncheckedUpdateWithoutMessageStatusesInput>
+}
+
+export type UserUpdateWithoutMessageStatusesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMessageStatusesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserCreateWithoutSubscriptionsInput = {
@@ -2266,14 +2467,15 @@ export type UserCreateWithoutSubscriptionsInput = {
   documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
   background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateWithoutSubscriptionsInput = {
@@ -2295,14 +2497,15 @@ export type UserUncheckedCreateWithoutSubscriptionsInput = {
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
   background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberUncheckedCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserCreateOrConnectWithoutSubscriptionsInput = {
@@ -2340,14 +2543,15 @@ export type UserUpdateWithoutSubscriptionsInput = {
   documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
   background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubscriptionsInput = {
@@ -2369,14 +2573,15 @@ export type UserUncheckedUpdateWithoutSubscriptionsInput = {
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
   background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUncheckedUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserCreateWithoutUpdated_settingsInput = {
@@ -2399,13 +2604,14 @@ export type UserCreateWithoutUpdated_settingsInput = {
   background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateWithoutUpdated_settingsInput = {
@@ -2428,13 +2634,14 @@ export type UserUncheckedCreateWithoutUpdated_settingsInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberUncheckedCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserCreateOrConnectWithoutUpdated_settingsInput = {
@@ -2473,13 +2680,14 @@ export type UserUpdateWithoutUpdated_settingsInput = {
   background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdated_settingsInput = {
@@ -2502,13 +2710,14 @@ export type UserUncheckedUpdateWithoutUpdated_settingsInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUncheckedUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserCreateWithoutAuth_providersInput = {
@@ -2530,14 +2739,15 @@ export type UserCreateWithoutAuth_providersInput = {
   background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
 }
 
 export type UserUncheckedCreateWithoutAuth_providersInput = {
@@ -2559,14 +2769,15 @@ export type UserUncheckedCreateWithoutAuth_providersInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  conversation_members?: Prisma.ConversationMemberUncheckedCreateNestedManyWithoutUserInput
-  sent_messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
-  message_reads?: Prisma.MessageReadUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
 }
 
 export type UserCreateOrConnectWithoutAuth_providersInput = {
@@ -2604,14 +2815,15 @@ export type UserUpdateWithoutAuth_providersInput = {
   background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuth_providersInput = {
@@ -2633,14 +2845,15 @@ export type UserUncheckedUpdateWithoutAuth_providersInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  conversation_members?: Prisma.ConversationMemberUncheckedUpdateManyWithoutUserNestedInput
-  sent_messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
-  message_reads?: Prisma.MessageReadUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 
@@ -2655,12 +2868,13 @@ export type UserCountOutputType = {
   background_checks: number
   subscriptions: number
   payments: number
-  conversation_members: number
-  sent_messages: number
-  message_reads: number
   notifications: number
   admin_activity_logs: number
   updated_settings: number
+  messageStatuses: number
+  messagesSent: number
+  conversationsInitiated: number
+  conversationsReceived: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2670,12 +2884,13 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   background_checks?: boolean | UserCountOutputTypeCountBackground_checksArgs
   subscriptions?: boolean | UserCountOutputTypeCountSubscriptionsArgs
   payments?: boolean | UserCountOutputTypeCountPaymentsArgs
-  conversation_members?: boolean | UserCountOutputTypeCountConversation_membersArgs
-  sent_messages?: boolean | UserCountOutputTypeCountSent_messagesArgs
-  message_reads?: boolean | UserCountOutputTypeCountMessage_readsArgs
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   admin_activity_logs?: boolean | UserCountOutputTypeCountAdmin_activity_logsArgs
   updated_settings?: boolean | UserCountOutputTypeCountUpdated_settingsArgs
+  messageStatuses?: boolean | UserCountOutputTypeCountMessageStatusesArgs
+  messagesSent?: boolean | UserCountOutputTypeCountMessagesSentArgs
+  conversationsInitiated?: boolean | UserCountOutputTypeCountConversationsInitiatedArgs
+  conversationsReceived?: boolean | UserCountOutputTypeCountConversationsReceivedArgs
 }
 
 /**
@@ -2733,27 +2948,6 @@ export type UserCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.E
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountConversation_membersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ConversationMemberWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountSent_messagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.MessageWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountMessage_readsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.MessageReadWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
 export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.NotificationWhereInput
 }
@@ -2770,6 +2964,34 @@ export type UserCountOutputTypeCountAdmin_activity_logsArgs<ExtArgs extends runt
  */
 export type UserCountOutputTypeCountUpdated_settingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.SystemSettingWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMessageStatusesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PrivateMessageStatusWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMessagesSentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PrivateMessageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountConversationsInitiatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PrivateConversationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountConversationsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PrivateConversationWhereInput
 }
 
 
@@ -2793,14 +3015,15 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   background_checks?: boolean | Prisma.User$background_checksArgs<ExtArgs>
   subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
   payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
-  conversation_members?: boolean | Prisma.User$conversation_membersArgs<ExtArgs>
-  sent_messages?: boolean | Prisma.User$sent_messagesArgs<ExtArgs>
-  message_reads?: boolean | Prisma.User$message_readsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   admin_activity_logs?: boolean | Prisma.User$admin_activity_logsArgs<ExtArgs>
   updated_settings?: boolean | Prisma.User$updated_settingsArgs<ExtArgs>
   employee_profile?: boolean | Prisma.User$employee_profileArgs<ExtArgs>
   employer_profile?: boolean | Prisma.User$employer_profileArgs<ExtArgs>
+  messageStatuses?: boolean | Prisma.User$messageStatusesArgs<ExtArgs>
+  messagesSent?: boolean | Prisma.User$messagesSentArgs<ExtArgs>
+  conversationsInitiated?: boolean | Prisma.User$conversationsInitiatedArgs<ExtArgs>
+  conversationsReceived?: boolean | Prisma.User$conversationsReceivedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2860,14 +3083,15 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   background_checks?: boolean | Prisma.User$background_checksArgs<ExtArgs>
   subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
   payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
-  conversation_members?: boolean | Prisma.User$conversation_membersArgs<ExtArgs>
-  sent_messages?: boolean | Prisma.User$sent_messagesArgs<ExtArgs>
-  message_reads?: boolean | Prisma.User$message_readsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   admin_activity_logs?: boolean | Prisma.User$admin_activity_logsArgs<ExtArgs>
   updated_settings?: boolean | Prisma.User$updated_settingsArgs<ExtArgs>
   employee_profile?: boolean | Prisma.User$employee_profileArgs<ExtArgs>
   employer_profile?: boolean | Prisma.User$employer_profileArgs<ExtArgs>
+  messageStatuses?: boolean | Prisma.User$messageStatusesArgs<ExtArgs>
+  messagesSent?: boolean | Prisma.User$messagesSentArgs<ExtArgs>
+  conversationsInitiated?: boolean | Prisma.User$conversationsInitiatedArgs<ExtArgs>
+  conversationsReceived?: boolean | Prisma.User$conversationsReceivedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2882,14 +3106,15 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     background_checks: Prisma.$BackgroundCheckPayload<ExtArgs>[]
     subscriptions: Prisma.$SubscriptionPayload<ExtArgs>[]
     payments: Prisma.$PaymentPayload<ExtArgs>[]
-    conversation_members: Prisma.$ConversationMemberPayload<ExtArgs>[]
-    sent_messages: Prisma.$MessagePayload<ExtArgs>[]
-    message_reads: Prisma.$MessageReadPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     admin_activity_logs: Prisma.$AdminActivityLogPayload<ExtArgs>[]
     updated_settings: Prisma.$SystemSettingPayload<ExtArgs>[]
     employee_profile: Prisma.$EmployeeProfilePayload<ExtArgs> | null
     employer_profile: Prisma.$EmployerProfilePayload<ExtArgs> | null
+    messageStatuses: Prisma.$PrivateMessageStatusPayload<ExtArgs>[]
+    messagesSent: Prisma.$PrivateMessagePayload<ExtArgs>[]
+    conversationsInitiated: Prisma.$PrivateConversationPayload<ExtArgs>[]
+    conversationsReceived: Prisma.$PrivateConversationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3305,14 +3530,15 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   background_checks<T extends Prisma.User$background_checksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$background_checksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BackgroundCheckPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   subscriptions<T extends Prisma.User$subscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   payments<T extends Prisma.User$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  conversation_members<T extends Prisma.User$conversation_membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$conversation_membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  sent_messages<T extends Prisma.User$sent_messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sent_messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  message_reads<T extends Prisma.User$message_readsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$message_readsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessageReadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   admin_activity_logs<T extends Prisma.User$admin_activity_logsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$admin_activity_logsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdminActivityLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   updated_settings<T extends Prisma.User$updated_settingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$updated_settingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SystemSettingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   employee_profile<T extends Prisma.User$employee_profileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$employee_profileArgs<ExtArgs>>): Prisma.Prisma__EmployeeProfileClient<runtime.Types.Result.GetResult<Prisma.$EmployeeProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   employer_profile<T extends Prisma.User$employer_profileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$employer_profileArgs<ExtArgs>>): Prisma.Prisma__EmployerProfileClient<runtime.Types.Result.GetResult<Prisma.$EmployerProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  messageStatuses<T extends Prisma.User$messageStatusesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messageStatusesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PrivateMessageStatusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  messagesSent<T extends Prisma.User$messagesSentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messagesSentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PrivateMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conversationsInitiated<T extends Prisma.User$conversationsInitiatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$conversationsInitiatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PrivateConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conversationsReceived<T extends Prisma.User$conversationsReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$conversationsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PrivateConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3887,78 +4113,6 @@ export type User$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 /**
- * User.conversation_members
- */
-export type User$conversation_membersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ConversationMember
-   */
-  select?: Prisma.ConversationMemberSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ConversationMember
-   */
-  omit?: Prisma.ConversationMemberOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ConversationMemberInclude<ExtArgs> | null
-  where?: Prisma.ConversationMemberWhereInput
-  orderBy?: Prisma.ConversationMemberOrderByWithRelationInput | Prisma.ConversationMemberOrderByWithRelationInput[]
-  cursor?: Prisma.ConversationMemberWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ConversationMemberScalarFieldEnum | Prisma.ConversationMemberScalarFieldEnum[]
-}
-
-/**
- * User.sent_messages
- */
-export type User$sent_messagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Message
-   */
-  select?: Prisma.MessageSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Message
-   */
-  omit?: Prisma.MessageOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.MessageInclude<ExtArgs> | null
-  where?: Prisma.MessageWhereInput
-  orderBy?: Prisma.MessageOrderByWithRelationInput | Prisma.MessageOrderByWithRelationInput[]
-  cursor?: Prisma.MessageWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[]
-}
-
-/**
- * User.message_reads
- */
-export type User$message_readsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the MessageRead
-   */
-  select?: Prisma.MessageReadSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the MessageRead
-   */
-  omit?: Prisma.MessageReadOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.MessageReadInclude<ExtArgs> | null
-  where?: Prisma.MessageReadWhereInput
-  orderBy?: Prisma.MessageReadOrderByWithRelationInput | Prisma.MessageReadOrderByWithRelationInput[]
-  cursor?: Prisma.MessageReadWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.MessageReadScalarFieldEnum | Prisma.MessageReadScalarFieldEnum[]
-}
-
-/**
  * User.notifications
  */
 export type User$notificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4066,6 +4220,102 @@ export type User$employer_profileArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   include?: Prisma.EmployerProfileInclude<ExtArgs> | null
   where?: Prisma.EmployerProfileWhereInput
+}
+
+/**
+ * User.messageStatuses
+ */
+export type User$messageStatusesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PrivateMessageStatus
+   */
+  select?: Prisma.PrivateMessageStatusSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PrivateMessageStatus
+   */
+  omit?: Prisma.PrivateMessageStatusOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PrivateMessageStatusInclude<ExtArgs> | null
+  where?: Prisma.PrivateMessageStatusWhereInput
+  orderBy?: Prisma.PrivateMessageStatusOrderByWithRelationInput | Prisma.PrivateMessageStatusOrderByWithRelationInput[]
+  cursor?: Prisma.PrivateMessageStatusWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PrivateMessageStatusScalarFieldEnum | Prisma.PrivateMessageStatusScalarFieldEnum[]
+}
+
+/**
+ * User.messagesSent
+ */
+export type User$messagesSentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PrivateMessage
+   */
+  select?: Prisma.PrivateMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PrivateMessage
+   */
+  omit?: Prisma.PrivateMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PrivateMessageInclude<ExtArgs> | null
+  where?: Prisma.PrivateMessageWhereInput
+  orderBy?: Prisma.PrivateMessageOrderByWithRelationInput | Prisma.PrivateMessageOrderByWithRelationInput[]
+  cursor?: Prisma.PrivateMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PrivateMessageScalarFieldEnum | Prisma.PrivateMessageScalarFieldEnum[]
+}
+
+/**
+ * User.conversationsInitiated
+ */
+export type User$conversationsInitiatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PrivateConversation
+   */
+  select?: Prisma.PrivateConversationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PrivateConversation
+   */
+  omit?: Prisma.PrivateConversationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PrivateConversationInclude<ExtArgs> | null
+  where?: Prisma.PrivateConversationWhereInput
+  orderBy?: Prisma.PrivateConversationOrderByWithRelationInput | Prisma.PrivateConversationOrderByWithRelationInput[]
+  cursor?: Prisma.PrivateConversationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PrivateConversationScalarFieldEnum | Prisma.PrivateConversationScalarFieldEnum[]
+}
+
+/**
+ * User.conversationsReceived
+ */
+export type User$conversationsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PrivateConversation
+   */
+  select?: Prisma.PrivateConversationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PrivateConversation
+   */
+  omit?: Prisma.PrivateConversationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PrivateConversationInclude<ExtArgs> | null
+  where?: Prisma.PrivateConversationWhereInput
+  orderBy?: Prisma.PrivateConversationOrderByWithRelationInput | Prisma.PrivateConversationOrderByWithRelationInput[]
+  cursor?: Prisma.PrivateConversationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PrivateConversationScalarFieldEnum | Prisma.PrivateConversationScalarFieldEnum[]
 }
 
 /**

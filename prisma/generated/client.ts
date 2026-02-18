@@ -48,16 +48,6 @@ export type AdminActivityLog = Prisma.AdminActivityLogModel
  */
 export type BackgroundCheck = Prisma.BackgroundCheckModel
 /**
- * Model ConversationMember
- * 
- */
-export type ConversationMember = Prisma.ConversationMemberModel
-/**
- * Model Conversation
- * 
- */
-export type Conversation = Prisma.ConversationModel
-/**
  * Model Document
  * 
  */
@@ -88,6 +78,11 @@ export type EmployerProfile = Prisma.EmployerProfileModel
  */
 export type FavoriteWorker = Prisma.FavoriteWorkerModel
 /**
+ * Model FileInstance
+ * 
+ */
+export type FileInstance = Prisma.FileInstanceModel
+/**
  * Model JobApplication
  * 
  */
@@ -108,16 +103,6 @@ export type JobSkill = Prisma.JobSkillModel
  */
 export type Job = Prisma.JobModel
 /**
- * Model MessageRead
- * 
- */
-export type MessageRead = Prisma.MessageReadModel
-/**
- * Model Message
- * 
- */
-export type Message = Prisma.MessageModel
-/**
  * Model Notification
  * 
  */
@@ -132,6 +117,21 @@ export type OtpVerification = Prisma.OtpVerificationModel
  * 
  */
 export type Payment = Prisma.PaymentModel
+/**
+ * Model PrivateConversation
+ * 
+ */
+export type PrivateConversation = Prisma.PrivateConversationModel
+/**
+ * Model PrivateMessage
+ * 
+ */
+export type PrivateMessage = Prisma.PrivateMessageModel
+/**
+ * Model PrivateMessageStatus
+ * 
+ */
+export type PrivateMessageStatus = Prisma.PrivateMessageStatusModel
 /**
  * Model Review
  * 

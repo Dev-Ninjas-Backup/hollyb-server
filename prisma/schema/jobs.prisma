@@ -26,7 +26,6 @@ model Job {
   shifts           Shift[]
   payments         Payment[]
   reviews          Review[]
-  conversations    Conversation[]
 
   @@map("jobs")
 }
