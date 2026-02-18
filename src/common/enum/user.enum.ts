@@ -1,0 +1,9 @@
+export enum UserEnum {
+  USER = 'USER',
+  ADMIN = 'ADMIN',
+  SUPER_ADMIN = 'SUPER_ADMIN',
+  MANAGER = 'MANAGER',
+  EMPLOYEE = 'EMPLOYEE',
+  FINANCE = 'FINANCE',
+  CLIENT = 'CLIENT',
+}

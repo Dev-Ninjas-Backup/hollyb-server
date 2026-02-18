@@ -200,3 +200,46 @@ export const ReferenceType = {
 } as const
 
 export type ReferenceType = (typeof ReferenceType)[keyof typeof ReferenceType]
+
+
+export const FileType = {
+  image: 'image',
+  docs: 'docs',
+  link: 'link',
+  document: 'document',
+  any: 'any',
+  video: 'video',
+  audio: 'audio'
+} as const
+
+export type FileType = (typeof FileType)[keyof typeof FileType]
+
+
+export const ConversationStatus = {
+  ACTIVE: 'ACTIVE',
+  ARCHIVED: 'ARCHIVED',
+  BLOCKED: 'BLOCKED'
+} as const
+
+export type ConversationStatus = (typeof ConversationStatus)[keyof typeof ConversationStatus]
+
+
+export const MessageType = {
+  TEXT: 'TEXT',
+  IMAGE: 'IMAGE',
+  VIDEO: 'VIDEO',
+  AUDIO: 'AUDIO',
+  FILE: 'FILE',
+  CALL_EVENT: 'CALL_EVENT'
+} as const
+
+export type MessageType = (typeof MessageType)[keyof typeof MessageType]
+
+
+export const MessageDeliveryStatus = {
+  SENT: 'SENT',
+  DELIVERED: 'DELIVERED',
+  READ: 'READ'
+} as const
+
+export type MessageDeliveryStatus = (typeof MessageDeliveryStatus)[keyof typeof MessageDeliveryStatus]

@@ -19,14 +19,21 @@ model User {
   background_checks    BackgroundCheck[]
   subscriptions        Subscription[]
   payments             Payment[]
-  conversation_members ConversationMember[]
-  sent_messages        Message[]
-  message_reads        MessageRead[]
   notifications        Notification[]
   admin_activity_logs  AdminActivityLog[] @relation("AdminLogs")
   updated_settings     SystemSetting[]    @relation("SystemSettingUpdatedBy")
   employee_profile     EmployeeProfile?
   employer_profile     EmployerProfile?
+
+  // Message delivery/read statuses
+  messageStatuses PrivateMessageStatus[]
+
+  // All messages user has sent
+  messagesSent PrivateMessage[]
+
+  // Conversation & User RELATIONS
+  conversationsInitiated PrivateConversation[] @relation("ConversationInitiator")
+  conversationsReceived  PrivateConversation[] @relation("ConversationReceiver")
 
   @@map("users")
 }

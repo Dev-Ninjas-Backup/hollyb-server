@@ -53,23 +53,23 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   AdminActivityLog: 'AdminActivityLog',
   BackgroundCheck: 'BackgroundCheck',
-  ConversationMember: 'ConversationMember',
-  Conversation: 'Conversation',
   Document: 'Document',
   Earning: 'Earning',
   EmployeeProfile: 'EmployeeProfile',
   EmployeeSkill: 'EmployeeSkill',
   EmployerProfile: 'EmployerProfile',
   FavoriteWorker: 'FavoriteWorker',
+  FileInstance: 'FileInstance',
   JobApplication: 'JobApplication',
   JobAssignment: 'JobAssignment',
   JobSkill: 'JobSkill',
   Job: 'Job',
-  MessageRead: 'MessageRead',
-  Message: 'Message',
   Notification: 'Notification',
   OtpVerification: 'OtpVerification',
   Payment: 'Payment',
+  PrivateConversation: 'PrivateConversation',
+  PrivateMessage: 'PrivateMessage',
+  PrivateMessageStatus: 'PrivateMessageStatus',
   Review: 'Review',
   Shift: 'Shift',
   Skill: 'Skill',
@@ -120,27 +120,6 @@ export const BackgroundCheckScalarFieldEnum = {
 } as const
 
 export type BackgroundCheckScalarFieldEnum = (typeof BackgroundCheckScalarFieldEnum)[keyof typeof BackgroundCheckScalarFieldEnum]
-
-
-export const ConversationMemberScalarFieldEnum = {
-  id: 'id',
-  conversation_id: 'conversation_id',
-  user_id: 'user_id',
-  joined_at: 'joined_at',
-  last_read_at: 'last_read_at'
-} as const
-
-export type ConversationMemberScalarFieldEnum = (typeof ConversationMemberScalarFieldEnum)[keyof typeof ConversationMemberScalarFieldEnum]
-
-
-export const ConversationScalarFieldEnum = {
-  id: 'id',
-  job_id: 'job_id',
-  title: 'title',
-  created_at: 'created_at'
-} as const
-
-export type ConversationScalarFieldEnum = (typeof ConversationScalarFieldEnum)[keyof typeof ConversationScalarFieldEnum]
 
 
 export const DocumentScalarFieldEnum = {
@@ -231,6 +210,22 @@ export const FavoriteWorkerScalarFieldEnum = {
 export type FavoriteWorkerScalarFieldEnum = (typeof FavoriteWorkerScalarFieldEnum)[keyof typeof FavoriteWorkerScalarFieldEnum]
 
 
+export const FileInstanceScalarFieldEnum = {
+  id: 'id',
+  filename: 'filename',
+  originalFilename: 'originalFilename',
+  path: 'path',
+  url: 'url',
+  fileType: 'fileType',
+  mimeType: 'mimeType',
+  size: 'size',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FileInstanceScalarFieldEnum = (typeof FileInstanceScalarFieldEnum)[keyof typeof FileInstanceScalarFieldEnum]
+
+
 export const JobApplicationScalarFieldEnum = {
   id: 'id',
   job_id: 'job_id',
@@ -289,29 +284,6 @@ export const JobScalarFieldEnum = {
 export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum]
 
 
-export const MessageReadScalarFieldEnum = {
-  id: 'id',
-  message_id: 'message_id',
-  user_id: 'user_id',
-  read_at: 'read_at'
-} as const
-
-export type MessageReadScalarFieldEnum = (typeof MessageReadScalarFieldEnum)[keyof typeof MessageReadScalarFieldEnum]
-
-
-export const MessageScalarFieldEnum = {
-  id: 'id',
-  conversation_id: 'conversation_id',
-  sender_id: 'sender_id',
-  message: 'message',
-  attachment_url: 'attachment_url',
-  is_deleted: 'is_deleted',
-  created_at: 'created_at'
-} as const
-
-export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
-
-
 export const NotificationScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
@@ -355,6 +327,45 @@ export const PaymentScalarFieldEnum = {
 } as const
 
 export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
+
+
+export const PrivateConversationScalarFieldEnum = {
+  id: 'id',
+  initiatorId: 'initiatorId',
+  receiverId: 'receiverId',
+  lastMessageId: 'lastMessageId',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PrivateConversationScalarFieldEnum = (typeof PrivateConversationScalarFieldEnum)[keyof typeof PrivateConversationScalarFieldEnum]
+
+
+export const PrivateMessageScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  type: 'type',
+  fileId: 'fileId',
+  conversationId: 'conversationId',
+  senderId: 'senderId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PrivateMessageScalarFieldEnum = (typeof PrivateMessageScalarFieldEnum)[keyof typeof PrivateMessageScalarFieldEnum]
+
+
+export const PrivateMessageStatusScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  userId: 'userId',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PrivateMessageStatusScalarFieldEnum = (typeof PrivateMessageStatusScalarFieldEnum)[keyof typeof PrivateMessageStatusScalarFieldEnum]
 
 
 export const ReviewScalarFieldEnum = {
