@@ -8,6 +8,7 @@ import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { ResetOtpDto } from './dto/reset-otp.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
+import { SocialLoginDto } from './dto/social-login.dto';
 import {
   AuthenticatedRequest,
   JwtAuthGuard,
@@ -28,6 +29,21 @@ export class AuthController {
     return this.authService.verifyOtp(dto);
   }
 
+  @Post('resend-otp')
+  resendOtp(@Body() dto: ResetOtpDto) {
+    return this.authService.resendOtp(dto);
+  }
+
+  @Post('google')
+  googleLogin(@Body() dto: SocialLoginDto) {
+    return this.authService.googleLogin(dto);
+  }
+
+  @Post('facebook')
+  facebookLogin(@Body() dto: SocialLoginDto) {
+    return this.authService.facebookLogin(dto);
+  }
+
   @Post('login')
   login(@Body() dto: LoginDto) {
     return this.authService.login(dto);
@@ -36,11 +52,6 @@ export class AuthController {
   @Post('forgot-password')
   forgotPassword(@Body() dto: ForgotPasswordDto) {
     return this.authService.forgotPassword(dto);
-  }
-
-  @Post('resend-otp')
-  resendOtp(@Body() dto: ResetOtpDto) {
-    return this.authService.resendOtp(dto);
   }
 
   @Post('change-password')
