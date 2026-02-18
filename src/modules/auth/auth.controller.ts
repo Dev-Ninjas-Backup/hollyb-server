@@ -9,6 +9,7 @@ import { ChangePasswordDto } from './dto/change-password.dto';
 import { ResetOtpDto } from './dto/reset-otp.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { SocialLoginDto } from './dto/social-login.dto';
+import { AuthSocialService } from './auth-social.service';
 import {
   AuthenticatedRequest,
   JwtAuthGuard,
@@ -17,7 +18,10 @@ import {
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly authSocialService: AuthSocialService,
+  ) {}
 
   @Post('register')
   register(@Body() dto: RegisterDto) {
@@ -36,12 +40,12 @@ export class AuthController {
 
   @Post('google')
   googleLogin(@Body() dto: SocialLoginDto) {
-    return this.authService.googleLogin(dto);
+    return this.authSocialService.googleLogin(dto);
   }
 
   @Post('facebook')
   facebookLogin(@Body() dto: SocialLoginDto) {
-    return this.authService.facebookLogin(dto);
+    return this.authSocialService.facebookLogin(dto);
   }
 
   @Post('login')
