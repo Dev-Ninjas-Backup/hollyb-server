@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hollyb Social Login Tester</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family: Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      }
+      body {
+        margin: 0;
+        background: #0f172a;
+        color: #e2e8f0;
+      }
+      .container {
+        max-width: 900px;
+        margin: 24px auto;
+        padding: 20px;
+      }
+      .card {
+        background: #111827;
+        border: 1px solid #374151;
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 16px;
+      }
+      h1 {
+        margin: 0 0 12px;
+        font-size: 24px;
+      }
+      h2 {
+        margin: 0 0 12px;
+        font-size: 18px;
+      }
+      label {
+        display: block;
+        margin: 10px 0 6px;
+        font-weight: 600;
+      }
+      input,
+      textarea,
+      select {
+        width: 100%;
+        box-sizing: border-box;
+        border: 1px solid #475569;
+        background: #0b1220;
+        color: #e2e8f0;
+        border-radius: 8px;
+        padding: 10px;
+        font-size: 14px;
+      }
+      textarea {
+        min-height: 110px;
+        resize: vertical;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 12px;
+      }
+      button {
+        border: 0;
+        border-radius: 8px;
+        padding: 10px 14px;
+        background: #2563eb;
+        color: #fff;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      button.secondary {
+        background: #374151;
+      }
+      pre {
+        white-space: pre-wrap;
+        word-break: break-word;
+        border: 1px solid #374151;
+        border-radius: 8px;
+        background: #020617;
+        padding: 12px;
+        min-height: 80px;
+      }
+      .hint {
+        color: #94a3b8;
+        font-size: 13px;
+        margin-top: 8px;
+      }
+      @media (max-width: 700px) {
+        .row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Hollyb Social Login Tester</h1>
+
+      <div class="card">
+        <h2>API Settings</h2>
+        <label for="backendUrl">Backend Auth Base URL</label>
+        <input id="backendUrl" value="http://localhost:5056/api/v1/auth" />
+
+        <div class="row">
+          <div>
+            <label for="role">Role for first-time social signup</label>
+            <select id="role">
+              <option value="employee" selected>employee</option>
+              <option value="employer">employer</option>
+            </select>
+          </div>
+          <div>
+            <label for="provider">Direct API provider</label>
+            <select id="provider">
+              <option value="google" selected>google</option>
+              <option value="facebook">facebook</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Firebase Web Client Config</h2>
+        <label for="firebaseConfig">Firebase config JSON (from Firebase Console > Project settings > Your apps)</label>
+        <textarea id="firebaseConfig" placeholder='{"apiKey":"...","authDomain":"...","projectId":"...","appId":"..."}'></textarea>
+        <div class="actions">
+          <button id="initFirebase" class="secondary">Initialize Firebase</button>
+          <button id="googlePopup">Google Popup Login</button>
+          <button id="facebookPopup" class="secondary">Facebook Popup Login</button>
+        </div>
+        <div class="hint">Popup login successful হলে Firebase ID token auto-fill হবে এবং social API call করা যাবে।</div>
+      </div>
+
+      <div class="card">
+        <h2>Firebase ID Token</h2>
+        <label for="idToken">ID Token</label>
+        <textarea id="idToken" placeholder="Paste Firebase ID token or generate from popup login"></textarea>
+        <div class="actions">
+          <button id="callProvider">Call Selected Provider API</button>
+          <button id="callGoogle" class="secondary">Call /google</button>
+          <button id="callFacebook" class="secondary">Call /facebook</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Response</h2>
+        <pre id="output"></pre>
+      </div>
+    </div>
+
+    <script type="module">
+      import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js';
+      import {
+        FacebookAuthProvider,
+        GoogleAuthProvider,
+        getAuth,
+        signInWithPopup,
+      } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
+
+      const backendUrlEl = document.getElementById('backendUrl');
+      const roleEl = document.getElementById('role');
+      const providerEl = document.getElementById('provider');
+      const firebaseConfigEl = document.getElementById('firebaseConfig');
+      const idTokenEl = document.getElementById('idToken');
+      const outputEl = document.getElementById('output');
+
+      let auth = null;
+
+      const writeOutput = (value) => {
+        outputEl.textContent = typeof value === 'string' ? value : JSON.stringify(value, null, 2);
+      };
+
+      const initFirebase = () => {
+        try {
+          const parsed = JSON.parse(firebaseConfigEl.value || '{}');
+          if (!parsed.apiKey || !parsed.projectId || !parsed.appId || !parsed.authDomain) {
+            writeOutput('Invalid Firebase web config. Required: apiKey, authDomain, projectId, appId');
+            return;
+          }
+          const app = getApps().length ? getApps()[0] : initializeApp(parsed);
+          auth = getAuth(app);
+          writeOutput('Firebase initialized successfully');
+        } catch (error) {
+          writeOutput(error?.message || 'Failed to initialize Firebase');
+        }
+      };
+
+      const getPayload = () => {
+        const idToken = idTokenEl.value.trim();
+        if (!idToken) {
+          throw new Error('ID token is required');
+        }
+        return {
+          idToken,
+          role: roleEl.value,
+        };
+      };
+
+      const callSocialApi = async (provider) => {
+        try {
+          const base = backendUrlEl.value.trim().replace(/\/$/, '');
+          if (!base) {
+            throw new Error('Backend URL is required');
+          }
+          const response = await fetch(`${base}/${provider}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(getPayload()),
+          });
+          const data = await response.json();
+          writeOutput({ status: response.status, data });
+        } catch (error) {
+          writeOutput(error?.message || 'API call failed');
+        }
+      };
+
+      const popupLogin = async (provider) => {
+        try {
+          if (!auth) {
+            throw new Error('Initialize Firebase first');
+          }
+          const providerInstance =
+            provider === 'google'
+              ? new GoogleAuthProvider()
+              : new FacebookAuthProvider();
+          const credential = await signInWithPopup(auth, providerInstance);
+          const token = await credential.user.getIdToken(true);
+          idTokenEl.value = token;
+          writeOutput(`${provider} popup login successful. ID token generated.`);
+        } catch (error) {
+          writeOutput(error?.message || `${provider} popup login failed`);
+        }
+      };
+
+      document.getElementById('initFirebase').addEventListener('click', initFirebase);
+      document.getElementById('googlePopup').addEventListener('click', () => popupLogin('google'));
+      document.getElementById('facebookPopup').addEventListener('click', () => popupLogin('facebook'));
+      document.getElementById('callProvider').addEventListener('click', () => callSocialApi(providerEl.value));
+      document.getElementById('callGoogle').addEventListener('click', () => callSocialApi('google'));
+      document.getElementById('callFacebook').addEventListener('click', () => callSocialApi('facebook'));
+    </script>
+  </body>
+</html>

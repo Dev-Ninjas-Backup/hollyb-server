@@ -5,10 +5,13 @@ export const validationSchema = z
     NODE_ENV: z.enum(['development', 'production']).default('development'),
     PORT: z.coerce.number().default(3000),
     DATABASE_URL: z.string().url(),
-    JWT_ACCESS_SECRET: z.string().min(8).default('access-secret-key'),
-    JWT_REFRESH_SECRET: z.string().min(8).default('refresh-secret-key'),
-    JWT_ACCESS_EXPIRES_IN: z.string().default('15m'),
-    JWT_REFRESH_EXPIRES_IN: z.string().default('7d'),
+    JWT_ACCESS_SECRET: z.string().min(32),
+    JWT_REFRESH_SECRET: z.string().min(8),
+    JWT_ACCESS_EXPIRES_IN: z.string(),
+    JWT_REFRESH_EXPIRES_IN: z.string(),
     OTP_EXPIRES_MINUTES: z.coerce.number().int().positive().default(10),
+    FIREBASE_PROJECT_ID: z.string().min(1),
+    FIREBASE_CLIENT_EMAIL: z.string().email(),
+    FIREBASE_PRIVATE_KEY: z.string().min(1),
   })
   .passthrough();
