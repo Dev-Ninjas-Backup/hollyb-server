@@ -10,7 +10,7 @@
     "format": "prettier --ignore-path .gitignore --check \"**/*.+(js|ts|json)\"",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts,.js,.jsx,.tsx --fix",
-    "start": "npx prisma generate && npx prisma migrate deploy && node dist/main",
+    "start": "npx prisma generate && npx prisma migrate deploy && pnpm format:fix && pnpm ci:fix && node dist/main",
     "dev": "npx prisma generate && npx prisma migrate deploy && nest start --watch",
     "start:prod": "node dist/main",
     "start:docker": "prisma generate && prisma migrate deploy && node dist/main",

@@ -1,5 +1,4 @@
 import { Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import {
   ConnectedSocket,
   MessageBody,
@@ -14,22 +13,44 @@ import {
 import { Server, Socket } from 'socket.io';
 import { WEBSOCKET_CORS_CONFIG } from 'src/common/constants/cors.constant';
 import { SocketAuthMiddleware } from 'src/common/jwt/socket-auth.middleware';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { PrivateChatService } from './private-message.service';
 
-enum PrivateChatEvents {
+/**
+ * Private Chat Events - WebSocket event names for one-to-one messaging
+ */
+export enum PrivateChatEvents {
+  // Connection events
   ERROR = 'private:error',
   SUCCESS = 'private:success',
-  NEW_MESSAGE = 'private:new_message',
+  CONNECTED = 'private:connected',
+
+  // Message events
   SEND_MESSAGE = 'private:send_message',
-  NEW_CONVERSATION = 'private:new_conversation',
-  CONVERSATION_LIST = 'private:conversation_list',
+  NEW_MESSAGE = 'private:new_message',
+  MESSAGE_SENT = 'private:message_sent',
+
+  // Conversation events
   LOAD_CONVERSATIONS = 'private:load_conversations',
+  CONVERSATION_LIST = 'private:conversation_list',
   LOAD_SINGLE_CONVERSATION = 'private:load_single_conversation',
-  TYPING_STOP = 'private:typing_stop',
-  USER_STOP_TYPING = 'private:user_stop_typing',
+  CONVERSATION_MESSAGES = 'private:conversation_messages',
+  NEW_CONVERSATION = 'private:new_conversation',
+  LOAD_MORE_MESSAGES = 'private:load_more_messages',
+
+  // Read receipt events
+  MARK_READ = 'private:mark_read',
+  MARK_CONVERSATION_READ = 'private:mark_conversation_read',
+  MESSAGES_READ = 'private:messages_read',
+  MESSAGE_DELIVERED = 'private:message_delivered',
+
+  // Typing indicators
   TYPING_START = 'private:typing_start',
+  TYPING_STOP = 'private:typing_stop',
   USER_TYPING = 'private:user_typing',
+  USER_STOP_TYPING = 'private:user_stop_typing',
+
+  // Unread count
+  UNREAD_COUNT = 'private:unread_count',
 }
 
 @WebSocketGateway({
@@ -54,19 +75,16 @@ export class PrivateChatGateway
     server.use(this.socketAuthMiddleware.use());
 
     this.logger.log(
-      'Socket.IO server initialized FOR PRIVATE CHAT with JWT middleware',
-      server.adapter.name,
+      'Socket.IO server initialized for Private Chat with JWT middleware',
     );
   }
 
   /** Handle socket connection (authentication handled by middleware) */
   async handleConnection(client: Socket) {
-    // User is already authenticated by middleware
     const userId = client.data.userId;
     const user = client.data.user;
 
     if (!userId || !user) {
-      // This shouldn't happen if middleware works correctly
       this.logger.error('Unauthenticated socket reached handleConnection');
       client.disconnect(true);
       return;
@@ -75,33 +93,45 @@ export class PrivateChatGateway
     // Join user's personal room for targeted messaging
     client.join(userId);
 
-    // Notify client of successful connection
-    client.emit(PrivateChatEvents.SUCCESS, {
-      userId,
-      socketId: client.id,
-      message: 'Connected successfully',
-    });
-
-    this.logger.log(
-      `Private chat: User ${userId} (${user.email}) connected, socket ${client.id}`,
-    );
-
-    // Automatically load and send conversations on connection
+    // Mark all pending messages as delivered
     try {
-      const conversations =
-        await this.privateChatService.getUserConversations(userId);
-      client.emit(PrivateChatEvents.SUCCESS, {
-        socketId: client.id,
-        userId,
-        message: 'Conversations loaded',
-      });
-      client.emit(PrivateChatEvents.CONVERSATION_LIST, conversations);
-      this.logger.log(`Automatically sent conversation list to user ${userId}`);
+      const deliveredCount =
+        await this.privateChatService.markAllMessagesDelivered(userId);
+      if (deliveredCount > 0) {
+        this.logger.log(
+          `Marked ${deliveredCount} messages as delivered for user ${userId}`,
+        );
+      }
     } catch (error) {
-      this.logger.error(
-        `Error auto-loading conversations for ${userId}:`,
-        error,
+      this.logger.error(`Error marking messages delivered: ${error.message}`);
+    }
+
+    // Get unread count and conversations
+    try {
+      const [conversations, unreadCount] = await Promise.all([
+        this.privateChatService.getUserConversations(userId),
+        this.privateChatService.getUnreadMessageCount(userId),
+      ]);
+
+      // Notify client of successful connection with unread count
+      client.emit(PrivateChatEvents.CONNECTED, {
+        userId,
+        socketId: client.id,
+        message: 'Connected successfully',
+        unreadCount,
+      });
+
+      // Send conversation list
+      client.emit(PrivateChatEvents.CONVERSATION_LIST, conversations);
+
+      this.logger.log(
+        `Private chat: User ${userId} (${user.email}) connected, socket ${client.id}`,
       );
+    } catch (error) {
+      this.logger.error(`Error loading data for ${userId}:`, error);
+      client.emit(PrivateChatEvents.ERROR, {
+        message: 'Failed to load initial data',
+      });
     }
   }
 
@@ -115,17 +145,11 @@ export class PrivateChatGateway
     );
   }
 
-  /** Load all conversations for the connected user: Test_OK */
+  /** Load all conversations for the connected user */
   @SubscribeMessage(PrivateChatEvents.LOAD_CONVERSATIONS)
   async handleLoadConversations(@ConnectedSocket() client: Socket) {
-    const userId = client.data.userId;
-    if (!userId) {
-      client.emit(PrivateChatEvents.ERROR, {
-        message: 'User not authenticated',
-      });
-      this.logger.warn('User not authenticated in handleLoadConversations');
-      return;
-    }
+    const userId = this.getUserIdFromSocket(client);
+    if (!userId) return;
 
     try {
       const conversations =
@@ -134,153 +158,135 @@ export class PrivateChatGateway
     } catch (error) {
       this.logger.error('Error loading conversations:', error);
       client.emit(PrivateChatEvents.ERROR, {
+        event: PrivateChatEvents.LOAD_CONVERSATIONS,
         message: 'Failed to load conversations',
       });
     }
   }
 
-  /** Load a single conversation: Test_OK */
+  /** Load a single conversation with messages */
   @SubscribeMessage(PrivateChatEvents.LOAD_SINGLE_CONVERSATION)
   async handleLoadSingleConversation(
     @MessageBody() payload: any,
     @ConnectedSocket() client: Socket,
   ) {
-    const userId = client.data.userId;
-    if (!userId) {
+    const userId = this.getUserIdFromSocket(client);
+    if (!userId) return;
+
+    const parsed = this.parsePayload(payload);
+    if (!parsed) {
       client.emit(PrivateChatEvents.ERROR, {
-        message: 'User not authenticated',
+        event: PrivateChatEvents.LOAD_SINGLE_CONVERSATION,
+        message: 'Invalid payload format',
       });
-      this.logger.warn(
-        'User not authenticated in handleLoadSingleConversation',
-      );
       return;
     }
 
-    this.logger.log(
-      `LOAD_SINGLE_CONVERSATION - Raw payload type: ${typeof payload}, value: ${JSON.stringify(payload)}`,
-    );
-
-    // Parse payload if it's a string
-    let parsedPayload = payload;
-    if (typeof payload === 'string') {
-      // Handle empty or whitespace-only strings
-      if (!payload.trim()) {
-        client.emit(PrivateChatEvents.ERROR, {
-          message: 'conversationId is required',
-        });
-        this.logger.warn('Empty payload received');
-        return;
-      }
-
-      try {
-        parsedPayload = JSON.parse(payload);
-      } catch (error) {
-        // If JSON parsing fails, treat it as a plain conversationId string
-        parsedPayload = payload.trim();
-        this.logger.log(
-          `Using payload as plain conversationId string: ${parsedPayload}, error: ${error.message}`,
-        );
-      }
-    }
-
-    // Extract conversationId from payload (object) or use payload directly (string)
-    const conversationId =
-      typeof parsedPayload === 'object'
-        ? parsedPayload?.conversationId
-        : parsedPayload;
+    const conversationId = parsed.conversationId;
+    const limit = parsed.limit || 50;
+    const cursor = parsed.cursor;
 
     if (!conversationId) {
       client.emit(PrivateChatEvents.ERROR, {
+        event: PrivateChatEvents.LOAD_SINGLE_CONVERSATION,
         message: 'conversationId is required',
       });
-      this.logger.warn('Missing conversationId in payload');
       return;
     }
 
     try {
-      const result =
+      const conversation =
         await this.privateChatService.getPrivateConversationWithMessages(
           conversationId,
           userId,
+          limit,
+          cursor,
         );
 
-      // Handle both wrapped and unwrapped responses
-      const conversation = result?.data || result;
-      client.emit(PrivateChatEvents.NEW_CONVERSATION, conversation);
+      client.emit(PrivateChatEvents.CONVERSATION_MESSAGES, conversation);
     } catch (error) {
       this.logger.error(`Error loading conversation ${conversationId}:`, error);
       client.emit(PrivateChatEvents.ERROR, {
-        message: 'Failed to load conversation',
+        event: PrivateChatEvents.LOAD_SINGLE_CONVERSATION,
+        message: error.message || 'Failed to load conversation',
       });
     }
   }
 
-  /** Send a message (create conversation if new): Test_OK */
+  /** Load more messages (pagination) */
+  @SubscribeMessage(PrivateChatEvents.LOAD_MORE_MESSAGES)
+  async handleLoadMoreMessages(
+    @MessageBody() payload: any,
+    @ConnectedSocket() client: Socket,
+  ) {
+    // Reuse the same logic as LOAD_SINGLE_CONVERSATION
+    return this.handleLoadSingleConversation(payload, client);
+  }
+
+  /** Send a message (create conversation if new) */
   @SubscribeMessage(PrivateChatEvents.SEND_MESSAGE)
   async handleMessage(
-    @MessageBody() payload: any, // Temporarily changed from SendPrivateMessageWebSocketDto
+    @MessageBody() payload: any,
     @ConnectedSocket() client: Socket,
   ) {
     const userId = this.getUserIdFromSocket(client);
     if (!userId) return;
 
-    // Parse payload if it's a string
-    let parsedPayload = payload;
-    if (typeof payload === 'string') {
-      try {
-        parsedPayload = JSON.parse(payload);
-        this.logger.log(`Parsed string payload to object`);
-      } catch (error) {
-        client.emit(PrivateChatEvents.ERROR, {
-          message: 'Invalid JSON payload',
-        });
-        this.logger.error(`Failed to parse payload: ${error.message}`);
-        return;
-      }
+    const parsed = this.parsePayload(payload);
+    if (!parsed) {
+      client.emit(PrivateChatEvents.ERROR, {
+        event: PrivateChatEvents.SEND_MESSAGE,
+        message: 'Invalid payload format',
+      });
+      return;
     }
 
-    this.logger.log(`Processed payload:`, JSON.stringify(parsedPayload));
-
-    const recipientId = parsedPayload?.recipientId;
-    const content = parsedPayload?.content;
-
-    this.logger.log(
-      `Extracted - userId: ${userId}, recipientId: ${recipientId}, content: ${content}`,
-    );
+    const { recipientId, content, type, fileId } = parsed;
 
     // Validate required fields
     if (!recipientId) {
       client.emit(PrivateChatEvents.ERROR, {
+        event: PrivateChatEvents.SEND_MESSAGE,
         message: 'recipientId is required',
       });
-      this.logger.warn(`Missing recipientId in payload`);
       return;
     }
 
-    if (!content) {
+    // Content is required for TEXT type, fileId for media types
+    const messageType = type || 'TEXT';
+    if (messageType === 'TEXT' && !content) {
       client.emit(PrivateChatEvents.ERROR, {
-        message: 'content is required',
+        event: PrivateChatEvents.SEND_MESSAGE,
+        message: 'content is required for text messages',
       });
-      this.logger.warn(`Missing content in payload`);
+      return;
+    }
+
+    if (messageType !== 'TEXT' && !fileId) {
+      client.emit(PrivateChatEvents.ERROR, {
+        event: PrivateChatEvents.SEND_MESSAGE,
+        message: 'fileId is required for media messages',
+      });
       return;
     }
 
     // Prevent sending message to yourself
     if (userId === recipientId) {
       client.emit(PrivateChatEvents.ERROR, {
+        event: PrivateChatEvents.SEND_MESSAGE,
         message: 'Cannot send message to yourself',
       });
-      this.logger.warn(
-        `User ${userId} attempted to send message to themselves`,
-      );
       return;
     }
 
     try {
+      // Find or create conversation
       let conversation = await this.privateChatService.findConversation(
         userId,
         recipientId,
       );
+
+      const isNewConversation = !conversation;
 
       if (!conversation) {
         conversation = await this.privateChatService.createConversation(
@@ -293,29 +299,43 @@ export class PrivateChatGateway
       const message = await this.privateChatService.sendPrivateMessage(
         conversation.id,
         userId,
-        parsedPayload,
+        { content, type: messageType, fileId },
       );
 
-      const conversationsUser =
-        await this.privateChatService.getUserConversations(userId);
+      // Notify sender of successful send
+      client.emit(PrivateChatEvents.MESSAGE_SENT, {
+        success: true,
+        message,
+      });
 
-      const conversationsRecipient =
-        await this.privateChatService.getUserConversations(recipientId);
-
-      // Emit new message to both users (THIS IS THE OUTPUT)
+      // Emit new message to both users
       this.server.to(userId).emit(PrivateChatEvents.NEW_MESSAGE, message);
       this.server.to(recipientId).emit(PrivateChatEvents.NEW_MESSAGE, message);
+
+      // Update conversation lists for both users
+      const [conversationsUser, conversationsRecipient] = await Promise.all([
+        this.privateChatService.getUserConversations(userId),
+        this.privateChatService.getUserConversations(recipientId),
+      ]);
+
       this.server
         .to(userId)
         .emit(PrivateChatEvents.CONVERSATION_LIST, conversationsUser);
       this.server
         .to(recipientId)
         .emit(PrivateChatEvents.CONVERSATION_LIST, conversationsRecipient);
+
+      // If new conversation, emit new conversation event
+      if (isNewConversation) {
+        this.server.to(recipientId).emit(PrivateChatEvents.NEW_CONVERSATION, {
+          conversationId: conversation.id,
+          participant: await this.getParticipantInfo(userId),
+        });
+      }
     } catch (error) {
       this.logger.error(`Error sending message from ${userId}:`, error);
-      this.logger.error(`Error stack:`, error.stack);
-      this.logger.error(`Payload:`, payload);
       client.emit(PrivateChatEvents.ERROR, {
+        event: PrivateChatEvents.SEND_MESSAGE,
         message: error.message || 'Failed to send message',
       });
     }
@@ -326,35 +346,172 @@ export class PrivateChatGateway
     this.server.to(userId).emit(PrivateChatEvents.NEW_MESSAGE, message);
   }
 
+  /** Mark messages as read in a conversation */
+  @SubscribeMessage(PrivateChatEvents.MARK_CONVERSATION_READ)
+  async handleMarkConversationRead(
+    @MessageBody() payload: any,
+    @ConnectedSocket() client: Socket,
+  ) {
+    const userId = this.getUserIdFromSocket(client);
+    if (!userId) return;
+
+    const parsed = this.parsePayload(payload);
+    const conversationId = parsed?.conversationId;
+
+    if (!conversationId) {
+      client.emit(PrivateChatEvents.ERROR, {
+        event: PrivateChatEvents.MARK_CONVERSATION_READ,
+        message: 'conversationId is required',
+      });
+      return;
+    }
+
+    try {
+      const result = await this.privateChatService.markConversationAsRead(
+        conversationId,
+        userId,
+      );
+
+      // Notify the other user that their messages have been read
+      this.server.to(result.otherUserId).emit(PrivateChatEvents.MESSAGES_READ, {
+        conversationId,
+        readBy: userId,
+        messagesRead: result.messagesRead,
+      });
+
+      // Update conversation list for the user who marked as read
+      const conversations =
+        await this.privateChatService.getUserConversations(userId);
+      client.emit(PrivateChatEvents.CONVERSATION_LIST, conversations);
+    } catch (error) {
+      this.logger.error(`Error marking conversation as read:`, error);
+      client.emit(PrivateChatEvents.ERROR, {
+        event: PrivateChatEvents.MARK_CONVERSATION_READ,
+        message: error.message || 'Failed to mark as read',
+      });
+    }
+  }
+
+  /** Mark a single message as read */
+  @SubscribeMessage(PrivateChatEvents.MARK_READ)
+  async handleMarkMessageRead(
+    @MessageBody() payload: any,
+    @ConnectedSocket() client: Socket,
+  ) {
+    const userId = this.getUserIdFromSocket(client);
+    if (!userId) return;
+
+    const parsed = this.parsePayload(payload);
+    const { messageId, conversationId } = parsed || {};
+
+    if (!messageId) {
+      client.emit(PrivateChatEvents.ERROR, {
+        event: PrivateChatEvents.MARK_READ,
+        message: 'messageId is required',
+      });
+      return;
+    }
+
+    try {
+      await this.privateChatService.makePrivateMassageReadTrue(
+        messageId,
+        userId,
+      );
+
+      // If conversationId provided, get other user and notify
+      if (conversationId) {
+        const conversations =
+          await this.privateChatService.getUserConversations(userId);
+        const conversation = conversations.find(
+          (c: any) => c.conversationId === conversationId,
+        );
+        if (conversation?.participant?.id) {
+          this.server
+            .to(conversation.participant.id)
+            .emit(PrivateChatEvents.MESSAGES_READ, {
+              conversationId,
+              messageId,
+              readBy: userId,
+            });
+        }
+      }
+    } catch (error) {
+      this.logger.error(`Error marking message as read:`, error);
+      client.emit(PrivateChatEvents.ERROR, {
+        event: PrivateChatEvents.MARK_READ,
+        message: error.message || 'Failed to mark as read',
+      });
+    }
+  }
+
   /** Track when a user starts typing */
   @SubscribeMessage(PrivateChatEvents.TYPING_START)
   async handleTypingStart(
-    @MessageBody() data: { conversationId: string; recipientId: string },
+    @MessageBody() payload: any,
     @ConnectedSocket() client: Socket,
   ) {
     const userId = this.getUserIdFromSocket(client);
     if (!userId) return;
 
-    this.server.to(data.recipientId).emit(PrivateChatEvents.TYPING_START, {
-      conversationId: data.conversationId,
+    const parsed = this.parsePayload(payload);
+    const { conversationId, recipientId } = parsed || {};
+
+    if (!conversationId || !recipientId) {
+      return; // Silently ignore invalid typing events
+    }
+
+    this.server.to(recipientId).emit(PrivateChatEvents.USER_TYPING, {
+      conversationId,
       userId,
     });
   }
 
+  /** Track when a user stops typing */
   @SubscribeMessage(PrivateChatEvents.TYPING_STOP)
   async handleTypingStop(
-    @MessageBody() data: { conversationId: string; recipientId: string },
+    @MessageBody() payload: any,
     @ConnectedSocket() client: Socket,
   ) {
     const userId = this.getUserIdFromSocket(client);
     if (!userId) return;
 
-    this.server.to(data.recipientId).emit(PrivateChatEvents.TYPING_STOP, {
-      conversationId: data.conversationId,
+    const parsed = this.parsePayload(payload);
+    const { conversationId, recipientId } = parsed || {};
+
+    if (!conversationId || !recipientId) {
+      return; // Silently ignore invalid typing events
+    }
+
+    this.server.to(recipientId).emit(PrivateChatEvents.USER_STOP_TYPING, {
+      conversationId,
       userId,
     });
   }
 
+  /** Get unread count for the user */
+  @SubscribeMessage(PrivateChatEvents.UNREAD_COUNT)
+  async handleGetUnreadCount(@ConnectedSocket() client: Socket) {
+    const userId = this.getUserIdFromSocket(client);
+    if (!userId) return;
+
+    try {
+      const unreadCount =
+        await this.privateChatService.getUnreadMessageCount(userId);
+      const unreadPerConversation =
+        await this.privateChatService.getUnreadCountPerConversation(userId);
+
+      client.emit(PrivateChatEvents.UNREAD_COUNT, {
+        total: unreadCount,
+        perConversation: unreadPerConversation,
+      });
+    } catch (error) {
+      this.logger.error(`Error getting unread count:`, error);
+    }
+  }
+
+  // ============== HELPER METHODS ==============
+
+  /** Extract and validate userId from socket */
   private getUserIdFromSocket(client: Socket): string | null {
     const userId = client.data?.userId;
     if (!userId) {
@@ -366,5 +523,34 @@ export class PrivateChatGateway
       return null;
     }
     return userId;
+  }
+
+  /** Parse payload (handles both string and object payloads) */
+  private parsePayload(payload: any): any {
+    if (!payload) return null;
+
+    if (typeof payload === 'string') {
+      const trimmed = payload.trim();
+      if (!trimmed) return null;
+
+      try {
+        return JSON.parse(trimmed);
+      } catch {
+        // If it's not JSON, return as-is for simple string values
+        return { value: trimmed };
+      }
+    }
+
+    return payload;
+  }
+
+  /** Get participant info for notifications */
+  private async getParticipantInfo(userId: string) {
+    try {
+      const user = await this.privateChatService.validateUserExists(userId);
+      return user;
+    } catch {
+      return { id: userId };
+    }
   }
 }
