@@ -19,6 +19,7 @@ import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { ResetOtpDto } from './dto/reset-otp.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
+import { NotificationService } from '../notification/notification.service';
 
 type TokenPayload = {
   sub: string;
@@ -31,6 +32,7 @@ export class AuthService {
     private readonly prismaService: PrismaService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
+    private readonly notificationService: NotificationService,
   ) {}
 
   async register(dto: RegisterDto) {
@@ -66,6 +68,14 @@ export class AuthService {
     });
 
     await this.createOtp(user.id, OtpType.email);
+
+    // Notify admins (super_admin) about new user registration
+    await this.notificationService.notifyAdminsOfNewUser({
+      id: user.id,
+      full_name: user.full_name,
+      email: user.email,
+      role: user.role,
+    });
 
     return ResponseHelper.created(
       {

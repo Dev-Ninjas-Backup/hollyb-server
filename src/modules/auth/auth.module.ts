@@ -5,9 +5,10 @@ import { AuthSocialService } from './auth-social.service';
 import { AuthController } from './auth.controller';
 import { PrismaModule } from '@/prisma/prisma.module';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
+import { NotificationModule } from '../notification/notification.module';
 
 @Module({
-  imports: [PrismaModule, JwtModule.register({})],
+  imports: [PrismaModule, JwtModule.register({}), NotificationModule],
   providers: [AuthService, AuthSocialService, JwtAuthGuard],
   controllers: [AuthController],
 })
