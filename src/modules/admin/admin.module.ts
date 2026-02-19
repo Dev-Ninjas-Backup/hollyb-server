@@ -2,6 +2,6 @@ import { Module } from '@nestjs/common';
 import { SubscriptionModule } from './subscription/subscription.module';
 
 @Module({
-  imports: [SubscriptionModule]
+  imports: [SubscriptionModule],
 })
 export class AdminModule {}
