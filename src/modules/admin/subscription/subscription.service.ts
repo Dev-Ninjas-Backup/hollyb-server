@@ -1,7 +1,6 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
-import { BusinessException } from '@/common/exceptions/business.exception';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/prisma/prisma.service';
-import { SubscriptionPlanType, UserRole } from '@prisma';
+import { SubscriptionPlanType } from '@prisma';
 import { UpdateSubscriptionPricingDto } from './dto/update-subscription-pricing.dto';
 
 type PricingView = {
@@ -28,8 +27,7 @@ export class SubscriptionService {
 
 	constructor(private readonly prisma: PrismaService) {}
 
-	async getPricing(role: string) {
-		this.assertAdmin(role);
+	async getPricing() {
 		await this.ensurePricingSettings();
 
 		const [employer, employee] = await Promise.all([
@@ -51,9 +49,7 @@ export class SubscriptionService {
 		};
 	}
 
-	async updatePricing(role: string, dto: UpdateSubscriptionPricingDto) {
-		this.assertAdmin(role);
-
+	async updatePricing(dto: UpdateSubscriptionPricingDto) {
 		const setting = this.settings[dto.planType];
 		const amount = dto.amount.toFixed(2);
 
@@ -107,11 +103,5 @@ export class SubscriptionService {
 				update: {},
 			}),
 		]);
-	}
-
-	private assertAdmin(role: string) {
-		if (role !== UserRole.admin) {
-			throw new BusinessException('Forbidden', HttpStatus.FORBIDDEN);
-		}
 	}
 }
