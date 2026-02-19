@@ -23,13 +23,9 @@ export class S3UploadService {
     });
   }
 
-  async uploadProfilePhoto(userId: string, file: Express.Multer.File) {
-    if (!file.mimetype.startsWith('image/')) {
-      throw new BusinessException('Invalid file type');
-    }
-
+  async uploadFile(userId: string, file: Express.Multer.File, folder: string) {
     const sanitizedName = file.originalname.replace(/[^a-zA-Z0-9._-]/g, '_');
-    const key = `${this.uploadDir}/profiles/${userId}/${Date.now()}-${sanitizedName}`;
+    const key = `${this.uploadDir}/${folder}/${userId}/${Date.now()}-${sanitizedName}`;
 
     await this.s3Client.send(
       new PutObjectCommand({
@@ -41,5 +37,13 @@ export class S3UploadService {
     );
 
     return `https://${this.bucketName}.s3.${this.bucketRegion}.amazonaws.com/${key}`;
+  }
+
+  async uploadProfilePhoto(userId: string, file: Express.Multer.File) {
+    if (!file.mimetype.startsWith('image/')) {
+      throw new BusinessException('Invalid file type');
+    }
+
+    return this.uploadFile(userId, file, 'profiles');
   }
 }
