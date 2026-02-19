@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subscription Payment Test</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f6fb;
+        margin: 0;
+        padding: 24px;
+      }
+      .container {
+        max-width: 520px;
+        margin: 0 auto;
+        background: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      }
+      h1 {
+        margin: 0 0 16px;
+        font-size: 22px;
+      }
+      .field {
+        margin-bottom: 14px;
+      }
+      label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      input,
+      select,
+      button {
+        width: 100%;
+        box-sizing: border-box;
+        border: 1px solid #d7dce8;
+        border-radius: 10px;
+        padding: 11px 12px;
+        font-size: 14px;
+      }
+      #card-number,
+      #card-expiry,
+      #card-cvc {
+        background: #fff;
+        border: 1px solid #d7dce8;
+        border-radius: 10px;
+        padding: 11px 12px;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      button {
+        background: #1f57e7;
+        color: #fff;
+        border: none;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+      .result {
+        margin-top: 16px;
+        border-radius: 10px;
+        padding: 12px;
+        font-size: 13px;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+      .ok {
+        background: #e8f8ee;
+        color: #166534;
+      }
+      .err {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Subscription Payment Test</h1>
+
+      <div class="field">
+        <label for="baseUrl">API Base URL</label>
+        <input id="baseUrl" value="http://localhost:5055/api/v1" />
+      </div>
+
+      <div class="field">
+        <label for="token">Bearer Token</label>
+        <input id="token" placeholder="eyJ..." />
+      </div>
+
+      <div class="field">
+        <label for="planType">Plan Type</label>
+        <select id="planType">
+          <option value="employee_premium">employee_premium</option>
+          <option value="employer_premium">employer_premium</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="cardholderName">Cardholder Name</label>
+        <input id="cardholderName" value="Test User" />
+      </div>
+
+      <div class="field">
+        <label>Card Number</label>
+        <div id="card-number"></div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>Expiry</label>
+          <div id="card-expiry"></div>
+        </div>
+        <div class="field">
+          <label>CVC</label>
+          <div id="card-cvc"></div>
+        </div>
+      </div>
+
+      <button id="payBtn">Pay & Continue</button>
+      <div id="result" class="result" style="display: none"></div>
+    </div>
+
+    <script>
+      const baseUrlInput = document.getElementById('baseUrl');
+      const tokenInput = document.getElementById('token');
+      const planTypeInput = document.getElementById('planType');
+      const cardholderNameInput = document.getElementById('cardholderName');
+      const payBtn = document.getElementById('payBtn');
+      const resultEl = document.getElementById('result');
+
+      let stripe;
+      let cardNumberElement;
+      let cardExpiryElement;
+      let cardCvcElement;
+
+      function showResult(ok, data) {
+        resultEl.style.display = 'block';
+        resultEl.className = `result ${ok ? 'ok' : 'err'}`;
+        resultEl.textContent = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
+      }
+
+      async function initStripe() {
+        if (stripe) return;
+
+        const baseUrl = baseUrlInput.value.trim();
+        const token = tokenInput.value.trim();
+
+        if (!token) {
+          throw new Error('Bearer token is required');
+        }
+
+        const configRes = await fetch(`${baseUrl}/subscription/payment/config`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const configJson = await configRes.json();
+
+        if (!configRes.ok || !configJson?.data?.publishableKey) {
+          throw new Error(configJson?.message || 'Failed to load payment config');
+        }
+
+        stripe = Stripe(configJson.data.publishableKey);
+        const elements = stripe.elements();
+
+        cardNumberElement = elements.create('cardNumber');
+        cardExpiryElement = elements.create('cardExpiry');
+        cardCvcElement = elements.create('cardCvc');
+
+        cardNumberElement.mount('#card-number');
+        cardExpiryElement.mount('#card-expiry');
+        cardCvcElement.mount('#card-cvc');
+      }
+
+      payBtn.addEventListener('click', async () => {
+        payBtn.disabled = true;
+        showResult(false, 'Processing...');
+
+        try {
+          await initStripe();
+
+          const baseUrl = baseUrlInput.value.trim();
+          const token = tokenInput.value.trim();
+
+          const pmResult = await stripe.createPaymentMethod({
+            type: 'card',
+            card: cardNumberElement,
+            billing_details: {
+              name: cardholderNameInput.value.trim() || 'Test User',
+            },
+          });
+
+          if (pmResult.error) {
+            throw new Error(pmResult.error.message || 'Failed to create payment method');
+          }
+
+          const processRes = await fetch(`${baseUrl}/subscription/payment/process`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              planType: planTypeInput.value,
+              paymentMethodId: pmResult.paymentMethod.id,
+            }),
+          });
+
+          const processJson = await processRes.json();
+
+          if (!processRes.ok) {
+            throw new Error(processJson?.message || 'Payment failed');
+          }
+
+          showResult(true, processJson);
+        } catch (err) {
+          showResult(false, err.message || 'Unexpected error');
+        } finally {
+          payBtn.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>

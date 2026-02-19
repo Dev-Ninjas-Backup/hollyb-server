@@ -1,10 +1,4 @@
-import {
-    Body,
-    Controller,
-    Get,
-    Patch,
-    UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Patch, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '@/common/guards/jwt-auth.guard';
 import { RolesGuard } from '@/common/guards/roles.guard';
@@ -21,17 +15,23 @@ import { ResponseHelper } from '@/common/utils/response.helper';
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(UserRole.admin)
 export class SubscriptionController {
-    constructor(private readonly subscriptionService: SubscriptionService) { }
+  constructor(private readonly subscriptionService: SubscriptionService) {}
 
-    @Get('pricing')
-    async getPricing() {
-        const price = await this.subscriptionService.getPricing();
-        return ResponseHelper.success(price, 'Subscription pricing retrieved successfully');
-    }
+  @Get('pricing')
+  async getPricing() {
+    const price = await this.subscriptionService.getPricing();
+    return ResponseHelper.success(
+      price,
+      'Subscription pricing retrieved successfully',
+    );
+  }
 
-    @Patch('pricing')
-    async updatePricing(@Body() dto: UpdateSubscriptionPricingDto) {
-        const updated = await this.subscriptionService.updatePricing(dto);
-        return ResponseHelper.success(updated, 'Subscription pricing updated successfully');
-    }
+  @Patch('pricing')
+  async updatePricing(@Body() dto: UpdateSubscriptionPricingDto) {
+    const updated = await this.subscriptionService.updatePricing(dto);
+    return ResponseHelper.success(
+      updated,
+      'Subscription pricing updated successfully',
+    );
+  }
 }
