@@ -21,14 +21,6 @@ async function bootstrap() {
     optionsSuccessStatus: 204,
   });
 
-  app.use((req: Request, res: Response, next: NextFunction) => {
-    if (req.method === 'OPTIONS') {
-      res.sendStatus(204);
-      return;
-    }
-    next();
-  });
-
   // Global prefix
   app.setGlobalPrefix('api/v1');
 
@@ -71,8 +63,10 @@ async function bootstrap() {
     },
   });
 
-  await app.listen(process.env.PORT ?? 3000, () => {
-    console.info(`📄 Swagger: http://localhost:${process.env.PORT}/api-docs`);
-  });
+  const PORT = process.env.PORT ?? 3000;
+  await app.listen(PORT, '0.0.0.0');
+  console.log(`Server running on PORT ${PORT}`);
+  console.log(`Local access:   http://localhost:${PORT}/api/v1`);
+  console.log(`Network access: http://10.10.10.64:${PORT}/api/v1`);
 }
 bootstrap();
