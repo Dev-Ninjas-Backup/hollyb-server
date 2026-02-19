@@ -3,36 +3,31 @@ import {
 	Controller,
 	Get,
 	Patch,
-	Req,
 	UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import {
-	AuthenticatedRequest,
-	JwtAuthGuard,
-} from '@/common/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '@/common/guards/jwt-auth.guard';
+import { RolesGuard } from '@/common/guards/roles.guard';
+import { Roles } from '@/common/decorators/roles.decorator';
+import { UserRole } from '@prisma';
 import { UpdateSubscriptionPricingDto } from './dto/update-subscription-pricing.dto';
 import { SubscriptionService } from './subscription.service';
 
 @ApiTags('Admin Subscription')
 @Controller('admin/subscription')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles(UserRole.admin)
 export class SubscriptionController {
 	constructor(private readonly subscriptionService: SubscriptionService) {}
 
 	@Get('pricing')
-	@ApiBearerAuth()
-	@UseGuards(JwtAuthGuard)
-	getPricing(@Req() req: AuthenticatedRequest) {
-		return this.subscriptionService.getPricing(req.user.role);
+	getPricing() {
+		return this.subscriptionService.getPricing();
 	}
 
 	@Patch('pricing')
-	@ApiBearerAuth()
-	@UseGuards(JwtAuthGuard)
-	updatePricing(
-		@Req() req: AuthenticatedRequest,
-		@Body() dto: UpdateSubscriptionPricingDto,
-	) {
-		return this.subscriptionService.updatePricing(req.user.role, dto);
+	updatePricing(@Body() dto: UpdateSubscriptionPricingDto) {
+		return this.subscriptionService.updatePricing(dto);
 	}
 }
