@@ -65,6 +65,7 @@ export const ModelName = {
   JobSkill: 'JobSkill',
   Job: 'Job',
   Notification: 'Notification',
+  UserNotification: 'UserNotification',
   OtpVerification: 'OtpVerification',
   Payment: 'Payment',
   PrivateConversation: 'PrivateConversation',
@@ -286,17 +287,27 @@ export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobSca
 
 export const NotificationScalarFieldEnum = {
   id: 'id',
-  user_id: 'user_id',
-  title: 'title',
-  body: 'body',
   type: 'type',
-  reference_id: 'reference_id',
-  reference_type: 'reference_type',
-  is_read: 'is_read',
-  created_at: 'created_at'
+  title: 'title',
+  message: 'message',
+  meta: 'meta',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const UserNotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  notificationId: 'notificationId',
+  read: 'read',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserNotificationScalarFieldEnum = (typeof UserNotificationScalarFieldEnum)[keyof typeof UserNotificationScalarFieldEnum]
 
 
 export const OtpVerificationScalarFieldEnum = {
@@ -481,6 +492,13 @@ export const NullableJsonNullValueInput = {
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {

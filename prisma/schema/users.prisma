@@ -19,7 +19,6 @@ model User {
   background_checks    BackgroundCheck[]
   subscriptions        Subscription[]
   payments             Payment[]
-  notifications        Notification[]
   admin_activity_logs  AdminActivityLog[] @relation("AdminLogs")
   updated_settings     SystemSetting[]    @relation("SystemSettingUpdatedBy")
   employee_profile     EmployeeProfile?
@@ -34,6 +33,9 @@ model User {
   // Conversation & User RELATIONS
   conversationsInitiated PrivateConversation[] @relation("ConversationInitiator")
   conversationsReceived  PrivateConversation[] @relation("ConversationReceiver")
+
+  // Notifications & Auth
+  notifications UserNotification[]
 
   @@map("users")
 }
