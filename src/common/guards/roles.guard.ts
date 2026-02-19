@@ -32,11 +32,17 @@ export class RolesGuard implements CanActivate {
     const userRole = request.user?.role;
 
     if (!userRole) {
-      throw new BusinessException('Unauthorized', HttpStatus.UNAUTHORIZED);
+      throw new BusinessException(
+        'User role is missing in token. Please login again.',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
 
     if (!requiredRoles.includes(userRole as UserRole)) {
-      throw new BusinessException('Forbidden', HttpStatus.FORBIDDEN);
+      throw new BusinessException(
+        `Access denied. Required role: ${requiredRoles.join(', ')}`,
+        HttpStatus.FORBIDDEN,
+      );
     }
 
     return true;
