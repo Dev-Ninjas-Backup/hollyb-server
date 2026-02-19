@@ -2,7 +2,6 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as jwt from 'jsonwebtoken';
 import { Socket } from 'socket.io';
-import { ENVEnum } from '@/common/enum/env.enum';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { AuthSocketError } from './socket-auth-error.enum';
 
@@ -44,10 +43,10 @@ export class SocketAuthMiddleware {
           return next(new Error(AuthSocketError.INVALID_OR_EMPTY_TOKEN));
         }
 
-        // Verify JWT token
-        const jwtSecret = this.configService.get<string>(ENVEnum.JWT_SECRET);
+        // Verify JWT token - use JWT_ACCESS_SECRET which is used for access tokens
+        const jwtSecret = this.configService.get<string>('JWT_ACCESS_SECRET');
         if (!jwtSecret) {
-          this.logger.error('JWT_SECRET is not configured');
+          this.logger.error('JWT_ACCESS_SECRET is not configured');
           return next(new Error(AuthSocketError.SERVER_CONFIG_ERROR));
         }
 

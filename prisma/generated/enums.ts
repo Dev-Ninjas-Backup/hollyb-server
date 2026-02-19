@@ -52,6 +52,8 @@ export const DocumentType = {
   nid_back: 'nid_back',
   passport_front: 'passport_front',
   passport_back: 'passport_back',
+  trade_license_front: 'trade_license_front',
+  trade_license_back: 'trade_license_back',
   trade_license: 'trade_license',
   utility_bill: 'utility_bill'
 } as const

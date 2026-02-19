@@ -18,9 +18,10 @@ export class PrivateChatService {
     senderId: string,
     dto: SendPrivateMessageDto,
   ) {
+    // Create the message
     const message = await this.prisma.client.privateMessage.create({
       data: {
-        content: dto.content,
+        content: dto.content || null,
         conversationId,
         senderId,
         ...(dto.fileId && { fileId: dto.fileId }),
@@ -57,23 +58,35 @@ export class PrivateChatService {
       throw new NotFoundException(`Conversation ${conversationId} not found`);
     }
 
+    // Get the recipient ID (the other user in the conversation)
+    const recipientId =
+      conversation.initiatorId === senderId
+        ? conversation.receiverId
+        : conversation.initiatorId;
+
+    // Create message statuses - sender's status is READ, recipient's is SENT
     await this.prisma.client.privateMessageStatus.createMany({
       data: [
         {
           messageId: message.id,
-          userId: conversation.initiatorId,
-          status: 'DELIVERED',
+          userId: senderId,
+          status: 'READ',
         },
         {
           messageId: message.id,
-          userId: conversation.receiverId,
-          status: 'DELIVERED',
+          userId: recipientId,
+          status: 'SENT',
         },
       ],
       skipDuplicates: true,
     });
 
-    return ResponseHelper.created(message, 'Message sent successfully');
+    // Return message with recipient info for emit targeting
+    return {
+      ...message,
+      conversationId,
+      recipientId,
+    };
   }
 
   /**
@@ -122,7 +135,8 @@ export class PrivateChatService {
     });
 
     const formattedPrivateChats = privateChats.map((chat: any) => {
-      const otherUser = chat.initiatorId === userId ? chat.receiver : chat.initiator;
+      const otherUser =
+        chat.initiatorId === userId ? chat.receiver : chat.initiator;
       return {
         type: 'private',
         chatId: chat.id,
@@ -161,10 +175,7 @@ export class PrivateChatService {
     const [initiatorId, receiverId] = [userA, userB].sort();
     return this.prisma.client.privateConversation.findFirst({
       where: {
-        AND: [
-          { initiatorId },
-          { receiverId },
-        ],
+        AND: [{ initiatorId }, { receiverId }],
       },
     });
   }
@@ -226,54 +237,7 @@ export class PrivateChatService {
 
   @HandleError("Error getting user's conversations", 'PRIVATE_CHAT')
   async getUserNewConversations(userId: string) {
-    const conversation =
-      await this.prisma.client.privateConversation.findFirst({
-        where: {
-          OR: [{ initiatorId: userId }, { receiverId: userId }],
-        },
-        include: {
-          lastMessage: {
-            include: {
-              sender: {
-                select: {
-                  id: true,
-                  full_name: true,
-                  email: true,
-                },
-              },
-              file: true,
-            },
-          },
-          initiator: {
-            select: {
-              id: true,
-              full_name: true,
-              email: true,
-            },
-          },
-          receiver: {
-            select: {
-              id: true,
-              full_name: true,
-              email: true,
-            },
-          },
-        },
-        orderBy: { updatedAt: 'desc' },
-      });
-
-    return ResponseHelper.success(
-      conversation,
-      'New conversation fetched successfully',
-    );
-  }
-
-  /**
-   * Get all conversations for a user
-   */
-  @HandleError("Error getting user's conversations", 'PRIVATE_CHAT')
-  async getUserConversations(userId: string) {
-    const conversations = await this.prisma.client.privateConversation.findMany(
+    const conversation = await this.prisma.client.privateConversation.findFirst(
       {
         where: {
           OR: [{ initiatorId: userId }, { receiverId: userId }],
@@ -310,21 +274,97 @@ export class PrivateChatService {
       },
     );
 
+    return ResponseHelper.success(
+      conversation,
+      'New conversation fetched successfully',
+    );
+  }
+
+  /**
+   * Get all conversations for a user with unread counts
+   */
+  @HandleError("Error getting user's conversations", 'PRIVATE_CHAT')
+  async getUserConversations(userId: string) {
+    const conversations = await this.prisma.client.privateConversation.findMany(
+      {
+        where: {
+          OR: [{ initiatorId: userId }, { receiverId: userId }],
+          status: 'ACTIVE',
+        },
+        include: {
+          lastMessage: {
+            include: {
+              sender: {
+                select: {
+                  id: true,
+                  full_name: true,
+                  email: true,
+                },
+              },
+              file: true,
+              statuses: {
+                where: { userId },
+                select: { status: true },
+              },
+            },
+          },
+          initiator: {
+            select: {
+              id: true,
+              full_name: true,
+              email: true,
+            },
+          },
+          receiver: {
+            select: {
+              id: true,
+              full_name: true,
+              email: true,
+            },
+          },
+          messages: {
+            where: {
+              senderId: { not: userId },
+              statuses: {
+                some: {
+                  userId,
+                  status: { in: ['SENT', 'DELIVERED'] },
+                },
+              },
+            },
+            select: { id: true },
+          },
+        },
+        orderBy: { updatedAt: 'desc' },
+      },
+    );
+
     const formattedConversations = conversations.map((chat: any) => {
-      const otherUser = chat.initiatorId === userId ? chat.receiver : chat.initiator;
+      const otherUser =
+        chat.initiatorId === userId ? chat.receiver : chat.initiator;
       return {
         type: 'private',
-        chatId: chat.id,
+        conversationId: chat.id,
         participant: otherUser,
-        lastMessage: chat.lastMessage || null,
+        lastMessage: chat.lastMessage
+          ? {
+              id: chat.lastMessage.id,
+              content: chat.lastMessage.content,
+              type: chat.lastMessage.type,
+              createdAt: chat.lastMessage.createdAt,
+              sender: chat.lastMessage.sender,
+              file: chat.lastMessage.file,
+              status: chat.lastMessage.statuses?.[0]?.status || 'SENT',
+            }
+          : null,
+        unreadCount: chat.messages.length,
+        status: chat.status,
         updatedAt: chat.updatedAt,
+        createdAt: chat.createdAt,
       };
     });
 
-    return ResponseHelper.success(
-      formattedConversations,
-      'Conversations fetched successfully',
-    );
+    return formattedConversations;
   }
 
   /**
@@ -360,13 +400,43 @@ export class PrivateChatService {
   }
 
   /**
-   * Get a conversation with messages (validate access)
+   * Get a conversation with messages (validate access & support pagination)
    */
   @HandleError("Conversation doesn't exist", 'PRIVATE_CHAT')
   async getPrivateConversationWithMessages(
     conversationId: string,
     userId: string,
+    limit: number = 50,
+    cursor?: string,
   ) {
+    // Build the messages query with pagination
+    const messagesQuery: any = {
+      orderBy: { createdAt: 'desc' as const },
+      take: limit + 1, // Fetch one extra to determine if there are more
+      include: {
+        sender: {
+          select: {
+            id: true,
+            full_name: true,
+            email: true,
+          },
+        },
+        file: true,
+        statuses: {
+          select: {
+            userId: true,
+            status: true,
+          },
+        },
+      },
+    };
+
+    // If cursor provided, fetch messages before that message
+    if (cursor) {
+      messagesQuery.cursor = { id: cursor };
+      messagesQuery.skip = 1; // Skip the cursor message itself
+    }
+
     const conversation = await this.prisma.client.privateConversation.findFirst(
       {
         where: {
@@ -388,25 +458,7 @@ export class PrivateChatService {
               email: true,
             },
           },
-          messages: {
-            orderBy: { createdAt: 'asc' },
-            include: {
-              sender: {
-                select: {
-                  id: true,
-                  full_name: true,
-                  email: true,
-                },
-              },
-              file: true,
-              statuses: {
-                where: { userId },
-                select: {
-                  status: true,
-                },
-              },
-            },
-          },
+          messages: messagesQuery,
         },
       },
     );
@@ -415,14 +467,40 @@ export class PrivateChatService {
       throw new AppError(404, `Conversation not found or access denied`);
     }
 
-    return ResponseHelper.success(
-      {
-        conversationId: conversation.id,
-        participants: [conversation.initiator, conversation.receiver],
-        messages: conversation.messages,
+    // Check if there are more messages
+    const hasMore = conversation.messages.length > limit;
+    const messages = hasMore
+      ? conversation.messages.slice(0, limit)
+      : conversation.messages;
+
+    // Reverse to get chronological order (since we fetched in desc order for cursor pagination)
+    messages.reverse();
+
+    // Determine the other participant
+    const otherUser =
+      conversation.initiatorId === userId
+        ? conversation.receiver
+        : conversation.initiator;
+
+    return {
+      conversationId: conversation.id,
+      participant: otherUser,
+      participants: [conversation.initiator, conversation.receiver],
+      messages: messages.map((msg: any) => ({
+        id: msg.id,
+        content: msg.content,
+        type: msg.type,
+        createdAt: msg.createdAt,
+        sender: msg.sender,
+        file: msg.file,
+        isMine: msg.senderId === userId,
+        statuses: msg.statuses,
+      })),
+      pagination: {
+        hasMore,
+        nextCursor: hasMore ? messages[0]?.id : null,
       },
-      'Conversation loaded successfully',
-    );
+    };
   }
 
   /**
@@ -439,6 +517,150 @@ export class PrivateChatService {
     });
 
     return ResponseHelper.success(result, 'Message marked as read');
+  }
+
+  /**
+   * Mark a message as delivered (when user connects)
+   */
+  @HandleError('Failed to mark message as delivered', 'PRIVATE_CHAT')
+  async markMessageDelivered(messageId: string, userId: string) {
+    const result = await this.prisma.client.privateMessageStatus.updateMany({
+      where: {
+        messageId,
+        userId,
+        status: 'SENT',
+      },
+      data: { status: 'DELIVERED' },
+    });
+
+    return ResponseHelper.success(result, 'Message marked as delivered');
+  }
+
+  /**
+   * Mark all messages in a conversation as read for a user
+   */
+  @HandleError('Failed to mark conversation as read', 'PRIVATE_CHAT')
+  async markConversationAsRead(conversationId: string, userId: string) {
+    // First verify user is part of the conversation
+    const conversation = await this.prisma.client.privateConversation.findFirst(
+      {
+        where: {
+          id: conversationId,
+          OR: [{ initiatorId: userId }, { receiverId: userId }],
+        },
+      },
+    );
+
+    if (!conversation) {
+      throw new AppError(404, 'Conversation not found or access denied');
+    }
+
+    // Get all unread messages for this user in this conversation
+    const unreadMessages = await this.prisma.client.privateMessage.findMany({
+      where: {
+        conversationId,
+        statuses: {
+          some: {
+            userId,
+            status: { in: ['SENT', 'DELIVERED'] },
+          },
+        },
+      },
+      select: { id: true },
+    });
+
+    if (unreadMessages.length > 0) {
+      await this.prisma.client.privateMessageStatus.updateMany({
+        where: {
+          messageId: { in: unreadMessages.map((m) => m.id) },
+          userId,
+        },
+        data: { status: 'READ' },
+      });
+    }
+
+    // Get the other user's ID to notify them
+    const otherUserId =
+      conversation.initiatorId === userId
+        ? conversation.receiverId
+        : conversation.initiatorId;
+
+    return {
+      conversationId,
+      messagesRead: unreadMessages.length,
+      otherUserId,
+    };
+  }
+
+  /**
+   * Mark all undelivered messages as delivered when user connects
+   */
+  @HandleError('Failed to mark messages as delivered', 'PRIVATE_CHAT')
+  async markAllMessagesDelivered(userId: string) {
+    const result = await this.prisma.client.privateMessageStatus.updateMany({
+      where: {
+        userId,
+        status: 'SENT',
+      },
+      data: { status: 'DELIVERED' },
+    });
+
+    return result.count;
+  }
+
+  /**
+   * Get unread message count for a user
+   */
+  @HandleError('Failed to get unread count', 'PRIVATE_CHAT')
+  async getUnreadMessageCount(userId: string) {
+    const count = await this.prisma.client.privateMessageStatus.count({
+      where: {
+        userId,
+        status: { in: ['SENT', 'DELIVERED'] },
+        message: {
+          senderId: { not: userId },
+        },
+      },
+    });
+
+    return count;
+  }
+
+  /**
+   * Get unread count per conversation
+   */
+  @HandleError('Failed to get unread counts', 'PRIVATE_CHAT')
+  async getUnreadCountPerConversation(userId: string) {
+    const conversations = await this.prisma.client.privateConversation.findMany(
+      {
+        where: {
+          OR: [{ initiatorId: userId }, { receiverId: userId }],
+        },
+        select: {
+          id: true,
+          messages: {
+            where: {
+              senderId: { not: userId },
+              statuses: {
+                some: {
+                  userId,
+                  status: { in: ['SENT', 'DELIVERED'] },
+                },
+              },
+            },
+            select: { id: true },
+          },
+        },
+      },
+    );
+
+    return conversations.reduce(
+      (acc, conv) => {
+        acc[conv.id] = conv.messages.length;
+        return acc;
+      },
+      {} as Record<string, number>,
+    );
   }
 
   /**
