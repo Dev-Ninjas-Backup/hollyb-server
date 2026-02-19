@@ -33,6 +33,7 @@ export type UserMinAggregateOutputType = {
   account_status: $Enums.AccountStatus | null
   is_active: boolean | null
   is_verified: boolean | null
+  isNotify: boolean | null
   is_deleted: boolean | null
   last_active_at: Date | null
   last_login_at: Date | null
@@ -49,6 +50,7 @@ export type UserMaxAggregateOutputType = {
   account_status: $Enums.AccountStatus | null
   is_active: boolean | null
   is_verified: boolean | null
+  isNotify: boolean | null
   is_deleted: boolean | null
   last_active_at: Date | null
   last_login_at: Date | null
@@ -65,6 +67,7 @@ export type UserCountAggregateOutputType = {
   account_status: number
   is_active: number
   is_verified: number
+  isNotify: number
   is_deleted: number
   last_active_at: number
   last_login_at: number
@@ -83,6 +86,7 @@ export type UserMinAggregateInputType = {
   account_status?: true
   is_active?: true
   is_verified?: true
+  isNotify?: true
   is_deleted?: true
   last_active_at?: true
   last_login_at?: true
@@ -99,6 +103,7 @@ export type UserMaxAggregateInputType = {
   account_status?: true
   is_active?: true
   is_verified?: true
+  isNotify?: true
   is_deleted?: true
   last_active_at?: true
   last_login_at?: true
@@ -115,6 +120,7 @@ export type UserCountAggregateInputType = {
   account_status?: true
   is_active?: true
   is_verified?: true
+  isNotify?: true
   is_deleted?: true
   last_active_at?: true
   last_login_at?: true
@@ -204,6 +210,7 @@ export type UserGroupByOutputType = {
   account_status: $Enums.AccountStatus
   is_active: boolean
   is_verified: boolean
+  isNotify: boolean
   is_deleted: boolean
   last_active_at: Date | null
   last_login_at: Date | null
@@ -241,6 +248,7 @@ export type UserWhereInput = {
   account_status?: Prisma.EnumAccountStatusFilter<"User"> | $Enums.AccountStatus
   is_active?: Prisma.BoolFilter<"User"> | boolean
   is_verified?: Prisma.BoolFilter<"User"> | boolean
+  isNotify?: Prisma.BoolFilter<"User"> | boolean
   is_deleted?: Prisma.BoolFilter<"User"> | boolean
   last_active_at?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   last_login_at?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -272,6 +280,7 @@ export type UserOrderByWithRelationInput = {
   account_status?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
   is_verified?: Prisma.SortOrder
+  isNotify?: Prisma.SortOrder
   is_deleted?: Prisma.SortOrder
   last_active_at?: Prisma.SortOrderInput | Prisma.SortOrder
   last_login_at?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -306,6 +315,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   account_status?: Prisma.EnumAccountStatusFilter<"User"> | $Enums.AccountStatus
   is_active?: Prisma.BoolFilter<"User"> | boolean
   is_verified?: Prisma.BoolFilter<"User"> | boolean
+  isNotify?: Prisma.BoolFilter<"User"> | boolean
   is_deleted?: Prisma.BoolFilter<"User"> | boolean
   last_active_at?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   last_login_at?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -337,6 +347,7 @@ export type UserOrderByWithAggregationInput = {
   account_status?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
   is_verified?: Prisma.SortOrder
+  isNotify?: Prisma.SortOrder
   is_deleted?: Prisma.SortOrder
   last_active_at?: Prisma.SortOrderInput | Prisma.SortOrder
   last_login_at?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -359,6 +370,7 @@ export type UserScalarWhereWithAggregatesInput = {
   account_status?: Prisma.EnumAccountStatusWithAggregatesFilter<"User"> | $Enums.AccountStatus
   is_active?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   is_verified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  isNotify?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   is_deleted?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   last_active_at?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   last_login_at?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
@@ -375,6 +387,7 @@ export type UserCreateInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -406,6 +419,7 @@ export type UserUncheckedCreateInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -437,6 +451,7 @@ export type UserUpdateInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -468,6 +483,7 @@ export type UserUncheckedUpdateInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -499,6 +515,7 @@ export type UserCreateManyInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -515,6 +532,7 @@ export type UserUpdateManyMutationInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -531,6 +549,7 @@ export type UserUncheckedUpdateManyInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -557,6 +576,7 @@ export type UserCountOrderByAggregateInput = {
   account_status?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
   is_verified?: Prisma.SortOrder
+  isNotify?: Prisma.SortOrder
   is_deleted?: Prisma.SortOrder
   last_active_at?: Prisma.SortOrder
   last_login_at?: Prisma.SortOrder
@@ -573,6 +593,7 @@ export type UserMaxOrderByAggregateInput = {
   account_status?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
   is_verified?: Prisma.SortOrder
+  isNotify?: Prisma.SortOrder
   is_deleted?: Prisma.SortOrder
   last_active_at?: Prisma.SortOrder
   last_login_at?: Prisma.SortOrder
@@ -589,6 +610,7 @@ export type UserMinOrderByAggregateInput = {
   account_status?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
   is_verified?: Prisma.SortOrder
+  isNotify?: Prisma.SortOrder
   is_deleted?: Prisma.SortOrder
   last_active_at?: Prisma.SortOrder
   last_login_at?: Prisma.SortOrder
@@ -825,6 +847,7 @@ export type UserCreateWithoutAdmin_activity_logsInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -855,6 +878,7 @@ export type UserUncheckedCreateWithoutAdmin_activity_logsInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -901,6 +925,7 @@ export type UserUpdateWithoutAdmin_activity_logsInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -931,6 +956,7 @@ export type UserUncheckedUpdateWithoutAdmin_activity_logsInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -961,6 +987,7 @@ export type UserCreateWithoutBackground_checksInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -991,6 +1018,7 @@ export type UserUncheckedCreateWithoutBackground_checksInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -1037,6 +1065,7 @@ export type UserUpdateWithoutBackground_checksInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1067,6 +1096,7 @@ export type UserUncheckedUpdateWithoutBackground_checksInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1097,6 +1127,7 @@ export type UserCreateWithoutDocumentsInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -1127,6 +1158,7 @@ export type UserUncheckedCreateWithoutDocumentsInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -1173,6 +1205,7 @@ export type UserUpdateWithoutDocumentsInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1203,6 +1236,7 @@ export type UserUncheckedUpdateWithoutDocumentsInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1233,6 +1267,7 @@ export type UserCreateWithoutEmployee_profileInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -1263,6 +1298,7 @@ export type UserUncheckedCreateWithoutEmployee_profileInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -1309,6 +1345,7 @@ export type UserUpdateWithoutEmployee_profileInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1339,6 +1376,7 @@ export type UserUncheckedUpdateWithoutEmployee_profileInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1369,6 +1407,7 @@ export type UserCreateWithoutEmployer_profileInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -1399,6 +1438,7 @@ export type UserUncheckedCreateWithoutEmployer_profileInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -1445,6 +1485,7 @@ export type UserUpdateWithoutEmployer_profileInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1475,6 +1516,7 @@ export type UserUncheckedUpdateWithoutEmployer_profileInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1505,6 +1547,7 @@ export type UserCreateWithoutNotificationsInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -1535,6 +1578,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -1581,6 +1625,7 @@ export type UserUpdateWithoutNotificationsInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1611,6 +1656,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1641,6 +1687,7 @@ export type UserCreateWithoutOtp_verificationsInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -1671,6 +1718,7 @@ export type UserUncheckedCreateWithoutOtp_verificationsInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -1717,6 +1765,7 @@ export type UserUpdateWithoutOtp_verificationsInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1747,6 +1796,7 @@ export type UserUncheckedUpdateWithoutOtp_verificationsInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1777,6 +1827,7 @@ export type UserCreateWithoutPaymentsInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -1807,6 +1858,7 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -1853,6 +1905,7 @@ export type UserUpdateWithoutPaymentsInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1883,6 +1936,7 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1913,6 +1967,7 @@ export type UserCreateWithoutConversationsInitiatedInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -1943,6 +1998,7 @@ export type UserUncheckedCreateWithoutConversationsInitiatedInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -1978,6 +2034,7 @@ export type UserCreateWithoutConversationsReceivedInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -2008,6 +2065,7 @@ export type UserUncheckedCreateWithoutConversationsReceivedInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -2054,6 +2112,7 @@ export type UserUpdateWithoutConversationsInitiatedInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2084,6 +2143,7 @@ export type UserUncheckedUpdateWithoutConversationsInitiatedInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2125,6 +2185,7 @@ export type UserUpdateWithoutConversationsReceivedInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2155,6 +2216,7 @@ export type UserUncheckedUpdateWithoutConversationsReceivedInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2185,6 +2247,7 @@ export type UserCreateWithoutMessagesSentInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -2215,6 +2278,7 @@ export type UserUncheckedCreateWithoutMessagesSentInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -2261,6 +2325,7 @@ export type UserUpdateWithoutMessagesSentInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2291,6 +2356,7 @@ export type UserUncheckedUpdateWithoutMessagesSentInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2321,6 +2387,7 @@ export type UserCreateWithoutMessageStatusesInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -2351,6 +2418,7 @@ export type UserUncheckedCreateWithoutMessageStatusesInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -2397,6 +2465,7 @@ export type UserUpdateWithoutMessageStatusesInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2427,6 +2496,7 @@ export type UserUncheckedUpdateWithoutMessageStatusesInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2457,6 +2527,7 @@ export type UserCreateWithoutSubscriptionsInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -2487,6 +2558,7 @@ export type UserUncheckedCreateWithoutSubscriptionsInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -2533,6 +2605,7 @@ export type UserUpdateWithoutSubscriptionsInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2563,6 +2636,7 @@ export type UserUncheckedUpdateWithoutSubscriptionsInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2593,6 +2667,7 @@ export type UserCreateWithoutUpdated_settingsInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -2623,6 +2698,7 @@ export type UserUncheckedCreateWithoutUpdated_settingsInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -2669,6 +2745,7 @@ export type UserUpdateWithoutUpdated_settingsInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2699,6 +2776,7 @@ export type UserUncheckedUpdateWithoutUpdated_settingsInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2729,6 +2807,7 @@ export type UserCreateWithoutAuth_providersInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -2759,6 +2838,7 @@ export type UserUncheckedCreateWithoutAuth_providersInput = {
   account_status: $Enums.AccountStatus
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: Date | string | null
   last_login_at?: Date | string | null
@@ -2805,6 +2885,7 @@ export type UserUpdateWithoutAuth_providersInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2835,6 +2916,7 @@ export type UserUncheckedUpdateWithoutAuth_providersInput = {
   account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3004,6 +3086,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   account_status?: boolean
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: boolean
   last_login_at?: boolean
@@ -3036,6 +3119,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   account_status?: boolean
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: boolean
   last_login_at?: boolean
@@ -3052,6 +3136,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   account_status?: boolean
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: boolean
   last_login_at?: boolean
@@ -3068,6 +3153,7 @@ export type UserSelectScalar = {
   account_status?: boolean
   is_active?: boolean
   is_verified?: boolean
+  isNotify?: boolean
   is_deleted?: boolean
   last_active_at?: boolean
   last_login_at?: boolean
@@ -3075,7 +3161,7 @@ export type UserSelectScalar = {
   updated_at?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "full_name" | "email" | "role" | "password_hash" | "account_status" | "is_active" | "is_verified" | "is_deleted" | "last_active_at" | "last_login_at" | "created_at" | "updated_at", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "full_name" | "email" | "role" | "password_hash" | "account_status" | "is_active" | "is_verified" | "isNotify" | "is_deleted" | "last_active_at" | "last_login_at" | "created_at" | "updated_at", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   auth_providers?: boolean | Prisma.User$auth_providersArgs<ExtArgs>
   otp_verifications?: boolean | Prisma.User$otp_verificationsArgs<ExtArgs>
@@ -3125,6 +3211,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     account_status: $Enums.AccountStatus
     is_active: boolean
     is_verified: boolean
+    isNotify: boolean
     is_deleted: boolean
     last_active_at: Date | null
     last_login_at: Date | null
@@ -3576,6 +3663,7 @@ export interface UserFieldRefs {
   readonly account_status: Prisma.FieldRef<"User", 'AccountStatus'>
   readonly is_active: Prisma.FieldRef<"User", 'Boolean'>
   readonly is_verified: Prisma.FieldRef<"User", 'Boolean'>
+  readonly isNotify: Prisma.FieldRef<"User", 'Boolean'>
   readonly is_deleted: Prisma.FieldRef<"User", 'Boolean'>
   readonly last_active_at: Prisma.FieldRef<"User", 'DateTime'>
   readonly last_login_at: Prisma.FieldRef<"User", 'DateTime'>

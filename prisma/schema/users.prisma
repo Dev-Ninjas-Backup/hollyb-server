@@ -7,6 +7,7 @@ model User {
   account_status AccountStatus
   is_active      Boolean  @default(true)
   is_verified    Boolean  @default(false)
+  isNotify  Boolean  @default(true)
   is_deleted     Boolean  @default(false)
   last_active_at DateTime?
   last_login_at  DateTime?

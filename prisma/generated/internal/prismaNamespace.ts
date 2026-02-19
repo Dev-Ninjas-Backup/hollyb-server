@@ -2839,6 +2839,7 @@ export const UserScalarFieldEnum = {
   account_status: 'account_status',
   is_active: 'is_active',
   is_verified: 'is_verified',
+  isNotify: 'isNotify',
   is_deleted: 'is_deleted',
   last_active_at: 'last_active_at',
   last_login_at: 'last_login_at',

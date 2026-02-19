@@ -13,5 +13,10 @@ export const validationSchema = z
     FIREBASE_PROJECT_ID: z.string().min(1),
     FIREBASE_CLIENT_EMAIL: z.string().email(),
     FIREBASE_PRIVATE_KEY: z.string().min(1),
+    ACCESS_KEY: z.string().min(1),
+    ACCESS_SECRET: z.string().min(1),
+    BUCKET_NAME: z.string().min(1),
+    BUCKET_REGION: z.string().min(1),
+    UPLOAD_DIR: z.string().min(1),
   })
   .passthrough();

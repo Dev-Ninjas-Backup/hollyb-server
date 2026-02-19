@@ -94,7 +94,9 @@ export class NotificationGateway
   private readonly logger = new Logger(NotificationGateway.name);
 
   constructor(
-    @Inject(forwardRef(() => require('./notification.service').NotificationService))
+    @Inject(
+      forwardRef(() => require('./notification.service').NotificationService),
+    )
     private readonly notificationService: NotificationService,
     private readonly socketAuthMiddleware: SocketAuthMiddleware,
   ) {}
@@ -219,7 +221,9 @@ export class NotificationGateway
 
       client.emit(NotificationEventsEnum.UNREAD_COUNT, { count: unreadCount });
     } catch (error) {
-      this.logger.error(`Error marking notifications as read: ${error.message}`);
+      this.logger.error(
+        `Error marking notifications as read: ${error.message}`,
+      );
       client.emit(NotificationEventsEnum.ERROR, {
         message: 'Failed to mark notifications as read',
       });
@@ -241,7 +245,9 @@ export class NotificationGateway
 
       client.emit(NotificationEventsEnum.UNREAD_COUNT, { count: 0 });
     } catch (error) {
-      this.logger.error(`Error marking all notifications as read: ${error.message}`);
+      this.logger.error(
+        `Error marking all notifications as read: ${error.message}`,
+      );
       client.emit(NotificationEventsEnum.ERROR, {
         message: 'Failed to mark all notifications as read',
       });

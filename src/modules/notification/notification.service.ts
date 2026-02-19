@@ -144,7 +144,9 @@ export class NotificationService {
         `Admins notified of new user: ${user.full_name} (${user.email})`,
       );
     } catch (error) {
-      this.logger.error(`Failed to notify admins of new user: ${error.message}`);
+      this.logger.error(
+        `Failed to notify admins of new user: ${error.message}`,
+      );
     }
   }
 

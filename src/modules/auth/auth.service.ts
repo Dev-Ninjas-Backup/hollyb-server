@@ -343,16 +343,18 @@ export class AuthService {
   }
 
   async logout(userId: string, token: string) {
-    const providers = await this.prismaService.client.userAuthProvider.findMany({
-      where: {
-        user_id: userId,
-        access_token: { not: null },
+    const providers = await this.prismaService.client.userAuthProvider.findMany(
+      {
+        where: {
+          user_id: userId,
+          access_token: { not: null },
+        },
+        select: {
+          id: true,
+          access_token: true,
+        },
       },
-      select: {
-        id: true,
-        access_token: true,
-      },
-    });
+    );
 
     let matchedProviderId: string | null = null;
 

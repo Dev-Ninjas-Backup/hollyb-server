@@ -13,7 +13,10 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { PrivateChatService } from './private-message.service';
-import { JwtAuthGuard, AuthenticatedRequest } from '@/common/guards/jwt-auth.guard';
+import {
+  JwtAuthGuard,
+  AuthenticatedRequest,
+} from '@/common/guards/jwt-auth.guard';
 import {
   ApiTags,
   ApiBearerAuth,
@@ -39,7 +42,10 @@ export class PrivateMessageController {
     const userId = req.user.sub;
     const conversations =
       await this.privateChatService.getUserConversations(userId);
-    return { data: conversations, message: 'Conversations fetched successfully' };
+    return {
+      data: conversations,
+      message: 'Conversations fetched successfully',
+    };
   }
 
   /**
@@ -86,7 +92,10 @@ export class PrivateMessageController {
     @Param('recipientId', ParseUUIDPipe) recipientId: string,
   ) {
     const userId = req.user.sub;
-    return this.privateChatService.findOrCreateConversation(userId, recipientId);
+    return this.privateChatService.findOrCreateConversation(
+      userId,
+      recipientId,
+    );
   }
 
   /**

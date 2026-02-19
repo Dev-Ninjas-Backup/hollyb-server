@@ -54,15 +54,17 @@ export class JwtAuthGuard implements CanActivate {
       throw new BusinessException('Invalid token', HttpStatus.UNAUTHORIZED);
     }
 
-    const providers = await this.prismaService.client.userAuthProvider.findMany({
-      where: {
-        user_id: payload.sub,
-        access_token: { not: null },
+    const providers = await this.prismaService.client.userAuthProvider.findMany(
+      {
+        where: {
+          user_id: payload.sub,
+          access_token: { not: null },
+        },
+        select: {
+          access_token: true,
+        },
       },
-      select: {
-        access_token: true,
-      },
-    });
+    );
 
     let isMatched = false;
     for (const provider of providers) {

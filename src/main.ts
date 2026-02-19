@@ -72,7 +72,7 @@ async function bootstrap() {
   });
 
   await app.listen(process.env.PORT ?? 3000, () => {
-    console.info(`📄 Swagger: http://localhost:${process.env.PORT}/api-docs`);;
+    console.info(`📄 Swagger: http://localhost:${process.env.PORT}/api-docs`);
   });
 }
 bootstrap();
