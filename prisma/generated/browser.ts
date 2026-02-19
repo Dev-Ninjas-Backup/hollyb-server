@@ -88,6 +88,11 @@ export type Job = Prisma.JobModel
  */
 export type Notification = Prisma.NotificationModel
 /**
+ * Model UserNotification
+ * 
+ */
+export type UserNotification = Prisma.UserNotificationModel
+/**
  * Model OtpVerification
  * 
  */
