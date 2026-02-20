@@ -15,7 +15,14 @@ import {
   Get,
   Query,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiConsumes, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { EmployerService } from './employer.service';
 import { CreateJobDto } from './dto/create-job.dto';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';

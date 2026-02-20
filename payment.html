@@ -24,6 +24,33 @@
         margin: 0 0 16px;
         font-size: 22px;
       }
+      .tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 24px;
+        border-bottom: 2px solid #e5e7eb;
+      }
+      .tab-btn {
+        flex: 1;
+        padding: 12px 16px;
+        background: none;
+        border: none;
+        border-bottom: 3px solid transparent;
+        cursor: pointer;
+        font-weight: 600;
+        color: #6b7280;
+        font-size: 14px;
+      }
+      .tab-btn.active {
+        color: #1f57e7;
+        border-bottom-color: #1f57e7;
+      }
+      .tab-content {
+        display: none;
+      }
+      .tab-content.active {
+        display: block;
+      }
       .field {
         margin-bottom: 14px;
       }
@@ -83,11 +110,49 @@
         background: #fee2e2;
         color: #991b1b;
       }
+      .subscription-list {
+        border: 1px solid #d7dce8;
+        border-radius: 10px;
+        padding: 12px;
+        margin-bottom: 14px;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+      .subscription-item {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        cursor: pointer;
+      }
+      .subscription-item.expired {
+        background: #fef2f2;
+      }
+      .subscription-item input {
+        width: auto;
+        margin-right: 10px;
+      }
+      .subscription-info {
+        flex: 1;
+        font-size: 13px;
+      }
+      .subscription-status {
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .subscription-status.expired {
+        color: #dc2626;
+      }
+      .subscription-status.active {
+        color: #059669;
+      }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>Subscription Payment Test</h1>
+      <h1>Subscription Payment & Renewal Test</h1>
 
       <div class="field">
         <label for="baseUrl">API Base URL</label>
@@ -99,37 +164,102 @@
         <input id="token" placeholder="eyJ..." />
       </div>
 
-      <div class="field">
-        <label for="planType">Plan Type</label>
-        <select id="planType">
-          <option value="employee_premium">employee_premium</option>
-          <option value="employer_premium">employer_premium</option>
-        </select>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="payment">New Payment</button>
+        <button class="tab-btn" data-tab="renew">Renew Subscription</button>
       </div>
 
-      <div class="field">
-        <label for="cardholderName">Cardholder Name</label>
-        <input id="cardholderName" value="Test User" />
-      </div>
-
-      <div class="field">
-        <label>Card Number</label>
-        <div id="card-number"></div>
-      </div>
-
-      <div class="row">
+      <!-- Payment Tab -->
+      <div id="payment" class="tab-content active">
         <div class="field">
-          <label>Expiry</label>
-          <div id="card-expiry"></div>
+          <label for="planType">Plan Type</label>
+          <select id="planType">
+            <option value="employee_premium">employee_premium</option>
+            <option value="employer_premium">employer_premium</option>
+          </select>
         </div>
+
         <div class="field">
-          <label>CVC</label>
-          <div id="card-cvc"></div>
+          <label for="cardholderName">Cardholder Name</label>
+          <input id="cardholderName" value="Test User" />
         </div>
+
+        <div class="field">
+          <label>Card Number</label>
+          <div id="card-number"></div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>Expiry</label>
+            <div id="card-expiry"></div>
+          </div>
+          <div class="field">
+            <label>CVC</label>
+            <div id="card-cvc"></div>
+          </div>
+        </div>
+
+        <button id="payBtn">Pay & Continue</button>
+        <div id="payResult" class="result" style="display: none"></div>
       </div>
 
-      <button id="payBtn">Pay & Continue</button>
-      <div id="result" class="result" style="display: none"></div>
+      <!-- Renew Tab -->
+      <div id="renew" class="tab-content">
+        <div class="field">
+          <label for="targetUserId">Target User ID (UUID)</label>
+          <input
+            id="targetUserId"
+            placeholder="550e8400-e29b-41d4-a716-446655440000"
+          />
+        </div>
+
+        <div class="field">
+          <label>
+            <button
+              id="loadSubscriptionsBtn"
+              style="width: auto; padding: 8px 16px; margin-bottom: 10px"
+            >
+              Load User Subscriptions
+            </button>
+          </label>
+        </div>
+
+        <div class="field">
+          <label>Select Expired Subscription to Renew</label>
+          <div id="subscriptionList" class="subscription-list" style="display: none"></div>
+          <p id="noSubscriptions" style="color: #6b7280; font-size: 13px; margin: 0">
+            Enter target user id and load subscriptions first
+          </p>
+        </div>
+
+        <div id="renewCardSection" style="display: none">
+          <div class="field">
+            <label for="renewCardholderName">Cardholder Name</label>
+            <input id="renewCardholderName" value="Test User" />
+          </div>
+
+          <div class="field">
+            <label>Card Number</label>
+            <div id="card-number-renew"></div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label>Expiry</label>
+              <div id="card-expiry-renew"></div>
+            </div>
+            <div class="field">
+              <label>CVC</label>
+              <div id="card-cvc-renew"></div>
+            </div>
+          </div>
+
+          <button id="renewBtn">Renew Subscription</button>
+        </div>
+
+        <div id="renewResult" class="result" style="display: none"></div>
+      </div>
     </div>
 
     <script>
@@ -138,21 +268,52 @@
       const planTypeInput = document.getElementById('planType');
       const cardholderNameInput = document.getElementById('cardholderName');
       const payBtn = document.getElementById('payBtn');
-      const resultEl = document.getElementById('result');
+      const payResultEl = document.getElementById('payResult');
+
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const tabContents = document.querySelectorAll('.tab-content');
+
+      const loadSubscriptionsBtn = document.getElementById('loadSubscriptionsBtn');
+      const targetUserIdInput = document.getElementById('targetUserId');
+      const subscriptionListEl = document.getElementById('subscriptionList');
+      const noSubscriptionsEl = document.getElementById('noSubscriptions');
+      const renewCardSectionEl = document.getElementById('renewCardSection');
+      const renewCardholderNameInput = document.getElementById('renewCardholderName');
+      const renewBtn = document.getElementById('renewBtn');
+      const renewResultEl = document.getElementById('renewResult');
 
       let stripe;
+      let elements;
+      let elementsRenew;
       let cardNumberElement;
       let cardExpiryElement;
       let cardCvcElement;
+      let renewCardNumberElement;
+      let renewCardExpiryElement;
+      let renewCardCvcElement;
+      let selectedSubscription = null;
+      let stripeInitialized = false;
 
-      function showResult(ok, data) {
+      function showResult(ok, data, resultEl) {
         resultEl.style.display = 'block';
         resultEl.className = `result ${ok ? 'ok' : 'err'}`;
         resultEl.textContent = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
       }
 
+      function switchTab(tabName, activeButton) {
+        tabBtns.forEach((btn) => btn.classList.remove('active'));
+        tabContents.forEach((content) => content.classList.remove('active'));
+
+        activeButton.classList.add('active');
+        document.getElementById(tabName).classList.add('active');
+      }
+
+      tabBtns.forEach((btn) => {
+        btn.addEventListener('click', () => switchTab(btn.dataset.tab, btn));
+      });
+
       async function initStripe() {
-        if (stripe) return;
+        if (stripeInitialized) return;
 
         const baseUrl = baseUrlInput.value.trim();
         const token = tokenInput.value.trim();
@@ -175,8 +336,12 @@
         }
 
         stripe = Stripe(configJson.data.publishableKey);
-        const elements = stripe.elements();
 
+        // Create separate elements instances for each tab
+        elements = stripe.elements();
+        elementsRenew = stripe.elements();
+
+        // Payment tab elements
         cardNumberElement = elements.create('cardNumber');
         cardExpiryElement = elements.create('cardExpiry');
         cardCvcElement = elements.create('cardCvc');
@@ -184,11 +349,114 @@
         cardNumberElement.mount('#card-number');
         cardExpiryElement.mount('#card-expiry');
         cardCvcElement.mount('#card-cvc');
+
+        // Renewal tab elements (separate instance)
+        renewCardNumberElement = elementsRenew.create('cardNumber');
+        renewCardExpiryElement = elementsRenew.create('cardExpiry');
+        renewCardCvcElement = elementsRenew.create('cardCvc');
+
+        renewCardNumberElement.mount('#card-number-renew');
+        renewCardExpiryElement.mount('#card-expiry-renew');
+        renewCardCvcElement.mount('#card-cvc-renew');
+
+        stripeInitialized = true;
       }
+
+      loadSubscriptionsBtn.addEventListener('click', async () => {
+        loadSubscriptionsBtn.disabled = true;
+        loadSubscriptionsBtn.textContent = 'Loading...';
+
+        try {
+          const baseUrl = baseUrlInput.value.trim();
+          const token = tokenInput.value.trim();
+          const targetUserId = targetUserIdInput.value.trim();
+
+          if (!token) {
+            throw new Error('Bearer token is required');
+          }
+
+          if (!targetUserId) {
+            throw new Error('Target user id is required');
+          }
+
+          selectedSubscription = null;
+          renewCardSectionEl.style.display = 'none';
+
+          const res = await fetch(
+            `${baseUrl}/subscription/users/${encodeURIComponent(targetUserId)}/subscriptions`,
+            {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            },
+          );
+
+          const json = await res.json();
+
+          if (!res.ok) {
+            throw new Error(json?.message || 'Failed to load subscriptions');
+          }
+
+          const subscriptions = json?.data || [];
+          const now = new Date();
+          const expiredSubscriptions = subscriptions.filter(
+            (sub) => new Date(sub.endDate) < now,
+          );
+
+          subscriptionListEl.innerHTML = '';
+
+          if (expiredSubscriptions.length === 0) {
+            subscriptionListEl.style.display = 'none';
+            noSubscriptionsEl.textContent = 'No expired subscriptions found';
+            noSubscriptionsEl.style.display = 'block';
+            return;
+          }
+
+          subscriptionListEl.style.display = 'block';
+          noSubscriptionsEl.style.display = 'none';
+
+          expiredSubscriptions.forEach((sub) => {
+            const item = document.createElement('div');
+            item.className = 'subscription-item expired';
+            item.innerHTML = `
+              <input 
+                type="radio" 
+                name="subscription" 
+                value="${sub.id}" 
+                data-plan="${sub.planType}"
+              />
+              <div class="subscription-info">
+                <div class="subscription-status expired">Expired</div>
+                <div>${sub.planType}</div>
+                <div style="color: #9ca3af">Ended: ${new Date(sub.endDate).toLocaleDateString()}</div>
+              </div>
+            `;
+
+            const radio = item.querySelector('input');
+            radio.addEventListener('change', () => {
+              selectedSubscription = {
+                id: sub.id,
+                planType: sub.planType,
+              };
+              renewCardSectionEl.style.display = 'block';
+            });
+
+            subscriptionListEl.appendChild(item);
+          });
+        } catch (err) {
+          noSubscriptionsEl.textContent = err.message || 'Failed to load subscriptions';
+          noSubscriptionsEl.style.display = 'block';
+          subscriptionListEl.style.display = 'none';
+        } finally {
+          loadSubscriptionsBtn.disabled = false;
+          loadSubscriptionsBtn.textContent = 'Load User Subscriptions';
+        }
+      });
 
       payBtn.addEventListener('click', async () => {
         payBtn.disabled = true;
-        showResult(false, 'Processing...');
+        showResult(false, 'Processing payment...', payResultEl);
 
         try {
           await initStripe();
@@ -226,11 +494,63 @@
             throw new Error(processJson?.message || 'Payment failed');
           }
 
-          showResult(true, processJson);
+          showResult(true, processJson, payResultEl);
         } catch (err) {
-          showResult(false, err.message || 'Unexpected error');
+          showResult(false, err.message || 'Unexpected error', payResultEl);
         } finally {
           payBtn.disabled = false;
+        }
+      });
+
+      renewBtn.addEventListener('click', async () => {
+        renewBtn.disabled = true;
+        showResult(false, 'Processing renewal...', renewResultEl);
+
+        try {
+          if (!selectedSubscription) {
+            throw new Error('Please select a subscription to renew');
+          }
+
+          await initStripe();
+
+          const baseUrl = baseUrlInput.value.trim();
+          const token = tokenInput.value.trim();
+
+          const pmResult = await stripe.createPaymentMethod({
+            type: 'card',
+            card: renewCardNumberElement,
+            billing_details: {
+              name: renewCardholderNameInput.value.trim() || 'Test User',
+            },
+          });
+
+          if (pmResult.error) {
+            throw new Error(pmResult.error.message || 'Failed to create payment method');
+          }
+
+          const renewRes = await fetch(`${baseUrl}/subscription/renew`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              subscriptionId: selectedSubscription.id,
+              paymentMethodId: pmResult.paymentMethod.id,
+            }),
+          });
+
+          const renewJson = await renewRes.json();
+
+          if (!renewRes.ok) {
+            throw new Error(renewJson?.message || 'Renewal failed');
+          }
+
+          showResult(true, renewJson, renewResultEl);
+        } catch (err) {
+          showResult(false, err.message || 'Unexpected error', renewResultEl);
+        } finally {
+          renewBtn.disabled = false;
         }
       });
     </script>

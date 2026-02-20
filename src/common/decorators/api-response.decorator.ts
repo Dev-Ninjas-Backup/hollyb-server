@@ -63,6 +63,63 @@ export const ApiSuccessResponse = <TModel extends Type<any>>(
   );
 };
 
+export const ApiSuccessArrayResponse = <TModel extends Type<any>>(
+  model: TModel,
+  options?: {
+    description?: string;
+    statusCode?: number;
+  },
+) => {
+  const statusCode = options?.statusCode || 200;
+  const description = options?.description || 'Successful operation';
+
+  return applyDecorators(
+    ApiExtraModels(ApiResponseDto, model),
+    ApiResponse({
+      status: statusCode,
+      description,
+      schema: {
+        allOf: [
+          { $ref: getSchemaPath(ApiResponseDto) },
+          {
+            properties: {
+              statusCode: {
+                type: 'number',
+                example: statusCode,
+                description: 'HTTP status code',
+              },
+              success: {
+                type: 'boolean',
+                example: true,
+                description: 'Request success status',
+              },
+              message: {
+                type: 'string',
+                example: description,
+                description: 'Response message',
+              },
+              timestamp: {
+                type: 'string',
+                example: new Date().toISOString(),
+                description: 'Response timestamp',
+              },
+              path: {
+                type: 'string',
+                example: '/api/v1/{path}',
+                description: 'Request path',
+              },
+              data: {
+                type: 'array',
+                items: { $ref: getSchemaPath(model) },
+              },
+            },
+          },
+        ],
+      },
+    }),
+  );
+};
+
 export const ApiPaginatedResponse = <TModel extends Type<any>>(
   model: TModel,
   description?: string,
