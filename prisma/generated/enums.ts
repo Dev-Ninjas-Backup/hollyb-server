@@ -107,23 +107,12 @@ export type JobType = (typeof JobType)[keyof typeof JobType]
 
 export const JobPaymentType = {
   hourly: 'hourly',
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
   daily: 'daily',
   weekly: 'weekly',
->>>>>>> 697220c811179155cb29db531968188abfb13fd3
   fixed: 'fixed'
 } as const
 
 export type JobPaymentType = (typeof JobPaymentType)[keyof typeof JobPaymentType]
-<<<<<<< HEAD
-=======
-=======
-  fixed: 'fixed',
-} as const;
->>>>>>> c3f071a97f89da86ec6c888f7f2b713ea155513d
->>>>>>> 697220c811179155cb29db531968188abfb13fd3
 
 
 export const JobStatus = {
