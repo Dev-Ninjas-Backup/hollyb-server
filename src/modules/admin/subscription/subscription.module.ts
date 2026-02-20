@@ -1,9 +1,14 @@
 import { Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
+import { PrismaModule } from '@/prisma/prisma.module';
+import { JwtAuthGuard } from '@/common/guards/jwt-auth.guard';
+import { RolesGuard } from '@/common/guards/roles.guard';
 import { SubscriptionController } from './subscription.controller';
 import { SubscriptionService } from './subscription.service';
 
 @Module({
+  imports: [PrismaModule, JwtModule.register({})],
   controllers: [SubscriptionController],
-  providers: [SubscriptionService]
+  providers: [SubscriptionService, JwtAuthGuard, RolesGuard],
 })
 export class SubscriptionModule {}
