@@ -2,22 +2,18 @@ import {
   IsString,
   IsOptional,
   IsBoolean,
-  IsEnum,
   IsDateString,
   IsLatitude,
   IsLongitude,
   IsDecimal,
-  IsArray,
-  IsUUID,
-  ValidateNested,
+  Allow,
+  IsIn,
+  IsEnum,
 } from 'class-validator';
-import { Type } from 'class-transformer';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { JobPaymentType, JobStatus, JobType } from '@prisma';
 
 export class CreateJobDto {
-  // employer_id will be extracted from authenticated user, not from DTO
-
   @ApiProperty({
     description: 'Job title',
     example: 'Warehouse Assistant',
@@ -56,17 +52,14 @@ export class CreateJobDto {
   @IsString()
   requirements?: string;
 
-  @ApiPropertyOptional({
-    description: 'File attachment for the job',
-    type: 'string',
-    format: 'binary',
-  })
+  @IsOptional()
+  @Allow()
   file?: any;
 
   @ApiProperty({
     description: 'Type of job',
-    enum: JobType,
-    example: 'FULL_TIME',
+    enum: ['full_time', 'part_time', 'contract'],
+    example: 'full_time',
   })
   @IsEnum(JobType)
   job_type: JobType;
@@ -82,9 +75,9 @@ export class CreateJobDto {
 
   @ApiPropertyOptional({
     description: 'Job status',
-    enum: JobStatus,
-    example: 'OPEN',
-    default: 'OPEN',
+    enum: ['open', 'assigned', 'check_in', 'check_out', 'completed', 'cancelled'],
+    example: 'open',
+    default: 'open',
   })
   @IsOptional()
   @IsEnum(JobStatus)
@@ -132,8 +125,8 @@ export class CreateJobDto {
 
   @ApiProperty({
     description: 'Payment type',
-    enum: JobPaymentType,
-    example: 'HOURLY',
+    enum: ['hourly', 'daily', 'weekly', 'fixed'],
+    example: 'hourly',
   })
   @IsEnum(JobPaymentType)
   payment_type: JobPaymentType;
@@ -151,7 +144,6 @@ export class CreateJobDto {
     example: 40.7128,
   })
   @IsOptional()
-  @Type(() => Number)
   @IsLatitude()
   latitude?: number;
 
@@ -160,7 +152,6 @@ export class CreateJobDto {
     example: -74.0060,
   })
   @IsOptional()
-  @Type(() => Number)
   @IsLongitude()
   longitude?: number;
 
