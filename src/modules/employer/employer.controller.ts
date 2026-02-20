@@ -48,22 +48,59 @@ export class EmployerController {
       properties: {
         title: { type: 'string', example: 'Warehouse Assistant' },
         company_name: { type: 'string', example: 'Amazon Logistics' },
-        description: { type: 'string', example: 'Assist with packaging and sorting shipments.' },
-        job_responsibilities: { type: 'string', example: 'Load/unload goods, manage inventory.' },
+        description: {
+          type: 'string',
+          example: 'Assist with packaging and sorting shipments.',
+        },
+        job_responsibilities: {
+          type: 'string',
+          example: 'Load/unload goods, manage inventory.',
+        },
         requirements: { type: 'string', example: 'Must be able to lift 20kg.' },
-        job_type: { type: 'string', enum: ['full_time', 'part_time', 'contract'], example: 'full_time' },
+        job_type: {
+          type: 'string',
+          enum: ['full_time', 'part_time', 'contract'],
+          example: 'full_time',
+        },
         is_urgent: { type: 'boolean', example: false },
-        status: { type: 'string', enum: ['open', 'assigned', 'check_in', 'check_out', 'completed', 'cancelled'], example: 'open' },
+        status: {
+          type: 'string',
+          enum: [
+            'open',
+            'assigned',
+            'check_in',
+            'check_out',
+            'completed',
+            'cancelled',
+          ],
+          example: 'open',
+        },
         start_date: { type: 'string', format: 'date', example: '2026-03-01' },
         end_date: { type: 'string', format: 'date', example: '2026-03-31' },
-        start_time: { type: 'string', format: 'date-time', example: '1970-01-01T08:00:00.000Z' },
-        end_time: { type: 'string', format: 'date-time', example: '1970-01-01T17:00:00.000Z' },
+        start_time: {
+          type: 'string',
+          format: 'date-time',
+          example: '1970-01-01T08:00:00.000Z',
+        },
+        end_time: {
+          type: 'string',
+          format: 'date-time',
+          example: '1970-01-01T17:00:00.000Z',
+        },
         amount: { type: 'string', example: '1500.00' },
-        payment_type: { type: 'string', enum: ['hourly', 'daily', 'weekly', 'fixed'], example: 'hourly' },
+        payment_type: {
+          type: 'string',
+          enum: ['hourly', 'daily', 'weekly', 'fixed'],
+          example: 'hourly',
+        },
         location: { type: 'string', example: 'New York, NY' },
         latitude: { type: 'number', example: 40.7128 },
-        longitude: { type: 'number', example: -74.0060 },
-        file: { type: 'string', format: 'binary', description: 'Optional file attachment for the job' },
+        longitude: { type: 'number', example: -74.006 },
+        file: {
+          type: 'string',
+          format: 'binary',
+          description: 'Optional file attachment for the job',
+        },
       },
       required: ['title', 'company_name', 'job_type', 'payment_type'],
     },
@@ -76,7 +113,11 @@ export class EmployerController {
       file?: Express.Multer.File[];
     },
   ) {
-    return this.employerService.createJob(req.user.sub, dto, uploadedFiles?.file?.[0]);
+    return this.employerService.createJob(
+      req.user.sub,
+      dto,
+      uploadedFiles?.file?.[0],
+    );
   }
 
   // Get my posted jobs with filters and pagination
@@ -94,5 +135,4 @@ export class EmployerController {
   // ) {
   //   return this.employerService.getMyJobs(req.user.sub, filters);
   // }
-
 }

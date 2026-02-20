@@ -113,7 +113,7 @@ export class AuthService {
 
       return ResponseHelper.success(
         {
-          token: tokens.accessToken,
+          accessToken: tokens.accessToken,
           refreshToken: tokens.refreshToken,
         },
         'OTP verified successfully',
@@ -130,7 +130,7 @@ export class AuthService {
 
     return ResponseHelper.success(
       {
-        token: resetVerificationToken,
+        accessToken: resetVerificationToken,
       },
       'OTP verified successfully',
     );

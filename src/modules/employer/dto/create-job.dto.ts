@@ -75,7 +75,14 @@ export class CreateJobDto {
 
   @ApiPropertyOptional({
     description: 'Job status',
-    enum: ['open', 'assigned', 'check_in', 'check_out', 'completed', 'cancelled'],
+    enum: [
+      'open',
+      'assigned',
+      'check_in',
+      'check_out',
+      'completed',
+      'cancelled',
+    ],
     example: 'open',
     default: 'open',
   })
