@@ -59,9 +59,6 @@ enum SubscriptionStatus {
 }
 
 enum JobType {
-  hourly
-  daily
-  weekly
   full_time
   part_time
   contract
@@ -69,12 +66,16 @@ enum JobType {
 
 enum JobPaymentType {
   hourly
+  daily
+  weekly
   fixed
 }
 
 enum JobStatus {
   open
   assigned
+  check_in
+  check_out
   completed
   cancelled
 }

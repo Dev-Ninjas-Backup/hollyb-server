@@ -47,6 +47,8 @@ export class JwtAuthGuard implements CanActivate {
       );
     }
 
+    console.log('✅ Token extracted:', token.substring(0, 30) + '...');
+
     let payload: { sub: string; role: string };
 
     try {
