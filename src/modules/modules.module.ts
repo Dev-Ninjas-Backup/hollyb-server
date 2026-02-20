@@ -8,6 +8,7 @@ import { ProfileModule } from './profile/profile.module';
 import { NotificationModule } from './notification/notification.module';
 import { SubscriptionModule } from './subscription/subscription.module';
 import { AdminModule } from './admin/admin.module';
+import { EmployerModule } from './employer/employer.module';
 
 const devOnlyImports =
   process.env.NODE_ENV === 'development' ? [DevToolsModule] : [];
@@ -22,6 +23,7 @@ const devOnlyImports =
     NotificationModule,
     SubscriptionModule,
     AdminModule,
+    EmployerModule,
   ],
 })
 export class ModulesModule {}

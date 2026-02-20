@@ -2750,20 +2750,23 @@ export const JobScalarFieldEnum = {
   id: 'id',
   employer_id: 'employer_id',
   title: 'title',
-  category: 'category',
+  company_name: 'company_name',
   description: 'description',
+  job_responsibilities: 'job_responsibilities',
+  requirements: 'requirements',
+  fileId: 'fileId',
   job_type: 'job_type',
   is_urgent: 'is_urgent',
+  status: 'status',
   start_date: 'start_date',
   end_date: 'end_date',
   start_time: 'start_time',
   end_time: 'end_time',
-  payment_type: 'payment_type',
   amount: 'amount',
+  payment_type: 'payment_type',
   location: 'location',
   latitude: 'latitude',
   longitude: 'longitude',
-  status: 'status',
   created_at: 'created_at',
   updated_at: 'updated_at',
 } as const;
@@ -3207,6 +3210,8 @@ export type ListEnumJobTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
 >;
 
 /**
+<<<<<<< HEAD
+=======
  * Reference to a field of type 'JobPaymentType'
  */
 export type EnumJobPaymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
@@ -3221,6 +3226,7 @@ export type ListEnumJobPaymentTypeFieldRefInput<$PrismaModel> =
   FieldRefInputType<$PrismaModel, 'JobPaymentType[]'>;
 
 /**
+>>>>>>> c3f071a97f89da86ec6c888f7f2b713ea155513d
  * Reference to a field of type 'JobStatus'
  */
 export type EnumJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
@@ -3235,6 +3241,20 @@ export type ListEnumJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
   $PrismaModel,
   'JobStatus[]'
 >;
+
+/**
+ * Reference to a field of type 'JobPaymentType'
+ */
+export type EnumJobPaymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobPaymentType'>
+    
+
+
+/**
+ * Reference to a field of type 'JobPaymentType[]'
+ */
+export type ListEnumJobPaymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobPaymentType[]'>
+    
+
 
 /**
  * Reference to a field of type 'OtpType'

@@ -1,21 +1,31 @@
 model Job {
   id           String         @id @default(uuid()) @db.Uuid
   employer_id  String         @db.Uuid
+
   title        String
-  category     String?
+  company_name String
   description  String?
+  job_responsibilities String?
+  requirements  String?
+  fileId String? @unique
+  file   FileInstance? @relation(fields: [fileId], references: [id], onDelete: SetNull)
+
   job_type     JobType
   is_urgent    Boolean        @default(false)
+  status       JobStatus      @default(open)
+
   start_date   DateTime?      @db.Date
   end_date     DateTime?      @db.Date
   start_time   DateTime?      @db.Time(6)
   end_time     DateTime?      @db.Time(6)
-  payment_type JobPaymentType
+
   amount       Decimal?       @db.Decimal(12, 2)
+  payment_type JobPaymentType
+
   location     String?
   latitude     Float?
   longitude    Float?
-  status       JobStatus
+
   created_at   DateTime       @default(now())
   updated_at   DateTime       @updatedAt
 
