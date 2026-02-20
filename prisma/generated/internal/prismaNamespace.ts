@@ -3245,16 +3245,16 @@ export type ListEnumJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
 /**
  * Reference to a field of type 'JobPaymentType'
  */
-export type EnumJobPaymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobPaymentType'>
-    
-
+export type EnumJobPaymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
+  $PrismaModel,
+  'JobPaymentType'
+>;
 
 /**
  * Reference to a field of type 'JobPaymentType[]'
  */
-export type ListEnumJobPaymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobPaymentType[]'>
-    
-
+export type ListEnumJobPaymentTypeFieldRefInput<$PrismaModel> =
+  FieldRefInputType<$PrismaModel, 'JobPaymentType[]'>;
 
 /**
  * Reference to a field of type 'OtpType'

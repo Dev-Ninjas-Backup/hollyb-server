@@ -11,6 +11,7 @@ import {
   PaymentMethod,
 } from '@prisma';
 import { DirectPaymentDto } from './dto/direct-payment.dto';
+import { RenewSubscriptionDto } from './dto/renew-subscription.dto';
 
 @Injectable()
 export class SubscriptionService {
@@ -60,6 +61,9 @@ export class SubscriptionService {
             user_id: userId,
             status: SubscriptionStatus.active,
             plan_type: dto.planType,
+            end_date: {
+              gt: new Date(),
+            },
           },
         });
 
@@ -167,6 +171,185 @@ export class SubscriptionService {
     }
   }
 
+  async renewSubscription(userId: string, dto: RenewSubscriptionDto) {
+    try {
+      const user = await this.prisma.client.user.findUnique({
+        where: { id: userId },
+      });
+
+      if (!user) {
+        throw new BusinessException('User not found', HttpStatus.NOT_FOUND);
+      }
+
+      const existingSubscription =
+        await this.prisma.client.subscription.findUnique({
+          where: { id: dto.subscriptionId },
+        });
+
+      if (!existingSubscription) {
+        throw new BusinessException(
+          'Subscription not found',
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
+      if (existingSubscription.user_id !== userId) {
+        throw new BusinessException(
+          'You do not have permission to renew this subscription',
+          HttpStatus.FORBIDDEN,
+        );
+      }
+
+      const now = new Date();
+      if (now <= existingSubscription.end_date) {
+        throw new BusinessException(
+          'Your subscription is still active. You can only renew after it expires.',
+          HttpStatus.CONFLICT,
+        );
+      }
+
+      const amount = await this.getPlanAmount(existingSubscription.plan_type);
+      const amountInCents = Math.round(Number(amount) * 100);
+
+      const paymentIntent = await this.stripe.paymentIntents.create({
+        amount: amountInCents,
+        currency: 'usd',
+        automatic_payment_methods: {
+          enabled: true,
+          allow_redirects: 'never',
+        },
+        payment_method: dto.paymentMethodId,
+        confirm: true,
+        metadata: {
+          userId,
+          planType: existingSubscription.plan_type,
+          isRenewal: 'true',
+          previousSubscriptionId: dto.subscriptionId,
+        },
+      });
+
+      if (paymentIntent.status !== 'succeeded') {
+        throw new BusinessException(
+          'Payment processing failed. Please try again.',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      const payment = await this.prisma.client.payment.create({
+        data: {
+          user_id: userId,
+          type: PaymentType.subscription,
+          amount: String((paymentIntent.amount / 100).toFixed(2)),
+          currency: paymentIntent.currency.toUpperCase(),
+          payment_method: PaymentMethod.card,
+          transaction_id: paymentIntent.id,
+          status: PaymentStatus.success,
+          paid_at: new Date(),
+        },
+      });
+
+      const startDate = new Date();
+      const endDate = new Date();
+      endDate.setMonth(endDate.getMonth() + 1);
+
+      const newSubscription = await this.prisma.client.subscription.create({
+        data: {
+          user_id: userId,
+          plan_type: existingSubscription.plan_type,
+          amount: String((paymentIntent.amount / 100).toFixed(2)),
+          payment_id: payment.id,
+          start_date: startDate,
+          end_date: endDate,
+          status: SubscriptionStatus.active,
+        },
+      });
+
+      this.logger.log(
+        `Subscription renewed for user ${userId}: ${existingSubscription.plan_type}`,
+      );
+
+      return {
+        success: true,
+        message: 'Your subscription has been successfully renewed.',
+        subscription: {
+          subscriptionId: newSubscription.id,
+          status: newSubscription.status,
+          planType: newSubscription.plan_type,
+          amount: newSubscription.amount,
+          startDate: newSubscription.start_date,
+          endDate: newSubscription.end_date,
+          paymentId: payment.id,
+        },
+      };
+    } catch (error) {
+      if (error instanceof Stripe.errors.StripeCardError) {
+        throw new BusinessException(
+          error.message ||
+            'Card payment failed. Please check card details and try again.',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      if (error instanceof Stripe.errors.StripeInvalidRequestError) {
+        throw new BusinessException(
+          error.message || 'Invalid payment request. Please try again.',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      this.logger.error(`Subscription renewal failed: ${error.message}`);
+      if (error instanceof BusinessException) throw error;
+      throw new BusinessException(
+        'Subscription renewal failed. Please try again.',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
+
+  async getCurrentActiveSubscription(userId: string) {
+    const now = new Date();
+
+    const currentSubscription = await this.prisma.client.subscription.findFirst(
+      {
+        where: {
+          user_id: userId,
+        },
+        orderBy: {
+          created_at: 'desc',
+        },
+      },
+    );
+
+    if (!currentSubscription) {
+      return {
+        hasSubscription: false,
+        hasActiveSubscription: false,
+        subscription: null,
+      };
+    }
+
+    const isExpired = now > currentSubscription.end_date;
+    const isActive =
+      currentSubscription.status === SubscriptionStatus.active && !isExpired;
+
+    return {
+      hasSubscription: true,
+      hasActiveSubscription: isActive,
+      subscription: {
+        id: currentSubscription.id,
+        planType: currentSubscription.plan_type,
+        amount: currentSubscription.amount,
+        status: currentSubscription.status,
+        startDate: currentSubscription.start_date,
+        endDate: currentSubscription.end_date,
+        isExpired,
+        isActive,
+        isRunning: isActive,
+        canRenew: isExpired,
+      },
+    };
+  }
+
   async getUserSubscription(userId: string) {
     const subscriptions = await this.prisma.client.subscription.findMany({
       where: { user_id: userId },
@@ -174,15 +357,22 @@ export class SubscriptionService {
       orderBy: { created_at: 'desc' },
     });
 
-    return subscriptions.map((sub) => ({
-      id: sub.id,
-      planType: sub.plan_type,
-      amount: sub.amount,
-      status: sub.status,
-      startDate: sub.start_date,
-      endDate: sub.end_date,
-      isExpired: new Date() > sub.end_date,
-    }));
+    return subscriptions.map((sub) => {
+      const isExpired = new Date() > sub.end_date;
+      const isActive = sub.status === SubscriptionStatus.active && !isExpired;
+
+      return {
+        id: sub.id,
+        planType: sub.plan_type,
+        amount: sub.amount,
+        status: sub.status,
+        startDate: sub.start_date,
+        endDate: sub.end_date,
+        isExpired,
+        isActive,
+        isRunning: isActive,
+      };
+    });
   }
 
   async checkActiveSubscription(

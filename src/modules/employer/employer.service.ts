@@ -21,7 +21,11 @@ export class EmployerService {
    * @param dto - Job creation data
    * @returns Created job with relations
    */
-  async createJob(userId: string, dto: CreateJobDto, files?: Express.Multer.File | undefined) {
+  async createJob(
+    userId: string,
+    dto: CreateJobDto,
+    files?: Express.Multer.File | undefined,
+  ) {
     // 1. Get employer profile for the user
     const employerProfile = await this.prisma.client.employerProfile.findUnique(
       {
@@ -29,13 +33,9 @@ export class EmployerService {
         select: { id: true, company_name: true },
       },
     );
-    
 
     if (!employerProfile) {
-      throw new ResourceNotFoundException(
-        'Employer profile',
-        userId,
-      );
+      throw new ResourceNotFoundException('Employer profile', userId);
     }
 
     // 2. Validate dates if provided
@@ -151,7 +151,8 @@ export class EmployerService {
     if (mimeType.startsWith('image/')) return FileType.image;
     if (mimeType.startsWith('video/')) return FileType.video;
     if (mimeType.startsWith('audio/')) return FileType.audio;
-    if (mimeType.includes('pdf') || mimeType.includes('document')) return FileType.document;
+    if (mimeType.includes('pdf') || mimeType.includes('document'))
+      return FileType.document;
     return FileType.any;
   }
 }

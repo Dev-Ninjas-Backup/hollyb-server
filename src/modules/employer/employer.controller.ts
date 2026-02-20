@@ -12,7 +12,14 @@ import {
   UseInterceptors,
   UploadedFiles,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiConsumes, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { EmployerService } from './employer.service';
 import { CreateJobDto } from './dto/create-job.dto';
 import { BusinessException } from '@/common/exceptions/business.exception';
@@ -46,6 +53,10 @@ export class EmployerController {
       );
     }
 
-    return this.employerService.createJob(req.user.sub, dto, uploadedFiles?.file?.[0]);
+    return this.employerService.createJob(
+      req.user.sub,
+      dto,
+      uploadedFiles?.file?.[0],
+    );
   }
 }

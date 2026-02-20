@@ -157,11 +157,10 @@ export class CreateJobDto {
 
   @ApiPropertyOptional({
     description: 'Longitude coordinate',
-    example: -74.0060,
+    example: -74.006,
   })
   @IsOptional()
   @Type(() => Number)
   @IsLongitude()
   longitude?: number;
-
 }
