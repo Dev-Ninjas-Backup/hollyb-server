@@ -14,6 +14,8 @@ import {
   ApiBody,
   ApiConsumes,
   ApiExtraModels,
+  ApiOperation,
+  ApiResponse,
   ApiTags,
   getSchemaPath,
 } from '@nestjs/swagger';
@@ -36,6 +38,19 @@ export class ProfileDocumentsController {
   ) {}
 
   @Get()
+  @ApiOperation({
+    summary: 'Get all user documents',
+    description:
+      'Retrieve all uploaded documents for the authenticated user including profile photo, NID, passport, trade license, and utility bill.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Documents retrieved successfully.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing token.',
+  })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   getMyDocuments(@Req() req: AuthenticatedRequest) {
@@ -43,6 +58,23 @@ export class ProfileDocumentsController {
   }
 
   @Post('profile-photo')
+  @ApiOperation({
+    summary: 'Upload profile photo',
+    description:
+      'Upload or update user profile photo. Maximum file size: 5MB. Supported formats: JPG, PNG.',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Profile photo uploaded successfully.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid file format or file too large.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing token.',
+  })
   @ApiBearerAuth()
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -71,6 +103,23 @@ export class ProfileDocumentsController {
   }
 
   @Post('trade-license')
+  @ApiOperation({
+    summary: 'Upload trade license',
+    description:
+      'Upload trade license document (front and back sides). Required for employer accounts. Maximum file size per file: 5MB.',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Trade license uploaded successfully.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid file format, missing files, or file too large.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing token.',
+  })
   @ApiBearerAuth()
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -111,6 +160,20 @@ export class ProfileDocumentsController {
   }
 
   @Post('nid')
+  @ApiOperation({
+    summary: 'Upload National ID (NID)',
+    description:
+      'Upload National ID card (front and back sides). Required for identity verification. Maximum file size per file: 5MB.',
+  })
+  @ApiResponse({ status: 201, description: 'NID uploaded successfully.' })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid file format, missing files, or file too large.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing token.',
+  })
   @ApiBearerAuth()
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -151,6 +214,20 @@ export class ProfileDocumentsController {
   }
 
   @Post('passport')
+  @ApiOperation({
+    summary: 'Upload passport',
+    description:
+      'Upload passport document (front and back sides). Alternative to NID for identity verification. Maximum file size per file: 5MB.',
+  })
+  @ApiResponse({ status: 201, description: 'Passport uploaded successfully.' })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid file format, missing files, or file too large.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing token.',
+  })
   @ApiBearerAuth()
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -191,6 +268,23 @@ export class ProfileDocumentsController {
   }
 
   @Post('utility-bill')
+  @ApiOperation({
+    summary: 'Upload utility bill',
+    description:
+      'Upload utility bill for address verification. Include bill file and address information. Maximum file size: 5MB.',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Utility bill uploaded successfully.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid file format or file too large.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing token.',
+  })
   @ApiBearerAuth()
   @ApiConsumes('multipart/form-data')
   @ApiBody({
