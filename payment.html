@@ -207,31 +207,28 @@
       <!-- Renew Tab -->
       <div id="renew" class="tab-content">
         <div class="field">
-          <label for="targetUserId">Target User ID (UUID)</label>
-          <input
-            id="targetUserId"
-            placeholder="550e8400-e29b-41d4-a716-446655440000"
-          />
-        </div>
-
-        <div class="field">
           <label>
             <button
-              id="loadSubscriptionsBtn"
+              id="checkSubscriptionBtn"
               style="width: auto; padding: 8px 16px; margin-bottom: 10px"
             >
-              Load User Subscriptions
+              Check My Current Subscription
             </button>
           </label>
         </div>
 
-        <div class="field">
-          <label>Select Expired Subscription to Renew</label>
-          <div id="subscriptionList" class="subscription-list" style="display: none"></div>
-          <p id="noSubscriptions" style="color: #6b7280; font-size: 13px; margin: 0">
-            Enter target user id and load subscriptions first
-          </p>
+        <div id="subscriptionStatus" style="display: none; margin-bottom: 14px">
+          <div id="currentSubscriptionInfo" style="
+            border: 1px solid #d7dce8;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 13px;
+          "></div>
         </div>
+
+        <p id="subscriptionMessage" style="color: #6b7280; font-size: 13px; margin: 0">
+          Click button above to check your current subscription status
+        </p>
 
         <div id="renewCardSection" style="display: none">
           <div class="field">
@@ -273,10 +270,10 @@
       const tabBtns = document.querySelectorAll('.tab-btn');
       const tabContents = document.querySelectorAll('.tab-content');
 
-      const loadSubscriptionsBtn = document.getElementById('loadSubscriptionsBtn');
-      const targetUserIdInput = document.getElementById('targetUserId');
-      const subscriptionListEl = document.getElementById('subscriptionList');
-      const noSubscriptionsEl = document.getElementById('noSubscriptions');
+      const checkSubscriptionBtn = document.getElementById('checkSubscriptionBtn');
+      const subscriptionStatusEl = document.getElementById('subscriptionStatus');
+      const currentSubscriptionInfoEl = document.getElementById('currentSubscriptionInfo');
+      const subscriptionMessageEl = document.getElementById('subscriptionMessage');
       const renewCardSectionEl = document.getElementById('renewCardSection');
       const renewCardholderNameInput = document.getElementById('renewCardholderName');
       const renewBtn = document.getElementById('renewBtn');
@@ -291,7 +288,7 @@
       let renewCardNumberElement;
       let renewCardExpiryElement;
       let renewCardCvcElement;
-      let selectedSubscription = null;
+      let currentSubscription = null;
       let stripeInitialized = false;
 
       function showResult(ok, data, resultEl) {
@@ -362,95 +359,94 @@
         stripeInitialized = true;
       }
 
-      loadSubscriptionsBtn.addEventListener('click', async () => {
-        loadSubscriptionsBtn.disabled = true;
-        loadSubscriptionsBtn.textContent = 'Loading...';
+      checkSubscriptionBtn.addEventListener('click', async () => {
+        checkSubscriptionBtn.disabled = true;
+        checkSubscriptionBtn.textContent = 'Checking...';
 
         try {
           const baseUrl = baseUrlInput.value.trim();
           const token = tokenInput.value.trim();
-          const targetUserId = targetUserIdInput.value.trim();
 
           if (!token) {
             throw new Error('Bearer token is required');
           }
 
-          if (!targetUserId) {
-            throw new Error('Target user id is required');
-          }
-
-          selectedSubscription = null;
+          currentSubscription = null;
           renewCardSectionEl.style.display = 'none';
+          renewResultEl.style.display = 'none';
 
-          const res = await fetch(
-            `${baseUrl}/subscription/users/${encodeURIComponent(targetUserId)}/subscriptions`,
-            {
+          const res = await fetch(`${baseUrl}/subscription/my-subscriptions/current`, {
             method: 'GET',
             headers: {
               Authorization: `Bearer ${token}`,
             },
-            },
-          );
+          });
 
           const json = await res.json();
 
           if (!res.ok) {
-            throw new Error(json?.message || 'Failed to load subscriptions');
+            throw new Error(json?.message || 'Failed to load subscription');
           }
 
-          const subscriptions = json?.data || [];
-          const now = new Date();
-          const expiredSubscriptions = subscriptions.filter(
-            (sub) => new Date(sub.endDate) < now,
-          );
+          const subscription = json?.data;
 
-          subscriptionListEl.innerHTML = '';
-
-          if (expiredSubscriptions.length === 0) {
-            subscriptionListEl.style.display = 'none';
-            noSubscriptionsEl.textContent = 'No expired subscriptions found';
-            noSubscriptionsEl.style.display = 'block';
+          if (!subscription || !subscription.hasSubscription) {
+            subscriptionStatusEl.style.display = 'none';
+            subscriptionMessageEl.textContent = 'No subscription found. Please create a new subscription first.';
+            subscriptionMessageEl.style.display = 'block';
+            subscriptionMessageEl.style.color = '#dc2626';
             return;
           }
 
-          subscriptionListEl.style.display = 'block';
-          noSubscriptionsEl.style.display = 'none';
+          const isActive = subscription.hasActiveSubscription;
+          const sub = subscription.subscription;
+          const now = new Date();
+          const endDate = new Date(sub.endDate);
 
-          expiredSubscriptions.forEach((sub) => {
-            const item = document.createElement('div');
-            item.className = 'subscription-item expired';
-            item.innerHTML = `
-              <input 
-                type="radio" 
-                name="subscription" 
-                value="${sub.id}" 
-                data-plan="${sub.planType}"
-              />
-              <div class="subscription-info">
-                <div class="subscription-status expired">Expired</div>
-                <div>${sub.planType}</div>
-                <div style="color: #9ca3af">Ended: ${new Date(sub.endDate).toLocaleDateString()}</div>
+          subscriptionStatusEl.style.display = 'block';
+          subscriptionMessageEl.style.display = 'none';
+
+          if (isActive) {
+            currentSubscriptionInfoEl.innerHTML = `
+              <div style="margin-bottom: 8px">
+                <span style="font-weight: 600; color: #059669">● Active Subscription</span>
+              </div>
+              <div style="margin-bottom: 4px"><strong>Plan:</strong> ${sub.planType}</div>
+              <div style="margin-bottom: 4px"><strong>Start:</strong> ${new Date(sub.startDate).toLocaleDateString()}</div>
+              <div style="margin-bottom: 4px"><strong>End:</strong> ${endDate.toLocaleDateString()}</div>
+              <div style="margin-top: 12px; padding: 10px; background: #fef3c7; border-radius: 8px; color: #92400e">
+                Your subscription is currently active. You can only renew after it expires on ${endDate.toLocaleDateString()}.
               </div>
             `;
+            renewCardSectionEl.style.display = 'none';
+          } else {
+            currentSubscription = {
+              id: sub.id,
+              planType: sub.planType,
+              endDate: sub.endDate,
+            };
 
-            const radio = item.querySelector('input');
-            radio.addEventListener('change', () => {
-              selectedSubscription = {
-                id: sub.id,
-                planType: sub.planType,
-              };
-              renewCardSectionEl.style.display = 'block';
-            });
-
-            subscriptionListEl.appendChild(item);
-          });
+            currentSubscriptionInfoEl.innerHTML = `
+              <div style="margin-bottom: 8px">
+                <span style="font-weight: 600; color: #dc2626">● Expired Subscription</span>
+              </div>
+              <div style="margin-bottom: 4px"><strong>Plan:</strong> ${sub.planType}</div>
+              <div style="margin-bottom: 4px"><strong>Start:</strong> ${new Date(sub.startDate).toLocaleDateString()}</div>
+              <div style="margin-bottom: 4px"><strong>Expired on:</strong> ${endDate.toLocaleDateString()}</div>
+              <div style="margin-top: 12px; padding: 10px; background: #fee2e2; border-radius: 8px; color: #991b1b">
+                This subscription has expired. Please renew below to continue using premium features.
+              </div>
+            `;
+            renewCardSectionEl.style.display = 'block';
+          }
         } catch (err) {
-          noSubscriptionsEl.textContent = err.message || 'Failed to load subscriptions';
-          noSubscriptionsEl.style.display = 'block';
-          subscriptionListEl.style.display = 'none';
+          subscriptionStatusEl.style.display = 'none';
+          subscriptionMessageEl.textContent = err.message || 'Failed to load subscription';
+          subscriptionMessageEl.style.display = 'block';
+          subscriptionMessageEl.style.color = '#dc2626';
         } finally {
-          loadSubscriptionsBtn.disabled = false;
-          loadSubscriptionsBtn.textContent = 'Load User Subscriptions';
+          checkSubscriptionBtn.disabled = false;
+          checkSubscriptionBtn.textContent = 'Check My Current Subscription';
         }
       });
 
@@ -507,8 +503,8 @@
         showResult(false, 'Processing renewal...', renewResultEl);
 
         try {
-          if (!selectedSubscription) {
-            throw new Error('Please select a subscription to renew');
+          if (!currentSubscription) {
+            throw new Error('Please check your subscription first');
           }
 
           await initStripe();
@@ -535,7 +531,7 @@
               Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify({
-              subscriptionId: selectedSubscription.id,
+              subscriptionId: currentSubscription.id,
               paymentMethodId: pmResult.paymentMethod.id,
             }),
           });
@@ -547,6 +543,14 @@
           }
 
           showResult(true, renewJson, renewResultEl);
+          
+          // Reset and hide the card section
+          currentSubscription = null;
+          renewCardSectionEl.style.display = 'none';
+          subscriptionStatusEl.style.display = 'none';
+          subscriptionMessageEl.textContent = 'Renewal successful! Click button above to check your updated subscription.';
+          subscriptionMessageEl.style.display = 'block';
+          subscriptionMessageEl.style.color = '#059669';
         } catch (err) {
           showResult(false, err.message || 'Unexpected error', renewResultEl);
         } finally {

@@ -13,6 +13,8 @@ import {
   ApiBody,
   ApiConsumes,
   ApiExtraModels,
+  ApiOperation,
+  ApiResponse,
   ApiTags,
   getSchemaPath,
 } from '@nestjs/swagger';
@@ -30,6 +32,16 @@ export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
 
   @Get('get-me')
+  @ApiOperation({
+    summary: 'Get current user profile',
+    description:
+      'Retrieve the complete profile information of the authenticated user.',
+  })
+  @ApiResponse({ status: 200, description: 'Profile retrieved successfully.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing token.',
+  })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   getMe(@Req() req: AuthenticatedRequest) {
@@ -37,6 +49,17 @@ export class ProfileController {
   }
 
   @Patch('update-me')
+  @ApiOperation({
+    summary: 'Update user profile',
+    description:
+      'Update authenticated user profile information including optional profile photo upload. Maximum file size: 5MB.',
+  })
+  @ApiResponse({ status: 200, description: 'Profile updated successfully.' })
+  @ApiResponse({ status: 400, description: 'Invalid input or file too large.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing token.',
+  })
   @ApiBearerAuth()
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -68,6 +91,19 @@ export class ProfileController {
   }
 
   @Get('notify')
+  @ApiOperation({
+    summary: 'Get notification status',
+    description:
+      'Check if push notifications are enabled for the authenticated user.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Notification status retrieved successfully.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing token.',
+  })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   getNotify(@Req() req: AuthenticatedRequest) {
@@ -75,6 +111,19 @@ export class ProfileController {
   }
 
   @Patch('notify')
+  @ApiOperation({
+    summary: 'Toggle notification setting',
+    description:
+      'Enable or disable push notifications for the authenticated user.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Notification setting updated successfully.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing token.',
+  })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   toggleNotify(@Req() req: AuthenticatedRequest) {
