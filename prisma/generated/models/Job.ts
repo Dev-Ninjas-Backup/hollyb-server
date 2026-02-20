@@ -42,20 +42,23 @@ export type JobMinAggregateOutputType = {
   id: string | null
   employer_id: string | null
   title: string | null
-  category: string | null
+  company_name: string | null
   description: string | null
+  job_responsibilities: string | null
+  requirements: string | null
+  fileId: string | null
   job_type: $Enums.JobType | null
   is_urgent: boolean | null
+  status: $Enums.JobStatus | null
   start_date: Date | null
   end_date: Date | null
   start_time: Date | null
   end_time: Date | null
-  payment_type: $Enums.JobPaymentType | null
   amount: runtime.Decimal | null
+  payment_type: $Enums.JobPaymentType | null
   location: string | null
   latitude: number | null
   longitude: number | null
-  status: $Enums.JobStatus | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -64,20 +67,23 @@ export type JobMaxAggregateOutputType = {
   id: string | null
   employer_id: string | null
   title: string | null
-  category: string | null
+  company_name: string | null
   description: string | null
+  job_responsibilities: string | null
+  requirements: string | null
+  fileId: string | null
   job_type: $Enums.JobType | null
   is_urgent: boolean | null
+  status: $Enums.JobStatus | null
   start_date: Date | null
   end_date: Date | null
   start_time: Date | null
   end_time: Date | null
-  payment_type: $Enums.JobPaymentType | null
   amount: runtime.Decimal | null
+  payment_type: $Enums.JobPaymentType | null
   location: string | null
   latitude: number | null
   longitude: number | null
-  status: $Enums.JobStatus | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -86,20 +92,23 @@ export type JobCountAggregateOutputType = {
   id: number
   employer_id: number
   title: number
-  category: number
+  company_name: number
   description: number
+  job_responsibilities: number
+  requirements: number
+  fileId: number
   job_type: number
   is_urgent: number
+  status: number
   start_date: number
   end_date: number
   start_time: number
   end_time: number
-  payment_type: number
   amount: number
+  payment_type: number
   location: number
   latitude: number
   longitude: number
-  status: number
   created_at: number
   updated_at: number
   _all: number
@@ -122,20 +131,23 @@ export type JobMinAggregateInputType = {
   id?: true
   employer_id?: true
   title?: true
-  category?: true
+  company_name?: true
   description?: true
+  job_responsibilities?: true
+  requirements?: true
+  fileId?: true
   job_type?: true
   is_urgent?: true
+  status?: true
   start_date?: true
   end_date?: true
   start_time?: true
   end_time?: true
-  payment_type?: true
   amount?: true
+  payment_type?: true
   location?: true
   latitude?: true
   longitude?: true
-  status?: true
   created_at?: true
   updated_at?: true
 }
@@ -144,20 +156,23 @@ export type JobMaxAggregateInputType = {
   id?: true
   employer_id?: true
   title?: true
-  category?: true
+  company_name?: true
   description?: true
+  job_responsibilities?: true
+  requirements?: true
+  fileId?: true
   job_type?: true
   is_urgent?: true
+  status?: true
   start_date?: true
   end_date?: true
   start_time?: true
   end_time?: true
-  payment_type?: true
   amount?: true
+  payment_type?: true
   location?: true
   latitude?: true
   longitude?: true
-  status?: true
   created_at?: true
   updated_at?: true
 }
@@ -166,20 +181,23 @@ export type JobCountAggregateInputType = {
   id?: true
   employer_id?: true
   title?: true
-  category?: true
+  company_name?: true
   description?: true
+  job_responsibilities?: true
+  requirements?: true
+  fileId?: true
   job_type?: true
   is_urgent?: true
+  status?: true
   start_date?: true
   end_date?: true
   start_time?: true
   end_time?: true
-  payment_type?: true
   amount?: true
+  payment_type?: true
   location?: true
   latitude?: true
   longitude?: true
-  status?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -275,20 +293,23 @@ export type JobGroupByOutputType = {
   id: string
   employer_id: string
   title: string
-  category: string | null
+  company_name: string
   description: string | null
+  job_responsibilities: string | null
+  requirements: string | null
+  fileId: string | null
   job_type: $Enums.JobType
   is_urgent: boolean
+  status: $Enums.JobStatus
   start_date: Date | null
   end_date: Date | null
   start_time: Date | null
   end_time: Date | null
-  payment_type: $Enums.JobPaymentType
   amount: runtime.Decimal | null
+  payment_type: $Enums.JobPaymentType
   location: string | null
   latitude: number | null
   longitude: number | null
-  status: $Enums.JobStatus
   created_at: Date
   updated_at: Date
   _count: JobCountAggregateOutputType | null
@@ -320,22 +341,26 @@ export type JobWhereInput = {
   id?: Prisma.UuidFilter<"Job"> | string
   employer_id?: Prisma.UuidFilter<"Job"> | string
   title?: Prisma.StringFilter<"Job"> | string
-  category?: Prisma.StringNullableFilter<"Job"> | string | null
+  company_name?: Prisma.StringFilter<"Job"> | string
   description?: Prisma.StringNullableFilter<"Job"> | string | null
+  job_responsibilities?: Prisma.StringNullableFilter<"Job"> | string | null
+  requirements?: Prisma.StringNullableFilter<"Job"> | string | null
+  fileId?: Prisma.StringNullableFilter<"Job"> | string | null
   job_type?: Prisma.EnumJobTypeFilter<"Job"> | $Enums.JobType
   is_urgent?: Prisma.BoolFilter<"Job"> | boolean
+  status?: Prisma.EnumJobStatusFilter<"Job"> | $Enums.JobStatus
   start_date?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
   end_date?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
   start_time?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
   end_time?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeFilter<"Job"> | $Enums.JobPaymentType
   amount?: Prisma.DecimalNullableFilter<"Job"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFilter<"Job"> | $Enums.JobPaymentType
   location?: Prisma.StringNullableFilter<"Job"> | string | null
   latitude?: Prisma.FloatNullableFilter<"Job"> | number | null
   longitude?: Prisma.FloatNullableFilter<"Job"> | number | null
-  status?: Prisma.EnumJobStatusFilter<"Job"> | $Enums.JobStatus
   created_at?: Prisma.DateTimeFilter<"Job"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Job"> | Date | string
+  file?: Prisma.XOR<Prisma.FileInstanceNullableScalarRelationFilter, Prisma.FileInstanceWhereInput> | null
   employer?: Prisma.XOR<Prisma.EmployerProfileScalarRelationFilter, Prisma.EmployerProfileWhereInput>
   job_skills?: Prisma.JobSkillListRelationFilter
   job_applications?: Prisma.JobApplicationListRelationFilter
@@ -349,22 +374,26 @@ export type JobOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   employer_id?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  category?: Prisma.SortOrderInput | Prisma.SortOrder
+  company_name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  job_responsibilities?: Prisma.SortOrderInput | Prisma.SortOrder
+  requirements?: Prisma.SortOrderInput | Prisma.SortOrder
+  fileId?: Prisma.SortOrderInput | Prisma.SortOrder
   job_type?: Prisma.SortOrder
   is_urgent?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   start_date?: Prisma.SortOrderInput | Prisma.SortOrder
   end_date?: Prisma.SortOrderInput | Prisma.SortOrder
   start_time?: Prisma.SortOrderInput | Prisma.SortOrder
   end_time?: Prisma.SortOrderInput | Prisma.SortOrder
-  payment_type?: Prisma.SortOrder
   amount?: Prisma.SortOrderInput | Prisma.SortOrder
+  payment_type?: Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
-  status?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
+  file?: Prisma.FileInstanceOrderByWithRelationInput
   employer?: Prisma.EmployerProfileOrderByWithRelationInput
   job_skills?: Prisma.JobSkillOrderByRelationAggregateInput
   job_applications?: Prisma.JobApplicationOrderByRelationAggregateInput
@@ -376,27 +405,31 @@ export type JobOrderByWithRelationInput = {
 
 export type JobWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  fileId?: string
   AND?: Prisma.JobWhereInput | Prisma.JobWhereInput[]
   OR?: Prisma.JobWhereInput[]
   NOT?: Prisma.JobWhereInput | Prisma.JobWhereInput[]
   employer_id?: Prisma.UuidFilter<"Job"> | string
   title?: Prisma.StringFilter<"Job"> | string
-  category?: Prisma.StringNullableFilter<"Job"> | string | null
+  company_name?: Prisma.StringFilter<"Job"> | string
   description?: Prisma.StringNullableFilter<"Job"> | string | null
+  job_responsibilities?: Prisma.StringNullableFilter<"Job"> | string | null
+  requirements?: Prisma.StringNullableFilter<"Job"> | string | null
   job_type?: Prisma.EnumJobTypeFilter<"Job"> | $Enums.JobType
   is_urgent?: Prisma.BoolFilter<"Job"> | boolean
+  status?: Prisma.EnumJobStatusFilter<"Job"> | $Enums.JobStatus
   start_date?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
   end_date?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
   start_time?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
   end_time?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeFilter<"Job"> | $Enums.JobPaymentType
   amount?: Prisma.DecimalNullableFilter<"Job"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFilter<"Job"> | $Enums.JobPaymentType
   location?: Prisma.StringNullableFilter<"Job"> | string | null
   latitude?: Prisma.FloatNullableFilter<"Job"> | number | null
   longitude?: Prisma.FloatNullableFilter<"Job"> | number | null
-  status?: Prisma.EnumJobStatusFilter<"Job"> | $Enums.JobStatus
   created_at?: Prisma.DateTimeFilter<"Job"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Job"> | Date | string
+  file?: Prisma.XOR<Prisma.FileInstanceNullableScalarRelationFilter, Prisma.FileInstanceWhereInput> | null
   employer?: Prisma.XOR<Prisma.EmployerProfileScalarRelationFilter, Prisma.EmployerProfileWhereInput>
   job_skills?: Prisma.JobSkillListRelationFilter
   job_applications?: Prisma.JobApplicationListRelationFilter
@@ -404,26 +437,29 @@ export type JobWhereUniqueInput = Prisma.AtLeast<{
   shifts?: Prisma.ShiftListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
-}, "id">
+}, "id" | "fileId">
 
 export type JobOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   employer_id?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  category?: Prisma.SortOrderInput | Prisma.SortOrder
+  company_name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  job_responsibilities?: Prisma.SortOrderInput | Prisma.SortOrder
+  requirements?: Prisma.SortOrderInput | Prisma.SortOrder
+  fileId?: Prisma.SortOrderInput | Prisma.SortOrder
   job_type?: Prisma.SortOrder
   is_urgent?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   start_date?: Prisma.SortOrderInput | Prisma.SortOrder
   end_date?: Prisma.SortOrderInput | Prisma.SortOrder
   start_time?: Prisma.SortOrderInput | Prisma.SortOrder
   end_time?: Prisma.SortOrderInput | Prisma.SortOrder
-  payment_type?: Prisma.SortOrder
   amount?: Prisma.SortOrderInput | Prisma.SortOrder
+  payment_type?: Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
-  status?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.JobCountOrderByAggregateInput
@@ -440,20 +476,23 @@ export type JobScalarWhereWithAggregatesInput = {
   id?: Prisma.UuidWithAggregatesFilter<"Job"> | string
   employer_id?: Prisma.UuidWithAggregatesFilter<"Job"> | string
   title?: Prisma.StringWithAggregatesFilter<"Job"> | string
-  category?: Prisma.StringNullableWithAggregatesFilter<"Job"> | string | null
+  company_name?: Prisma.StringWithAggregatesFilter<"Job"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Job"> | string | null
+  job_responsibilities?: Prisma.StringNullableWithAggregatesFilter<"Job"> | string | null
+  requirements?: Prisma.StringNullableWithAggregatesFilter<"Job"> | string | null
+  fileId?: Prisma.StringNullableWithAggregatesFilter<"Job"> | string | null
   job_type?: Prisma.EnumJobTypeWithAggregatesFilter<"Job"> | $Enums.JobType
   is_urgent?: Prisma.BoolWithAggregatesFilter<"Job"> | boolean
+  status?: Prisma.EnumJobStatusWithAggregatesFilter<"Job"> | $Enums.JobStatus
   start_date?: Prisma.DateTimeNullableWithAggregatesFilter<"Job"> | Date | string | null
   end_date?: Prisma.DateTimeNullableWithAggregatesFilter<"Job"> | Date | string | null
   start_time?: Prisma.DateTimeNullableWithAggregatesFilter<"Job"> | Date | string | null
   end_time?: Prisma.DateTimeNullableWithAggregatesFilter<"Job"> | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeWithAggregatesFilter<"Job"> | $Enums.JobPaymentType
   amount?: Prisma.DecimalNullableWithAggregatesFilter<"Job"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeWithAggregatesFilter<"Job"> | $Enums.JobPaymentType
   location?: Prisma.StringNullableWithAggregatesFilter<"Job"> | string | null
   latitude?: Prisma.FloatNullableWithAggregatesFilter<"Job"> | number | null
   longitude?: Prisma.FloatNullableWithAggregatesFilter<"Job"> | number | null
-  status?: Prisma.EnumJobStatusWithAggregatesFilter<"Job"> | $Enums.JobStatus
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Job"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"Job"> | Date | string
 }
@@ -461,22 +500,25 @@ export type JobScalarWhereWithAggregatesInput = {
 export type JobCreateInput = {
   id?: string
   title: string
-  category?: string | null
+  company_name: string
   description?: string | null
+  job_responsibilities?: string | null
+  requirements?: string | null
   job_type: $Enums.JobType
   is_urgent?: boolean
+  status?: $Enums.JobStatus
   start_date?: Date | string | null
   end_date?: Date | string | null
   start_time?: Date | string | null
   end_time?: Date | string | null
-  payment_type: $Enums.JobPaymentType
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type: $Enums.JobPaymentType
   location?: string | null
   latitude?: number | null
   longitude?: number | null
-  status: $Enums.JobStatus
   created_at?: Date | string
   updated_at?: Date | string
+  file?: Prisma.FileInstanceCreateNestedOneWithoutJobInput
   employer: Prisma.EmployerProfileCreateNestedOneWithoutJobsInput
   job_skills?: Prisma.JobSkillCreateNestedManyWithoutJobInput
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutJobInput
@@ -490,20 +532,23 @@ export type JobUncheckedCreateInput = {
   id?: string
   employer_id: string
   title: string
-  category?: string | null
+  company_name: string
   description?: string | null
+  job_responsibilities?: string | null
+  requirements?: string | null
+  fileId?: string | null
   job_type: $Enums.JobType
   is_urgent?: boolean
+  status?: $Enums.JobStatus
   start_date?: Date | string | null
   end_date?: Date | string | null
   start_time?: Date | string | null
   end_time?: Date | string | null
-  payment_type: $Enums.JobPaymentType
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type: $Enums.JobPaymentType
   location?: string | null
   latitude?: number | null
   longitude?: number | null
-  status: $Enums.JobStatus
   created_at?: Date | string
   updated_at?: Date | string
   job_skills?: Prisma.JobSkillUncheckedCreateNestedManyWithoutJobInput
@@ -517,22 +562,25 @@ export type JobUncheckedCreateInput = {
 export type JobUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   job_type?: Prisma.EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  file?: Prisma.FileInstanceUpdateOneWithoutJobNestedInput
   employer?: Prisma.EmployerProfileUpdateOneRequiredWithoutJobsNestedInput
   job_skills?: Prisma.JobSkillUpdateManyWithoutJobNestedInput
   job_applications?: Prisma.JobApplicationUpdateManyWithoutJobNestedInput
@@ -546,20 +594,23 @@ export type JobUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   employer_id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   job_type?: Prisma.EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   job_skills?: Prisma.JobSkillUncheckedUpdateManyWithoutJobNestedInput
@@ -574,20 +625,23 @@ export type JobCreateManyInput = {
   id?: string
   employer_id: string
   title: string
-  category?: string | null
+  company_name: string
   description?: string | null
+  job_responsibilities?: string | null
+  requirements?: string | null
+  fileId?: string | null
   job_type: $Enums.JobType
   is_urgent?: boolean
+  status?: $Enums.JobStatus
   start_date?: Date | string | null
   end_date?: Date | string | null
   start_time?: Date | string | null
   end_time?: Date | string | null
-  payment_type: $Enums.JobPaymentType
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type: $Enums.JobPaymentType
   location?: string | null
   latitude?: number | null
   longitude?: number | null
-  status: $Enums.JobStatus
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -595,20 +649,22 @@ export type JobCreateManyInput = {
 export type JobUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   job_type?: Prisma.EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -617,20 +673,23 @@ export type JobUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   employer_id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   job_type?: Prisma.EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -645,6 +704,11 @@ export type JobOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type JobNullableScalarRelationFilter = {
+  is?: Prisma.JobWhereInput | null
+  isNot?: Prisma.JobWhereInput | null
+}
+
 export type JobScalarRelationFilter = {
   is?: Prisma.JobWhereInput
   isNot?: Prisma.JobWhereInput
@@ -654,20 +718,23 @@ export type JobCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   employer_id?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  category?: Prisma.SortOrder
+  company_name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  job_responsibilities?: Prisma.SortOrder
+  requirements?: Prisma.SortOrder
+  fileId?: Prisma.SortOrder
   job_type?: Prisma.SortOrder
   is_urgent?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   start_date?: Prisma.SortOrder
   end_date?: Prisma.SortOrder
   start_time?: Prisma.SortOrder
   end_time?: Prisma.SortOrder
-  payment_type?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  payment_type?: Prisma.SortOrder
   location?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -682,20 +749,23 @@ export type JobMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   employer_id?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  category?: Prisma.SortOrder
+  company_name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  job_responsibilities?: Prisma.SortOrder
+  requirements?: Prisma.SortOrder
+  fileId?: Prisma.SortOrder
   job_type?: Prisma.SortOrder
   is_urgent?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   start_date?: Prisma.SortOrder
   end_date?: Prisma.SortOrder
   start_time?: Prisma.SortOrder
   end_time?: Prisma.SortOrder
-  payment_type?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  payment_type?: Prisma.SortOrder
   location?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -704,20 +774,23 @@ export type JobMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   employer_id?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  category?: Prisma.SortOrder
+  company_name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  job_responsibilities?: Prisma.SortOrder
+  requirements?: Prisma.SortOrder
+  fileId?: Prisma.SortOrder
   job_type?: Prisma.SortOrder
   is_urgent?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   start_date?: Prisma.SortOrder
   end_date?: Prisma.SortOrder
   start_time?: Prisma.SortOrder
   end_time?: Prisma.SortOrder
-  payment_type?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  payment_type?: Prisma.SortOrder
   location?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -726,11 +799,6 @@ export type JobSumOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
-}
-
-export type JobNullableScalarRelationFilter = {
-  is?: Prisma.JobWhereInput | null
-  isNot?: Prisma.JobWhereInput | null
 }
 
 export type JobCreateNestedManyWithoutEmployerInput = {
@@ -773,6 +841,38 @@ export type JobUncheckedUpdateManyWithoutEmployerNestedInput = {
   update?: Prisma.JobUpdateWithWhereUniqueWithoutEmployerInput | Prisma.JobUpdateWithWhereUniqueWithoutEmployerInput[]
   updateMany?: Prisma.JobUpdateManyWithWhereWithoutEmployerInput | Prisma.JobUpdateManyWithWhereWithoutEmployerInput[]
   deleteMany?: Prisma.JobScalarWhereInput | Prisma.JobScalarWhereInput[]
+}
+
+export type JobCreateNestedOneWithoutFileInput = {
+  create?: Prisma.XOR<Prisma.JobCreateWithoutFileInput, Prisma.JobUncheckedCreateWithoutFileInput>
+  connectOrCreate?: Prisma.JobCreateOrConnectWithoutFileInput
+  connect?: Prisma.JobWhereUniqueInput
+}
+
+export type JobUncheckedCreateNestedOneWithoutFileInput = {
+  create?: Prisma.XOR<Prisma.JobCreateWithoutFileInput, Prisma.JobUncheckedCreateWithoutFileInput>
+  connectOrCreate?: Prisma.JobCreateOrConnectWithoutFileInput
+  connect?: Prisma.JobWhereUniqueInput
+}
+
+export type JobUpdateOneWithoutFileNestedInput = {
+  create?: Prisma.XOR<Prisma.JobCreateWithoutFileInput, Prisma.JobUncheckedCreateWithoutFileInput>
+  connectOrCreate?: Prisma.JobCreateOrConnectWithoutFileInput
+  upsert?: Prisma.JobUpsertWithoutFileInput
+  disconnect?: Prisma.JobWhereInput | boolean
+  delete?: Prisma.JobWhereInput | boolean
+  connect?: Prisma.JobWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.JobUpdateToOneWithWhereWithoutFileInput, Prisma.JobUpdateWithoutFileInput>, Prisma.JobUncheckedUpdateWithoutFileInput>
+}
+
+export type JobUncheckedUpdateOneWithoutFileNestedInput = {
+  create?: Prisma.XOR<Prisma.JobCreateWithoutFileInput, Prisma.JobUncheckedCreateWithoutFileInput>
+  connectOrCreate?: Prisma.JobCreateOrConnectWithoutFileInput
+  upsert?: Prisma.JobUpsertWithoutFileInput
+  disconnect?: Prisma.JobWhereInput | boolean
+  delete?: Prisma.JobWhereInput | boolean
+  connect?: Prisma.JobWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.JobUpdateToOneWithWhereWithoutFileInput, Prisma.JobUpdateWithoutFileInput>, Prisma.JobUncheckedUpdateWithoutFileInput>
 }
 
 export type JobCreateNestedOneWithoutJob_applicationsInput = {
@@ -821,12 +921,12 @@ export type EnumJobTypeFieldUpdateOperationsInput = {
   set?: $Enums.JobType
 }
 
-export type EnumJobPaymentTypeFieldUpdateOperationsInput = {
-  set?: $Enums.JobPaymentType
-}
-
 export type EnumJobStatusFieldUpdateOperationsInput = {
   set?: $Enums.JobStatus
+}
+
+export type EnumJobPaymentTypeFieldUpdateOperationsInput = {
+  set?: $Enums.JobPaymentType
 }
 
 export type JobCreateNestedOneWithoutPaymentsInput = {
@@ -876,22 +976,25 @@ export type JobUpdateOneRequiredWithoutShiftsNestedInput = {
 export type JobCreateWithoutEmployerInput = {
   id?: string
   title: string
-  category?: string | null
+  company_name: string
   description?: string | null
+  job_responsibilities?: string | null
+  requirements?: string | null
   job_type: $Enums.JobType
   is_urgent?: boolean
+  status?: $Enums.JobStatus
   start_date?: Date | string | null
   end_date?: Date | string | null
   start_time?: Date | string | null
   end_time?: Date | string | null
-  payment_type: $Enums.JobPaymentType
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type: $Enums.JobPaymentType
   location?: string | null
   latitude?: number | null
   longitude?: number | null
-  status: $Enums.JobStatus
   created_at?: Date | string
   updated_at?: Date | string
+  file?: Prisma.FileInstanceCreateNestedOneWithoutJobInput
   job_skills?: Prisma.JobSkillCreateNestedManyWithoutJobInput
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutJobInput
   job_assignments?: Prisma.JobAssignmentCreateNestedManyWithoutJobInput
@@ -903,20 +1006,23 @@ export type JobCreateWithoutEmployerInput = {
 export type JobUncheckedCreateWithoutEmployerInput = {
   id?: string
   title: string
-  category?: string | null
+  company_name: string
   description?: string | null
+  job_responsibilities?: string | null
+  requirements?: string | null
+  fileId?: string | null
   job_type: $Enums.JobType
   is_urgent?: boolean
+  status?: $Enums.JobStatus
   start_date?: Date | string | null
   end_date?: Date | string | null
   start_time?: Date | string | null
   end_time?: Date | string | null
-  payment_type: $Enums.JobPaymentType
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type: $Enums.JobPaymentType
   location?: string | null
   latitude?: number | null
   longitude?: number | null
-  status: $Enums.JobStatus
   created_at?: Date | string
   updated_at?: Date | string
   job_skills?: Prisma.JobSkillUncheckedCreateNestedManyWithoutJobInput
@@ -960,43 +1066,185 @@ export type JobScalarWhereInput = {
   id?: Prisma.UuidFilter<"Job"> | string
   employer_id?: Prisma.UuidFilter<"Job"> | string
   title?: Prisma.StringFilter<"Job"> | string
-  category?: Prisma.StringNullableFilter<"Job"> | string | null
+  company_name?: Prisma.StringFilter<"Job"> | string
   description?: Prisma.StringNullableFilter<"Job"> | string | null
+  job_responsibilities?: Prisma.StringNullableFilter<"Job"> | string | null
+  requirements?: Prisma.StringNullableFilter<"Job"> | string | null
+  fileId?: Prisma.StringNullableFilter<"Job"> | string | null
   job_type?: Prisma.EnumJobTypeFilter<"Job"> | $Enums.JobType
   is_urgent?: Prisma.BoolFilter<"Job"> | boolean
+  status?: Prisma.EnumJobStatusFilter<"Job"> | $Enums.JobStatus
   start_date?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
   end_date?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
   start_time?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
   end_time?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeFilter<"Job"> | $Enums.JobPaymentType
   amount?: Prisma.DecimalNullableFilter<"Job"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFilter<"Job"> | $Enums.JobPaymentType
   location?: Prisma.StringNullableFilter<"Job"> | string | null
   latitude?: Prisma.FloatNullableFilter<"Job"> | number | null
   longitude?: Prisma.FloatNullableFilter<"Job"> | number | null
-  status?: Prisma.EnumJobStatusFilter<"Job"> | $Enums.JobStatus
   created_at?: Prisma.DateTimeFilter<"Job"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Job"> | Date | string
+}
+
+export type JobCreateWithoutFileInput = {
+  id?: string
+  title: string
+  company_name: string
+  description?: string | null
+  job_responsibilities?: string | null
+  requirements?: string | null
+  job_type: $Enums.JobType
+  is_urgent?: boolean
+  status?: $Enums.JobStatus
+  start_date?: Date | string | null
+  end_date?: Date | string | null
+  start_time?: Date | string | null
+  end_time?: Date | string | null
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type: $Enums.JobPaymentType
+  location?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  employer: Prisma.EmployerProfileCreateNestedOneWithoutJobsInput
+  job_skills?: Prisma.JobSkillCreateNestedManyWithoutJobInput
+  job_applications?: Prisma.JobApplicationCreateNestedManyWithoutJobInput
+  job_assignments?: Prisma.JobAssignmentCreateNestedManyWithoutJobInput
+  shifts?: Prisma.ShiftCreateNestedManyWithoutJobInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutJobInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutJobInput
+}
+
+export type JobUncheckedCreateWithoutFileInput = {
+  id?: string
+  employer_id: string
+  title: string
+  company_name: string
+  description?: string | null
+  job_responsibilities?: string | null
+  requirements?: string | null
+  job_type: $Enums.JobType
+  is_urgent?: boolean
+  status?: $Enums.JobStatus
+  start_date?: Date | string | null
+  end_date?: Date | string | null
+  start_time?: Date | string | null
+  end_time?: Date | string | null
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type: $Enums.JobPaymentType
+  location?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  job_skills?: Prisma.JobSkillUncheckedCreateNestedManyWithoutJobInput
+  job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutJobInput
+  job_assignments?: Prisma.JobAssignmentUncheckedCreateNestedManyWithoutJobInput
+  shifts?: Prisma.ShiftUncheckedCreateNestedManyWithoutJobInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutJobInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutJobInput
+}
+
+export type JobCreateOrConnectWithoutFileInput = {
+  where: Prisma.JobWhereUniqueInput
+  create: Prisma.XOR<Prisma.JobCreateWithoutFileInput, Prisma.JobUncheckedCreateWithoutFileInput>
+}
+
+export type JobUpsertWithoutFileInput = {
+  update: Prisma.XOR<Prisma.JobUpdateWithoutFileInput, Prisma.JobUncheckedUpdateWithoutFileInput>
+  create: Prisma.XOR<Prisma.JobCreateWithoutFileInput, Prisma.JobUncheckedCreateWithoutFileInput>
+  where?: Prisma.JobWhereInput
+}
+
+export type JobUpdateToOneWithWhereWithoutFileInput = {
+  where?: Prisma.JobWhereInput
+  data: Prisma.XOR<Prisma.JobUpdateWithoutFileInput, Prisma.JobUncheckedUpdateWithoutFileInput>
+}
+
+export type JobUpdateWithoutFileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_type?: Prisma.EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
+  is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employer?: Prisma.EmployerProfileUpdateOneRequiredWithoutJobsNestedInput
+  job_skills?: Prisma.JobSkillUpdateManyWithoutJobNestedInput
+  job_applications?: Prisma.JobApplicationUpdateManyWithoutJobNestedInput
+  job_assignments?: Prisma.JobAssignmentUpdateManyWithoutJobNestedInput
+  shifts?: Prisma.ShiftUpdateManyWithoutJobNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutJobNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutJobNestedInput
+}
+
+export type JobUncheckedUpdateWithoutFileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  employer_id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_type?: Prisma.EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
+  is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  job_skills?: Prisma.JobSkillUncheckedUpdateManyWithoutJobNestedInput
+  job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutJobNestedInput
+  job_assignments?: Prisma.JobAssignmentUncheckedUpdateManyWithoutJobNestedInput
+  shifts?: Prisma.ShiftUncheckedUpdateManyWithoutJobNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutJobNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutJobNestedInput
 }
 
 export type JobCreateWithoutJob_applicationsInput = {
   id?: string
   title: string
-  category?: string | null
+  company_name: string
   description?: string | null
+  job_responsibilities?: string | null
+  requirements?: string | null
   job_type: $Enums.JobType
   is_urgent?: boolean
+  status?: $Enums.JobStatus
   start_date?: Date | string | null
   end_date?: Date | string | null
   start_time?: Date | string | null
   end_time?: Date | string | null
-  payment_type: $Enums.JobPaymentType
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type: $Enums.JobPaymentType
   location?: string | null
   latitude?: number | null
   longitude?: number | null
-  status: $Enums.JobStatus
   created_at?: Date | string
   updated_at?: Date | string
+  file?: Prisma.FileInstanceCreateNestedOneWithoutJobInput
   employer: Prisma.EmployerProfileCreateNestedOneWithoutJobsInput
   job_skills?: Prisma.JobSkillCreateNestedManyWithoutJobInput
   job_assignments?: Prisma.JobAssignmentCreateNestedManyWithoutJobInput
@@ -1009,20 +1257,23 @@ export type JobUncheckedCreateWithoutJob_applicationsInput = {
   id?: string
   employer_id: string
   title: string
-  category?: string | null
+  company_name: string
   description?: string | null
+  job_responsibilities?: string | null
+  requirements?: string | null
+  fileId?: string | null
   job_type: $Enums.JobType
   is_urgent?: boolean
+  status?: $Enums.JobStatus
   start_date?: Date | string | null
   end_date?: Date | string | null
   start_time?: Date | string | null
   end_time?: Date | string | null
-  payment_type: $Enums.JobPaymentType
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type: $Enums.JobPaymentType
   location?: string | null
   latitude?: number | null
   longitude?: number | null
-  status: $Enums.JobStatus
   created_at?: Date | string
   updated_at?: Date | string
   job_skills?: Prisma.JobSkillUncheckedCreateNestedManyWithoutJobInput
@@ -1051,22 +1302,25 @@ export type JobUpdateToOneWithWhereWithoutJob_applicationsInput = {
 export type JobUpdateWithoutJob_applicationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   job_type?: Prisma.EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  file?: Prisma.FileInstanceUpdateOneWithoutJobNestedInput
   employer?: Prisma.EmployerProfileUpdateOneRequiredWithoutJobsNestedInput
   job_skills?: Prisma.JobSkillUpdateManyWithoutJobNestedInput
   job_assignments?: Prisma.JobAssignmentUpdateManyWithoutJobNestedInput
@@ -1079,20 +1333,23 @@ export type JobUncheckedUpdateWithoutJob_applicationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   employer_id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   job_type?: Prisma.EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   job_skills?: Prisma.JobSkillUncheckedUpdateManyWithoutJobNestedInput
@@ -1105,22 +1362,25 @@ export type JobUncheckedUpdateWithoutJob_applicationsInput = {
 export type JobCreateWithoutJob_assignmentsInput = {
   id?: string
   title: string
-  category?: string | null
+  company_name: string
   description?: string | null
+  job_responsibilities?: string | null
+  requirements?: string | null
   job_type: $Enums.JobType
   is_urgent?: boolean
+  status?: $Enums.JobStatus
   start_date?: Date | string | null
   end_date?: Date | string | null
   start_time?: Date | string | null
   end_time?: Date | string | null
-  payment_type: $Enums.JobPaymentType
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type: $Enums.JobPaymentType
   location?: string | null
   latitude?: number | null
   longitude?: number | null
-  status: $Enums.JobStatus
   created_at?: Date | string
   updated_at?: Date | string
+  file?: Prisma.FileInstanceCreateNestedOneWithoutJobInput
   employer: Prisma.EmployerProfileCreateNestedOneWithoutJobsInput
   job_skills?: Prisma.JobSkillCreateNestedManyWithoutJobInput
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutJobInput
@@ -1133,20 +1393,23 @@ export type JobUncheckedCreateWithoutJob_assignmentsInput = {
   id?: string
   employer_id: string
   title: string
-  category?: string | null
+  company_name: string
   description?: string | null
+  job_responsibilities?: string | null
+  requirements?: string | null
+  fileId?: string | null
   job_type: $Enums.JobType
   is_urgent?: boolean
+  status?: $Enums.JobStatus
   start_date?: Date | string | null
   end_date?: Date | string | null
   start_time?: Date | string | null
   end_time?: Date | string | null
-  payment_type: $Enums.JobPaymentType
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type: $Enums.JobPaymentType
   location?: string | null
   latitude?: number | null
   longitude?: number | null
-  status: $Enums.JobStatus
   created_at?: Date | string
   updated_at?: Date | string
   job_skills?: Prisma.JobSkillUncheckedCreateNestedManyWithoutJobInput
@@ -1175,22 +1438,25 @@ export type JobUpdateToOneWithWhereWithoutJob_assignmentsInput = {
 export type JobUpdateWithoutJob_assignmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   job_type?: Prisma.EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  file?: Prisma.FileInstanceUpdateOneWithoutJobNestedInput
   employer?: Prisma.EmployerProfileUpdateOneRequiredWithoutJobsNestedInput
   job_skills?: Prisma.JobSkillUpdateManyWithoutJobNestedInput
   job_applications?: Prisma.JobApplicationUpdateManyWithoutJobNestedInput
@@ -1203,20 +1469,23 @@ export type JobUncheckedUpdateWithoutJob_assignmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   employer_id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   job_type?: Prisma.EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   job_skills?: Prisma.JobSkillUncheckedUpdateManyWithoutJobNestedInput
@@ -1229,22 +1498,25 @@ export type JobUncheckedUpdateWithoutJob_assignmentsInput = {
 export type JobCreateWithoutJob_skillsInput = {
   id?: string
   title: string
-  category?: string | null
+  company_name: string
   description?: string | null
+  job_responsibilities?: string | null
+  requirements?: string | null
   job_type: $Enums.JobType
   is_urgent?: boolean
+  status?: $Enums.JobStatus
   start_date?: Date | string | null
   end_date?: Date | string | null
   start_time?: Date | string | null
   end_time?: Date | string | null
-  payment_type: $Enums.JobPaymentType
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type: $Enums.JobPaymentType
   location?: string | null
   latitude?: number | null
   longitude?: number | null
-  status: $Enums.JobStatus
   created_at?: Date | string
   updated_at?: Date | string
+  file?: Prisma.FileInstanceCreateNestedOneWithoutJobInput
   employer: Prisma.EmployerProfileCreateNestedOneWithoutJobsInput
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutJobInput
   job_assignments?: Prisma.JobAssignmentCreateNestedManyWithoutJobInput
@@ -1257,20 +1529,23 @@ export type JobUncheckedCreateWithoutJob_skillsInput = {
   id?: string
   employer_id: string
   title: string
-  category?: string | null
+  company_name: string
   description?: string | null
+  job_responsibilities?: string | null
+  requirements?: string | null
+  fileId?: string | null
   job_type: $Enums.JobType
   is_urgent?: boolean
+  status?: $Enums.JobStatus
   start_date?: Date | string | null
   end_date?: Date | string | null
   start_time?: Date | string | null
   end_time?: Date | string | null
-  payment_type: $Enums.JobPaymentType
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type: $Enums.JobPaymentType
   location?: string | null
   latitude?: number | null
   longitude?: number | null
-  status: $Enums.JobStatus
   created_at?: Date | string
   updated_at?: Date | string
   job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutJobInput
@@ -1299,22 +1574,25 @@ export type JobUpdateToOneWithWhereWithoutJob_skillsInput = {
 export type JobUpdateWithoutJob_skillsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   job_type?: Prisma.EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  file?: Prisma.FileInstanceUpdateOneWithoutJobNestedInput
   employer?: Prisma.EmployerProfileUpdateOneRequiredWithoutJobsNestedInput
   job_applications?: Prisma.JobApplicationUpdateManyWithoutJobNestedInput
   job_assignments?: Prisma.JobAssignmentUpdateManyWithoutJobNestedInput
@@ -1327,20 +1605,23 @@ export type JobUncheckedUpdateWithoutJob_skillsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   employer_id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   job_type?: Prisma.EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutJobNestedInput
@@ -1353,22 +1634,25 @@ export type JobUncheckedUpdateWithoutJob_skillsInput = {
 export type JobCreateWithoutPaymentsInput = {
   id?: string
   title: string
-  category?: string | null
+  company_name: string
   description?: string | null
+  job_responsibilities?: string | null
+  requirements?: string | null
   job_type: $Enums.JobType
   is_urgent?: boolean
+  status?: $Enums.JobStatus
   start_date?: Date | string | null
   end_date?: Date | string | null
   start_time?: Date | string | null
   end_time?: Date | string | null
-  payment_type: $Enums.JobPaymentType
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type: $Enums.JobPaymentType
   location?: string | null
   latitude?: number | null
   longitude?: number | null
-  status: $Enums.JobStatus
   created_at?: Date | string
   updated_at?: Date | string
+  file?: Prisma.FileInstanceCreateNestedOneWithoutJobInput
   employer: Prisma.EmployerProfileCreateNestedOneWithoutJobsInput
   job_skills?: Prisma.JobSkillCreateNestedManyWithoutJobInput
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutJobInput
@@ -1381,20 +1665,23 @@ export type JobUncheckedCreateWithoutPaymentsInput = {
   id?: string
   employer_id: string
   title: string
-  category?: string | null
+  company_name: string
   description?: string | null
+  job_responsibilities?: string | null
+  requirements?: string | null
+  fileId?: string | null
   job_type: $Enums.JobType
   is_urgent?: boolean
+  status?: $Enums.JobStatus
   start_date?: Date | string | null
   end_date?: Date | string | null
   start_time?: Date | string | null
   end_time?: Date | string | null
-  payment_type: $Enums.JobPaymentType
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type: $Enums.JobPaymentType
   location?: string | null
   latitude?: number | null
   longitude?: number | null
-  status: $Enums.JobStatus
   created_at?: Date | string
   updated_at?: Date | string
   job_skills?: Prisma.JobSkillUncheckedCreateNestedManyWithoutJobInput
@@ -1423,22 +1710,25 @@ export type JobUpdateToOneWithWhereWithoutPaymentsInput = {
 export type JobUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   job_type?: Prisma.EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  file?: Prisma.FileInstanceUpdateOneWithoutJobNestedInput
   employer?: Prisma.EmployerProfileUpdateOneRequiredWithoutJobsNestedInput
   job_skills?: Prisma.JobSkillUpdateManyWithoutJobNestedInput
   job_applications?: Prisma.JobApplicationUpdateManyWithoutJobNestedInput
@@ -1451,20 +1741,23 @@ export type JobUncheckedUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   employer_id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   job_type?: Prisma.EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   job_skills?: Prisma.JobSkillUncheckedUpdateManyWithoutJobNestedInput
@@ -1477,22 +1770,25 @@ export type JobUncheckedUpdateWithoutPaymentsInput = {
 export type JobCreateWithoutReviewsInput = {
   id?: string
   title: string
-  category?: string | null
+  company_name: string
   description?: string | null
+  job_responsibilities?: string | null
+  requirements?: string | null
   job_type: $Enums.JobType
   is_urgent?: boolean
+  status?: $Enums.JobStatus
   start_date?: Date | string | null
   end_date?: Date | string | null
   start_time?: Date | string | null
   end_time?: Date | string | null
-  payment_type: $Enums.JobPaymentType
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type: $Enums.JobPaymentType
   location?: string | null
   latitude?: number | null
   longitude?: number | null
-  status: $Enums.JobStatus
   created_at?: Date | string
   updated_at?: Date | string
+  file?: Prisma.FileInstanceCreateNestedOneWithoutJobInput
   employer: Prisma.EmployerProfileCreateNestedOneWithoutJobsInput
   job_skills?: Prisma.JobSkillCreateNestedManyWithoutJobInput
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutJobInput
@@ -1505,20 +1801,23 @@ export type JobUncheckedCreateWithoutReviewsInput = {
   id?: string
   employer_id: string
   title: string
-  category?: string | null
+  company_name: string
   description?: string | null
+  job_responsibilities?: string | null
+  requirements?: string | null
+  fileId?: string | null
   job_type: $Enums.JobType
   is_urgent?: boolean
+  status?: $Enums.JobStatus
   start_date?: Date | string | null
   end_date?: Date | string | null
   start_time?: Date | string | null
   end_time?: Date | string | null
-  payment_type: $Enums.JobPaymentType
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type: $Enums.JobPaymentType
   location?: string | null
   latitude?: number | null
   longitude?: number | null
-  status: $Enums.JobStatus
   created_at?: Date | string
   updated_at?: Date | string
   job_skills?: Prisma.JobSkillUncheckedCreateNestedManyWithoutJobInput
@@ -1547,22 +1846,25 @@ export type JobUpdateToOneWithWhereWithoutReviewsInput = {
 export type JobUpdateWithoutReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   job_type?: Prisma.EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  file?: Prisma.FileInstanceUpdateOneWithoutJobNestedInput
   employer?: Prisma.EmployerProfileUpdateOneRequiredWithoutJobsNestedInput
   job_skills?: Prisma.JobSkillUpdateManyWithoutJobNestedInput
   job_applications?: Prisma.JobApplicationUpdateManyWithoutJobNestedInput
@@ -1575,20 +1877,23 @@ export type JobUncheckedUpdateWithoutReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   employer_id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   job_type?: Prisma.EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   job_skills?: Prisma.JobSkillUncheckedUpdateManyWithoutJobNestedInput
@@ -1601,22 +1906,25 @@ export type JobUncheckedUpdateWithoutReviewsInput = {
 export type JobCreateWithoutShiftsInput = {
   id?: string
   title: string
-  category?: string | null
+  company_name: string
   description?: string | null
+  job_responsibilities?: string | null
+  requirements?: string | null
   job_type: $Enums.JobType
   is_urgent?: boolean
+  status?: $Enums.JobStatus
   start_date?: Date | string | null
   end_date?: Date | string | null
   start_time?: Date | string | null
   end_time?: Date | string | null
-  payment_type: $Enums.JobPaymentType
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type: $Enums.JobPaymentType
   location?: string | null
   latitude?: number | null
   longitude?: number | null
-  status: $Enums.JobStatus
   created_at?: Date | string
   updated_at?: Date | string
+  file?: Prisma.FileInstanceCreateNestedOneWithoutJobInput
   employer: Prisma.EmployerProfileCreateNestedOneWithoutJobsInput
   job_skills?: Prisma.JobSkillCreateNestedManyWithoutJobInput
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutJobInput
@@ -1629,20 +1937,23 @@ export type JobUncheckedCreateWithoutShiftsInput = {
   id?: string
   employer_id: string
   title: string
-  category?: string | null
+  company_name: string
   description?: string | null
+  job_responsibilities?: string | null
+  requirements?: string | null
+  fileId?: string | null
   job_type: $Enums.JobType
   is_urgent?: boolean
+  status?: $Enums.JobStatus
   start_date?: Date | string | null
   end_date?: Date | string | null
   start_time?: Date | string | null
   end_time?: Date | string | null
-  payment_type: $Enums.JobPaymentType
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type: $Enums.JobPaymentType
   location?: string | null
   latitude?: number | null
   longitude?: number | null
-  status: $Enums.JobStatus
   created_at?: Date | string
   updated_at?: Date | string
   job_skills?: Prisma.JobSkillUncheckedCreateNestedManyWithoutJobInput
@@ -1671,22 +1982,25 @@ export type JobUpdateToOneWithWhereWithoutShiftsInput = {
 export type JobUpdateWithoutShiftsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   job_type?: Prisma.EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  file?: Prisma.FileInstanceUpdateOneWithoutJobNestedInput
   employer?: Prisma.EmployerProfileUpdateOneRequiredWithoutJobsNestedInput
   job_skills?: Prisma.JobSkillUpdateManyWithoutJobNestedInput
   job_applications?: Prisma.JobApplicationUpdateManyWithoutJobNestedInput
@@ -1699,20 +2013,23 @@ export type JobUncheckedUpdateWithoutShiftsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   employer_id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   job_type?: Prisma.EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   job_skills?: Prisma.JobSkillUncheckedUpdateManyWithoutJobNestedInput
@@ -1725,20 +2042,23 @@ export type JobUncheckedUpdateWithoutShiftsInput = {
 export type JobCreateManyEmployerInput = {
   id?: string
   title: string
-  category?: string | null
+  company_name: string
   description?: string | null
+  job_responsibilities?: string | null
+  requirements?: string | null
+  fileId?: string | null
   job_type: $Enums.JobType
   is_urgent?: boolean
+  status?: $Enums.JobStatus
   start_date?: Date | string | null
   end_date?: Date | string | null
   start_time?: Date | string | null
   end_time?: Date | string | null
-  payment_type: $Enums.JobPaymentType
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type: $Enums.JobPaymentType
   location?: string | null
   latitude?: number | null
   longitude?: number | null
-  status: $Enums.JobStatus
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -1746,22 +2066,25 @@ export type JobCreateManyEmployerInput = {
 export type JobUpdateWithoutEmployerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   job_type?: Prisma.EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  file?: Prisma.FileInstanceUpdateOneWithoutJobNestedInput
   job_skills?: Prisma.JobSkillUpdateManyWithoutJobNestedInput
   job_applications?: Prisma.JobApplicationUpdateManyWithoutJobNestedInput
   job_assignments?: Prisma.JobAssignmentUpdateManyWithoutJobNestedInput
@@ -1773,20 +2096,23 @@ export type JobUpdateWithoutEmployerInput = {
 export type JobUncheckedUpdateWithoutEmployerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   job_type?: Prisma.EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   job_skills?: Prisma.JobSkillUncheckedUpdateManyWithoutJobNestedInput
@@ -1800,20 +2126,23 @@ export type JobUncheckedUpdateWithoutEmployerInput = {
 export type JobUncheckedUpdateManyWithoutEmployerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   job_type?: Prisma.EnumJobTypeFieldUpdateOperationsInput | $Enums.JobType
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  payment_type?: Prisma.EnumJobPaymentTypeFieldUpdateOperationsInput | $Enums.JobPaymentType
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1898,22 +2227,26 @@ export type JobSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   id?: boolean
   employer_id?: boolean
   title?: boolean
-  category?: boolean
+  company_name?: boolean
   description?: boolean
+  job_responsibilities?: boolean
+  requirements?: boolean
+  fileId?: boolean
   job_type?: boolean
   is_urgent?: boolean
+  status?: boolean
   start_date?: boolean
   end_date?: boolean
   start_time?: boolean
   end_time?: boolean
-  payment_type?: boolean
   amount?: boolean
+  payment_type?: boolean
   location?: boolean
   latitude?: boolean
   longitude?: boolean
-  status?: boolean
   created_at?: boolean
   updated_at?: boolean
+  file?: boolean | Prisma.Job$fileArgs<ExtArgs>
   employer?: boolean | Prisma.EmployerProfileDefaultArgs<ExtArgs>
   job_skills?: boolean | Prisma.Job$job_skillsArgs<ExtArgs>
   job_applications?: boolean | Prisma.Job$job_applicationsArgs<ExtArgs>
@@ -1928,22 +2261,26 @@ export type JobSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
   id?: boolean
   employer_id?: boolean
   title?: boolean
-  category?: boolean
+  company_name?: boolean
   description?: boolean
+  job_responsibilities?: boolean
+  requirements?: boolean
+  fileId?: boolean
   job_type?: boolean
   is_urgent?: boolean
+  status?: boolean
   start_date?: boolean
   end_date?: boolean
   start_time?: boolean
   end_time?: boolean
-  payment_type?: boolean
   amount?: boolean
+  payment_type?: boolean
   location?: boolean
   latitude?: boolean
   longitude?: boolean
-  status?: boolean
   created_at?: boolean
   updated_at?: boolean
+  file?: boolean | Prisma.Job$fileArgs<ExtArgs>
   employer?: boolean | Prisma.EmployerProfileDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["job"]>
 
@@ -1951,22 +2288,26 @@ export type JobSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
   id?: boolean
   employer_id?: boolean
   title?: boolean
-  category?: boolean
+  company_name?: boolean
   description?: boolean
+  job_responsibilities?: boolean
+  requirements?: boolean
+  fileId?: boolean
   job_type?: boolean
   is_urgent?: boolean
+  status?: boolean
   start_date?: boolean
   end_date?: boolean
   start_time?: boolean
   end_time?: boolean
-  payment_type?: boolean
   amount?: boolean
+  payment_type?: boolean
   location?: boolean
   latitude?: boolean
   longitude?: boolean
-  status?: boolean
   created_at?: boolean
   updated_at?: boolean
+  file?: boolean | Prisma.Job$fileArgs<ExtArgs>
   employer?: boolean | Prisma.EmployerProfileDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["job"]>
 
@@ -1974,26 +2315,30 @@ export type JobSelectScalar = {
   id?: boolean
   employer_id?: boolean
   title?: boolean
-  category?: boolean
+  company_name?: boolean
   description?: boolean
+  job_responsibilities?: boolean
+  requirements?: boolean
+  fileId?: boolean
   job_type?: boolean
   is_urgent?: boolean
+  status?: boolean
   start_date?: boolean
   end_date?: boolean
   start_time?: boolean
   end_time?: boolean
-  payment_type?: boolean
   amount?: boolean
+  payment_type?: boolean
   location?: boolean
   latitude?: boolean
   longitude?: boolean
-  status?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type JobOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "employer_id" | "title" | "category" | "description" | "job_type" | "is_urgent" | "start_date" | "end_date" | "start_time" | "end_time" | "payment_type" | "amount" | "location" | "latitude" | "longitude" | "status" | "created_at" | "updated_at", ExtArgs["result"]["job"]>
+export type JobOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "employer_id" | "title" | "company_name" | "description" | "job_responsibilities" | "requirements" | "fileId" | "job_type" | "is_urgent" | "status" | "start_date" | "end_date" | "start_time" | "end_time" | "amount" | "payment_type" | "location" | "latitude" | "longitude" | "created_at" | "updated_at", ExtArgs["result"]["job"]>
 export type JobInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  file?: boolean | Prisma.Job$fileArgs<ExtArgs>
   employer?: boolean | Prisma.EmployerProfileDefaultArgs<ExtArgs>
   job_skills?: boolean | Prisma.Job$job_skillsArgs<ExtArgs>
   job_applications?: boolean | Prisma.Job$job_applicationsArgs<ExtArgs>
@@ -2004,15 +2349,18 @@ export type JobInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   _count?: boolean | Prisma.JobCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type JobIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  file?: boolean | Prisma.Job$fileArgs<ExtArgs>
   employer?: boolean | Prisma.EmployerProfileDefaultArgs<ExtArgs>
 }
 export type JobIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  file?: boolean | Prisma.Job$fileArgs<ExtArgs>
   employer?: boolean | Prisma.EmployerProfileDefaultArgs<ExtArgs>
 }
 
 export type $JobPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Job"
   objects: {
+    file: Prisma.$FileInstancePayload<ExtArgs> | null
     employer: Prisma.$EmployerProfilePayload<ExtArgs>
     job_skills: Prisma.$JobSkillPayload<ExtArgs>[]
     job_applications: Prisma.$JobApplicationPayload<ExtArgs>[]
@@ -2025,20 +2373,23 @@ export type $JobPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     id: string
     employer_id: string
     title: string
-    category: string | null
+    company_name: string
     description: string | null
+    job_responsibilities: string | null
+    requirements: string | null
+    fileId: string | null
     job_type: $Enums.JobType
     is_urgent: boolean
+    status: $Enums.JobStatus
     start_date: Date | null
     end_date: Date | null
     start_time: Date | null
     end_time: Date | null
-    payment_type: $Enums.JobPaymentType
     amount: runtime.Decimal | null
+    payment_type: $Enums.JobPaymentType
     location: string | null
     latitude: number | null
     longitude: number | null
-    status: $Enums.JobStatus
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["job"]>
@@ -2435,6 +2786,7 @@ readonly fields: JobFieldRefs;
  */
 export interface Prisma__JobClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  file<T extends Prisma.Job$fileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Job$fileArgs<ExtArgs>>): Prisma.Prisma__FileInstanceClient<runtime.Types.Result.GetResult<Prisma.$FileInstancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   employer<T extends Prisma.EmployerProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployerProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__EmployerProfileClient<runtime.Types.Result.GetResult<Prisma.$EmployerProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   job_skills<T extends Prisma.Job$job_skillsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Job$job_skillsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobSkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   job_applications<T extends Prisma.Job$job_applicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Job$job_applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2474,20 +2826,23 @@ export interface JobFieldRefs {
   readonly id: Prisma.FieldRef<"Job", 'String'>
   readonly employer_id: Prisma.FieldRef<"Job", 'String'>
   readonly title: Prisma.FieldRef<"Job", 'String'>
-  readonly category: Prisma.FieldRef<"Job", 'String'>
+  readonly company_name: Prisma.FieldRef<"Job", 'String'>
   readonly description: Prisma.FieldRef<"Job", 'String'>
+  readonly job_responsibilities: Prisma.FieldRef<"Job", 'String'>
+  readonly requirements: Prisma.FieldRef<"Job", 'String'>
+  readonly fileId: Prisma.FieldRef<"Job", 'String'>
   readonly job_type: Prisma.FieldRef<"Job", 'JobType'>
   readonly is_urgent: Prisma.FieldRef<"Job", 'Boolean'>
+  readonly status: Prisma.FieldRef<"Job", 'JobStatus'>
   readonly start_date: Prisma.FieldRef<"Job", 'DateTime'>
   readonly end_date: Prisma.FieldRef<"Job", 'DateTime'>
   readonly start_time: Prisma.FieldRef<"Job", 'DateTime'>
   readonly end_time: Prisma.FieldRef<"Job", 'DateTime'>
-  readonly payment_type: Prisma.FieldRef<"Job", 'JobPaymentType'>
   readonly amount: Prisma.FieldRef<"Job", 'Decimal'>
+  readonly payment_type: Prisma.FieldRef<"Job", 'JobPaymentType'>
   readonly location: Prisma.FieldRef<"Job", 'String'>
   readonly latitude: Prisma.FieldRef<"Job", 'Float'>
   readonly longitude: Prisma.FieldRef<"Job", 'Float'>
-  readonly status: Prisma.FieldRef<"Job", 'JobStatus'>
   readonly created_at: Prisma.FieldRef<"Job", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"Job", 'DateTime'>
 }
@@ -2883,6 +3238,25 @@ export type JobDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Limit how many Jobs to delete.
    */
   limit?: number
+}
+
+/**
+ * Job.file
+ */
+export type Job$fileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FileInstance
+   */
+  select?: Prisma.FileInstanceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FileInstance
+   */
+  omit?: Prisma.FileInstanceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FileInstanceInclude<ExtArgs> | null
+  where?: Prisma.FileInstanceWhereInput
 }
 
 /**

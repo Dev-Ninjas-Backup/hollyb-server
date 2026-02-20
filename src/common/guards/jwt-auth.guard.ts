@@ -32,14 +32,18 @@ export class JwtAuthGuard implements CanActivate {
     const authHeader = request.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      console.log('❌ No auth header or not Bearer format:', authHeader);
       throw new BusinessException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }
 
     const token = authHeader.slice(7).trim();
 
     if (!token) {
+      console.log('❌ Token is empty after extraction');
       throw new BusinessException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }
+
+    console.log('✅ Token extracted:', token.substring(0, 30) + '...');
 
     let payload: { sub: string; role: string };
 
@@ -50,7 +54,13 @@ export class JwtAuthGuard implements CanActivate {
       }>(token, {
         secret: this.configService.getOrThrow<string>('JWT_ACCESS_SECRET'),
       });
-    } catch {
+      console.log('✅ JWT verified successfully, user:', payload.sub);
+    } catch (error) {
+      console.error('❌ JWT Verification Error:', {
+        error: error.message,
+        name: error.name,
+        tokenPreview: token.substring(0, 30) + '...',
+      });
       throw new BusinessException('Invalid token', HttpStatus.UNAUTHORIZED);
     }
 

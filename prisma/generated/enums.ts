@@ -97,9 +97,6 @@ export type SubscriptionStatus = (typeof SubscriptionStatus)[keyof typeof Subscr
 
 
 export const JobType = {
-  hourly: 'hourly',
-  daily: 'daily',
-  weekly: 'weekly',
   full_time: 'full_time',
   part_time: 'part_time',
   contract: 'contract'
@@ -110,6 +107,8 @@ export type JobType = (typeof JobType)[keyof typeof JobType]
 
 export const JobPaymentType = {
   hourly: 'hourly',
+  daily: 'daily',
+  weekly: 'weekly',
   fixed: 'fixed'
 } as const
 
@@ -119,6 +118,8 @@ export type JobPaymentType = (typeof JobPaymentType)[keyof typeof JobPaymentType
 export const JobStatus = {
   open: 'open',
   assigned: 'assigned',
+  check_in: 'check_in',
+  check_out: 'check_out',
   completed: 'completed',
   cancelled: 'cancelled'
 } as const

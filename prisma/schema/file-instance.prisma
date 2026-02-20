@@ -8,7 +8,8 @@ model FileInstance {
   fileType         FileType @default(any)
   mimeType         String
   size             Int
-
+  
+  job Job? 
   privateMessages PrivateMessage[]
 
   createdAt DateTime @default(now())
