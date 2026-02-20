@@ -243,6 +243,10 @@ type GetFileInstanceGroupByPayload<T extends FileInstanceGroupByArgs> = Prisma.P
 
 
 export type FileInstanceWhereInput = {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 697220c811179155cb29db531968188abfb13fd3
   AND?: Prisma.FileInstanceWhereInput | Prisma.FileInstanceWhereInput[]
   OR?: Prisma.FileInstanceWhereInput[]
   NOT?: Prisma.FileInstanceWhereInput | Prisma.FileInstanceWhereInput[]
@@ -256,6 +260,11 @@ export type FileInstanceWhereInput = {
   size?: Prisma.IntFilter<"FileInstance"> | number
   createdAt?: Prisma.DateTimeFilter<"FileInstance"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FileInstance"> | Date | string
+<<<<<<< HEAD
+  privateMessages?: Prisma.PrivateMessageListRelationFilter
+}
+=======
+  job?: Prisma.XOR<Prisma.JobNullableScalarRelationFilter, Prisma.JobWhereInput> | null
   privateMessages?: Prisma.PrivateMessageListRelationFilter
 }
 
@@ -270,6 +279,7 @@ export type FileInstanceOrderByWithRelationInput = {
   size?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  job?: Prisma.JobOrderByWithRelationInput
   privateMessages?: Prisma.PrivateMessageOrderByRelationAggregateInput
 }
 
@@ -287,8 +297,80 @@ export type FileInstanceWhereUniqueInput = Prisma.AtLeast<{
   size?: Prisma.IntFilter<"FileInstance"> | number
   createdAt?: Prisma.DateTimeFilter<"FileInstance"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"FileInstance"> | Date | string
+  job?: Prisma.XOR<Prisma.JobNullableScalarRelationFilter, Prisma.JobWhereInput> | null
   privateMessages?: Prisma.PrivateMessageListRelationFilter
 }, "id">
+=======
+  AND?: Prisma.FileInstanceWhereInput | Prisma.FileInstanceWhereInput[];
+  OR?: Prisma.FileInstanceWhereInput[];
+  NOT?: Prisma.FileInstanceWhereInput | Prisma.FileInstanceWhereInput[];
+  id?: Prisma.StringFilter<'FileInstance'> | string;
+  filename?: Prisma.StringFilter<'FileInstance'> | string;
+  originalFilename?: Prisma.StringFilter<'FileInstance'> | string;
+  path?: Prisma.StringFilter<'FileInstance'> | string;
+  url?: Prisma.StringFilter<'FileInstance'> | string;
+  fileType?: Prisma.EnumFileTypeFilter<'FileInstance'> | $Enums.FileType;
+  mimeType?: Prisma.StringFilter<'FileInstance'> | string;
+  size?: Prisma.IntFilter<'FileInstance'> | number;
+  createdAt?: Prisma.DateTimeFilter<'FileInstance'> | Date | string;
+  updatedAt?: Prisma.DateTimeFilter<'FileInstance'> | Date | string;
+  privateMessages?: Prisma.PrivateMessageListRelationFilter;
+};
+>>>>>>> 697220c811179155cb29db531968188abfb13fd3
+
+export type FileInstanceOrderByWithRelationInput = {
+  id?: Prisma.SortOrder
+  filename?: Prisma.SortOrder
+  originalFilename?: Prisma.SortOrder
+  path?: Prisma.SortOrder
+  url?: Prisma.SortOrder
+  fileType?: Prisma.SortOrder
+  mimeType?: Prisma.SortOrder
+  size?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  privateMessages?: Prisma.PrivateMessageOrderByRelationAggregateInput
+}
+
+<<<<<<< HEAD
+export type FileInstanceWhereUniqueInput = Prisma.AtLeast<{
+  id?: string
+  AND?: Prisma.FileInstanceWhereInput | Prisma.FileInstanceWhereInput[]
+  OR?: Prisma.FileInstanceWhereInput[]
+  NOT?: Prisma.FileInstanceWhereInput | Prisma.FileInstanceWhereInput[]
+  filename?: Prisma.StringFilter<"FileInstance"> | string
+  originalFilename?: Prisma.StringFilter<"FileInstance"> | string
+  path?: Prisma.StringFilter<"FileInstance"> | string
+  url?: Prisma.StringFilter<"FileInstance"> | string
+  fileType?: Prisma.EnumFileTypeFilter<"FileInstance"> | $Enums.FileType
+  mimeType?: Prisma.StringFilter<"FileInstance"> | string
+  size?: Prisma.IntFilter<"FileInstance"> | number
+  createdAt?: Prisma.DateTimeFilter<"FileInstance"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"FileInstance"> | Date | string
+  privateMessages?: Prisma.PrivateMessageListRelationFilter
+}, "id">
+=======
+export type FileInstanceWhereUniqueInput = Prisma.AtLeast<
+  {
+    id?: string;
+    AND?: Prisma.FileInstanceWhereInput | Prisma.FileInstanceWhereInput[];
+    OR?: Prisma.FileInstanceWhereInput[];
+    NOT?: Prisma.FileInstanceWhereInput | Prisma.FileInstanceWhereInput[];
+    filename?: Prisma.StringFilter<'FileInstance'> | string;
+    originalFilename?: Prisma.StringFilter<'FileInstance'> | string;
+    path?: Prisma.StringFilter<'FileInstance'> | string;
+    url?: Prisma.StringFilter<'FileInstance'> | string;
+    fileType?: Prisma.EnumFileTypeFilter<'FileInstance'> | $Enums.FileType;
+    mimeType?: Prisma.StringFilter<'FileInstance'> | string;
+    size?: Prisma.IntFilter<'FileInstance'> | number;
+    createdAt?: Prisma.DateTimeFilter<'FileInstance'> | Date | string;
+    updatedAt?: Prisma.DateTimeFilter<'FileInstance'> | Date | string;
+    privateMessages?: Prisma.PrivateMessageListRelationFilter;
+  },
+  'id'
+>;
+>>>>>>> c3f071a97f89da86ec6c888f7f2b713ea155513d
+>>>>>>> 697220c811179155cb29db531968188abfb13fd3
 
 export type FileInstanceOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -325,6 +407,10 @@ export type FileInstanceScalarWhereWithAggregatesInput = {
 }
 
 export type FileInstanceCreateInput = {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 697220c811179155cb29db531968188abfb13fd3
   id?: string
   filename: string
   originalFilename: string
@@ -335,8 +421,72 @@ export type FileInstanceCreateInput = {
   size: number
   createdAt?: Date | string
   updatedAt?: Date | string
+<<<<<<< HEAD
   privateMessages?: Prisma.PrivateMessageCreateNestedManyWithoutFileInput
 }
+=======
+  job?: Prisma.JobCreateNestedOneWithoutFileInput
+  privateMessages?: Prisma.PrivateMessageCreateNestedManyWithoutFileInput
+}
+
+export type FileInstanceUncheckedCreateInput = {
+  id?: string
+  filename: string
+  originalFilename: string
+  path: string
+  url: string
+  fileType?: $Enums.FileType
+  mimeType: string
+  size: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  job?: Prisma.JobUncheckedCreateNestedOneWithoutFileInput
+  privateMessages?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutFileInput
+}
+
+export type FileInstanceUpdateInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalFilename?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.EnumFileTypeFieldUpdateOperationsInput | $Enums.FileType
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  job?: Prisma.JobUpdateOneWithoutFileNestedInput
+  privateMessages?: Prisma.PrivateMessageUpdateManyWithoutFileNestedInput
+}
+
+export type FileInstanceUncheckedUpdateInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalFilename?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.EnumFileTypeFieldUpdateOperationsInput | $Enums.FileType
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  job?: Prisma.JobUncheckedUpdateOneWithoutFileNestedInput
+  privateMessages?: Prisma.PrivateMessageUncheckedUpdateManyWithoutFileNestedInput
+}
+=======
+  id?: string;
+  filename: string;
+  originalFilename: string;
+  path: string;
+  url: string;
+  fileType?: $Enums.FileType;
+  mimeType: string;
+  size: number;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+  privateMessages?: Prisma.PrivateMessageCreateNestedManyWithoutFileInput;
+};
+>>>>>>> 697220c811179155cb29db531968188abfb13fd3
 
 export type FileInstanceUncheckedCreateInput = {
   id?: string
@@ -367,6 +517,7 @@ export type FileInstanceUpdateInput = {
 }
 
 export type FileInstanceUncheckedUpdateInput = {
+<<<<<<< HEAD
   id?: Prisma.StringFieldUpdateOperationsInput | string
   filename?: Prisma.StringFieldUpdateOperationsInput | string
   originalFilename?: Prisma.StringFieldUpdateOperationsInput | string
@@ -379,6 +530,21 @@ export type FileInstanceUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   privateMessages?: Prisma.PrivateMessageUncheckedUpdateManyWithoutFileNestedInput
 }
+=======
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  filename?: Prisma.StringFieldUpdateOperationsInput | string;
+  originalFilename?: Prisma.StringFieldUpdateOperationsInput | string;
+  path?: Prisma.StringFieldUpdateOperationsInput | string;
+  url?: Prisma.StringFieldUpdateOperationsInput | string;
+  fileType?: Prisma.EnumFileTypeFieldUpdateOperationsInput | $Enums.FileType;
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string;
+  size?: Prisma.IntFieldUpdateOperationsInput | number;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  privateMessages?: Prisma.PrivateMessageUncheckedUpdateManyWithoutFileNestedInput;
+};
+>>>>>>> c3f071a97f89da86ec6c888f7f2b713ea155513d
+>>>>>>> 697220c811179155cb29db531968188abfb13fd3
 
 export type FileInstanceCreateManyInput = {
   id?: string
@@ -475,6 +641,22 @@ export type EnumFileTypeFieldUpdateOperationsInput = {
   set?: $Enums.FileType
 }
 
+export type FileInstanceCreateNestedOneWithoutJobInput = {
+  create?: Prisma.XOR<Prisma.FileInstanceCreateWithoutJobInput, Prisma.FileInstanceUncheckedCreateWithoutJobInput>
+  connectOrCreate?: Prisma.FileInstanceCreateOrConnectWithoutJobInput
+  connect?: Prisma.FileInstanceWhereUniqueInput
+}
+
+export type FileInstanceUpdateOneWithoutJobNestedInput = {
+  create?: Prisma.XOR<Prisma.FileInstanceCreateWithoutJobInput, Prisma.FileInstanceUncheckedCreateWithoutJobInput>
+  connectOrCreate?: Prisma.FileInstanceCreateOrConnectWithoutJobInput
+  upsert?: Prisma.FileInstanceUpsertWithoutJobInput
+  disconnect?: Prisma.FileInstanceWhereInput | boolean
+  delete?: Prisma.FileInstanceWhereInput | boolean
+  connect?: Prisma.FileInstanceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FileInstanceUpdateToOneWithWhereWithoutJobInput, Prisma.FileInstanceUpdateWithoutJobInput>, Prisma.FileInstanceUncheckedUpdateWithoutJobInput>
+}
+
 export type FileInstanceCreateNestedOneWithoutPrivateMessagesInput = {
   create?: Prisma.XOR<Prisma.FileInstanceCreateWithoutPrivateMessagesInput, Prisma.FileInstanceUncheckedCreateWithoutPrivateMessagesInput>
   connectOrCreate?: Prisma.FileInstanceCreateOrConnectWithoutPrivateMessagesInput
@@ -491,7 +673,7 @@ export type FileInstanceUpdateOneWithoutPrivateMessagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.FileInstanceUpdateToOneWithWhereWithoutPrivateMessagesInput, Prisma.FileInstanceUpdateWithoutPrivateMessagesInput>, Prisma.FileInstanceUncheckedUpdateWithoutPrivateMessagesInput>
 }
 
-export type FileInstanceCreateWithoutPrivateMessagesInput = {
+export type FileInstanceCreateWithoutJobInput = {
   id?: string
   filename: string
   originalFilename: string
@@ -502,6 +684,83 @@ export type FileInstanceCreateWithoutPrivateMessagesInput = {
   size: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  privateMessages?: Prisma.PrivateMessageCreateNestedManyWithoutFileInput
+}
+
+export type FileInstanceUncheckedCreateWithoutJobInput = {
+  id?: string
+  filename: string
+  originalFilename: string
+  path: string
+  url: string
+  fileType?: $Enums.FileType
+  mimeType: string
+  size: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  privateMessages?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutFileInput
+}
+
+export type FileInstanceCreateOrConnectWithoutJobInput = {
+  where: Prisma.FileInstanceWhereUniqueInput
+  create: Prisma.XOR<Prisma.FileInstanceCreateWithoutJobInput, Prisma.FileInstanceUncheckedCreateWithoutJobInput>
+}
+
+export type FileInstanceUpsertWithoutJobInput = {
+  update: Prisma.XOR<Prisma.FileInstanceUpdateWithoutJobInput, Prisma.FileInstanceUncheckedUpdateWithoutJobInput>
+  create: Prisma.XOR<Prisma.FileInstanceCreateWithoutJobInput, Prisma.FileInstanceUncheckedCreateWithoutJobInput>
+  where?: Prisma.FileInstanceWhereInput
+}
+
+export type FileInstanceUpdateToOneWithWhereWithoutJobInput = {
+  where?: Prisma.FileInstanceWhereInput
+  data: Prisma.XOR<Prisma.FileInstanceUpdateWithoutJobInput, Prisma.FileInstanceUncheckedUpdateWithoutJobInput>
+}
+
+export type FileInstanceUpdateWithoutJobInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalFilename?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.EnumFileTypeFieldUpdateOperationsInput | $Enums.FileType
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  privateMessages?: Prisma.PrivateMessageUpdateManyWithoutFileNestedInput
+}
+
+export type FileInstanceUncheckedUpdateWithoutJobInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalFilename?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.EnumFileTypeFieldUpdateOperationsInput | $Enums.FileType
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  privateMessages?: Prisma.PrivateMessageUncheckedUpdateManyWithoutFileNestedInput
+}
+
+export type FileInstanceCreateWithoutPrivateMessagesInput = {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 697220c811179155cb29db531968188abfb13fd3
+  id?: string
+  filename: string
+  originalFilename: string
+  path: string
+  url: string
+  fileType?: $Enums.FileType
+  mimeType: string
+  size: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+<<<<<<< HEAD
 }
 
 export type FileInstanceUncheckedCreateWithoutPrivateMessagesInput = {
@@ -516,6 +775,50 @@ export type FileInstanceUncheckedCreateWithoutPrivateMessagesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
 }
+=======
+  job?: Prisma.JobCreateNestedOneWithoutFileInput
+}
+
+export type FileInstanceUncheckedCreateWithoutPrivateMessagesInput = {
+  id?: string
+  filename: string
+  originalFilename: string
+  path: string
+  url: string
+  fileType?: $Enums.FileType
+  mimeType: string
+  size: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  job?: Prisma.JobUncheckedCreateNestedOneWithoutFileInput
+}
+=======
+  id?: string;
+  filename: string;
+  originalFilename: string;
+  path: string;
+  url: string;
+  fileType?: $Enums.FileType;
+  mimeType: string;
+  size: number;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+};
+
+export type FileInstanceUncheckedCreateWithoutPrivateMessagesInput = {
+  id?: string;
+  filename: string;
+  originalFilename: string;
+  path: string;
+  url: string;
+  fileType?: $Enums.FileType;
+  mimeType: string;
+  size: number;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+};
+>>>>>>> c3f071a97f89da86ec6c888f7f2b713ea155513d
+>>>>>>> 697220c811179155cb29db531968188abfb13fd3
 
 export type FileInstanceCreateOrConnectWithoutPrivateMessagesInput = {
   where: Prisma.FileInstanceWhereUniqueInput
@@ -534,6 +837,10 @@ export type FileInstanceUpdateToOneWithWhereWithoutPrivateMessagesInput = {
 }
 
 export type FileInstanceUpdateWithoutPrivateMessagesInput = {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 697220c811179155cb29db531968188abfb13fd3
   id?: Prisma.StringFieldUpdateOperationsInput | string
   filename?: Prisma.StringFieldUpdateOperationsInput | string
   originalFilename?: Prisma.StringFieldUpdateOperationsInput | string
@@ -544,6 +851,7 @@ export type FileInstanceUpdateWithoutPrivateMessagesInput = {
   size?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< HEAD
 }
 
 export type FileInstanceUncheckedUpdateWithoutPrivateMessagesInput = {
@@ -559,6 +867,51 @@ export type FileInstanceUncheckedUpdateWithoutPrivateMessagesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+=======
+  job?: Prisma.JobUpdateOneWithoutFileNestedInput
+}
+
+export type FileInstanceUncheckedUpdateWithoutPrivateMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalFilename?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.EnumFileTypeFieldUpdateOperationsInput | $Enums.FileType
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  job?: Prisma.JobUncheckedUpdateOneWithoutFileNestedInput
+}
+
+=======
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  filename?: Prisma.StringFieldUpdateOperationsInput | string;
+  originalFilename?: Prisma.StringFieldUpdateOperationsInput | string;
+  path?: Prisma.StringFieldUpdateOperationsInput | string;
+  url?: Prisma.StringFieldUpdateOperationsInput | string;
+  fileType?: Prisma.EnumFileTypeFieldUpdateOperationsInput | $Enums.FileType;
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string;
+  size?: Prisma.IntFieldUpdateOperationsInput | number;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+
+export type FileInstanceUncheckedUpdateWithoutPrivateMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  filename?: Prisma.StringFieldUpdateOperationsInput | string;
+  originalFilename?: Prisma.StringFieldUpdateOperationsInput | string;
+  path?: Prisma.StringFieldUpdateOperationsInput | string;
+  url?: Prisma.StringFieldUpdateOperationsInput | string;
+  fileType?: Prisma.EnumFileTypeFieldUpdateOperationsInput | $Enums.FileType;
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string;
+  size?: Prisma.IntFieldUpdateOperationsInput | number;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+>>>>>>> c3f071a97f89da86ec6c888f7f2b713ea155513d
+>>>>>>> 697220c811179155cb29db531968188abfb13fd3
 
 /**
  * Count Type FileInstanceCountOutputType
@@ -590,6 +943,10 @@ export type FileInstanceCountOutputTypeCountPrivateMessagesArgs<ExtArgs extends 
 }
 
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 697220c811179155cb29db531968188abfb13fd3
 export type FileInstanceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   filename?: boolean
@@ -601,9 +958,36 @@ export type FileInstanceSelect<ExtArgs extends runtime.Types.Extensions.Internal
   size?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+<<<<<<< HEAD
   privateMessages?: boolean | Prisma.FileInstance$privateMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.FileInstanceCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fileInstance"]>
+=======
+  job?: boolean | Prisma.FileInstance$jobArgs<ExtArgs>
+  privateMessages?: boolean | Prisma.FileInstance$privateMessagesArgs<ExtArgs>
+  _count?: boolean | Prisma.FileInstanceCountOutputTypeDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["fileInstance"]>
+=======
+export type FileInstanceSelectCreateManyAndReturn<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = runtime.Types.Extensions.GetSelect<
+  {
+    id?: boolean;
+    filename?: boolean;
+    originalFilename?: boolean;
+    path?: boolean;
+    url?: boolean;
+    fileType?: boolean;
+    mimeType?: boolean;
+    size?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+  },
+  ExtArgs['result']['fileInstance']
+>;
+>>>>>>> c3f071a97f89da86ec6c888f7f2b713ea155513d
+>>>>>>> 697220c811179155cb29db531968188abfb13fd3
 
 export type FileInstanceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -644,17 +1028,65 @@ export type FileInstanceSelectScalar = {
   updatedAt?: boolean
 }
 
+<<<<<<< HEAD
 export type FileInstanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "filename" | "originalFilename" | "path" | "url" | "fileType" | "mimeType" | "size" | "createdAt" | "updatedAt", ExtArgs["result"]["fileInstance"]>
 export type FileInstanceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+=======
+<<<<<<< HEAD
+export type FileInstanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "filename" | "originalFilename" | "path" | "url" | "fileType" | "mimeType" | "size" | "createdAt" | "updatedAt", ExtArgs["result"]["fileInstance"]>
+export type FileInstanceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  job?: boolean | Prisma.FileInstance$jobArgs<ExtArgs>
+>>>>>>> 697220c811179155cb29db531968188abfb13fd3
   privateMessages?: boolean | Prisma.FileInstance$privateMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.FileInstanceCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FileInstanceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 export type FileInstanceIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+<<<<<<< HEAD
+=======
+=======
+export type FileInstanceOmit<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = runtime.Types.Extensions.GetOmit<
+  | 'id'
+  | 'filename'
+  | 'originalFilename'
+  | 'path'
+  | 'url'
+  | 'fileType'
+  | 'mimeType'
+  | 'size'
+  | 'createdAt'
+  | 'updatedAt',
+  ExtArgs['result']['fileInstance']
+>;
+export type FileInstanceInclude<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  privateMessages?: boolean | Prisma.FileInstance$privateMessagesArgs<ExtArgs>;
+  _count?: boolean | Prisma.FileInstanceCountOutputTypeDefaultArgs<ExtArgs>;
+};
+export type FileInstanceIncludeCreateManyAndReturn<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {};
+export type FileInstanceIncludeUpdateManyAndReturn<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {};
+>>>>>>> c3f071a97f89da86ec6c888f7f2b713ea155513d
+>>>>>>> 697220c811179155cb29db531968188abfb13fd3
 
 export type $FileInstancePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "FileInstance"
   objects: {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    job: Prisma.$JobPayload<ExtArgs> | null
+>>>>>>> 697220c811179155cb29db531968188abfb13fd3
     privateMessages: Prisma.$PrivateMessagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -671,6 +1103,30 @@ export type $FileInstancePayload<ExtArgs extends runtime.Types.Extensions.Intern
   }, ExtArgs["result"]["fileInstance"]>
   composites: {}
 }
+<<<<<<< HEAD
+=======
+=======
+    privateMessages: Prisma.$PrivateMessagePayload<ExtArgs>[];
+  };
+  scalars: runtime.Types.Extensions.GetPayloadResult<
+    {
+      id: string;
+      filename: string;
+      originalFilename: string;
+      path: string;
+      url: string;
+      fileType: $Enums.FileType;
+      mimeType: string;
+      size: number;
+      createdAt: Date;
+      updatedAt: Date;
+    },
+    ExtArgs['result']['fileInstance']
+  >;
+  composites: {};
+};
+>>>>>>> c3f071a97f89da86ec6c888f7f2b713ea155513d
+>>>>>>> 697220c811179155cb29db531968188abfb13fd3
 
 export type FileInstanceGetPayload<S extends boolean | null | undefined | FileInstanceDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$FileInstancePayload, S>
 
@@ -1060,9 +1516,40 @@ readonly fields: FileInstanceFieldRefs;
  * Because we want to prevent naming conflicts as mentioned in
  * https://github.com/prisma/prisma-client-js/issues/707
  */
+<<<<<<< HEAD
 export interface Prisma__FileInstanceClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   privateMessages<T extends Prisma.FileInstance$privateMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FileInstance$privateMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PrivateMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+=======
+<<<<<<< HEAD
+export interface Prisma__FileInstanceClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  readonly [Symbol.toStringTag]: "PrismaPromise"
+  job<T extends Prisma.FileInstance$jobArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FileInstance$jobArgs<ExtArgs>>): Prisma.Prisma__JobClient<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  privateMessages<T extends Prisma.FileInstance$privateMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FileInstance$privateMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PrivateMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+=======
+export interface Prisma__FileInstanceClient<
+  T,
+  Null = never,
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+  GlobalOmitOptions = {},
+> extends Prisma.PrismaPromise<T> {
+  readonly [Symbol.toStringTag]: 'PrismaPromise';
+  privateMessages<
+    T extends Prisma.FileInstance$privateMessagesArgs<ExtArgs> = {},
+  >(
+    args?: Prisma.Subset<T, Prisma.FileInstance$privateMessagesArgs<ExtArgs>>,
+  ): Prisma.PrismaPromise<
+    | runtime.Types.Result.GetResult<
+        Prisma.$PrivateMessagePayload<ExtArgs>,
+        T,
+        'findMany',
+        GlobalOmitOptions
+      >
+    | Null
+  >;
+>>>>>>> c3f071a97f89da86ec6c888f7f2b713ea155513d
+>>>>>>> 697220c811179155cb29db531968188abfb13fd3
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1487,6 +1974,25 @@ export type FileInstanceDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Limit how many FileInstances to delete.
    */
   limit?: number
+}
+
+/**
+ * FileInstance.job
+ */
+export type FileInstance$jobArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Job
+   */
+  select?: Prisma.JobSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Job
+   */
+  omit?: Prisma.JobOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JobInclude<ExtArgs> | null
+  where?: Prisma.JobWhereInput
 }
 
 /**

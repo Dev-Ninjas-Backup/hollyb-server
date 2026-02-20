@@ -6,6 +6,9 @@ import { PrismaModule } from '@/prisma/prisma.module';
 import { DevToolsModule } from './dev-tools/dev-tools.module';
 import { ProfileModule } from './profile/profile.module';
 import { NotificationModule } from './notification/notification.module';
+import { SubscriptionModule } from './subscription/subscription.module';
+import { AdminModule } from './admin/admin.module';
+import { EmployerModule } from './employer/employer.module';
 
 const devOnlyImports =
   process.env.NODE_ENV === 'development' ? [DevToolsModule] : [];
@@ -18,6 +21,9 @@ const devOnlyImports =
     ProfileModule,
     PrivateMessageModule,
     NotificationModule,
+    SubscriptionModule,
+    AdminModule,
+    EmployerModule,
   ],
 })
 export class ModulesModule {}

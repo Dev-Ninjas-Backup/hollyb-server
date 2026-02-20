@@ -32,14 +32,22 @@ export class JwtAuthGuard implements CanActivate {
     const authHeader = request.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      throw new BusinessException('Unauthorized', HttpStatus.UNAUTHORIZED);
+      throw new BusinessException(
+        'Authorization token is missing. Please send a valid Bearer token.',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
 
     const token = authHeader.slice(7).trim();
 
     if (!token) {
-      throw new BusinessException('Unauthorized', HttpStatus.UNAUTHORIZED);
+      throw new BusinessException(
+        'Authorization token is empty. Please send a valid Bearer token.',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
+
+    console.log('✅ Token extracted:', token.substring(0, 30) + '...');
 
     let payload: { sub: string; role: string };
 
@@ -51,7 +59,10 @@ export class JwtAuthGuard implements CanActivate {
         secret: this.configService.getOrThrow<string>('JWT_ACCESS_SECRET'),
       });
     } catch {
-      throw new BusinessException('Invalid token', HttpStatus.UNAUTHORIZED);
+      throw new BusinessException(
+        'Invalid or expired access token. Please login again.',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
 
     const providers = await this.prismaService.client.userAuthProvider.findMany(
@@ -78,7 +89,10 @@ export class JwtAuthGuard implements CanActivate {
     }
 
     if (!isMatched) {
-      throw new BusinessException('Unauthorized', HttpStatus.UNAUTHORIZED);
+      throw new BusinessException(
+        'Your session is no longer valid. Please login again.',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
 
     request.user = payload;
