@@ -814,6 +814,8 @@ export type EnumJobApplicationStatusWithAggregatesFilter<$PrismaModel = never> =
     _max?: Prisma.NestedEnumJobApplicationStatusFilter<$PrismaModel>;
   };
 
+<<<<<<< HEAD
+=======
 export type EnumJobTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.JobType | Prisma.EnumJobTypeFieldRefInput<$PrismaModel>;
   in?: $Enums.JobType[] | Prisma.ListEnumJobTypeFieldRefInput<$PrismaModel>;
@@ -821,6 +823,7 @@ export type EnumJobTypeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumJobTypeFilter<$PrismaModel> | $Enums.JobType;
 };
 
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 export type EnumJobStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.JobStatus | Prisma.EnumJobStatusFieldRefInput<$PrismaModel>;
   in?: $Enums.JobStatus[] | Prisma.ListEnumJobStatusFieldRefInput<$PrismaModel>;
@@ -830,6 +833,8 @@ export type EnumJobStatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumJobStatusFilter<$PrismaModel> | $Enums.JobStatus;
 };
 
+<<<<<<< HEAD
+=======
 export type EnumJobPaymentTypeFilter<$PrismaModel = never> = {
   equals?:
     | $Enums.JobPaymentType
@@ -857,6 +862,7 @@ export type EnumJobTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumJobTypeFilter<$PrismaModel>;
 };
 
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 export type EnumJobStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.JobStatus | Prisma.EnumJobStatusFieldRefInput<$PrismaModel>;
   in?: $Enums.JobStatus[] | Prisma.ListEnumJobStatusFieldRefInput<$PrismaModel>;
@@ -871,6 +877,8 @@ export type EnumJobStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumJobStatusFilter<$PrismaModel>;
 };
 
+<<<<<<< HEAD
+=======
 export type EnumJobPaymentTypeWithAggregatesFilter<$PrismaModel = never> = {
   equals?:
     | $Enums.JobPaymentType
@@ -889,6 +897,7 @@ export type EnumJobPaymentTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumJobPaymentTypeFilter<$PrismaModel>;
 };
 
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 export type JsonFilter<$PrismaModel = never> =
   | Prisma.PatchUndefined<
       Prisma.Either<
@@ -1227,6 +1236,8 @@ export type EnumReviewerTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumReviewerTypeFilter<$PrismaModel>;
 };
 
+<<<<<<< HEAD
+=======
 export type EnumShiftStatusFilter<$PrismaModel = never> = {
   equals?:
     | $Enums.ShiftStatus
@@ -1258,6 +1269,7 @@ export type EnumShiftStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumShiftStatusFilter<$PrismaModel>;
 };
 
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 export type EnumSubscriptionPlanTypeFilter<$PrismaModel = never> = {
   equals?:
     | $Enums.SubscriptionPlanType
@@ -2155,6 +2167,8 @@ export type NestedEnumJobApplicationStatusWithAggregatesFilter<
   _max?: Prisma.NestedEnumJobApplicationStatusFilter<$PrismaModel>;
 };
 
+<<<<<<< HEAD
+=======
 export type NestedEnumJobTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.JobType | Prisma.EnumJobTypeFieldRefInput<$PrismaModel>;
   in?: $Enums.JobType[] | Prisma.ListEnumJobTypeFieldRefInput<$PrismaModel>;
@@ -2162,6 +2176,7 @@ export type NestedEnumJobTypeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumJobTypeFilter<$PrismaModel> | $Enums.JobType;
 };
 
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 export type NestedEnumJobStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.JobStatus | Prisma.EnumJobStatusFieldRefInput<$PrismaModel>;
   in?: $Enums.JobStatus[] | Prisma.ListEnumJobStatusFieldRefInput<$PrismaModel>;
@@ -2171,6 +2186,8 @@ export type NestedEnumJobStatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumJobStatusFilter<$PrismaModel> | $Enums.JobStatus;
 };
 
+<<<<<<< HEAD
+=======
 export type NestedEnumJobPaymentTypeFilter<$PrismaModel = never> = {
   equals?:
     | $Enums.JobPaymentType
@@ -2198,6 +2215,7 @@ export type NestedEnumJobTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumJobTypeFilter<$PrismaModel>;
 };
 
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 export type NestedEnumJobStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.JobStatus | Prisma.EnumJobStatusFieldRefInput<$PrismaModel>;
   in?: $Enums.JobStatus[] | Prisma.ListEnumJobStatusFieldRefInput<$PrismaModel>;
@@ -2212,6 +2230,8 @@ export type NestedEnumJobStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumJobStatusFilter<$PrismaModel>;
 };
 
+<<<<<<< HEAD
+=======
 export type NestedEnumJobPaymentTypeWithAggregatesFilter<$PrismaModel = never> =
   {
     equals?:
@@ -2231,6 +2251,7 @@ export type NestedEnumJobPaymentTypeWithAggregatesFilter<$PrismaModel = never> =
     _max?: Prisma.NestedEnumJobPaymentTypeFilter<$PrismaModel>;
   };
 
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 export type NestedJsonFilter<$PrismaModel = never> =
   | Prisma.PatchUndefined<
       Prisma.Either<
@@ -2525,6 +2546,8 @@ export type NestedEnumReviewerTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumReviewerTypeFilter<$PrismaModel>;
 };
 
+<<<<<<< HEAD
+=======
 export type NestedEnumShiftStatusFilter<$PrismaModel = never> = {
   equals?:
     | $Enums.ShiftStatus
@@ -2556,6 +2579,7 @@ export type NestedEnumShiftStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumShiftStatusFilter<$PrismaModel>;
 };
 
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 export type NestedEnumSubscriptionPlanTypeFilter<$PrismaModel = never> = {
   equals?:
     | $Enums.SubscriptionPlanType

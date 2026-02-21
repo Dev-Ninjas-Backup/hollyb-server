@@ -422,7 +422,6 @@ export const ModelName = {
   FavoriteWorker: 'FavoriteWorker',
   FileInstance: 'FileInstance',
   JobApplication: 'JobApplication',
-  JobAssignment: 'JobAssignment',
   JobSkill: 'JobSkill',
   Job: 'Job',
   Notification: 'Notification',
@@ -433,7 +432,6 @@ export const ModelName = {
   PrivateMessage: 'PrivateMessage',
   PrivateMessageStatus: 'PrivateMessageStatus',
   Review: 'Review',
-  Shift: 'Shift',
   Skill: 'Skill',
   Subscription: 'Subscription',
   SystemSetting: 'SystemSetting',
@@ -460,6 +458,11 @@ export type TypeMap<
     omit: GlobalOmitOptions;
   };
   meta: {
+<<<<<<< HEAD
+    modelProps: "adminActivityLog" | "backgroundCheck" | "document" | "earning" | "employeeProfile" | "employeeSkill" | "employerProfile" | "favoriteWorker" | "fileInstance" | "jobApplication" | "jobSkill" | "job" | "notification" | "userNotification" | "otpVerification" | "payment" | "privateConversation" | "privateMessage" | "privateMessageStatus" | "review" | "skill" | "subscription" | "systemSetting" | "userAuthProvider" | "user"
+    txIsolationLevel: TransactionIsolationLevel
+  }
+=======
     modelProps:
       | 'adminActivityLog'
       | 'backgroundCheck'
@@ -490,6 +493,7 @@ export type TypeMap<
       | 'user';
     txIsolationLevel: TransactionIsolationLevel;
   };
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
   model: {
     AdminActivityLog: {
       payload: Prisma.$AdminActivityLogPayload<ExtArgs>;
@@ -1244,6 +1248,13 @@ export type TypeMap<
           result: runtime.Types.Utils.Optional<Prisma.JobApplicationGroupByOutputType>[];
         };
         count: {
+<<<<<<< HEAD
+          args: Prisma.JobApplicationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobApplicationCountAggregateOutputType> | number
+        }
+      }
+    }
+=======
           args: Prisma.JobApplicationCountArgs<ExtArgs>;
           result:
             | runtime.Types.Utils.Optional<Prisma.JobApplicationCountAggregateOutputType>
@@ -1327,6 +1338,7 @@ export type TypeMap<
         };
       };
     };
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
     JobSkill: {
       payload: Prisma.$JobSkillPayload<ExtArgs>;
       fields: Prisma.JobSkillFieldRefs;
@@ -2080,6 +2092,13 @@ export type TypeMap<
           result: runtime.Types.Utils.Optional<Prisma.ReviewGroupByOutputType>[];
         };
         count: {
+<<<<<<< HEAD
+          args: Prisma.ReviewCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReviewCountAggregateOutputType> | number
+        }
+      }
+    }
+=======
           args: Prisma.ReviewCountArgs<ExtArgs>;
           result:
             | runtime.Types.Utils.Optional<Prisma.ReviewCountAggregateOutputType>
@@ -2163,6 +2182,7 @@ export type TypeMap<
         };
       };
     };
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
     Skill: {
       payload: Prisma.$SkillPayload<ExtArgs>;
       fields: Prisma.SkillFieldRefs;
@@ -2726,6 +2746,8 @@ export const JobApplicationScalarFieldEnum = {
 export type JobApplicationScalarFieldEnum =
   (typeof JobApplicationScalarFieldEnum)[keyof typeof JobApplicationScalarFieldEnum];
 
+<<<<<<< HEAD
+=======
 export const JobAssignmentScalarFieldEnum = {
   id: 'id',
   job_id: 'job_id',
@@ -2737,6 +2759,7 @@ export const JobAssignmentScalarFieldEnum = {
 export type JobAssignmentScalarFieldEnum =
   (typeof JobAssignmentScalarFieldEnum)[keyof typeof JobAssignmentScalarFieldEnum];
 
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 export const JobSkillScalarFieldEnum = {
   id: 'id',
   job_id: 'job_id',
@@ -2755,7 +2778,6 @@ export const JobScalarFieldEnum = {
   job_responsibilities: 'job_responsibilities',
   requirements: 'requirements',
   fileId: 'fileId',
-  job_type: 'job_type',
   is_urgent: 'is_urgent',
   status: 'status',
   start_date: 'start_date',
@@ -2763,13 +2785,18 @@ export const JobScalarFieldEnum = {
   start_time: 'start_time',
   end_time: 'end_time',
   amount: 'amount',
-  payment_type: 'payment_type',
+  totalAmount: 'totalAmount',
   location: 'location',
-  latitude: 'latitude',
-  longitude: 'longitude',
   created_at: 'created_at',
   updated_at: 'updated_at',
+<<<<<<< HEAD
+  assigned_employee_id: 'assigned_employee_id'
+} as const
+
+export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum]
+=======
 } as const;
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 
 export type JobScalarFieldEnum =
   (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum];
@@ -2882,6 +2909,8 @@ export const ReviewScalarFieldEnum = {
 export type ReviewScalarFieldEnum =
   (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum];
 
+<<<<<<< HEAD
+=======
 export const ShiftScalarFieldEnum = {
   id: 'id',
   job_id: 'job_id',
@@ -2898,6 +2927,7 @@ export const ShiftScalarFieldEnum = {
 export type ShiftScalarFieldEnum =
   (typeof ShiftScalarFieldEnum)[keyof typeof ShiftScalarFieldEnum];
 
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 export const SkillScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -3194,6 +3224,8 @@ export type ListEnumJobApplicationStatusFieldRefInput<$PrismaModel> =
   FieldRefInputType<$PrismaModel, 'JobApplicationStatus[]'>;
 
 /**
+<<<<<<< HEAD
+=======
  * Reference to a field of type 'JobType'
  */
 export type EnumJobTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
@@ -3210,6 +3242,7 @@ export type ListEnumJobTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
 >;
 
 /**
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
  * Reference to a field of type 'JobStatus'
  */
 export type EnumJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
@@ -3226,6 +3259,8 @@ export type ListEnumJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
 >;
 
 /**
+<<<<<<< HEAD
+=======
  * Reference to a field of type 'JobPaymentType'
  */
 export type EnumJobPaymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
@@ -3240,6 +3275,7 @@ export type ListEnumJobPaymentTypeFieldRefInput<$PrismaModel> =
   FieldRefInputType<$PrismaModel, 'JobPaymentType[]'>;
 
 /**
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
  * Reference to a field of type 'OtpType'
  */
 export type EnumOtpTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
@@ -3356,6 +3392,8 @@ export type ListEnumReviewerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
 >;
 
 /**
+<<<<<<< HEAD
+=======
  * Reference to a field of type 'ShiftStatus'
  */
 export type EnumShiftStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
@@ -3372,6 +3410,7 @@ export type ListEnumShiftStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
 >;
 
 /**
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
  * Reference to a field of type 'SubscriptionPlanType'
  */
 export type EnumSubscriptionPlanTypeFieldRefInput<$PrismaModel> =
@@ -3544,6 +3583,34 @@ export type PrismaClientOptions = (
   comments?: runtime.SqlCommenterPlugin[];
 };
 export type GlobalOmitConfig = {
+<<<<<<< HEAD
+  adminActivityLog?: Prisma.AdminActivityLogOmit
+  backgroundCheck?: Prisma.BackgroundCheckOmit
+  document?: Prisma.DocumentOmit
+  earning?: Prisma.EarningOmit
+  employeeProfile?: Prisma.EmployeeProfileOmit
+  employeeSkill?: Prisma.EmployeeSkillOmit
+  employerProfile?: Prisma.EmployerProfileOmit
+  favoriteWorker?: Prisma.FavoriteWorkerOmit
+  fileInstance?: Prisma.FileInstanceOmit
+  jobApplication?: Prisma.JobApplicationOmit
+  jobSkill?: Prisma.JobSkillOmit
+  job?: Prisma.JobOmit
+  notification?: Prisma.NotificationOmit
+  userNotification?: Prisma.UserNotificationOmit
+  otpVerification?: Prisma.OtpVerificationOmit
+  payment?: Prisma.PaymentOmit
+  privateConversation?: Prisma.PrivateConversationOmit
+  privateMessage?: Prisma.PrivateMessageOmit
+  privateMessageStatus?: Prisma.PrivateMessageStatusOmit
+  review?: Prisma.ReviewOmit
+  skill?: Prisma.SkillOmit
+  subscription?: Prisma.SubscriptionOmit
+  systemSetting?: Prisma.SystemSettingOmit
+  userAuthProvider?: Prisma.UserAuthProviderOmit
+  user?: Prisma.UserOmit
+}
+=======
   adminActivityLog?: Prisma.AdminActivityLogOmit;
   backgroundCheck?: Prisma.BackgroundCheckOmit;
   document?: Prisma.DocumentOmit;
@@ -3572,6 +3639,7 @@ export type GlobalOmitConfig = {
   userAuthProvider?: Prisma.UserAuthProviderOmit;
   user?: Prisma.UserOmit;
 };
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 
 /* Types for Logging */
 export type LogLevel = 'info' | 'query' | 'warn' | 'error';

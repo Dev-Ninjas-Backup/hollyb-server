@@ -322,6 +322,90 @@ type GetEmployeeProfileGroupByPayload<T extends EmployeeProfileGroupByArgs> =
   >;
 
 export type EmployeeProfileWhereInput = {
+<<<<<<< HEAD
+  AND?: Prisma.EmployeeProfileWhereInput | Prisma.EmployeeProfileWhereInput[]
+  OR?: Prisma.EmployeeProfileWhereInput[]
+  NOT?: Prisma.EmployeeProfileWhereInput | Prisma.EmployeeProfileWhereInput[]
+  id?: Prisma.UuidFilter<"EmployeeProfile"> | string
+  user_id?: Prisma.UuidFilter<"EmployeeProfile"> | string
+  date_of_birth?: Prisma.DateTimeNullableFilter<"EmployeeProfile"> | Date | string | null
+  address?: Prisma.StringNullableFilter<"EmployeeProfile"> | string | null
+  latitude?: Prisma.FloatNullableFilter<"EmployeeProfile"> | number | null
+  longitude?: Prisma.FloatNullableFilter<"EmployeeProfile"> | number | null
+  experience_years?: Prisma.IntNullableFilter<"EmployeeProfile"> | number | null
+  bio?: Prisma.StringNullableFilter<"EmployeeProfile"> | string | null
+  profile_photo_url?: Prisma.StringNullableFilter<"EmployeeProfile"> | string | null
+  rating?: Prisma.FloatFilter<"EmployeeProfile"> | number
+  total_reviews?: Prisma.IntFilter<"EmployeeProfile"> | number
+  total_jobs?: Prisma.IntFilter<"EmployeeProfile"> | number
+  total_hours?: Prisma.FloatFilter<"EmployeeProfile"> | number
+  total_earned?: Prisma.DecimalFilter<"EmployeeProfile"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFilter<"EmployeeProfile"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"EmployeeProfile"> | Date | string
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  employee_skills?: Prisma.EmployeeSkillListRelationFilter
+  job_applications?: Prisma.JobApplicationListRelationFilter
+  assigned_job?: Prisma.XOR<Prisma.JobNullableScalarRelationFilter, Prisma.JobWhereInput> | null
+  earnings?: Prisma.EarningListRelationFilter
+  received_reviews?: Prisma.ReviewListRelationFilter
+  favorite_workers?: Prisma.FavoriteWorkerListRelationFilter
+}
+
+export type EmployeeProfileOrderByWithRelationInput = {
+  id?: Prisma.SortOrder
+  user_id?: Prisma.SortOrder
+  date_of_birth?: Prisma.SortOrderInput | Prisma.SortOrder
+  address?: Prisma.SortOrderInput | Prisma.SortOrder
+  latitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  longitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  experience_years?: Prisma.SortOrderInput | Prisma.SortOrder
+  bio?: Prisma.SortOrderInput | Prisma.SortOrder
+  profile_photo_url?: Prisma.SortOrderInput | Prisma.SortOrder
+  rating?: Prisma.SortOrder
+  total_reviews?: Prisma.SortOrder
+  total_jobs?: Prisma.SortOrder
+  total_hours?: Prisma.SortOrder
+  total_earned?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  user?: Prisma.UserOrderByWithRelationInput
+  employee_skills?: Prisma.EmployeeSkillOrderByRelationAggregateInput
+  job_applications?: Prisma.JobApplicationOrderByRelationAggregateInput
+  assigned_job?: Prisma.JobOrderByWithRelationInput
+  earnings?: Prisma.EarningOrderByRelationAggregateInput
+  received_reviews?: Prisma.ReviewOrderByRelationAggregateInput
+  favorite_workers?: Prisma.FavoriteWorkerOrderByRelationAggregateInput
+}
+
+export type EmployeeProfileWhereUniqueInput = Prisma.AtLeast<{
+  id?: string
+  user_id?: string
+  AND?: Prisma.EmployeeProfileWhereInput | Prisma.EmployeeProfileWhereInput[]
+  OR?: Prisma.EmployeeProfileWhereInput[]
+  NOT?: Prisma.EmployeeProfileWhereInput | Prisma.EmployeeProfileWhereInput[]
+  date_of_birth?: Prisma.DateTimeNullableFilter<"EmployeeProfile"> | Date | string | null
+  address?: Prisma.StringNullableFilter<"EmployeeProfile"> | string | null
+  latitude?: Prisma.FloatNullableFilter<"EmployeeProfile"> | number | null
+  longitude?: Prisma.FloatNullableFilter<"EmployeeProfile"> | number | null
+  experience_years?: Prisma.IntNullableFilter<"EmployeeProfile"> | number | null
+  bio?: Prisma.StringNullableFilter<"EmployeeProfile"> | string | null
+  profile_photo_url?: Prisma.StringNullableFilter<"EmployeeProfile"> | string | null
+  rating?: Prisma.FloatFilter<"EmployeeProfile"> | number
+  total_reviews?: Prisma.IntFilter<"EmployeeProfile"> | number
+  total_jobs?: Prisma.IntFilter<"EmployeeProfile"> | number
+  total_hours?: Prisma.FloatFilter<"EmployeeProfile"> | number
+  total_earned?: Prisma.DecimalFilter<"EmployeeProfile"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFilter<"EmployeeProfile"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"EmployeeProfile"> | Date | string
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  employee_skills?: Prisma.EmployeeSkillListRelationFilter
+  job_applications?: Prisma.JobApplicationListRelationFilter
+  assigned_job?: Prisma.XOR<Prisma.JobNullableScalarRelationFilter, Prisma.JobWhereInput> | null
+  earnings?: Prisma.EarningListRelationFilter
+  received_reviews?: Prisma.ReviewListRelationFilter
+  favorite_workers?: Prisma.FavoriteWorkerListRelationFilter
+}, "id" | "user_id">
+=======
   AND?: Prisma.EmployeeProfileWhereInput | Prisma.EmployeeProfileWhereInput[];
   OR?: Prisma.EmployeeProfileWhereInput[];
   NOT?: Prisma.EmployeeProfileWhereInput | Prisma.EmployeeProfileWhereInput[];
@@ -440,6 +524,7 @@ export type EmployeeProfileWhereUniqueInput = Prisma.AtLeast<
   },
   'id' | 'user_id'
 >;
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 
 export type EmployeeProfileOrderByWithAggregationInput = {
   id?: Prisma.SortOrder;
@@ -525,6 +610,106 @@ export type EmployeeProfileScalarWhereWithAggregatesInput = {
 };
 
 export type EmployeeProfileCreateInput = {
+<<<<<<< HEAD
+  id?: string
+  date_of_birth?: Date | string | null
+  address?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  experience_years?: number | null
+  bio?: string | null
+  profile_photo_url?: string | null
+  rating?: number
+  total_reviews?: number
+  total_jobs?: number
+  total_hours?: number
+  total_earned?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutEmployee_profileInput
+  employee_skills?: Prisma.EmployeeSkillCreateNestedManyWithoutEmployeeInput
+  job_applications?: Prisma.JobApplicationCreateNestedManyWithoutEmployeeInput
+  assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput
+  earnings?: Prisma.EarningCreateNestedManyWithoutEmployeeInput
+  received_reviews?: Prisma.ReviewCreateNestedManyWithoutEmployeeInput
+  favorite_workers?: Prisma.FavoriteWorkerCreateNestedManyWithoutEmployeeInput
+}
+
+export type EmployeeProfileUncheckedCreateInput = {
+  id?: string
+  user_id: string
+  date_of_birth?: Date | string | null
+  address?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  experience_years?: number | null
+  bio?: string | null
+  profile_photo_url?: string | null
+  rating?: number
+  total_reviews?: number
+  total_jobs?: number
+  total_hours?: number
+  total_earned?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  employee_skills?: Prisma.EmployeeSkillUncheckedCreateNestedManyWithoutEmployeeInput
+  job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutEmployeeInput
+  assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput
+  earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput
+  received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput
+}
+
+export type EmployeeProfileUpdateInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  total_jobs?: Prisma.IntFieldUpdateOperationsInput | number
+  total_hours?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_earned?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutEmployee_profileNestedInput
+  employee_skills?: Prisma.EmployeeSkillUpdateManyWithoutEmployeeNestedInput
+  job_applications?: Prisma.JobApplicationUpdateManyWithoutEmployeeNestedInput
+  assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput
+  earnings?: Prisma.EarningUpdateManyWithoutEmployeeNestedInput
+  received_reviews?: Prisma.ReviewUpdateManyWithoutEmployeeNestedInput
+  favorite_workers?: Prisma.FavoriteWorkerUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeProfileUncheckedUpdateInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  total_jobs?: Prisma.IntFieldUpdateOperationsInput | number
+  total_hours?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_earned?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employee_skills?: Prisma.EmployeeSkillUncheckedUpdateManyWithoutEmployeeNestedInput
+  job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutEmployeeNestedInput
+  assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput
+  earnings?: Prisma.EarningUncheckedUpdateManyWithoutEmployeeNestedInput
+  received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  favorite_workers?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployeeNestedInput
+}
+=======
   id?: string;
   date_of_birth?: Date | string | null;
   address?: string | null;
@@ -657,6 +842,7 @@ export type EmployeeProfileUncheckedUpdateInput = {
   received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput;
   favorite_workers?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployeeNestedInput;
 };
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 
 export type EmployeeProfileCreateManyInput = {
   id?: string;
@@ -980,6 +1166,23 @@ export type EmployeeProfileUpdateOneRequiredWithoutJob_applicationsNestedInput =
     >;
   };
 
+<<<<<<< HEAD
+export type EmployeeProfileCreateNestedOneWithoutAssigned_jobInput = {
+  create?: Prisma.XOR<Prisma.EmployeeProfileCreateWithoutAssigned_jobInput, Prisma.EmployeeProfileUncheckedCreateWithoutAssigned_jobInput>
+  connectOrCreate?: Prisma.EmployeeProfileCreateOrConnectWithoutAssigned_jobInput
+  connect?: Prisma.EmployeeProfileWhereUniqueInput
+}
+
+export type EmployeeProfileUpdateOneWithoutAssigned_jobNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeProfileCreateWithoutAssigned_jobInput, Prisma.EmployeeProfileUncheckedCreateWithoutAssigned_jobInput>
+  connectOrCreate?: Prisma.EmployeeProfileCreateOrConnectWithoutAssigned_jobInput
+  upsert?: Prisma.EmployeeProfileUpsertWithoutAssigned_jobInput
+  disconnect?: Prisma.EmployeeProfileWhereInput | boolean
+  delete?: Prisma.EmployeeProfileWhereInput | boolean
+  connect?: Prisma.EmployeeProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeProfileUpdateToOneWithWhereWithoutAssigned_jobInput, Prisma.EmployeeProfileUpdateWithoutAssigned_jobInput>, Prisma.EmployeeProfileUncheckedUpdateWithoutAssigned_jobInput>
+}
+=======
 export type EmployeeProfileCreateNestedOneWithoutJob_assignmentsInput = {
   create?: Prisma.XOR<
     Prisma.EmployeeProfileCreateWithoutJob_assignmentsInput,
@@ -1006,6 +1209,7 @@ export type EmployeeProfileUpdateOneRequiredWithoutJob_assignmentsNestedInput =
       Prisma.EmployeeProfileUncheckedUpdateWithoutJob_assignmentsInput
     >;
   };
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 
 export type EmployeeProfileCreateNestedOneWithoutReceived_reviewsInput = {
   create?: Prisma.XOR<
@@ -1034,6 +1238,8 @@ export type EmployeeProfileUpdateOneRequiredWithoutReceived_reviewsNestedInput =
     >;
   };
 
+<<<<<<< HEAD
+=======
 export type EmployeeProfileCreateNestedOneWithoutShiftsInput = {
   create?: Prisma.XOR<
     Prisma.EmployeeProfileCreateWithoutShiftsInput,
@@ -1060,6 +1266,7 @@ export type EmployeeProfileUpdateOneRequiredWithoutShiftsNestedInput = {
   >;
 };
 
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 export type EmployeeProfileCreateNestedOneWithoutUserInput = {
   create?: Prisma.XOR<
     Prisma.EmployeeProfileCreateWithoutUserInput,
@@ -1117,6 +1324,54 @@ export type EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput = {
 };
 
 export type EmployeeProfileCreateWithoutEarningsInput = {
+<<<<<<< HEAD
+  id?: string
+  date_of_birth?: Date | string | null
+  address?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  experience_years?: number | null
+  bio?: string | null
+  profile_photo_url?: string | null
+  rating?: number
+  total_reviews?: number
+  total_jobs?: number
+  total_hours?: number
+  total_earned?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutEmployee_profileInput
+  employee_skills?: Prisma.EmployeeSkillCreateNestedManyWithoutEmployeeInput
+  job_applications?: Prisma.JobApplicationCreateNestedManyWithoutEmployeeInput
+  assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput
+  received_reviews?: Prisma.ReviewCreateNestedManyWithoutEmployeeInput
+  favorite_workers?: Prisma.FavoriteWorkerCreateNestedManyWithoutEmployeeInput
+}
+
+export type EmployeeProfileUncheckedCreateWithoutEarningsInput = {
+  id?: string
+  user_id: string
+  date_of_birth?: Date | string | null
+  address?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  experience_years?: number | null
+  bio?: string | null
+  profile_photo_url?: string | null
+  rating?: number
+  total_reviews?: number
+  total_jobs?: number
+  total_hours?: number
+  total_earned?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  employee_skills?: Prisma.EmployeeSkillUncheckedCreateNestedManyWithoutEmployeeInput
+  job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutEmployeeInput
+  assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput
+  received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput
+}
+=======
   id?: string;
   date_of_birth?: Date | string | null;
   address?: string | null;
@@ -1165,6 +1420,7 @@ export type EmployeeProfileUncheckedCreateWithoutEarningsInput = {
   received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput;
   favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput;
 };
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 
 export type EmployeeProfileCreateOrConnectWithoutEarningsInput = {
   where: Prisma.EmployeeProfileWhereUniqueInput;
@@ -1195,6 +1451,102 @@ export type EmployeeProfileUpdateToOneWithWhereWithoutEarningsInput = {
 };
 
 export type EmployeeProfileUpdateWithoutEarningsInput = {
+<<<<<<< HEAD
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  total_jobs?: Prisma.IntFieldUpdateOperationsInput | number
+  total_hours?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_earned?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutEmployee_profileNestedInput
+  employee_skills?: Prisma.EmployeeSkillUpdateManyWithoutEmployeeNestedInput
+  job_applications?: Prisma.JobApplicationUpdateManyWithoutEmployeeNestedInput
+  assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput
+  received_reviews?: Prisma.ReviewUpdateManyWithoutEmployeeNestedInput
+  favorite_workers?: Prisma.FavoriteWorkerUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeProfileUncheckedUpdateWithoutEarningsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  total_jobs?: Prisma.IntFieldUpdateOperationsInput | number
+  total_hours?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_earned?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employee_skills?: Prisma.EmployeeSkillUncheckedUpdateManyWithoutEmployeeNestedInput
+  job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutEmployeeNestedInput
+  assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput
+  received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  favorite_workers?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeProfileCreateWithoutEmployee_skillsInput = {
+  id?: string
+  date_of_birth?: Date | string | null
+  address?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  experience_years?: number | null
+  bio?: string | null
+  profile_photo_url?: string | null
+  rating?: number
+  total_reviews?: number
+  total_jobs?: number
+  total_hours?: number
+  total_earned?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutEmployee_profileInput
+  job_applications?: Prisma.JobApplicationCreateNestedManyWithoutEmployeeInput
+  assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput
+  earnings?: Prisma.EarningCreateNestedManyWithoutEmployeeInput
+  received_reviews?: Prisma.ReviewCreateNestedManyWithoutEmployeeInput
+  favorite_workers?: Prisma.FavoriteWorkerCreateNestedManyWithoutEmployeeInput
+}
+
+export type EmployeeProfileUncheckedCreateWithoutEmployee_skillsInput = {
+  id?: string
+  user_id: string
+  date_of_birth?: Date | string | null
+  address?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  experience_years?: number | null
+  bio?: string | null
+  profile_photo_url?: string | null
+  rating?: number
+  total_reviews?: number
+  total_jobs?: number
+  total_hours?: number
+  total_earned?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutEmployeeInput
+  assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput
+  earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput
+  received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput
+}
+=======
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   date_of_birth?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
@@ -1323,6 +1675,7 @@ export type EmployeeProfileUncheckedCreateWithoutEmployee_skillsInput = {
   received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput;
   favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput;
 };
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 
 export type EmployeeProfileCreateOrConnectWithoutEmployee_skillsInput = {
   where: Prisma.EmployeeProfileWhereUniqueInput;
@@ -1353,6 +1706,102 @@ export type EmployeeProfileUpdateToOneWithWhereWithoutEmployee_skillsInput = {
 };
 
 export type EmployeeProfileUpdateWithoutEmployee_skillsInput = {
+<<<<<<< HEAD
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  total_jobs?: Prisma.IntFieldUpdateOperationsInput | number
+  total_hours?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_earned?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutEmployee_profileNestedInput
+  job_applications?: Prisma.JobApplicationUpdateManyWithoutEmployeeNestedInput
+  assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput
+  earnings?: Prisma.EarningUpdateManyWithoutEmployeeNestedInput
+  received_reviews?: Prisma.ReviewUpdateManyWithoutEmployeeNestedInput
+  favorite_workers?: Prisma.FavoriteWorkerUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeProfileUncheckedUpdateWithoutEmployee_skillsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  total_jobs?: Prisma.IntFieldUpdateOperationsInput | number
+  total_hours?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_earned?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutEmployeeNestedInput
+  assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput
+  earnings?: Prisma.EarningUncheckedUpdateManyWithoutEmployeeNestedInput
+  received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  favorite_workers?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeProfileCreateWithoutFavorite_workersInput = {
+  id?: string
+  date_of_birth?: Date | string | null
+  address?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  experience_years?: number | null
+  bio?: string | null
+  profile_photo_url?: string | null
+  rating?: number
+  total_reviews?: number
+  total_jobs?: number
+  total_hours?: number
+  total_earned?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutEmployee_profileInput
+  employee_skills?: Prisma.EmployeeSkillCreateNestedManyWithoutEmployeeInput
+  job_applications?: Prisma.JobApplicationCreateNestedManyWithoutEmployeeInput
+  assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput
+  earnings?: Prisma.EarningCreateNestedManyWithoutEmployeeInput
+  received_reviews?: Prisma.ReviewCreateNestedManyWithoutEmployeeInput
+}
+
+export type EmployeeProfileUncheckedCreateWithoutFavorite_workersInput = {
+  id?: string
+  user_id: string
+  date_of_birth?: Date | string | null
+  address?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  experience_years?: number | null
+  bio?: string | null
+  profile_photo_url?: string | null
+  rating?: number
+  total_reviews?: number
+  total_jobs?: number
+  total_hours?: number
+  total_earned?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  employee_skills?: Prisma.EmployeeSkillUncheckedCreateNestedManyWithoutEmployeeInput
+  job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutEmployeeInput
+  assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput
+  earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput
+  received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput
+}
+=======
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   date_of_birth?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
@@ -1481,6 +1930,7 @@ export type EmployeeProfileUncheckedCreateWithoutFavorite_workersInput = {
   earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput;
   received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput;
 };
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 
 export type EmployeeProfileCreateOrConnectWithoutFavorite_workersInput = {
   where: Prisma.EmployeeProfileWhereUniqueInput;
@@ -1511,6 +1961,102 @@ export type EmployeeProfileUpdateToOneWithWhereWithoutFavorite_workersInput = {
 };
 
 export type EmployeeProfileUpdateWithoutFavorite_workersInput = {
+<<<<<<< HEAD
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  total_jobs?: Prisma.IntFieldUpdateOperationsInput | number
+  total_hours?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_earned?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutEmployee_profileNestedInput
+  employee_skills?: Prisma.EmployeeSkillUpdateManyWithoutEmployeeNestedInput
+  job_applications?: Prisma.JobApplicationUpdateManyWithoutEmployeeNestedInput
+  assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput
+  earnings?: Prisma.EarningUpdateManyWithoutEmployeeNestedInput
+  received_reviews?: Prisma.ReviewUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeProfileUncheckedUpdateWithoutFavorite_workersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  total_jobs?: Prisma.IntFieldUpdateOperationsInput | number
+  total_hours?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_earned?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employee_skills?: Prisma.EmployeeSkillUncheckedUpdateManyWithoutEmployeeNestedInput
+  job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutEmployeeNestedInput
+  assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput
+  earnings?: Prisma.EarningUncheckedUpdateManyWithoutEmployeeNestedInput
+  received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeProfileCreateWithoutJob_applicationsInput = {
+  id?: string
+  date_of_birth?: Date | string | null
+  address?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  experience_years?: number | null
+  bio?: string | null
+  profile_photo_url?: string | null
+  rating?: number
+  total_reviews?: number
+  total_jobs?: number
+  total_hours?: number
+  total_earned?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutEmployee_profileInput
+  employee_skills?: Prisma.EmployeeSkillCreateNestedManyWithoutEmployeeInput
+  assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput
+  earnings?: Prisma.EarningCreateNestedManyWithoutEmployeeInput
+  received_reviews?: Prisma.ReviewCreateNestedManyWithoutEmployeeInput
+  favorite_workers?: Prisma.FavoriteWorkerCreateNestedManyWithoutEmployeeInput
+}
+
+export type EmployeeProfileUncheckedCreateWithoutJob_applicationsInput = {
+  id?: string
+  user_id: string
+  date_of_birth?: Date | string | null
+  address?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  experience_years?: number | null
+  bio?: string | null
+  profile_photo_url?: string | null
+  rating?: number
+  total_reviews?: number
+  total_jobs?: number
+  total_hours?: number
+  total_earned?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  employee_skills?: Prisma.EmployeeSkillUncheckedCreateNestedManyWithoutEmployeeInput
+  assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput
+  earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput
+  received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput
+}
+=======
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   date_of_birth?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
@@ -1639,6 +2185,7 @@ export type EmployeeProfileUncheckedCreateWithoutJob_applicationsInput = {
   received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput;
   favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput;
 };
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 
 export type EmployeeProfileCreateOrConnectWithoutJob_applicationsInput = {
   where: Prisma.EmployeeProfileWhereUniqueInput;
@@ -1669,6 +2216,214 @@ export type EmployeeProfileUpdateToOneWithWhereWithoutJob_applicationsInput = {
 };
 
 export type EmployeeProfileUpdateWithoutJob_applicationsInput = {
+<<<<<<< HEAD
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  total_jobs?: Prisma.IntFieldUpdateOperationsInput | number
+  total_hours?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_earned?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutEmployee_profileNestedInput
+  employee_skills?: Prisma.EmployeeSkillUpdateManyWithoutEmployeeNestedInput
+  assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput
+  earnings?: Prisma.EarningUpdateManyWithoutEmployeeNestedInput
+  received_reviews?: Prisma.ReviewUpdateManyWithoutEmployeeNestedInput
+  favorite_workers?: Prisma.FavoriteWorkerUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeProfileUncheckedUpdateWithoutJob_applicationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  total_jobs?: Prisma.IntFieldUpdateOperationsInput | number
+  total_hours?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_earned?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employee_skills?: Prisma.EmployeeSkillUncheckedUpdateManyWithoutEmployeeNestedInput
+  assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput
+  earnings?: Prisma.EarningUncheckedUpdateManyWithoutEmployeeNestedInput
+  received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  favorite_workers?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeProfileCreateWithoutAssigned_jobInput = {
+  id?: string
+  date_of_birth?: Date | string | null
+  address?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  experience_years?: number | null
+  bio?: string | null
+  profile_photo_url?: string | null
+  rating?: number
+  total_reviews?: number
+  total_jobs?: number
+  total_hours?: number
+  total_earned?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutEmployee_profileInput
+  employee_skills?: Prisma.EmployeeSkillCreateNestedManyWithoutEmployeeInput
+  job_applications?: Prisma.JobApplicationCreateNestedManyWithoutEmployeeInput
+  earnings?: Prisma.EarningCreateNestedManyWithoutEmployeeInput
+  received_reviews?: Prisma.ReviewCreateNestedManyWithoutEmployeeInput
+  favorite_workers?: Prisma.FavoriteWorkerCreateNestedManyWithoutEmployeeInput
+}
+
+export type EmployeeProfileUncheckedCreateWithoutAssigned_jobInput = {
+  id?: string
+  user_id: string
+  date_of_birth?: Date | string | null
+  address?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  experience_years?: number | null
+  bio?: string | null
+  profile_photo_url?: string | null
+  rating?: number
+  total_reviews?: number
+  total_jobs?: number
+  total_hours?: number
+  total_earned?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  employee_skills?: Prisma.EmployeeSkillUncheckedCreateNestedManyWithoutEmployeeInput
+  job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutEmployeeInput
+  earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput
+  received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput
+}
+
+export type EmployeeProfileCreateOrConnectWithoutAssigned_jobInput = {
+  where: Prisma.EmployeeProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeProfileCreateWithoutAssigned_jobInput, Prisma.EmployeeProfileUncheckedCreateWithoutAssigned_jobInput>
+}
+
+export type EmployeeProfileUpsertWithoutAssigned_jobInput = {
+  update: Prisma.XOR<Prisma.EmployeeProfileUpdateWithoutAssigned_jobInput, Prisma.EmployeeProfileUncheckedUpdateWithoutAssigned_jobInput>
+  create: Prisma.XOR<Prisma.EmployeeProfileCreateWithoutAssigned_jobInput, Prisma.EmployeeProfileUncheckedCreateWithoutAssigned_jobInput>
+  where?: Prisma.EmployeeProfileWhereInput
+}
+
+export type EmployeeProfileUpdateToOneWithWhereWithoutAssigned_jobInput = {
+  where?: Prisma.EmployeeProfileWhereInput
+  data: Prisma.XOR<Prisma.EmployeeProfileUpdateWithoutAssigned_jobInput, Prisma.EmployeeProfileUncheckedUpdateWithoutAssigned_jobInput>
+}
+
+export type EmployeeProfileUpdateWithoutAssigned_jobInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  total_jobs?: Prisma.IntFieldUpdateOperationsInput | number
+  total_hours?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_earned?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutEmployee_profileNestedInput
+  employee_skills?: Prisma.EmployeeSkillUpdateManyWithoutEmployeeNestedInput
+  job_applications?: Prisma.JobApplicationUpdateManyWithoutEmployeeNestedInput
+  earnings?: Prisma.EarningUpdateManyWithoutEmployeeNestedInput
+  received_reviews?: Prisma.ReviewUpdateManyWithoutEmployeeNestedInput
+  favorite_workers?: Prisma.FavoriteWorkerUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeProfileUncheckedUpdateWithoutAssigned_jobInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  total_jobs?: Prisma.IntFieldUpdateOperationsInput | number
+  total_hours?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_earned?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employee_skills?: Prisma.EmployeeSkillUncheckedUpdateManyWithoutEmployeeNestedInput
+  job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutEmployeeNestedInput
+  earnings?: Prisma.EarningUncheckedUpdateManyWithoutEmployeeNestedInput
+  received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  favorite_workers?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeProfileCreateWithoutReceived_reviewsInput = {
+  id?: string
+  date_of_birth?: Date | string | null
+  address?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  experience_years?: number | null
+  bio?: string | null
+  profile_photo_url?: string | null
+  rating?: number
+  total_reviews?: number
+  total_jobs?: number
+  total_hours?: number
+  total_earned?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutEmployee_profileInput
+  employee_skills?: Prisma.EmployeeSkillCreateNestedManyWithoutEmployeeInput
+  job_applications?: Prisma.JobApplicationCreateNestedManyWithoutEmployeeInput
+  assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput
+  earnings?: Prisma.EarningCreateNestedManyWithoutEmployeeInput
+  favorite_workers?: Prisma.FavoriteWorkerCreateNestedManyWithoutEmployeeInput
+}
+
+export type EmployeeProfileUncheckedCreateWithoutReceived_reviewsInput = {
+  id?: string
+  user_id: string
+  date_of_birth?: Date | string | null
+  address?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  experience_years?: number | null
+  bio?: string | null
+  profile_photo_url?: string | null
+  rating?: number
+  total_reviews?: number
+  total_jobs?: number
+  total_hours?: number
+  total_earned?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  employee_skills?: Prisma.EmployeeSkillUncheckedCreateNestedManyWithoutEmployeeInput
+  job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutEmployeeInput
+  assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput
+  earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput
+  favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput
+}
+=======
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   date_of_birth?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
@@ -1955,6 +2710,7 @@ export type EmployeeProfileUncheckedCreateWithoutReceived_reviewsInput = {
   earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput;
   favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput;
 };
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 
 export type EmployeeProfileCreateOrConnectWithoutReceived_reviewsInput = {
   where: Prisma.EmployeeProfileWhereUniqueInput;
@@ -1985,6 +2741,102 @@ export type EmployeeProfileUpdateToOneWithWhereWithoutReceived_reviewsInput = {
 };
 
 export type EmployeeProfileUpdateWithoutReceived_reviewsInput = {
+<<<<<<< HEAD
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  total_jobs?: Prisma.IntFieldUpdateOperationsInput | number
+  total_hours?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_earned?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutEmployee_profileNestedInput
+  employee_skills?: Prisma.EmployeeSkillUpdateManyWithoutEmployeeNestedInput
+  job_applications?: Prisma.JobApplicationUpdateManyWithoutEmployeeNestedInput
+  assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput
+  earnings?: Prisma.EarningUpdateManyWithoutEmployeeNestedInput
+  favorite_workers?: Prisma.FavoriteWorkerUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeProfileUncheckedUpdateWithoutReceived_reviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  total_jobs?: Prisma.IntFieldUpdateOperationsInput | number
+  total_hours?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_earned?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employee_skills?: Prisma.EmployeeSkillUncheckedUpdateManyWithoutEmployeeNestedInput
+  job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutEmployeeNestedInput
+  assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput
+  earnings?: Prisma.EarningUncheckedUpdateManyWithoutEmployeeNestedInput
+  favorite_workers?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeProfileCreateWithoutUserInput = {
+  id?: string
+  date_of_birth?: Date | string | null
+  address?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  experience_years?: number | null
+  bio?: string | null
+  profile_photo_url?: string | null
+  rating?: number
+  total_reviews?: number
+  total_jobs?: number
+  total_hours?: number
+  total_earned?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  employee_skills?: Prisma.EmployeeSkillCreateNestedManyWithoutEmployeeInput
+  job_applications?: Prisma.JobApplicationCreateNestedManyWithoutEmployeeInput
+  assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput
+  earnings?: Prisma.EarningCreateNestedManyWithoutEmployeeInput
+  received_reviews?: Prisma.ReviewCreateNestedManyWithoutEmployeeInput
+  favorite_workers?: Prisma.FavoriteWorkerCreateNestedManyWithoutEmployeeInput
+}
+
+export type EmployeeProfileUncheckedCreateWithoutUserInput = {
+  id?: string
+  date_of_birth?: Date | string | null
+  address?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  experience_years?: number | null
+  bio?: string | null
+  profile_photo_url?: string | null
+  rating?: number
+  total_reviews?: number
+  total_jobs?: number
+  total_hours?: number
+  total_earned?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  employee_skills?: Prisma.EmployeeSkillUncheckedCreateNestedManyWithoutEmployeeInput
+  job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutEmployeeInput
+  assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput
+  earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput
+  received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput
+  favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput
+}
+=======
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   date_of_birth?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
@@ -2271,6 +3123,7 @@ export type EmployeeProfileUncheckedCreateWithoutUserInput = {
   received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput;
   favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput;
 };
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 
 export type EmployeeProfileCreateOrConnectWithoutUserInput = {
   where: Prisma.EmployeeProfileWhereUniqueInput;
@@ -2301,6 +3154,55 @@ export type EmployeeProfileUpdateToOneWithWhereWithoutUserInput = {
 };
 
 export type EmployeeProfileUpdateWithoutUserInput = {
+<<<<<<< HEAD
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  total_jobs?: Prisma.IntFieldUpdateOperationsInput | number
+  total_hours?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_earned?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employee_skills?: Prisma.EmployeeSkillUpdateManyWithoutEmployeeNestedInput
+  job_applications?: Prisma.JobApplicationUpdateManyWithoutEmployeeNestedInput
+  assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput
+  earnings?: Prisma.EarningUpdateManyWithoutEmployeeNestedInput
+  received_reviews?: Prisma.ReviewUpdateManyWithoutEmployeeNestedInput
+  favorite_workers?: Prisma.FavoriteWorkerUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeProfileUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
+  total_jobs?: Prisma.IntFieldUpdateOperationsInput | number
+  total_hours?: Prisma.FloatFieldUpdateOperationsInput | number
+  total_earned?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employee_skills?: Prisma.EmployeeSkillUncheckedUpdateManyWithoutEmployeeNestedInput
+  job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutEmployeeNestedInput
+  assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput
+  earnings?: Prisma.EarningUncheckedUpdateManyWithoutEmployeeNestedInput
+  received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput
+  favorite_workers?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployeeNestedInput
+}
+
+=======
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   date_of_birth?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
@@ -2379,12 +3281,29 @@ export type EmployeeProfileUncheckedUpdateWithoutUserInput = {
   received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput;
   favorite_workers?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployeeNestedInput;
 };
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 
 /**
  * Count Type EmployeeProfileCountOutputType
  */
 
 export type EmployeeProfileCountOutputType = {
+<<<<<<< HEAD
+  employee_skills: number
+  job_applications: number
+  earnings: number
+  received_reviews: number
+  favorite_workers: number
+}
+
+export type EmployeeProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  employee_skills?: boolean | EmployeeProfileCountOutputTypeCountEmployee_skillsArgs
+  job_applications?: boolean | EmployeeProfileCountOutputTypeCountJob_applicationsArgs
+  earnings?: boolean | EmployeeProfileCountOutputTypeCountEarningsArgs
+  received_reviews?: boolean | EmployeeProfileCountOutputTypeCountReceived_reviewsArgs
+  favorite_workers?: boolean | EmployeeProfileCountOutputTypeCountFavorite_workersArgs
+}
+=======
   employee_skills: number;
   job_applications: number;
   job_assignments: number;
@@ -2416,6 +3335,7 @@ export type EmployeeProfileCountOutputTypeSelect<
     | boolean
     | EmployeeProfileCountOutputTypeCountFavorite_workersArgs;
 };
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 
 /**
  * EmployeeProfileCountOutputType without action
@@ -2453,6 +3373,11 @@ export type EmployeeProfileCountOutputTypeCountJob_applicationsArgs<
 /**
  * EmployeeProfileCountOutputType without action
  */
+<<<<<<< HEAD
+export type EmployeeProfileCountOutputTypeCountEarningsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EarningWhereInput
+}
+=======
 export type EmployeeProfileCountOutputTypeCountJob_assignmentsArgs<
   ExtArgs extends runtime.Types.Extensions.InternalArgs =
     runtime.Types.Extensions.DefaultArgs,
@@ -2479,6 +3404,7 @@ export type EmployeeProfileCountOutputTypeCountEarningsArgs<
 > = {
   where?: Prisma.EarningWhereInput;
 };
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 
 /**
  * EmployeeProfileCountOutputType without action
@@ -2546,6 +3472,34 @@ export type EmployeeProfileSelect<
   ExtArgs['result']['employeeProfile']
 >;
 
+<<<<<<< HEAD
+export type EmployeeProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  user_id?: boolean
+  date_of_birth?: boolean
+  address?: boolean
+  latitude?: boolean
+  longitude?: boolean
+  experience_years?: boolean
+  bio?: boolean
+  profile_photo_url?: boolean
+  rating?: boolean
+  total_reviews?: boolean
+  total_jobs?: boolean
+  total_hours?: boolean
+  total_earned?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  employee_skills?: boolean | Prisma.EmployeeProfile$employee_skillsArgs<ExtArgs>
+  job_applications?: boolean | Prisma.EmployeeProfile$job_applicationsArgs<ExtArgs>
+  assigned_job?: boolean | Prisma.EmployeeProfile$assigned_jobArgs<ExtArgs>
+  earnings?: boolean | Prisma.EmployeeProfile$earningsArgs<ExtArgs>
+  received_reviews?: boolean | Prisma.EmployeeProfile$received_reviewsArgs<ExtArgs>
+  favorite_workers?: boolean | Prisma.EmployeeProfile$favorite_workersArgs<ExtArgs>
+  _count?: boolean | Prisma.EmployeeProfileCountOutputTypeDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["employeeProfile"]>
+=======
 export type EmployeeProfileSelectCreateManyAndReturn<
   ExtArgs extends runtime.Types.Extensions.InternalArgs =
     runtime.Types.Extensions.DefaultArgs,
@@ -2571,6 +3525,7 @@ export type EmployeeProfileSelectCreateManyAndReturn<
   },
   ExtArgs['result']['employeeProfile']
 >;
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 
 export type EmployeeProfileSelectUpdateManyAndReturn<
   ExtArgs extends runtime.Types.Extensions.InternalArgs =
@@ -2617,6 +3572,25 @@ export type EmployeeProfileSelectScalar = {
   updated_at?: boolean;
 };
 
+<<<<<<< HEAD
+export type EmployeeProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "user_id" | "date_of_birth" | "address" | "latitude" | "longitude" | "experience_years" | "bio" | "profile_photo_url" | "rating" | "total_reviews" | "total_jobs" | "total_hours" | "total_earned" | "created_at" | "updated_at", ExtArgs["result"]["employeeProfile"]>
+export type EmployeeProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  employee_skills?: boolean | Prisma.EmployeeProfile$employee_skillsArgs<ExtArgs>
+  job_applications?: boolean | Prisma.EmployeeProfile$job_applicationsArgs<ExtArgs>
+  assigned_job?: boolean | Prisma.EmployeeProfile$assigned_jobArgs<ExtArgs>
+  earnings?: boolean | Prisma.EmployeeProfile$earningsArgs<ExtArgs>
+  received_reviews?: boolean | Prisma.EmployeeProfile$received_reviewsArgs<ExtArgs>
+  favorite_workers?: boolean | Prisma.EmployeeProfile$favorite_workersArgs<ExtArgs>
+  _count?: boolean | Prisma.EmployeeProfileCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type EmployeeProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
+export type EmployeeProfileIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
+=======
 export type EmployeeProfileOmit<
   ExtArgs extends runtime.Types.Extensions.InternalArgs =
     runtime.Types.Extensions.DefaultArgs,
@@ -2675,6 +3649,7 @@ export type EmployeeProfileIncludeUpdateManyAndReturn<
 > = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
 };
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 
 export type $EmployeeProfilePayload<
   ExtArgs extends runtime.Types.Extensions.InternalArgs =
@@ -2682,6 +3657,36 @@ export type $EmployeeProfilePayload<
 > = {
   name: 'EmployeeProfile';
   objects: {
+<<<<<<< HEAD
+    user: Prisma.$UserPayload<ExtArgs>
+    employee_skills: Prisma.$EmployeeSkillPayload<ExtArgs>[]
+    job_applications: Prisma.$JobApplicationPayload<ExtArgs>[]
+    assigned_job: Prisma.$JobPayload<ExtArgs> | null
+    earnings: Prisma.$EarningPayload<ExtArgs>[]
+    received_reviews: Prisma.$ReviewPayload<ExtArgs>[]
+    favorite_workers: Prisma.$FavoriteWorkerPayload<ExtArgs>[]
+  }
+  scalars: runtime.Types.Extensions.GetPayloadResult<{
+    id: string
+    user_id: string
+    date_of_birth: Date | null
+    address: string | null
+    latitude: number | null
+    longitude: number | null
+    experience_years: number | null
+    bio: string | null
+    profile_photo_url: string | null
+    rating: number
+    total_reviews: number
+    total_jobs: number
+    total_hours: number
+    total_earned: runtime.Decimal
+    created_at: Date
+    updated_at: Date
+  }, ExtArgs["result"]["employeeProfile"]>
+  composites: {}
+}
+=======
     user: Prisma.$UserPayload<ExtArgs>;
     employee_skills: Prisma.$EmployeeSkillPayload<ExtArgs>[];
     job_applications: Prisma.$JobApplicationPayload<ExtArgs>[];
@@ -2714,6 +3719,7 @@ export type $EmployeeProfilePayload<
   >;
   composites: {};
 };
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 
 export type EmployeeProfileGetPayload<
   S extends boolean | null | undefined | EmployeeProfileDefaultArgs,
@@ -3263,6 +4269,17 @@ export interface EmployeeProfileDelegate<
  * Because we want to prevent naming conflicts as mentioned in
  * https://github.com/prisma/prisma-client-js/issues/707
  */
+<<<<<<< HEAD
+export interface Prisma__EmployeeProfileClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  readonly [Symbol.toStringTag]: "PrismaPromise"
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  employee_skills<T extends Prisma.EmployeeProfile$employee_skillsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeProfile$employee_skillsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmployeeSkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  job_applications<T extends Prisma.EmployeeProfile$job_applicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeProfile$job_applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assigned_job<T extends Prisma.EmployeeProfile$assigned_jobArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeProfile$assigned_jobArgs<ExtArgs>>): Prisma.Prisma__JobClient<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  earnings<T extends Prisma.EmployeeProfile$earningsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeProfile$earningsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EarningPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  received_reviews<T extends Prisma.EmployeeProfile$received_reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeProfile$received_reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  favorite_workers<T extends Prisma.EmployeeProfile$favorite_workersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeProfile$favorite_workersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FavoriteWorkerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+=======
 export interface Prisma__EmployeeProfileClient<
   T,
   Null = never,
@@ -3387,6 +4404,7 @@ export interface Prisma__EmployeeProfileClient<
       >
     | Null
   >;
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3978,19 +4996,36 @@ export type EmployeeProfile$job_applicationsArgs<
 };
 
 /**
- * EmployeeProfile.job_assignments
+ * EmployeeProfile.assigned_job
  */
+<<<<<<< HEAD
+export type EmployeeProfile$assigned_jobArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+=======
 export type EmployeeProfile$job_assignmentsArgs<
   ExtArgs extends runtime.Types.Extensions.InternalArgs =
     runtime.Types.Extensions.DefaultArgs,
 > = {
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
   /**
-   * Select specific fields to fetch from the JobAssignment
+   * Select specific fields to fetch from the Job
    */
+<<<<<<< HEAD
+  select?: Prisma.JobSelect<ExtArgs> | null
+=======
   select?: Prisma.JobAssignmentSelect<ExtArgs> | null;
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
   /**
-   * Omit specific fields from the JobAssignment
+   * Omit specific fields from the Job
    */
+<<<<<<< HEAD
+  omit?: Prisma.JobOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JobInclude<ExtArgs> | null
+  where?: Prisma.JobWhereInput
+}
+=======
   omit?: Prisma.JobAssignmentOmit<ExtArgs> | null;
   /**
    * Choose, which related nodes to fetch as well
@@ -4036,6 +5071,7 @@ export type EmployeeProfile$shiftsArgs<
   skip?: number;
   distinct?: Prisma.ShiftScalarFieldEnum | Prisma.ShiftScalarFieldEnum[];
 };
+>>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 
 /**
  * EmployeeProfile.earnings

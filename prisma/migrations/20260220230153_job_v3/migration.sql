@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "jobs" ALTER COLUMN "end_date" SET DEFAULT CURRENT_DATE + INTERVAL '1 month';
