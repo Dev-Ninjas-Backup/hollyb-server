@@ -100,7 +100,8 @@ export const JobStatus = {
   open: 'open',
   assigned: 'assigned',
   completed: 'completed',
-  cancelled: 'cancelled'
+  cancelled: 'cancelled',
+  closed: 'closed'
 } as const
 
 export type JobStatus = (typeof JobStatus)[keyof typeof JobStatus]

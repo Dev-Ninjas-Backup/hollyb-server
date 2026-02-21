@@ -258,8 +258,8 @@ export const JobScalarFieldEnum = {
   fileId: 'fileId',
   is_urgent: 'is_urgent',
   status: 'status',
-  start_date: 'start_date',
-  end_date: 'end_date',
+  job_date: 'job_date',
+  expire_date: 'expire_date',
   start_time: 'start_time',
   end_time: 'end_time',
   amount: 'amount',
@@ -375,7 +375,8 @@ export const ReviewScalarFieldEnum = {
   reviewer_type: 'reviewer_type',
   rating: 'rating',
   comment: 'comment',
-  created_at: 'created_at'
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 } as const
 
 export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]

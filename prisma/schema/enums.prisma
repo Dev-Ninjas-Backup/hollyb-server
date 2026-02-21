@@ -63,6 +63,7 @@ enum JobStatus {
   assigned
   completed
   cancelled
+  closed
 }
 
 enum JobApplicationStatus {

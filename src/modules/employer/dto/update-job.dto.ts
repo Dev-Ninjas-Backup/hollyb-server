@@ -1,4 +1,7 @@
-import { PartialType } from '@nestjs/swagger';
+import { PartialType, OmitType } from '@nestjs/swagger';
 import { CreateJobDto } from './create-job.dto';
 
-export class UpdateJobDto extends PartialType(CreateJobDto) {}
+// Exclude job_date and expire_date from updates
+export class UpdateJobDto extends PartialType(
+  OmitType(CreateJobDto, ['job_date', 'expire_date'] as const)
+) {}

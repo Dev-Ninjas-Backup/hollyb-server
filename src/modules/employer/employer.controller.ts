@@ -12,6 +12,8 @@ import {
   UploadedFiles,
   Get,
   Query,
+  Param,
+  Patch,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -24,6 +26,7 @@ import {
 } from '@nestjs/swagger';
 import { EmployerService } from './employer.service';
 import { CreateJobDto } from './dto/create-job.dto';
+import { UpdateJobDto } from './dto/update-job.dto';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { RolesGuard } from '@/common/guards/roles.guard';
 import { Roles } from '@/common/decorators/roles.decorator';
@@ -57,7 +60,8 @@ export class EmployerController {
         },
         requirements: { type: 'string', example: 'Must be able to lift 20kg.' },
         is_urgent: { type: 'boolean', example: false },
-        start_date: { type: 'string', format: 'date', example: '2026-03-01' },
+        job_date: { type: 'string', format: 'date', example: '2026-03-01', description: 'Must be within expire_date' },
+        expire_date: { type: 'string', format: 'date', example: '2026-03-31' },
         start_time: { type: 'string', format: 'date-time', example: '1970-01-01T08:00:00.000Z' },
         end_time: { type: 'string', format: 'date-time', example: '1970-01-01T17:00:00.000Z' },
         amount: { type: 'string', example: '1500.00' },
@@ -91,7 +95,7 @@ export class EmployerController {
   @ApiQuery({
     name: 'status',
     required: false,
-    enum: ['open', 'assigned', 'check_in', 'check_out', 'completed', 'cancelled'],
+    enum: ['open', 'assigned', 'completed', 'cancelled', 'closed'],
     description: 'Filter by job status',
     example: 'open',
   })
@@ -128,6 +132,47 @@ export class EmployerController {
     const isUrgent = is_urgent === 'true' ? true : is_urgent === 'false' ? false : undefined;
     
     return this.employerService.getMyJobs(req.user.sub, status, isUrgent, pageNum, limitNum);
+  }
+
+  @Get('jobs/:id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('employer')
+  @ApiOperation({ summary: 'Get a specific job by ID' })
+  async getJobById(
+    @Req() req: AuthenticatedRequest,
+    @Param('id') id: string,
+  ) {
+    return this.employerService.getJobById(req.user.sub, id);
+  }
+
+  // Update a job posting
+  @Patch('jobs/:id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('employer')
+  @ApiOperation({ summary: 'Update a job posting (cannot change start_date or end_date)' })
+  @UseInterceptors(FileFieldsInterceptor([{ name: 'file', maxCount: 1 }]))
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'Update job data with optional file upload',
+    type: UpdateJobDto,
+  })
+  async updateJob(
+    @Req() req: AuthenticatedRequest,
+    @Param('id') id: string,
+    @Body() dto: UpdateJobDto,
+    @UploadedFiles()
+    uploadedFiles?: {
+      file?: Express.Multer.File[];
+    },
+  ) {
+    return this.employerService.updateJob(
+      req.user.sub,
+      id,
+      dto,
+      uploadedFiles?.file?.[0],
+    );
   }
 
 }

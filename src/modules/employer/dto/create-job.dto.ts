@@ -60,12 +60,20 @@ export class CreateJobDto {
   is_urgent?: boolean;
 
   @ApiPropertyOptional({
-    description: 'Job start date (YYYY-MM-DD)',
+    description: 'Job date (YYYY-MM-DD) - must be within expire_date',
     example: '2026-03-01',
   })
   @IsOptional()
   @IsString()
-  start_date?: string;
+  job_date?: string;
+
+  @ApiPropertyOptional({
+    description: 'Job expiration date (YYYY-MM-DD)',
+    example: '2026-03-31',
+  })
+  @IsOptional()
+  @IsString()
+  expire_date?: string;
 
   @ApiPropertyOptional({
     description: 'Shift start time (ISO string)',
