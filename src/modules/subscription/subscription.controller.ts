@@ -83,22 +83,10 @@ export class SubscriptionController {
 
   @Get('my-subscriptions')
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Get my subscriptions' })
+  @ApiOperation({ summary: 'Get my all subscriptions' })
   @UseGuards(JwtAuthGuard)
   async getUserSubscriptions(@Req() req: AuthenticatedRequest) {
     return this.subscriptionService.getUserSubscription(req.user.sub);
-  }
-
-  @Get('users/:userId/subscriptions')
-  @ApiBearerAuth()
-  @ApiOperation({ summary: 'Get subscriptions by specific user id' })
-  @ApiSuccessArrayResponse(UserSubscriptionItemDto, {
-    description: 'User subscription history retrieved successfully',
-  })
-  @ApiErrorResponses()
-  @UseGuards(JwtAuthGuard)
-  async getSubscriptionsByUserId(@Param('userId') userId: string) {
-    return this.subscriptionService.getUserSubscription(userId);
   }
 
   @Get('my-subscriptions/current')
@@ -113,20 +101,6 @@ export class SubscriptionController {
   @UseGuards(JwtAuthGuard)
   async getCurrentSubscription(@Req() req: AuthenticatedRequest) {
     return this.subscriptionService.getCurrentActiveSubscription(req.user.sub);
-  }
-
-  @Get('users/:userId/subscriptions/current')
-  @ApiBearerAuth()
-  @ApiOperation({
-    summary: 'Get latest subscription state by specific user id',
-  })
-  @ApiSuccessResponse(CurrentSubscriptionStateDto, {
-    description: 'Current subscription state retrieved successfully',
-  })
-  @ApiErrorResponses()
-  @UseGuards(JwtAuthGuard)
-  async getCurrentSubscriptionByUserId(@Param('userId') userId: string) {
-    return this.subscriptionService.getCurrentActiveSubscription(userId);
   }
 
   @Post('webhook/stripe')

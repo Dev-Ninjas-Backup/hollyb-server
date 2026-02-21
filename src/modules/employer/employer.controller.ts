@@ -47,8 +47,14 @@ export class EmployerController {
       properties: {
         title: { type: 'string', example: 'Warehouse Assistant' },
         company_name: { type: 'string', example: 'Amazon Logistics' },
-        description: { type: 'string', example: 'Assist with packaging and sorting shipments.' },
-        job_responsibilities: { type: 'string', example: 'Load/unload goods, manage inventory.' },
+        description: {
+          type: 'string',
+          example: 'Assist with packaging and sorting shipments.',
+        },
+        job_responsibilities: {
+          type: 'string',
+          example: 'Load/unload goods, manage inventory.',
+        },
         requirements: { type: 'string', example: 'Must be able to lift 20kg.' },
         is_urgent: { type: 'boolean', example: false },
         start_date: { type: 'string', format: 'date', example: '2026-03-01' },
@@ -69,7 +75,11 @@ export class EmployerController {
       file?: Express.Multer.File[];
     },
   ) {
-    return this.employerService.createJob(req.user.sub, dto, uploadedFiles?.file?.[0]);
+    return this.employerService.createJob(
+      req.user.sub,
+      dto,
+      uploadedFiles?.file?.[0],
+    );
   }
 
   // Get my posted jobs with filters and pagination
