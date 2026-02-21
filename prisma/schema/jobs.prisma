@@ -10,7 +10,6 @@ model Job {
   fileId String? @unique
   file   FileInstance? @relation(fields: [fileId], references: [id], onDelete: SetNull)
 
-  job_type     JobType
   is_urgent    Boolean        @default(false)
   status       JobStatus      @default(open)
 
@@ -20,20 +19,18 @@ model Job {
   end_time     DateTime?      @db.Time(6)
 
   amount       Decimal?       @db.Decimal(12, 2)
-  payment_type JobPaymentType
+  totalAmount  Decimal?       @db.Decimal(12, 2)
 
   location     String?
-  latitude     Float?
-  longitude    Float?
 
   created_at   DateTime       @default(now())
   updated_at   DateTime       @updatedAt
 
+  assigned_employee_id String? @unique @db.Uuid
+  assigned_employee    EmployeeProfile? @relation(fields: [assigned_employee_id], references: [id], onDelete: SetNull)
+
   employer         EmployerProfile @relation(fields: [employer_id], references: [id], onDelete: Cascade)
-  job_skills       JobSkill[]
   job_applications JobApplication[]
-  job_assignments  JobAssignment[]
-  shifts           Shift[]
   payments         Payment[]
   reviews          Review[]
 

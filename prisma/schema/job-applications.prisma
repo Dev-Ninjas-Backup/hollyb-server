@@ -9,7 +9,6 @@ model JobApplication {
 
   job            Job             @relation(fields: [job_id], references: [id], onDelete: Cascade)
   employee       EmployeeProfile @relation(fields: [employee_id], references: [id], onDelete: Cascade)
-  job_assignment JobAssignment?
 
   @@map("job_applications")
 }

@@ -8,10 +8,8 @@ import {
   Post,
   Req,
   UseGuards,
-  HttpStatus,
   UseInterceptors,
   UploadedFiles,
-  HttpException,
   Get,
   Query,
 } from '@nestjs/common';
@@ -20,6 +18,7 @@ import {
   ApiBody,
   ApiConsumes,
   ApiOperation,
+  ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -51,21 +50,15 @@ export class EmployerController {
         description: { type: 'string', example: 'Assist with packaging and sorting shipments.' },
         job_responsibilities: { type: 'string', example: 'Load/unload goods, manage inventory.' },
         requirements: { type: 'string', example: 'Must be able to lift 20kg.' },
-        job_type: { type: 'string', enum: ['full_time', 'part_time', 'contract'], example: 'full_time' },
         is_urgent: { type: 'boolean', example: false },
-        status: { type: 'string', enum: ['open', 'assigned', 'check_in', 'check_out', 'completed', 'cancelled'], example: 'open' },
         start_date: { type: 'string', format: 'date', example: '2026-03-01' },
-        end_date: { type: 'string', format: 'date', example: '2026-03-31' },
         start_time: { type: 'string', format: 'date-time', example: '1970-01-01T08:00:00.000Z' },
         end_time: { type: 'string', format: 'date-time', example: '1970-01-01T17:00:00.000Z' },
         amount: { type: 'string', example: '1500.00' },
-        payment_type: { type: 'string', enum: ['hourly', 'daily', 'weekly', 'fixed'], example: 'hourly' },
         location: { type: 'string', example: 'New York, NY' },
-        latitude: { type: 'number', example: 40.7128 },
-        longitude: { type: 'number', example: -74.0060 },
         file: { type: 'string', format: 'binary', description: 'Optional file attachment for the job' },
       },
-      required: ['title', 'company_name', 'job_type', 'payment_type'],
+      required: ['title', 'company_name'],
     },
   })
   async createJob(
@@ -80,19 +73,51 @@ export class EmployerController {
   }
 
   // Get my posted jobs with filters and pagination
-  // @Get('employer/jobs')
-  // @ApiBearerAuth()
-  // @UseGuards(JwtAuthGuard)
-  // @ApiOperation({ summary: 'Get my posted jobs with filters and pagination' })
-  // async getMyJobs(
-  //   @Req() req: AuthenticatedRequest,
-  //   @Query('status') status?: string,
-  //   @Query('job_type') job_type?: string,
-  //   @Query('is_urgent') is_urgent?: boolean,
-  //   @Query('page') page: number = 1,
-  //   @Query('limit') limit: number = 10,
-  // ) {
-  //   return this.employerService.getMyJobs(req.user.sub, filters);
-  // }
+  @Get('jobs')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('employer')
+  @ApiOperation({ summary: 'Get my posted jobs with filters and pagination' })
+  @ApiQuery({
+    name: 'status',
+    required: false,
+    enum: ['open', 'assigned', 'check_in', 'check_out', 'completed', 'cancelled'],
+    description: 'Filter by job status',
+    example: 'open',
+  })
+  @ApiQuery({
+    name: 'is_urgent',
+    required: false,
+    type: Boolean,
+    description: 'Filter by urgent jobs',
+    example: false,
+  })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    type: Number,
+    description: 'Page number for pagination',
+    example: 1,
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    description: 'Number of items per page',
+    example: 10,
+  })
+  async getMyJobs(
+    @Req() req: AuthenticatedRequest,
+    @Query('status') status?: string,
+    @Query('is_urgent') is_urgent?: string,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+  ) {
+    const pageNum = page ? parseInt(page, 10) : 1;
+    const limitNum = limit ? parseInt(limit, 10) : 10;
+    const isUrgent = is_urgent === 'true' ? true : is_urgent === 'false' ? false : undefined;
+    
+    return this.employerService.getMyJobs(req.user.sub, status, isUrgent, pageNum, limitNum);
+  }
 
 }

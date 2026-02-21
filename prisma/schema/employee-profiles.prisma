@@ -19,8 +19,7 @@ model EmployeeProfile {
   user             User             @relation(fields: [user_id], references: [id], onDelete: Cascade)
   employee_skills  EmployeeSkill[]
   job_applications JobApplication[]
-  job_assignments  JobAssignment[]
-  shifts           Shift[]
+  assigned_job Job?
   earnings         Earning[]
   received_reviews Review[]
   favorite_workers FavoriteWorker[]

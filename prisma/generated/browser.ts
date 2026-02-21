@@ -68,11 +68,6 @@ export type FileInstance = Prisma.FileInstanceModel
  */
 export type JobApplication = Prisma.JobApplicationModel
 /**
- * Model JobAssignment
- * 
- */
-export type JobAssignment = Prisma.JobAssignmentModel
-/**
  * Model JobSkill
  * 
  */
@@ -122,11 +117,6 @@ export type PrivateMessageStatus = Prisma.PrivateMessageStatusModel
  * 
  */
 export type Review = Prisma.ReviewModel
-/**
- * Model Shift
- * 
- */
-export type Shift = Prisma.ShiftModel
 /**
  * Model Skill
  * 

@@ -394,7 +394,6 @@ export const ModelName = {
   FavoriteWorker: 'FavoriteWorker',
   FileInstance: 'FileInstance',
   JobApplication: 'JobApplication',
-  JobAssignment: 'JobAssignment',
   JobSkill: 'JobSkill',
   Job: 'Job',
   Notification: 'Notification',
@@ -405,7 +404,6 @@ export const ModelName = {
   PrivateMessage: 'PrivateMessage',
   PrivateMessageStatus: 'PrivateMessageStatus',
   Review: 'Review',
-  Shift: 'Shift',
   Skill: 'Skill',
   Subscription: 'Subscription',
   SystemSetting: 'SystemSetting',
@@ -426,7 +424,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "adminActivityLog" | "backgroundCheck" | "document" | "earning" | "employeeProfile" | "employeeSkill" | "employerProfile" | "favoriteWorker" | "fileInstance" | "jobApplication" | "jobAssignment" | "jobSkill" | "job" | "notification" | "userNotification" | "otpVerification" | "payment" | "privateConversation" | "privateMessage" | "privateMessageStatus" | "review" | "shift" | "skill" | "subscription" | "systemSetting" | "userAuthProvider" | "user"
+    modelProps: "adminActivityLog" | "backgroundCheck" | "document" | "earning" | "employeeProfile" | "employeeSkill" | "employerProfile" | "favoriteWorker" | "fileInstance" | "jobApplication" | "jobSkill" | "job" | "notification" | "userNotification" | "otpVerification" | "payment" | "privateConversation" | "privateMessage" | "privateMessageStatus" | "review" | "skill" | "subscription" | "systemSetting" | "userAuthProvider" | "user"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1170,80 +1168,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    JobAssignment: {
-      payload: Prisma.$JobAssignmentPayload<ExtArgs>
-      fields: Prisma.JobAssignmentFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.JobAssignmentFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobAssignmentPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.JobAssignmentFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobAssignmentPayload>
-        }
-        findFirst: {
-          args: Prisma.JobAssignmentFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobAssignmentPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.JobAssignmentFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobAssignmentPayload>
-        }
-        findMany: {
-          args: Prisma.JobAssignmentFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobAssignmentPayload>[]
-        }
-        create: {
-          args: Prisma.JobAssignmentCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobAssignmentPayload>
-        }
-        createMany: {
-          args: Prisma.JobAssignmentCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.JobAssignmentCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobAssignmentPayload>[]
-        }
-        delete: {
-          args: Prisma.JobAssignmentDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobAssignmentPayload>
-        }
-        update: {
-          args: Prisma.JobAssignmentUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobAssignmentPayload>
-        }
-        deleteMany: {
-          args: Prisma.JobAssignmentDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.JobAssignmentUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.JobAssignmentUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobAssignmentPayload>[]
-        }
-        upsert: {
-          args: Prisma.JobAssignmentUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobAssignmentPayload>
-        }
-        aggregate: {
-          args: Prisma.JobAssignmentAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateJobAssignment>
-        }
-        groupBy: {
-          args: Prisma.JobAssignmentGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.JobAssignmentGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.JobAssignmentCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.JobAssignmentCountAggregateOutputType> | number
-        }
-      }
-    }
     JobSkill: {
       payload: Prisma.$JobSkillPayload<ExtArgs>
       fields: Prisma.JobSkillFieldRefs
@@ -1984,80 +1908,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Shift: {
-      payload: Prisma.$ShiftPayload<ExtArgs>
-      fields: Prisma.ShiftFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.ShiftFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShiftPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.ShiftFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShiftPayload>
-        }
-        findFirst: {
-          args: Prisma.ShiftFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShiftPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.ShiftFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShiftPayload>
-        }
-        findMany: {
-          args: Prisma.ShiftFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShiftPayload>[]
-        }
-        create: {
-          args: Prisma.ShiftCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShiftPayload>
-        }
-        createMany: {
-          args: Prisma.ShiftCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.ShiftCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShiftPayload>[]
-        }
-        delete: {
-          args: Prisma.ShiftDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShiftPayload>
-        }
-        update: {
-          args: Prisma.ShiftUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShiftPayload>
-        }
-        deleteMany: {
-          args: Prisma.ShiftDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.ShiftUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.ShiftUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShiftPayload>[]
-        }
-        upsert: {
-          args: Prisma.ShiftUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShiftPayload>
-        }
-        aggregate: {
-          args: Prisma.ShiftAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateShift>
-        }
-        groupBy: {
-          args: Prisma.ShiftGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ShiftGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.ShiftCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ShiftCountAggregateOutputType> | number
-        }
-      }
-    }
     Skill: {
       payload: Prisma.$SkillPayload<ExtArgs>
       fields: Prisma.SkillFieldRefs
@@ -2611,17 +2461,6 @@ export const JobApplicationScalarFieldEnum = {
 export type JobApplicationScalarFieldEnum = (typeof JobApplicationScalarFieldEnum)[keyof typeof JobApplicationScalarFieldEnum]
 
 
-export const JobAssignmentScalarFieldEnum = {
-  id: 'id',
-  job_id: 'job_id',
-  employee_id: 'employee_id',
-  application_id: 'application_id',
-  assigned_at: 'assigned_at'
-} as const
-
-export type JobAssignmentScalarFieldEnum = (typeof JobAssignmentScalarFieldEnum)[keyof typeof JobAssignmentScalarFieldEnum]
-
-
 export const JobSkillScalarFieldEnum = {
   id: 'id',
   job_id: 'job_id',
@@ -2640,7 +2479,6 @@ export const JobScalarFieldEnum = {
   job_responsibilities: 'job_responsibilities',
   requirements: 'requirements',
   fileId: 'fileId',
-  job_type: 'job_type',
   is_urgent: 'is_urgent',
   status: 'status',
   start_date: 'start_date',
@@ -2648,12 +2486,11 @@ export const JobScalarFieldEnum = {
   start_time: 'start_time',
   end_time: 'end_time',
   amount: 'amount',
-  payment_type: 'payment_type',
+  totalAmount: 'totalAmount',
   location: 'location',
-  latitude: 'latitude',
-  longitude: 'longitude',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  assigned_employee_id: 'assigned_employee_id'
 } as const
 
 export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum]
@@ -2765,22 +2602,6 @@ export const ReviewScalarFieldEnum = {
 } as const
 
 export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
-
-
-export const ShiftScalarFieldEnum = {
-  id: 'id',
-  job_id: 'job_id',
-  assignment_id: 'assignment_id',
-  employee_id: 'employee_id',
-  check_in: 'check_in',
-  check_out: 'check_out',
-  break_minutes: 'break_minutes',
-  total_hours: 'total_hours',
-  status: 'status',
-  created_at: 'created_at'
-} as const
-
-export type ShiftScalarFieldEnum = (typeof ShiftScalarFieldEnum)[keyof typeof ShiftScalarFieldEnum]
 
 
 export const SkillScalarFieldEnum = {
@@ -3069,20 +2890,6 @@ export type ListEnumJobApplicationStatusFieldRefInput<$PrismaModel> = FieldRefIn
 
 
 /**
- * Reference to a field of type 'JobType'
- */
-export type EnumJobTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobType'>
-    
-
-
-/**
- * Reference to a field of type 'JobType[]'
- */
-export type ListEnumJobTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobType[]'>
-    
-
-
-/**
  * Reference to a field of type 'JobStatus'
  */
 export type EnumJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobStatus'>
@@ -3093,20 +2900,6 @@ export type EnumJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
  * Reference to a field of type 'JobStatus[]'
  */
 export type ListEnumJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobStatus[]'>
-    
-
-
-/**
- * Reference to a field of type 'JobPaymentType'
- */
-export type EnumJobPaymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobPaymentType'>
-    
-
-
-/**
- * Reference to a field of type 'JobPaymentType[]'
- */
-export type ListEnumJobPaymentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobPaymentType[]'>
     
 
 
@@ -3219,20 +3012,6 @@ export type EnumReviewerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'ReviewerType[]'
  */
 export type ListEnumReviewerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReviewerType[]'>
-    
-
-
-/**
- * Reference to a field of type 'ShiftStatus'
- */
-export type EnumShiftStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShiftStatus'>
-    
-
-
-/**
- * Reference to a field of type 'ShiftStatus[]'
- */
-export type ListEnumShiftStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShiftStatus[]'>
     
 
 
@@ -3410,7 +3189,6 @@ export type GlobalOmitConfig = {
   favoriteWorker?: Prisma.FavoriteWorkerOmit
   fileInstance?: Prisma.FileInstanceOmit
   jobApplication?: Prisma.JobApplicationOmit
-  jobAssignment?: Prisma.JobAssignmentOmit
   jobSkill?: Prisma.JobSkillOmit
   job?: Prisma.JobOmit
   notification?: Prisma.NotificationOmit
@@ -3421,7 +3199,6 @@ export type GlobalOmitConfig = {
   privateMessage?: Prisma.PrivateMessageOmit
   privateMessageStatus?: Prisma.PrivateMessageStatusOmit
   review?: Prisma.ReviewOmit
-  shift?: Prisma.ShiftOmit
   skill?: Prisma.SkillOmit
   subscription?: Prisma.SubscriptionOmit
   systemSetting?: Prisma.SystemSettingOmit

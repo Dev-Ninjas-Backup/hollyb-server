@@ -7,6 +7,7 @@ import {
 import { CreateJobDto } from './dto/create-job.dto';
 import { Prisma, FileType } from '@prisma';
 import { S3UploadService } from '@/common/upload/s3-upload.service';
+import { count } from 'console';
 
 @Injectable()
 export class EmployerService {
@@ -39,13 +40,39 @@ export class EmployerService {
     }
 
     // 2. Validate dates if provided
-    if (dto.start_date && dto.end_date) {
+    if (dto.start_date) {
       const startDate = new Date(dto.start_date);
-      const endDate = new Date(dto.end_date);
+    }
 
-      if (endDate < startDate) {
+    // 3. Calculate totalAmount if start_time, end_time, and amount are provided
+    let totalAmount: Prisma.Decimal | null = null;
+    if (dto.start_time && dto.end_time && dto.amount) {
+      try {
+        const startTime = new Date(dto.start_time);
+        const endTime = new Date(dto.end_time);
+        
+        // Calculate hours difference
+        const timeDiffMs = endTime.getTime() - startTime.getTime();
+        const hours = timeDiffMs / (1000 * 60 * 60); // Convert milliseconds to hours
+        
+        if (hours <= 0) {
+          throw new BusinessException(
+            'End time must be after start time',
+            HttpStatus.BAD_REQUEST,
+          );
+        }
+        
+        // Calculate total amount: hours * amount
+        const amount = parseFloat(dto.amount);
+        const calculatedTotal = hours * amount;
+        totalAmount = new Prisma.Decimal(calculatedTotal.toFixed(2));
+        
+      } catch (error) {
+        if (error instanceof BusinessException) {
+          throw error;
+        }
         throw new BusinessException(
-          'End date cannot be before start date',
+          'Invalid time format for totalAmount calculation',
           HttpStatus.BAD_REQUEST,
         );
       }
@@ -80,6 +107,10 @@ export class EmployerService {
       }
     }
 
+    // Calculate end_date: created_at + 1 month
+    const endDate = new Date();
+    endDate.setMonth(endDate.getMonth() + 1);
+
     // 4. Prepare job data
     const jobData: Prisma.JobCreateInput = {
       title: dto.title,
@@ -87,18 +118,14 @@ export class EmployerService {
       description: dto.description,
       job_responsibilities: dto.job_responsibilities,
       requirements: dto.requirements,
-      job_type: dto.job_type,
-      is_urgent: dto.is_urgent ?? false,
-      status: dto.status ?? 'open',
+      is_urgent: dto.is_urgent !== undefined && dto.is_urgent !== null ? Boolean(dto.is_urgent) : false,
       start_date: dto.start_date ? new Date(dto.start_date) : null,
-      end_date: dto.end_date ? new Date(dto.end_date) : null,
+      end_date: endDate,
       start_time: dto.start_time ? new Date(dto.start_time) : null,
       end_time: dto.end_time ? new Date(dto.end_time) : null,
       amount: dto.amount ? new Prisma.Decimal(dto.amount) : null,
-      payment_type: dto.payment_type,
+      totalAmount: totalAmount,
       location: dto.location,
-      latitude: dto.latitude,
-      longitude: dto.longitude,
       employer: {
         connect: { id: employerProfile.id },
       },
@@ -123,16 +150,6 @@ export class EmployerService {
             profile_photo_url: true,
           },
         },
-        job_skills: {
-          include: {
-            skill: {
-              select: {
-                id: true,
-                name: true,
-              },
-            },
-          },
-        },
         file: true,
       },
     });
@@ -141,6 +158,71 @@ export class EmployerService {
       success: true,
       message: 'Job created successfully',
       data: job,
+    };
+  }
+
+  /**
+   * Get my posted jobs with filters and pagination
+   */
+  async getMyJobs(
+    userId: string,
+    status?: string,
+    is_urgent?: boolean,
+    page: number = 1,
+    limit: number = 10,
+  ) {
+    const skip = (page - 1) * limit;
+
+    const whereConditions: any = { employer: { user_id: userId } };
+
+    if (status) {
+      whereConditions.status = status;
+    }
+
+    if (is_urgent !== undefined) {
+      whereConditions.is_urgent = is_urgent;
+    }
+
+    const jobs = await this.prisma.client.job.findMany({
+      where: whereConditions,
+      select: {
+        id: true,
+        title: true,
+        company_name: true,
+        is_urgent: true,
+        status: true,
+        start_date: true,
+        end_date: true,
+        start_time: true,
+        end_time: true,
+        amount: true,
+        totalAmount: true,
+        location: true,
+        _count: {
+          select: {
+            job_applications: true,
+          }
+        }
+      },
+      orderBy: { created_at: 'desc' },
+      skip,
+      take: limit,
+    });
+
+    const totalJobs = await this.prisma.client.job.count({
+      where: whereConditions,
+    });
+
+    return {
+      success: true,
+      message: 'Jobs retrieved successfully',
+      data: jobs,
+      paginationInfo: {
+        page,
+        limit,
+        totalJobs,
+        totalPages: Math.ceil(totalJobs / limit),
+      },
     };
   }
 
