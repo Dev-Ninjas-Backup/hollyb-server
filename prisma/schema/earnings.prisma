@@ -9,7 +9,6 @@ model Earning {
   paid_at      DateTime?
   created_at   DateTime @default(now())
 
-  shift    Shift           @relation(fields: [shift_id], references: [id], onDelete: Cascade)
   employee EmployeeProfile @relation(fields: [employee_id], references: [id], onDelete: Cascade)
 
   @@map("earnings")
