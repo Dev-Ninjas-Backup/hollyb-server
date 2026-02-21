@@ -3,7 +3,7 @@ import { IsEnum, IsOptional, IsString } from 'class-validator';
 import { UserRole } from '@prisma';
 
 export class SocialLoginDto {
-  @ApiProperty()
+  @ApiProperty({ default: 'google_id_token_here' })
   @IsString()
   idToken: string;
 
