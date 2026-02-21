@@ -50,23 +50,22 @@ export class EmployerService {
       try {
         const startTime = new Date(dto.start_time);
         const endTime = new Date(dto.end_time);
-        
+
         // Calculate hours difference
         const timeDiffMs = endTime.getTime() - startTime.getTime();
         const hours = timeDiffMs / (1000 * 60 * 60); // Convert milliseconds to hours
-        
+
         if (hours <= 0) {
           throw new BusinessException(
             'End time must be after start time',
             HttpStatus.BAD_REQUEST,
           );
         }
-        
+
         // Calculate total amount: hours * amount
         const amount = parseFloat(dto.amount);
         const calculatedTotal = hours * amount;
         totalAmount = new Prisma.Decimal(calculatedTotal.toFixed(2));
-        
       } catch (error) {
         if (error instanceof BusinessException) {
           throw error;
@@ -118,7 +117,10 @@ export class EmployerService {
       description: dto.description,
       job_responsibilities: dto.job_responsibilities,
       requirements: dto.requirements,
-      is_urgent: dto.is_urgent !== undefined && dto.is_urgent !== null ? Boolean(dto.is_urgent) : false,
+      is_urgent:
+        dto.is_urgent !== undefined && dto.is_urgent !== null
+          ? Boolean(dto.is_urgent)
+          : false,
       start_date: dto.start_date ? new Date(dto.start_date) : null,
       end_date: endDate,
       start_time: dto.start_time ? new Date(dto.start_time) : null,
@@ -201,8 +203,8 @@ export class EmployerService {
         _count: {
           select: {
             job_applications: true,
-          }
-        }
+          },
+        },
       },
       orderBy: { created_at: 'desc' },
       skip,

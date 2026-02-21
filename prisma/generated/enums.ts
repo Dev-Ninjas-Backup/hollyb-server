@@ -90,11 +90,11 @@ export type SubscriptionPlanType = (typeof SubscriptionPlanType)[keyof typeof Su
 export const SubscriptionStatus = {
   active: 'active',
   expired: 'expired',
-  cancelled: 'cancelled'
-} as const
+  cancelled: 'cancelled',
+} as const;
 
-export type SubscriptionStatus = (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus]
-
+export type SubscriptionStatus =
+  (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus];
 
 export const JobStatus = {
   open: 'open',

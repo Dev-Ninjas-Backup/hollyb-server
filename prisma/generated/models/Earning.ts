@@ -244,49 +244,94 @@ type GetEarningGroupByPayload<T extends EarningGroupByArgs> = Prisma.PrismaPromi
 
 
 export type EarningWhereInput = {
-  AND?: Prisma.EarningWhereInput | Prisma.EarningWhereInput[]
-  OR?: Prisma.EarningWhereInput[]
-  NOT?: Prisma.EarningWhereInput | Prisma.EarningWhereInput[]
-  id?: Prisma.UuidFilter<"Earning"> | string
-  shift_id?: Prisma.UuidFilter<"Earning"> | string
-  employee_id?: Prisma.UuidFilter<"Earning"> | string
-  gross_amount?: Prisma.DecimalNullableFilter<"Earning"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  platform_fee?: Prisma.DecimalNullableFilter<"Earning"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  net_amount?: Prisma.DecimalNullableFilter<"Earning"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  is_paid?: Prisma.BoolFilter<"Earning"> | boolean
-  paid_at?: Prisma.DateTimeNullableFilter<"Earning"> | Date | string | null
-  created_at?: Prisma.DateTimeFilter<"Earning"> | Date | string
-  employee?: Prisma.XOR<Prisma.EmployeeProfileScalarRelationFilter, Prisma.EmployeeProfileWhereInput>
-}
+  AND?: Prisma.EarningWhereInput | Prisma.EarningWhereInput[];
+  OR?: Prisma.EarningWhereInput[];
+  NOT?: Prisma.EarningWhereInput | Prisma.EarningWhereInput[];
+  id?: Prisma.UuidFilter<'Earning'> | string;
+  shift_id?: Prisma.UuidFilter<'Earning'> | string;
+  employee_id?: Prisma.UuidFilter<'Earning'> | string;
+  gross_amount?:
+    | Prisma.DecimalNullableFilter<'Earning'>
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string
+    | null;
+  platform_fee?:
+    | Prisma.DecimalNullableFilter<'Earning'>
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string
+    | null;
+  net_amount?:
+    | Prisma.DecimalNullableFilter<'Earning'>
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string
+    | null;
+  is_paid?: Prisma.BoolFilter<'Earning'> | boolean;
+  paid_at?: Prisma.DateTimeNullableFilter<'Earning'> | Date | string | null;
+  created_at?: Prisma.DateTimeFilter<'Earning'> | Date | string;
+  employee?: Prisma.XOR<
+    Prisma.EmployeeProfileScalarRelationFilter,
+    Prisma.EmployeeProfileWhereInput
+  >;
+};
 
 export type EarningOrderByWithRelationInput = {
-  id?: Prisma.SortOrder
-  shift_id?: Prisma.SortOrder
-  employee_id?: Prisma.SortOrder
-  gross_amount?: Prisma.SortOrderInput | Prisma.SortOrder
-  platform_fee?: Prisma.SortOrderInput | Prisma.SortOrder
-  net_amount?: Prisma.SortOrderInput | Prisma.SortOrder
-  is_paid?: Prisma.SortOrder
-  paid_at?: Prisma.SortOrderInput | Prisma.SortOrder
-  created_at?: Prisma.SortOrder
-  employee?: Prisma.EmployeeProfileOrderByWithRelationInput
-}
+  id?: Prisma.SortOrder;
+  shift_id?: Prisma.SortOrder;
+  employee_id?: Prisma.SortOrder;
+  gross_amount?: Prisma.SortOrderInput | Prisma.SortOrder;
+  platform_fee?: Prisma.SortOrderInput | Prisma.SortOrder;
+  net_amount?: Prisma.SortOrderInput | Prisma.SortOrder;
+  is_paid?: Prisma.SortOrder;
+  paid_at?: Prisma.SortOrderInput | Prisma.SortOrder;
+  created_at?: Prisma.SortOrder;
+  employee?: Prisma.EmployeeProfileOrderByWithRelationInput;
+};
 
-export type EarningWhereUniqueInput = Prisma.AtLeast<{
-  id?: string
-  AND?: Prisma.EarningWhereInput | Prisma.EarningWhereInput[]
-  OR?: Prisma.EarningWhereInput[]
-  NOT?: Prisma.EarningWhereInput | Prisma.EarningWhereInput[]
-  shift_id?: Prisma.UuidFilter<"Earning"> | string
-  employee_id?: Prisma.UuidFilter<"Earning"> | string
-  gross_amount?: Prisma.DecimalNullableFilter<"Earning"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  platform_fee?: Prisma.DecimalNullableFilter<"Earning"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  net_amount?: Prisma.DecimalNullableFilter<"Earning"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  is_paid?: Prisma.BoolFilter<"Earning"> | boolean
-  paid_at?: Prisma.DateTimeNullableFilter<"Earning"> | Date | string | null
-  created_at?: Prisma.DateTimeFilter<"Earning"> | Date | string
-  employee?: Prisma.XOR<Prisma.EmployeeProfileScalarRelationFilter, Prisma.EmployeeProfileWhereInput>
-}, "id">
+export type EarningWhereUniqueInput = Prisma.AtLeast<
+  {
+    id?: string;
+    AND?: Prisma.EarningWhereInput | Prisma.EarningWhereInput[];
+    OR?: Prisma.EarningWhereInput[];
+    NOT?: Prisma.EarningWhereInput | Prisma.EarningWhereInput[];
+    shift_id?: Prisma.UuidFilter<'Earning'> | string;
+    employee_id?: Prisma.UuidFilter<'Earning'> | string;
+    gross_amount?:
+      | Prisma.DecimalNullableFilter<'Earning'>
+      | runtime.Decimal
+      | runtime.DecimalJsLike
+      | number
+      | string
+      | null;
+    platform_fee?:
+      | Prisma.DecimalNullableFilter<'Earning'>
+      | runtime.Decimal
+      | runtime.DecimalJsLike
+      | number
+      | string
+      | null;
+    net_amount?:
+      | Prisma.DecimalNullableFilter<'Earning'>
+      | runtime.Decimal
+      | runtime.DecimalJsLike
+      | number
+      | string
+      | null;
+    is_paid?: Prisma.BoolFilter<'Earning'> | boolean;
+    paid_at?: Prisma.DateTimeNullableFilter<'Earning'> | Date | string | null;
+    created_at?: Prisma.DateTimeFilter<'Earning'> | Date | string;
+    employee?: Prisma.XOR<
+      Prisma.EmployeeProfileScalarRelationFilter,
+      Prisma.EmployeeProfileWhereInput
+    >;
+  },
+  'id'
+>;
 
 export type EarningOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -321,16 +366,26 @@ export type EarningScalarWhereWithAggregatesInput = {
 }
 
 export type EarningCreateInput = {
-  id?: string
-  shift_id: string
-  gross_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  platform_fee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  net_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  is_paid?: boolean
-  paid_at?: Date | string | null
-  created_at?: Date | string
-  employee: Prisma.EmployeeProfileCreateNestedOneWithoutEarningsInput
-}
+  id?: string;
+  shift_id: string;
+  gross_amount?:
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string
+    | null;
+  platform_fee?:
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string
+    | null;
+  net_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+  is_paid?: boolean;
+  paid_at?: Date | string | null;
+  created_at?: Date | string;
+  employee: Prisma.EmployeeProfileCreateNestedOneWithoutEarningsInput;
+};
 
 export type EarningUncheckedCreateInput = {
   id?: string
@@ -345,16 +400,38 @@ export type EarningUncheckedCreateInput = {
 }
 
 export type EarningUpdateInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  shift_id?: Prisma.StringFieldUpdateOperationsInput | string
-  gross_amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  platform_fee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  net_amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  paid_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  employee?: Prisma.EmployeeProfileUpdateOneRequiredWithoutEarningsNestedInput
-}
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  shift_id?: Prisma.StringFieldUpdateOperationsInput | string;
+  gross_amount?:
+    | Prisma.NullableDecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string
+    | null;
+  platform_fee?:
+    | Prisma.NullableDecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string
+    | null;
+  net_amount?:
+    | Prisma.NullableDecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string
+    | null;
+  is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  paid_at?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  employee?: Prisma.EmployeeProfileUpdateOneRequiredWithoutEarningsNestedInput;
+};
 
 export type EarningUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
@@ -381,15 +458,37 @@ export type EarningCreateManyInput = {
 }
 
 export type EarningUpdateManyMutationInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  shift_id?: Prisma.StringFieldUpdateOperationsInput | string
-  gross_amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  platform_fee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  net_amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  paid_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  shift_id?: Prisma.StringFieldUpdateOperationsInput | string;
+  gross_amount?:
+    | Prisma.NullableDecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string
+    | null;
+  platform_fee?:
+    | Prisma.NullableDecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string
+    | null;
+  net_amount?:
+    | Prisma.NullableDecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string
+    | null;
+  is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  paid_at?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
 
 export type EarningUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
@@ -494,29 +593,57 @@ export type EarningUpdateManyWithoutEmployeeNestedInput = {
 }
 
 export type EarningUncheckedUpdateManyWithoutEmployeeNestedInput = {
-  create?: Prisma.XOR<Prisma.EarningCreateWithoutEmployeeInput, Prisma.EarningUncheckedCreateWithoutEmployeeInput> | Prisma.EarningCreateWithoutEmployeeInput[] | Prisma.EarningUncheckedCreateWithoutEmployeeInput[]
-  connectOrCreate?: Prisma.EarningCreateOrConnectWithoutEmployeeInput | Prisma.EarningCreateOrConnectWithoutEmployeeInput[]
-  upsert?: Prisma.EarningUpsertWithWhereUniqueWithoutEmployeeInput | Prisma.EarningUpsertWithWhereUniqueWithoutEmployeeInput[]
-  createMany?: Prisma.EarningCreateManyEmployeeInputEnvelope
-  set?: Prisma.EarningWhereUniqueInput | Prisma.EarningWhereUniqueInput[]
-  disconnect?: Prisma.EarningWhereUniqueInput | Prisma.EarningWhereUniqueInput[]
-  delete?: Prisma.EarningWhereUniqueInput | Prisma.EarningWhereUniqueInput[]
-  connect?: Prisma.EarningWhereUniqueInput | Prisma.EarningWhereUniqueInput[]
-  update?: Prisma.EarningUpdateWithWhereUniqueWithoutEmployeeInput | Prisma.EarningUpdateWithWhereUniqueWithoutEmployeeInput[]
-  updateMany?: Prisma.EarningUpdateManyWithWhereWithoutEmployeeInput | Prisma.EarningUpdateManyWithWhereWithoutEmployeeInput[]
-  deleteMany?: Prisma.EarningScalarWhereInput | Prisma.EarningScalarWhereInput[]
-}
+  create?:
+    | Prisma.XOR<
+        Prisma.EarningCreateWithoutEmployeeInput,
+        Prisma.EarningUncheckedCreateWithoutEmployeeInput
+      >
+    | Prisma.EarningCreateWithoutEmployeeInput[]
+    | Prisma.EarningUncheckedCreateWithoutEmployeeInput[];
+  connectOrCreate?:
+    | Prisma.EarningCreateOrConnectWithoutEmployeeInput
+    | Prisma.EarningCreateOrConnectWithoutEmployeeInput[];
+  upsert?:
+    | Prisma.EarningUpsertWithWhereUniqueWithoutEmployeeInput
+    | Prisma.EarningUpsertWithWhereUniqueWithoutEmployeeInput[];
+  createMany?: Prisma.EarningCreateManyEmployeeInputEnvelope;
+  set?: Prisma.EarningWhereUniqueInput | Prisma.EarningWhereUniqueInput[];
+  disconnect?:
+    | Prisma.EarningWhereUniqueInput
+    | Prisma.EarningWhereUniqueInput[];
+  delete?: Prisma.EarningWhereUniqueInput | Prisma.EarningWhereUniqueInput[];
+  connect?: Prisma.EarningWhereUniqueInput | Prisma.EarningWhereUniqueInput[];
+  update?:
+    | Prisma.EarningUpdateWithWhereUniqueWithoutEmployeeInput
+    | Prisma.EarningUpdateWithWhereUniqueWithoutEmployeeInput[];
+  updateMany?:
+    | Prisma.EarningUpdateManyWithWhereWithoutEmployeeInput
+    | Prisma.EarningUpdateManyWithWhereWithoutEmployeeInput[];
+  deleteMany?:
+    | Prisma.EarningScalarWhereInput
+    | Prisma.EarningScalarWhereInput[];
+};
 
 export type EarningCreateWithoutEmployeeInput = {
-  id?: string
-  shift_id: string
-  gross_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  platform_fee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  net_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  is_paid?: boolean
-  paid_at?: Date | string | null
-  created_at?: Date | string
-}
+  id?: string;
+  shift_id: string;
+  gross_amount?:
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string
+    | null;
+  platform_fee?:
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string
+    | null;
+  net_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+  is_paid?: boolean;
+  paid_at?: Date | string | null;
+  created_at?: Date | string;
+};
 
 export type EarningUncheckedCreateWithoutEmployeeInput = {
   id?: string
@@ -556,19 +683,37 @@ export type EarningUpdateManyWithWhereWithoutEmployeeInput = {
 }
 
 export type EarningScalarWhereInput = {
-  AND?: Prisma.EarningScalarWhereInput | Prisma.EarningScalarWhereInput[]
-  OR?: Prisma.EarningScalarWhereInput[]
-  NOT?: Prisma.EarningScalarWhereInput | Prisma.EarningScalarWhereInput[]
-  id?: Prisma.UuidFilter<"Earning"> | string
-  shift_id?: Prisma.UuidFilter<"Earning"> | string
-  employee_id?: Prisma.UuidFilter<"Earning"> | string
-  gross_amount?: Prisma.DecimalNullableFilter<"Earning"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  platform_fee?: Prisma.DecimalNullableFilter<"Earning"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  net_amount?: Prisma.DecimalNullableFilter<"Earning"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  is_paid?: Prisma.BoolFilter<"Earning"> | boolean
-  paid_at?: Prisma.DateTimeNullableFilter<"Earning"> | Date | string | null
-  created_at?: Prisma.DateTimeFilter<"Earning"> | Date | string
-}
+  AND?: Prisma.EarningScalarWhereInput | Prisma.EarningScalarWhereInput[];
+  OR?: Prisma.EarningScalarWhereInput[];
+  NOT?: Prisma.EarningScalarWhereInput | Prisma.EarningScalarWhereInput[];
+  id?: Prisma.UuidFilter<'Earning'> | string;
+  shift_id?: Prisma.UuidFilter<'Earning'> | string;
+  employee_id?: Prisma.UuidFilter<'Earning'> | string;
+  gross_amount?:
+    | Prisma.DecimalNullableFilter<'Earning'>
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string
+    | null;
+  platform_fee?:
+    | Prisma.DecimalNullableFilter<'Earning'>
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string
+    | null;
+  net_amount?:
+    | Prisma.DecimalNullableFilter<'Earning'>
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string
+    | null;
+  is_paid?: Prisma.BoolFilter<'Earning'> | boolean;
+  paid_at?: Prisma.DateTimeNullableFilter<'Earning'> | Date | string | null;
+  created_at?: Prisma.DateTimeFilter<'Earning'> | Date | string;
+};
 
 export type EarningCreateManyEmployeeInput = {
   id?: string
@@ -582,15 +727,37 @@ export type EarningCreateManyEmployeeInput = {
 }
 
 export type EarningUpdateWithoutEmployeeInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  shift_id?: Prisma.StringFieldUpdateOperationsInput | string
-  gross_amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  platform_fee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  net_amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  paid_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  shift_id?: Prisma.StringFieldUpdateOperationsInput | string;
+  gross_amount?:
+    | Prisma.NullableDecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string
+    | null;
+  platform_fee?:
+    | Prisma.NullableDecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string
+    | null;
+  net_amount?:
+    | Prisma.NullableDecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string
+    | null;
+  is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  paid_at?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
 
 export type EarningUncheckedUpdateWithoutEmployeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
@@ -604,108 +771,186 @@ export type EarningUncheckedUpdateWithoutEmployeeInput = {
 }
 
 export type EarningUncheckedUpdateManyWithoutEmployeeInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  shift_id?: Prisma.StringFieldUpdateOperationsInput | string
-  gross_amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  platform_fee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  net_amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  paid_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  shift_id?: Prisma.StringFieldUpdateOperationsInput | string;
+  gross_amount?:
+    | Prisma.NullableDecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string
+    | null;
+  platform_fee?:
+    | Prisma.NullableDecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string
+    | null;
+  net_amount?:
+    | Prisma.NullableDecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string
+    | null;
+  is_paid?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  paid_at?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
 
+export type EarningSelect<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = runtime.Types.Extensions.GetSelect<
+  {
+    id?: boolean;
+    shift_id?: boolean;
+    employee_id?: boolean;
+    gross_amount?: boolean;
+    platform_fee?: boolean;
+    net_amount?: boolean;
+    is_paid?: boolean;
+    paid_at?: boolean;
+    created_at?: boolean;
+    employee?: boolean | Prisma.EmployeeProfileDefaultArgs<ExtArgs>;
+  },
+  ExtArgs['result']['earning']
+>;
 
+export type EarningSelectCreateManyAndReturn<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = runtime.Types.Extensions.GetSelect<
+  {
+    id?: boolean;
+    shift_id?: boolean;
+    employee_id?: boolean;
+    gross_amount?: boolean;
+    platform_fee?: boolean;
+    net_amount?: boolean;
+    is_paid?: boolean;
+    paid_at?: boolean;
+    created_at?: boolean;
+    employee?: boolean | Prisma.EmployeeProfileDefaultArgs<ExtArgs>;
+  },
+  ExtArgs['result']['earning']
+>;
 
-export type EarningSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  shift_id?: boolean
-  employee_id?: boolean
-  gross_amount?: boolean
-  platform_fee?: boolean
-  net_amount?: boolean
-  is_paid?: boolean
-  paid_at?: boolean
-  created_at?: boolean
-  employee?: boolean | Prisma.EmployeeProfileDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["earning"]>
-
-export type EarningSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  shift_id?: boolean
-  employee_id?: boolean
-  gross_amount?: boolean
-  platform_fee?: boolean
-  net_amount?: boolean
-  is_paid?: boolean
-  paid_at?: boolean
-  created_at?: boolean
-  employee?: boolean | Prisma.EmployeeProfileDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["earning"]>
-
-export type EarningSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  shift_id?: boolean
-  employee_id?: boolean
-  gross_amount?: boolean
-  platform_fee?: boolean
-  net_amount?: boolean
-  is_paid?: boolean
-  paid_at?: boolean
-  created_at?: boolean
-  employee?: boolean | Prisma.EmployeeProfileDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["earning"]>
+export type EarningSelectUpdateManyAndReturn<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = runtime.Types.Extensions.GetSelect<
+  {
+    id?: boolean;
+    shift_id?: boolean;
+    employee_id?: boolean;
+    gross_amount?: boolean;
+    platform_fee?: boolean;
+    net_amount?: boolean;
+    is_paid?: boolean;
+    paid_at?: boolean;
+    created_at?: boolean;
+    employee?: boolean | Prisma.EmployeeProfileDefaultArgs<ExtArgs>;
+  },
+  ExtArgs['result']['earning']
+>;
 
 export type EarningSelectScalar = {
-  id?: boolean
-  shift_id?: boolean
-  employee_id?: boolean
-  gross_amount?: boolean
-  platform_fee?: boolean
-  net_amount?: boolean
-  is_paid?: boolean
-  paid_at?: boolean
-  created_at?: boolean
-}
+  id?: boolean;
+  shift_id?: boolean;
+  employee_id?: boolean;
+  gross_amount?: boolean;
+  platform_fee?: boolean;
+  net_amount?: boolean;
+  is_paid?: boolean;
+  paid_at?: boolean;
+  created_at?: boolean;
+};
 
-export type EarningOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "shift_id" | "employee_id" | "gross_amount" | "platform_fee" | "net_amount" | "is_paid" | "paid_at" | "created_at", ExtArgs["result"]["earning"]>
-export type EarningInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  employee?: boolean | Prisma.EmployeeProfileDefaultArgs<ExtArgs>
-}
-export type EarningIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  employee?: boolean | Prisma.EmployeeProfileDefaultArgs<ExtArgs>
-}
-export type EarningIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  employee?: boolean | Prisma.EmployeeProfileDefaultArgs<ExtArgs>
-}
+export type EarningOmit<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = runtime.Types.Extensions.GetOmit<
+  | 'id'
+  | 'shift_id'
+  | 'employee_id'
+  | 'gross_amount'
+  | 'platform_fee'
+  | 'net_amount'
+  | 'is_paid'
+  | 'paid_at'
+  | 'created_at',
+  ExtArgs['result']['earning']
+>;
+export type EarningInclude<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  employee?: boolean | Prisma.EmployeeProfileDefaultArgs<ExtArgs>;
+};
+export type EarningIncludeCreateManyAndReturn<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  employee?: boolean | Prisma.EmployeeProfileDefaultArgs<ExtArgs>;
+};
+export type EarningIncludeUpdateManyAndReturn<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  employee?: boolean | Prisma.EmployeeProfileDefaultArgs<ExtArgs>;
+};
 
-export type $EarningPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  name: "Earning"
+export type $EarningPayload<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  name: 'Earning';
   objects: {
-    employee: Prisma.$EmployeeProfilePayload<ExtArgs>
-  }
-  scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: string
-    shift_id: string
-    employee_id: string
-    gross_amount: runtime.Decimal | null
-    platform_fee: runtime.Decimal | null
-    net_amount: runtime.Decimal | null
-    is_paid: boolean
-    paid_at: Date | null
-    created_at: Date
-  }, ExtArgs["result"]["earning"]>
-  composites: {}
-}
+    employee: Prisma.$EmployeeProfilePayload<ExtArgs>;
+  };
+  scalars: runtime.Types.Extensions.GetPayloadResult<
+    {
+      id: string;
+      shift_id: string;
+      employee_id: string;
+      gross_amount: runtime.Decimal | null;
+      platform_fee: runtime.Decimal | null;
+      net_amount: runtime.Decimal | null;
+      is_paid: boolean;
+      paid_at: Date | null;
+      created_at: Date;
+    },
+    ExtArgs['result']['earning']
+  >;
+  composites: {};
+};
 
-export type EarningGetPayload<S extends boolean | null | undefined | EarningDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$EarningPayload, S>
+export type EarningGetPayload<
+  S extends boolean | null | undefined | EarningDefaultArgs,
+> = runtime.Types.Result.GetResult<Prisma.$EarningPayload, S>;
 
-export type EarningCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> =
-  Omit<EarningFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-    select?: EarningCountAggregateInputType | true
-  }
+export type EarningCountArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = Omit<EarningFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+  select?: EarningCountAggregateInputType | true;
+};
 
-export interface EarningDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Earning'], meta: { name: 'Earning' } }
+export interface EarningDelegate<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+  GlobalOmitOptions = {},
+> {
+  [K: symbol]: {
+    types: Prisma.TypeMap<ExtArgs>['model']['Earning'];
+    meta: { name: 'Earning' };
+  };
   /**
    * Find zero or one Earning that matches the filter.
    * @param {EarningFindUniqueArgs} args - Arguments to find a Earning
@@ -1085,9 +1330,28 @@ readonly fields: EarningFieldRefs;
  * Because we want to prevent naming conflicts as mentioned in
  * https://github.com/prisma/prisma-client-js/issues/707
  */
-export interface Prisma__EarningClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-  readonly [Symbol.toStringTag]: "PrismaPromise"
-  employee<T extends Prisma.EmployeeProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__EmployeeProfileClient<runtime.Types.Result.GetResult<Prisma.$EmployeeProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+export interface Prisma__EarningClient<
+  T,
+  Null = never,
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+  GlobalOmitOptions = {},
+> extends Prisma.PrismaPromise<T> {
+  readonly [Symbol.toStringTag]: 'PrismaPromise';
+  employee<T extends Prisma.EmployeeProfileDefaultArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.EmployeeProfileDefaultArgs<ExtArgs>>,
+  ): Prisma.Prisma__EmployeeProfileClient<
+    | runtime.Types.Result.GetResult<
+        Prisma.$EmployeeProfilePayload<ExtArgs>,
+        T,
+        'findUniqueOrThrow',
+        GlobalOmitOptions
+      >
+    | Null,
+    Null,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

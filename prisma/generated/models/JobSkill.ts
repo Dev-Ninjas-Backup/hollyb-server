@@ -160,32 +160,38 @@ type GetJobSkillGroupByPayload<T extends JobSkillGroupByArgs> = Prisma.PrismaPro
 
 
 export type JobSkillWhereInput = {
-  AND?: Prisma.JobSkillWhereInput | Prisma.JobSkillWhereInput[]
-  OR?: Prisma.JobSkillWhereInput[]
-  NOT?: Prisma.JobSkillWhereInput | Prisma.JobSkillWhereInput[]
-  id?: Prisma.UuidFilter<"JobSkill"> | string
-  job_id?: Prisma.UuidFilter<"JobSkill"> | string
-  skill_id?: Prisma.UuidFilter<"JobSkill"> | string
-  skill?: Prisma.XOR<Prisma.SkillScalarRelationFilter, Prisma.SkillWhereInput>
-}
+  AND?: Prisma.JobSkillWhereInput | Prisma.JobSkillWhereInput[];
+  OR?: Prisma.JobSkillWhereInput[];
+  NOT?: Prisma.JobSkillWhereInput | Prisma.JobSkillWhereInput[];
+  id?: Prisma.UuidFilter<'JobSkill'> | string;
+  job_id?: Prisma.UuidFilter<'JobSkill'> | string;
+  skill_id?: Prisma.UuidFilter<'JobSkill'> | string;
+  skill?: Prisma.XOR<Prisma.SkillScalarRelationFilter, Prisma.SkillWhereInput>;
+};
 
 export type JobSkillOrderByWithRelationInput = {
-  id?: Prisma.SortOrder
-  job_id?: Prisma.SortOrder
-  skill_id?: Prisma.SortOrder
-  skill?: Prisma.SkillOrderByWithRelationInput
-}
+  id?: Prisma.SortOrder;
+  job_id?: Prisma.SortOrder;
+  skill_id?: Prisma.SortOrder;
+  skill?: Prisma.SkillOrderByWithRelationInput;
+};
 
-export type JobSkillWhereUniqueInput = Prisma.AtLeast<{
-  id?: string
-  job_id_skill_id?: Prisma.JobSkillJob_idSkill_idCompoundUniqueInput
-  AND?: Prisma.JobSkillWhereInput | Prisma.JobSkillWhereInput[]
-  OR?: Prisma.JobSkillWhereInput[]
-  NOT?: Prisma.JobSkillWhereInput | Prisma.JobSkillWhereInput[]
-  job_id?: Prisma.UuidFilter<"JobSkill"> | string
-  skill_id?: Prisma.UuidFilter<"JobSkill"> | string
-  skill?: Prisma.XOR<Prisma.SkillScalarRelationFilter, Prisma.SkillWhereInput>
-}, "id" | "job_id_skill_id">
+export type JobSkillWhereUniqueInput = Prisma.AtLeast<
+  {
+    id?: string;
+    job_id_skill_id?: Prisma.JobSkillJob_idSkill_idCompoundUniqueInput;
+    AND?: Prisma.JobSkillWhereInput | Prisma.JobSkillWhereInput[];
+    OR?: Prisma.JobSkillWhereInput[];
+    NOT?: Prisma.JobSkillWhereInput | Prisma.JobSkillWhereInput[];
+    job_id?: Prisma.UuidFilter<'JobSkill'> | string;
+    skill_id?: Prisma.UuidFilter<'JobSkill'> | string;
+    skill?: Prisma.XOR<
+      Prisma.SkillScalarRelationFilter,
+      Prisma.SkillWhereInput
+    >;
+  },
+  'id' | 'job_id_skill_id'
+>;
 
 export type JobSkillOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -206,10 +212,10 @@ export type JobSkillScalarWhereWithAggregatesInput = {
 }
 
 export type JobSkillCreateInput = {
-  id?: string
-  job_id: string
-  skill: Prisma.SkillCreateNestedOneWithoutJob_skillsInput
-}
+  id?: string;
+  job_id: string;
+  skill: Prisma.SkillCreateNestedOneWithoutJob_skillsInput;
+};
 
 export type JobSkillUncheckedCreateInput = {
   id?: string
@@ -218,10 +224,10 @@ export type JobSkillUncheckedCreateInput = {
 }
 
 export type JobSkillUpdateInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  job_id?: Prisma.StringFieldUpdateOperationsInput | string
-  skill?: Prisma.SkillUpdateOneRequiredWithoutJob_skillsNestedInput
-}
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  job_id?: Prisma.StringFieldUpdateOperationsInput | string;
+  skill?: Prisma.SkillUpdateOneRequiredWithoutJob_skillsNestedInput;
+};
 
 export type JobSkillUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
@@ -236,9 +242,9 @@ export type JobSkillCreateManyInput = {
 }
 
 export type JobSkillUpdateManyMutationInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  job_id?: Prisma.StringFieldUpdateOperationsInput | string
-}
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  job_id?: Prisma.StringFieldUpdateOperationsInput | string;
+};
 
 export type JobSkillUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
@@ -276,8 +282,8 @@ export type JobSkillListRelationFilter = {
 }
 
 export type JobSkillOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
-}
+  _count?: Prisma.SortOrder;
+};
 
 export type JobSkillCreateNestedManyWithoutSkillInput = {
   create?: Prisma.XOR<Prisma.JobSkillCreateWithoutSkillInput, Prisma.JobSkillUncheckedCreateWithoutSkillInput> | Prisma.JobSkillCreateWithoutSkillInput[] | Prisma.JobSkillUncheckedCreateWithoutSkillInput[]
@@ -308,23 +314,41 @@ export type JobSkillUpdateManyWithoutSkillNestedInput = {
 }
 
 export type JobSkillUncheckedUpdateManyWithoutSkillNestedInput = {
-  create?: Prisma.XOR<Prisma.JobSkillCreateWithoutSkillInput, Prisma.JobSkillUncheckedCreateWithoutSkillInput> | Prisma.JobSkillCreateWithoutSkillInput[] | Prisma.JobSkillUncheckedCreateWithoutSkillInput[]
-  connectOrCreate?: Prisma.JobSkillCreateOrConnectWithoutSkillInput | Prisma.JobSkillCreateOrConnectWithoutSkillInput[]
-  upsert?: Prisma.JobSkillUpsertWithWhereUniqueWithoutSkillInput | Prisma.JobSkillUpsertWithWhereUniqueWithoutSkillInput[]
-  createMany?: Prisma.JobSkillCreateManySkillInputEnvelope
-  set?: Prisma.JobSkillWhereUniqueInput | Prisma.JobSkillWhereUniqueInput[]
-  disconnect?: Prisma.JobSkillWhereUniqueInput | Prisma.JobSkillWhereUniqueInput[]
-  delete?: Prisma.JobSkillWhereUniqueInput | Prisma.JobSkillWhereUniqueInput[]
-  connect?: Prisma.JobSkillWhereUniqueInput | Prisma.JobSkillWhereUniqueInput[]
-  update?: Prisma.JobSkillUpdateWithWhereUniqueWithoutSkillInput | Prisma.JobSkillUpdateWithWhereUniqueWithoutSkillInput[]
-  updateMany?: Prisma.JobSkillUpdateManyWithWhereWithoutSkillInput | Prisma.JobSkillUpdateManyWithWhereWithoutSkillInput[]
-  deleteMany?: Prisma.JobSkillScalarWhereInput | Prisma.JobSkillScalarWhereInput[]
-}
+  create?:
+    | Prisma.XOR<
+        Prisma.JobSkillCreateWithoutSkillInput,
+        Prisma.JobSkillUncheckedCreateWithoutSkillInput
+      >
+    | Prisma.JobSkillCreateWithoutSkillInput[]
+    | Prisma.JobSkillUncheckedCreateWithoutSkillInput[];
+  connectOrCreate?:
+    | Prisma.JobSkillCreateOrConnectWithoutSkillInput
+    | Prisma.JobSkillCreateOrConnectWithoutSkillInput[];
+  upsert?:
+    | Prisma.JobSkillUpsertWithWhereUniqueWithoutSkillInput
+    | Prisma.JobSkillUpsertWithWhereUniqueWithoutSkillInput[];
+  createMany?: Prisma.JobSkillCreateManySkillInputEnvelope;
+  set?: Prisma.JobSkillWhereUniqueInput | Prisma.JobSkillWhereUniqueInput[];
+  disconnect?:
+    | Prisma.JobSkillWhereUniqueInput
+    | Prisma.JobSkillWhereUniqueInput[];
+  delete?: Prisma.JobSkillWhereUniqueInput | Prisma.JobSkillWhereUniqueInput[];
+  connect?: Prisma.JobSkillWhereUniqueInput | Prisma.JobSkillWhereUniqueInput[];
+  update?:
+    | Prisma.JobSkillUpdateWithWhereUniqueWithoutSkillInput
+    | Prisma.JobSkillUpdateWithWhereUniqueWithoutSkillInput[];
+  updateMany?:
+    | Prisma.JobSkillUpdateManyWithWhereWithoutSkillInput
+    | Prisma.JobSkillUpdateManyWithWhereWithoutSkillInput[];
+  deleteMany?:
+    | Prisma.JobSkillScalarWhereInput
+    | Prisma.JobSkillScalarWhereInput[];
+};
 
 export type JobSkillCreateWithoutSkillInput = {
-  id?: string
-  job_id: string
-}
+  id?: string;
+  job_id: string;
+};
 
 export type JobSkillUncheckedCreateWithoutSkillInput = {
   id?: string
@@ -353,18 +377,21 @@ export type JobSkillUpdateWithWhereUniqueWithoutSkillInput = {
 }
 
 export type JobSkillUpdateManyWithWhereWithoutSkillInput = {
-  where: Prisma.JobSkillScalarWhereInput
-  data: Prisma.XOR<Prisma.JobSkillUpdateManyMutationInput, Prisma.JobSkillUncheckedUpdateManyWithoutSkillInput>
-}
+  where: Prisma.JobSkillScalarWhereInput;
+  data: Prisma.XOR<
+    Prisma.JobSkillUpdateManyMutationInput,
+    Prisma.JobSkillUncheckedUpdateManyWithoutSkillInput
+  >;
+};
 
 export type JobSkillScalarWhereInput = {
-  AND?: Prisma.JobSkillScalarWhereInput | Prisma.JobSkillScalarWhereInput[]
-  OR?: Prisma.JobSkillScalarWhereInput[]
-  NOT?: Prisma.JobSkillScalarWhereInput | Prisma.JobSkillScalarWhereInput[]
-  id?: Prisma.UuidFilter<"JobSkill"> | string
-  job_id?: Prisma.UuidFilter<"JobSkill"> | string
-  skill_id?: Prisma.UuidFilter<"JobSkill"> | string
-}
+  AND?: Prisma.JobSkillScalarWhereInput | Prisma.JobSkillScalarWhereInput[];
+  OR?: Prisma.JobSkillScalarWhereInput[];
+  NOT?: Prisma.JobSkillScalarWhereInput | Prisma.JobSkillScalarWhereInput[];
+  id?: Prisma.UuidFilter<'JobSkill'> | string;
+  job_id?: Prisma.UuidFilter<'JobSkill'> | string;
+  skill_id?: Prisma.UuidFilter<'JobSkill'> | string;
+};
 
 export type JobSkillCreateManySkillInput = {
   id?: string
@@ -372,9 +399,9 @@ export type JobSkillCreateManySkillInput = {
 }
 
 export type JobSkillUpdateWithoutSkillInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  job_id?: Prisma.StringFieldUpdateOperationsInput | string
-}
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  job_id?: Prisma.StringFieldUpdateOperationsInput | string;
+};
 
 export type JobSkillUncheckedUpdateWithoutSkillInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
@@ -382,32 +409,48 @@ export type JobSkillUncheckedUpdateWithoutSkillInput = {
 }
 
 export type JobSkillUncheckedUpdateManyWithoutSkillInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  job_id?: Prisma.StringFieldUpdateOperationsInput | string
-}
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  job_id?: Prisma.StringFieldUpdateOperationsInput | string;
+};
 
+export type JobSkillSelect<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = runtime.Types.Extensions.GetSelect<
+  {
+    id?: boolean;
+    job_id?: boolean;
+    skill_id?: boolean;
+    skill?: boolean | Prisma.SkillDefaultArgs<ExtArgs>;
+  },
+  ExtArgs['result']['jobSkill']
+>;
 
+export type JobSkillSelectCreateManyAndReturn<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = runtime.Types.Extensions.GetSelect<
+  {
+    id?: boolean;
+    job_id?: boolean;
+    skill_id?: boolean;
+    skill?: boolean | Prisma.SkillDefaultArgs<ExtArgs>;
+  },
+  ExtArgs['result']['jobSkill']
+>;
 
-export type JobSkillSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  job_id?: boolean
-  skill_id?: boolean
-  skill?: boolean | Prisma.SkillDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["jobSkill"]>
-
-export type JobSkillSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  job_id?: boolean
-  skill_id?: boolean
-  skill?: boolean | Prisma.SkillDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["jobSkill"]>
-
-export type JobSkillSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  job_id?: boolean
-  skill_id?: boolean
-  skill?: boolean | Prisma.SkillDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["jobSkill"]>
+export type JobSkillSelectUpdateManyAndReturn<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = runtime.Types.Extensions.GetSelect<
+  {
+    id?: boolean;
+    job_id?: boolean;
+    skill_id?: boolean;
+    skill?: boolean | Prisma.SkillDefaultArgs<ExtArgs>;
+  },
+  ExtArgs['result']['jobSkill']
+>;
 
 export type JobSkillSelectScalar = {
   id?: boolean
@@ -415,39 +458,71 @@ export type JobSkillSelectScalar = {
   skill_id?: boolean
 }
 
-export type JobSkillOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "job_id" | "skill_id", ExtArgs["result"]["jobSkill"]>
-export type JobSkillInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  skill?: boolean | Prisma.SkillDefaultArgs<ExtArgs>
-}
-export type JobSkillIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  skill?: boolean | Prisma.SkillDefaultArgs<ExtArgs>
-}
-export type JobSkillIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  skill?: boolean | Prisma.SkillDefaultArgs<ExtArgs>
-}
+export type JobSkillOmit<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = runtime.Types.Extensions.GetOmit<
+  'id' | 'job_id' | 'skill_id',
+  ExtArgs['result']['jobSkill']
+>;
+export type JobSkillInclude<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  skill?: boolean | Prisma.SkillDefaultArgs<ExtArgs>;
+};
+export type JobSkillIncludeCreateManyAndReturn<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  skill?: boolean | Prisma.SkillDefaultArgs<ExtArgs>;
+};
+export type JobSkillIncludeUpdateManyAndReturn<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  skill?: boolean | Prisma.SkillDefaultArgs<ExtArgs>;
+};
 
-export type $JobSkillPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  name: "JobSkill"
+export type $JobSkillPayload<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  name: 'JobSkill';
   objects: {
-    skill: Prisma.$SkillPayload<ExtArgs>
-  }
-  scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: string
-    job_id: string
-    skill_id: string
-  }, ExtArgs["result"]["jobSkill"]>
-  composites: {}
-}
+    skill: Prisma.$SkillPayload<ExtArgs>;
+  };
+  scalars: runtime.Types.Extensions.GetPayloadResult<
+    {
+      id: string;
+      job_id: string;
+      skill_id: string;
+    },
+    ExtArgs['result']['jobSkill']
+  >;
+  composites: {};
+};
 
-export type JobSkillGetPayload<S extends boolean | null | undefined | JobSkillDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$JobSkillPayload, S>
+export type JobSkillGetPayload<
+  S extends boolean | null | undefined | JobSkillDefaultArgs,
+> = runtime.Types.Result.GetResult<Prisma.$JobSkillPayload, S>;
 
-export type JobSkillCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> =
-  Omit<JobSkillFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-    select?: JobSkillCountAggregateInputType | true
-  }
+export type JobSkillCountArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = Omit<JobSkillFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+  select?: JobSkillCountAggregateInputType | true;
+};
 
-export interface JobSkillDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['JobSkill'], meta: { name: 'JobSkill' } }
+export interface JobSkillDelegate<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+  GlobalOmitOptions = {},
+> {
+  [K: symbol]: {
+    types: Prisma.TypeMap<ExtArgs>['model']['JobSkill'];
+    meta: { name: 'JobSkill' };
+  };
   /**
    * Find zero or one JobSkill that matches the filter.
    * @param {JobSkillFindUniqueArgs} args - Arguments to find a JobSkill
@@ -827,9 +902,28 @@ readonly fields: JobSkillFieldRefs;
  * Because we want to prevent naming conflicts as mentioned in
  * https://github.com/prisma/prisma-client-js/issues/707
  */
-export interface Prisma__JobSkillClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-  readonly [Symbol.toStringTag]: "PrismaPromise"
-  skill<T extends Prisma.SkillDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SkillDefaultArgs<ExtArgs>>): Prisma.Prisma__SkillClient<runtime.Types.Result.GetResult<Prisma.$SkillPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+export interface Prisma__JobSkillClient<
+  T,
+  Null = never,
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+  GlobalOmitOptions = {},
+> extends Prisma.PrismaPromise<T> {
+  readonly [Symbol.toStringTag]: 'PrismaPromise';
+  skill<T extends Prisma.SkillDefaultArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.SkillDefaultArgs<ExtArgs>>,
+  ): Prisma.Prisma__SkillClient<
+    | runtime.Types.Result.GetResult<
+        Prisma.$SkillPayload<ExtArgs>,
+        T,
+        'findUniqueOrThrow',
+        GlobalOmitOptions
+      >
+    | Null,
+    Null,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

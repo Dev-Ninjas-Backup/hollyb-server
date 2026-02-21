@@ -424,9 +424,34 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "adminActivityLog" | "backgroundCheck" | "document" | "earning" | "employeeProfile" | "employeeSkill" | "employerProfile" | "favoriteWorker" | "fileInstance" | "jobApplication" | "jobSkill" | "job" | "notification" | "userNotification" | "otpVerification" | "payment" | "privateConversation" | "privateMessage" | "privateMessageStatus" | "review" | "skill" | "subscription" | "systemSetting" | "userAuthProvider" | "user"
-    txIsolationLevel: TransactionIsolationLevel
-  }
+    modelProps:
+      | 'adminActivityLog'
+      | 'backgroundCheck'
+      | 'document'
+      | 'earning'
+      | 'employeeProfile'
+      | 'employeeSkill'
+      | 'employerProfile'
+      | 'favoriteWorker'
+      | 'fileInstance'
+      | 'jobApplication'
+      | 'jobSkill'
+      | 'job'
+      | 'notification'
+      | 'userNotification'
+      | 'otpVerification'
+      | 'payment'
+      | 'privateConversation'
+      | 'privateMessage'
+      | 'privateMessageStatus'
+      | 'review'
+      | 'skill'
+      | 'subscription'
+      | 'systemSetting'
+      | 'userAuthProvider'
+      | 'user';
+    txIsolationLevel: TransactionIsolationLevel;
+  };
   model: {
     AdminActivityLog: {
       payload: Prisma.$AdminActivityLogPayload<ExtArgs>
@@ -1163,85 +1188,89 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           result: runtime.Types.Utils.Optional<Prisma.JobApplicationGroupByOutputType>[]
         }
         count: {
-          args: Prisma.JobApplicationCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.JobApplicationCountAggregateOutputType> | number
-        }
-      }
-    }
+          args: Prisma.JobApplicationCountArgs<ExtArgs>;
+          result:
+            | runtime.Types.Utils.Optional<Prisma.JobApplicationCountAggregateOutputType>
+            | number;
+        };
+      };
+    };
     JobSkill: {
-      payload: Prisma.$JobSkillPayload<ExtArgs>
-      fields: Prisma.JobSkillFieldRefs
+      payload: Prisma.$JobSkillPayload<ExtArgs>;
+      fields: Prisma.JobSkillFieldRefs;
       operations: {
         findUnique: {
-          args: Prisma.JobSkillFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSkillPayload> | null
-        }
+          args: Prisma.JobSkillFindUniqueArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSkillPayload> | null;
+        };
         findUniqueOrThrow: {
-          args: Prisma.JobSkillFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSkillPayload>
-        }
+          args: Prisma.JobSkillFindUniqueOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSkillPayload>;
+        };
         findFirst: {
-          args: Prisma.JobSkillFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSkillPayload> | null
-        }
+          args: Prisma.JobSkillFindFirstArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSkillPayload> | null;
+        };
         findFirstOrThrow: {
-          args: Prisma.JobSkillFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSkillPayload>
-        }
+          args: Prisma.JobSkillFindFirstOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSkillPayload>;
+        };
         findMany: {
-          args: Prisma.JobSkillFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSkillPayload>[]
-        }
+          args: Prisma.JobSkillFindManyArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSkillPayload>[];
+        };
         create: {
-          args: Prisma.JobSkillCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSkillPayload>
-        }
+          args: Prisma.JobSkillCreateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSkillPayload>;
+        };
         createMany: {
-          args: Prisma.JobSkillCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
+          args: Prisma.JobSkillCreateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
         createManyAndReturn: {
-          args: Prisma.JobSkillCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSkillPayload>[]
-        }
+          args: Prisma.JobSkillCreateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSkillPayload>[];
+        };
         delete: {
-          args: Prisma.JobSkillDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSkillPayload>
-        }
+          args: Prisma.JobSkillDeleteArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSkillPayload>;
+        };
         update: {
-          args: Prisma.JobSkillUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSkillPayload>
-        }
+          args: Prisma.JobSkillUpdateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSkillPayload>;
+        };
         deleteMany: {
-          args: Prisma.JobSkillDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
+          args: Prisma.JobSkillDeleteManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
         updateMany: {
-          args: Prisma.JobSkillUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
+          args: Prisma.JobSkillUpdateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
         updateManyAndReturn: {
-          args: Prisma.JobSkillUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSkillPayload>[]
-        }
+          args: Prisma.JobSkillUpdateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSkillPayload>[];
+        };
         upsert: {
-          args: Prisma.JobSkillUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSkillPayload>
-        }
+          args: Prisma.JobSkillUpsertArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSkillPayload>;
+        };
         aggregate: {
-          args: Prisma.JobSkillAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateJobSkill>
-        }
+          args: Prisma.JobSkillAggregateArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.AggregateJobSkill>;
+        };
         groupBy: {
-          args: Prisma.JobSkillGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.JobSkillGroupByOutputType>[]
-        }
+          args: Prisma.JobSkillGroupByArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.JobSkillGroupByOutputType>[];
+        };
         count: {
-          args: Prisma.JobSkillCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.JobSkillCountAggregateOutputType> | number
-        }
-      }
-    }
+          args: Prisma.JobSkillCountArgs<ExtArgs>;
+          result:
+            | runtime.Types.Utils.Optional<Prisma.JobSkillCountAggregateOutputType>
+            | number;
+        };
+      };
+    };
     Job: {
       payload: Prisma.$JobPayload<ExtArgs>
       fields: Prisma.JobFieldRefs
@@ -1903,11 +1932,13 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           result: runtime.Types.Utils.Optional<Prisma.ReviewGroupByOutputType>[]
         }
         count: {
-          args: Prisma.ReviewCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ReviewCountAggregateOutputType> | number
-        }
-      }
-    }
+          args: Prisma.ReviewCountArgs<ExtArgs>;
+          result:
+            | runtime.Types.Utils.Optional<Prisma.ReviewCountAggregateOutputType>
+            | number;
+        };
+      };
+    };
     Skill: {
       payload: Prisma.$SkillPayload<ExtArgs>
       fields: Prisma.SkillFieldRefs
@@ -2458,9 +2489,6 @@ export const JobApplicationScalarFieldEnum = {
   updated_at: 'updated_at'
 } as const
 
-export type JobApplicationScalarFieldEnum = (typeof JobApplicationScalarFieldEnum)[keyof typeof JobApplicationScalarFieldEnum]
-
-
 export const JobSkillScalarFieldEnum = {
   id: 'id',
   job_id: 'job_id',
@@ -2490,10 +2518,8 @@ export const JobScalarFieldEnum = {
   location: 'location',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  assigned_employee_id: 'assigned_employee_id'
-} as const
-
-export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum]
+  assigned_employee_id: 'assigned_employee_id',
+} as const;
 
 
 export const NotificationScalarFieldEnum = {
@@ -2600,9 +2626,6 @@ export const ReviewScalarFieldEnum = {
   comment: 'comment',
   created_at: 'created_at'
 } as const
-
-export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
-
 
 export const SkillScalarFieldEnum = {
   id: 'id',
@@ -2883,23 +2906,9 @@ export type EnumJobApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputT
 
 
 /**
- * Reference to a field of type 'JobApplicationStatus[]'
- */
-export type ListEnumJobApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobApplicationStatus[]'>
-    
-
-
-/**
  * Reference to a field of type 'JobStatus'
  */
 export type EnumJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobStatus'>
-    
-
-
-/**
- * Reference to a field of type 'JobStatus[]'
- */
-export type ListEnumJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobStatus[]'>
     
 
 
@@ -3005,13 +3014,6 @@ export type ListEnumMessageDeliveryStatusFieldRefInput<$PrismaModel> = FieldRefI
  * Reference to a field of type 'ReviewerType'
  */
 export type EnumReviewerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReviewerType'>
-    
-
-
-/**
- * Reference to a field of type 'ReviewerType[]'
- */
-export type ListEnumReviewerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReviewerType[]'>
     
 
 
@@ -3179,32 +3181,32 @@ export type PrismaClientOptions = ({
   comments?: runtime.SqlCommenterPlugin[]
 }
 export type GlobalOmitConfig = {
-  adminActivityLog?: Prisma.AdminActivityLogOmit
-  backgroundCheck?: Prisma.BackgroundCheckOmit
-  document?: Prisma.DocumentOmit
-  earning?: Prisma.EarningOmit
-  employeeProfile?: Prisma.EmployeeProfileOmit
-  employeeSkill?: Prisma.EmployeeSkillOmit
-  employerProfile?: Prisma.EmployerProfileOmit
-  favoriteWorker?: Prisma.FavoriteWorkerOmit
-  fileInstance?: Prisma.FileInstanceOmit
-  jobApplication?: Prisma.JobApplicationOmit
-  jobSkill?: Prisma.JobSkillOmit
-  job?: Prisma.JobOmit
-  notification?: Prisma.NotificationOmit
-  userNotification?: Prisma.UserNotificationOmit
-  otpVerification?: Prisma.OtpVerificationOmit
-  payment?: Prisma.PaymentOmit
-  privateConversation?: Prisma.PrivateConversationOmit
-  privateMessage?: Prisma.PrivateMessageOmit
-  privateMessageStatus?: Prisma.PrivateMessageStatusOmit
-  review?: Prisma.ReviewOmit
-  skill?: Prisma.SkillOmit
-  subscription?: Prisma.SubscriptionOmit
-  systemSetting?: Prisma.SystemSettingOmit
-  userAuthProvider?: Prisma.UserAuthProviderOmit
-  user?: Prisma.UserOmit
-}
+  adminActivityLog?: Prisma.AdminActivityLogOmit;
+  backgroundCheck?: Prisma.BackgroundCheckOmit;
+  document?: Prisma.DocumentOmit;
+  earning?: Prisma.EarningOmit;
+  employeeProfile?: Prisma.EmployeeProfileOmit;
+  employeeSkill?: Prisma.EmployeeSkillOmit;
+  employerProfile?: Prisma.EmployerProfileOmit;
+  favoriteWorker?: Prisma.FavoriteWorkerOmit;
+  fileInstance?: Prisma.FileInstanceOmit;
+  jobApplication?: Prisma.JobApplicationOmit;
+  jobSkill?: Prisma.JobSkillOmit;
+  job?: Prisma.JobOmit;
+  notification?: Prisma.NotificationOmit;
+  userNotification?: Prisma.UserNotificationOmit;
+  otpVerification?: Prisma.OtpVerificationOmit;
+  payment?: Prisma.PaymentOmit;
+  privateConversation?: Prisma.PrivateConversationOmit;
+  privateMessage?: Prisma.PrivateMessageOmit;
+  privateMessageStatus?: Prisma.PrivateMessageStatusOmit;
+  review?: Prisma.ReviewOmit;
+  skill?: Prisma.SkillOmit;
+  subscription?: Prisma.SubscriptionOmit;
+  systemSetting?: Prisma.SystemSettingOmit;
+  userAuthProvider?: Prisma.UserAuthProviderOmit;
+  user?: Prisma.UserOmit;
+};
 
 /* Types for Logging */
 export type LogLevel = 'info' | 'query' | 'warn' | 'error'

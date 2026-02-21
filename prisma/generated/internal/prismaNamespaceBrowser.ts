@@ -235,9 +235,6 @@ export const JobApplicationScalarFieldEnum = {
   updated_at: 'updated_at'
 } as const
 
-export type JobApplicationScalarFieldEnum = (typeof JobApplicationScalarFieldEnum)[keyof typeof JobApplicationScalarFieldEnum]
-
-
 export const JobSkillScalarFieldEnum = {
   id: 'id',
   job_id: 'job_id',
@@ -267,10 +264,8 @@ export const JobScalarFieldEnum = {
   location: 'location',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  assigned_employee_id: 'assigned_employee_id'
-} as const
-
-export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum]
+  assigned_employee_id: 'assigned_employee_id',
+} as const;
 
 
 export const NotificationScalarFieldEnum = {
@@ -379,7 +374,6 @@ export const ReviewScalarFieldEnum = {
 } as const
 
 export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
-
 
 export const SkillScalarFieldEnum = {
   id: 'id',

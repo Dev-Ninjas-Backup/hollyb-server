@@ -58,11 +58,23 @@ export class EmployerController {
         requirements: { type: 'string', example: 'Must be able to lift 20kg.' },
         is_urgent: { type: 'boolean', example: false },
         start_date: { type: 'string', format: 'date', example: '2026-03-01' },
-        start_time: { type: 'string', format: 'date-time', example: '1970-01-01T08:00:00.000Z' },
-        end_time: { type: 'string', format: 'date-time', example: '1970-01-01T17:00:00.000Z' },
+        start_time: {
+          type: 'string',
+          format: 'date-time',
+          example: '1970-01-01T08:00:00.000Z',
+        },
+        end_time: {
+          type: 'string',
+          format: 'date-time',
+          example: '1970-01-01T17:00:00.000Z',
+        },
         amount: { type: 'string', example: '1500.00' },
         location: { type: 'string', example: 'New York, NY' },
-        file: { type: 'string', format: 'binary', description: 'Optional file attachment for the job' },
+        file: {
+          type: 'string',
+          format: 'binary',
+          description: 'Optional file attachment for the job',
+        },
       },
       required: ['title', 'company_name'],
     },
@@ -91,7 +103,14 @@ export class EmployerController {
   @ApiQuery({
     name: 'status',
     required: false,
-    enum: ['open', 'assigned', 'check_in', 'check_out', 'completed', 'cancelled'],
+    enum: [
+      'open',
+      'assigned',
+      'check_in',
+      'check_out',
+      'completed',
+      'cancelled',
+    ],
     description: 'Filter by job status',
     example: 'open',
   })
@@ -125,9 +144,15 @@ export class EmployerController {
   ) {
     const pageNum = page ? parseInt(page, 10) : 1;
     const limitNum = limit ? parseInt(limit, 10) : 10;
-    const isUrgent = is_urgent === 'true' ? true : is_urgent === 'false' ? false : undefined;
-    
-    return this.employerService.getMyJobs(req.user.sub, status, isUrgent, pageNum, limitNum);
-  }
+    const isUrgent =
+      is_urgent === 'true' ? true : is_urgent === 'false' ? false : undefined;
 
+    return this.employerService.getMyJobs(
+      req.user.sub,
+      status,
+      isUrgent,
+      pageNum,
+      limitNum,
+    );
+  }
 }

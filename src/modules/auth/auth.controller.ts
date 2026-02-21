@@ -75,6 +75,24 @@ export class AuthController {
     return this.authService.resendOtp(dto);
   }
 
+  @Post('login')
+  @ApiOperation({
+    summary: 'Login with email and password',
+    description:
+      'Authenticate user with email and password. Returns JWT access token.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Login successful. Returns access token and user data.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Invalid credentials or account not verified.',
+  })
+  login(@Body() dto: LoginDto) {
+    return this.authService.login(dto);
+  }
+
   @Post('google')
   @ApiOperation({
     summary: 'Google login',
@@ -103,24 +121,6 @@ export class AuthController {
   @ApiResponse({ status: 401, description: 'Invalid Facebook token.' })
   facebookLogin(@Body() dto: SocialLoginDto) {
     return this.authSocialService.facebookLogin(dto);
-  }
-
-  @Post('login')
-  @ApiOperation({
-    summary: 'Login with email and password',
-    description:
-      'Authenticate user with email and password. Returns JWT access token.',
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Login successful. Returns access token and user data.',
-  })
-  @ApiResponse({
-    status: 401,
-    description: 'Invalid credentials or account not verified.',
-  })
-  login(@Body() dto: LoginDto) {
-    return this.authService.login(dto);
   }
 
   @Post('forgot-password')
