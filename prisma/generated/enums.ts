@@ -171,6 +171,25 @@ export const ReferenceType = {
 
 export type ReferenceType = (typeof ReferenceType)[keyof typeof ReferenceType];
 
+export const JobCategory = {
+  chef: 'chef',
+  sous_chef: 'sous_chef',
+  line_cook: 'line_cook',
+  pastry_chef: 'pastry_chef',
+  cleaner: 'cleaner',
+  dishwasher: 'dishwasher',
+  helper: 'helper',
+  server: 'server',
+  waiter: 'waiter',
+  bartender: 'bartender',
+  host: 'host',
+  manager: 'manager',
+  supervisor: 'supervisor',
+  cook: 'cook',
+} as const;
+
+export type JobCategory = (typeof JobCategory)[keyof typeof JobCategory];
+
 export const FileType = {
   image: 'image',
   docs: 'docs',

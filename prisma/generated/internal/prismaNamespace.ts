@@ -2590,6 +2590,7 @@ export const JobScalarFieldEnum = {
   fileId: 'fileId',
   is_urgent: 'is_urgent',
   status: 'status',
+  job_category: 'job_category',
   job_date: 'job_date',
   expire_date: 'expire_date',
   start_time: 'start_time',
@@ -3023,6 +3024,22 @@ export type EnumJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
 export type ListEnumJobStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
   $PrismaModel,
   'JobStatus[]'
+>;
+
+/**
+ * Reference to a field of type 'JobCategory'
+ */
+export type EnumJobCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<
+  $PrismaModel,
+  'JobCategory'
+>;
+
+/**
+ * Reference to a field of type 'JobCategory[]'
+ */
+export type ListEnumJobCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<
+  $PrismaModel,
+  'JobCategory[]'
 >;
 
 /**

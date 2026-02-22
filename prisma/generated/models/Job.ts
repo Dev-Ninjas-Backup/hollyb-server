@@ -47,6 +47,7 @@ export type JobMinAggregateOutputType = {
   fileId: string | null;
   is_urgent: boolean | null;
   status: $Enums.JobStatus | null;
+  job_category: $Enums.JobCategory | null;
   job_date: Date | null;
   expire_date: Date | null;
   start_time: Date | null;
@@ -70,6 +71,7 @@ export type JobMaxAggregateOutputType = {
   fileId: string | null;
   is_urgent: boolean | null;
   status: $Enums.JobStatus | null;
+  job_category: $Enums.JobCategory | null;
   job_date: Date | null;
   expire_date: Date | null;
   start_time: Date | null;
@@ -93,6 +95,7 @@ export type JobCountAggregateOutputType = {
   fileId: number;
   is_urgent: number;
   status: number;
+  job_category: number;
   job_date: number;
   expire_date: number;
   start_time: number;
@@ -127,6 +130,7 @@ export type JobMinAggregateInputType = {
   fileId?: true;
   is_urgent?: true;
   status?: true;
+  job_category?: true;
   job_date?: true;
   expire_date?: true;
   start_time?: true;
@@ -150,6 +154,7 @@ export type JobMaxAggregateInputType = {
   fileId?: true;
   is_urgent?: true;
   status?: true;
+  job_category?: true;
   job_date?: true;
   expire_date?: true;
   start_time?: true;
@@ -173,6 +178,7 @@ export type JobCountAggregateInputType = {
   fileId?: true;
   is_urgent?: true;
   status?: true;
+  job_category?: true;
   job_date?: true;
   expire_date?: true;
   start_time?: true;
@@ -290,6 +296,7 @@ export type JobGroupByOutputType = {
   fileId: string | null;
   is_urgent: boolean;
   status: $Enums.JobStatus;
+  job_category: $Enums.JobCategory | null;
   job_date: Date | null;
   expire_date: Date | null;
   start_time: Date | null;
@@ -333,6 +340,10 @@ export type JobWhereInput = {
   fileId?: Prisma.StringNullableFilter<'Job'> | string | null;
   is_urgent?: Prisma.BoolFilter<'Job'> | boolean;
   status?: Prisma.EnumJobStatusFilter<'Job'> | $Enums.JobStatus;
+  job_category?:
+    | Prisma.EnumJobCategoryNullableFilter<'Job'>
+    | $Enums.JobCategory
+    | null;
   job_date?: Prisma.DateTimeNullableFilter<'Job'> | Date | string | null;
   expire_date?: Prisma.DateTimeNullableFilter<'Job'> | Date | string | null;
   start_time?: Prisma.DateTimeNullableFilter<'Job'> | Date | string | null;
@@ -382,6 +393,7 @@ export type JobOrderByWithRelationInput = {
   fileId?: Prisma.SortOrderInput | Prisma.SortOrder;
   is_urgent?: Prisma.SortOrder;
   status?: Prisma.SortOrder;
+  job_category?: Prisma.SortOrderInput | Prisma.SortOrder;
   job_date?: Prisma.SortOrderInput | Prisma.SortOrder;
   expire_date?: Prisma.SortOrderInput | Prisma.SortOrder;
   start_time?: Prisma.SortOrderInput | Prisma.SortOrder;
@@ -415,6 +427,10 @@ export type JobWhereUniqueInput = Prisma.AtLeast<
     requirements?: Prisma.StringNullableFilter<'Job'> | string | null;
     is_urgent?: Prisma.BoolFilter<'Job'> | boolean;
     status?: Prisma.EnumJobStatusFilter<'Job'> | $Enums.JobStatus;
+    job_category?:
+      | Prisma.EnumJobCategoryNullableFilter<'Job'>
+      | $Enums.JobCategory
+      | null;
     job_date?: Prisma.DateTimeNullableFilter<'Job'> | Date | string | null;
     expire_date?: Prisma.DateTimeNullableFilter<'Job'> | Date | string | null;
     start_time?: Prisma.DateTimeNullableFilter<'Job'> | Date | string | null;
@@ -465,6 +481,7 @@ export type JobOrderByWithAggregationInput = {
   fileId?: Prisma.SortOrderInput | Prisma.SortOrder;
   is_urgent?: Prisma.SortOrder;
   status?: Prisma.SortOrder;
+  job_category?: Prisma.SortOrderInput | Prisma.SortOrder;
   job_date?: Prisma.SortOrderInput | Prisma.SortOrder;
   expire_date?: Prisma.SortOrderInput | Prisma.SortOrder;
   start_time?: Prisma.SortOrderInput | Prisma.SortOrder;
@@ -509,6 +526,10 @@ export type JobScalarWhereWithAggregatesInput = {
   fileId?: Prisma.StringNullableWithAggregatesFilter<'Job'> | string | null;
   is_urgent?: Prisma.BoolWithAggregatesFilter<'Job'> | boolean;
   status?: Prisma.EnumJobStatusWithAggregatesFilter<'Job'> | $Enums.JobStatus;
+  job_category?:
+    | Prisma.EnumJobCategoryNullableWithAggregatesFilter<'Job'>
+    | $Enums.JobCategory
+    | null;
   job_date?:
     | Prisma.DateTimeNullableWithAggregatesFilter<'Job'>
     | Date
@@ -561,6 +582,7 @@ export type JobCreateInput = {
   requirements?: string | null;
   is_urgent?: boolean;
   status?: $Enums.JobStatus;
+  job_category?: $Enums.JobCategory | null;
   job_date?: Date | string | null;
   expire_date?: Date | string | null;
   start_time?: Date | string | null;
@@ -593,6 +615,7 @@ export type JobUncheckedCreateInput = {
   fileId?: string | null;
   is_urgent?: boolean;
   status?: $Enums.JobStatus;
+  job_category?: $Enums.JobCategory | null;
   job_date?: Date | string | null;
   expire_date?: Date | string | null;
   start_time?: Date | string | null;
@@ -627,6 +650,10 @@ export type JobUpdateInput = {
     | null;
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus;
+  job_category?:
+    | Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput
+    | $Enums.JobCategory
+    | null;
   job_date?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
     | Date
@@ -688,6 +715,10 @@ export type JobUncheckedUpdateInput = {
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus;
+  job_category?:
+    | Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput
+    | $Enums.JobCategory
+    | null;
   job_date?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
     | Date
@@ -744,6 +775,7 @@ export type JobCreateManyInput = {
   fileId?: string | null;
   is_urgent?: boolean;
   status?: $Enums.JobStatus;
+  job_category?: $Enums.JobCategory | null;
   job_date?: Date | string | null;
   expire_date?: Date | string | null;
   start_time?: Date | string | null;
@@ -776,6 +808,10 @@ export type JobUpdateManyMutationInput = {
     | null;
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus;
+  job_category?:
+    | Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput
+    | $Enums.JobCategory
+    | null;
   job_date?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
     | Date
@@ -832,6 +868,10 @@ export type JobUncheckedUpdateManyInput = {
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus;
+  job_category?:
+    | Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput
+    | $Enums.JobCategory
+    | null;
   job_date?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
     | Date
@@ -906,6 +946,7 @@ export type JobCountOrderByAggregateInput = {
   fileId?: Prisma.SortOrder;
   is_urgent?: Prisma.SortOrder;
   status?: Prisma.SortOrder;
+  job_category?: Prisma.SortOrder;
   job_date?: Prisma.SortOrder;
   expire_date?: Prisma.SortOrder;
   start_time?: Prisma.SortOrder;
@@ -934,6 +975,7 @@ export type JobMaxOrderByAggregateInput = {
   fileId?: Prisma.SortOrder;
   is_urgent?: Prisma.SortOrder;
   status?: Prisma.SortOrder;
+  job_category?: Prisma.SortOrder;
   job_date?: Prisma.SortOrder;
   expire_date?: Prisma.SortOrder;
   start_time?: Prisma.SortOrder;
@@ -957,6 +999,7 @@ export type JobMinOrderByAggregateInput = {
   fileId?: Prisma.SortOrder;
   is_urgent?: Prisma.SortOrder;
   status?: Prisma.SortOrder;
+  job_category?: Prisma.SortOrder;
   job_date?: Prisma.SortOrder;
   expire_date?: Prisma.SortOrder;
   start_time?: Prisma.SortOrder;
@@ -1202,6 +1245,10 @@ export type EnumJobStatusFieldUpdateOperationsInput = {
   set?: $Enums.JobStatus;
 };
 
+export type NullableEnumJobCategoryFieldUpdateOperationsInput = {
+  set?: $Enums.JobCategory | null;
+};
+
 export type JobCreateNestedOneWithoutPaymentsInput = {
   create?: Prisma.XOR<
     Prisma.JobCreateWithoutPaymentsInput,
@@ -1239,6 +1286,7 @@ export type JobCreateWithoutAssigned_employeeInput = {
   requirements?: string | null;
   is_urgent?: boolean;
   status?: $Enums.JobStatus;
+  job_category?: $Enums.JobCategory | null;
   job_date?: Date | string | null;
   expire_date?: Date | string | null;
   start_time?: Date | string | null;
@@ -1270,6 +1318,7 @@ export type JobUncheckedCreateWithoutAssigned_employeeInput = {
   fileId?: string | null;
   is_urgent?: boolean;
   status?: $Enums.JobStatus;
+  job_category?: $Enums.JobCategory | null;
   job_date?: Date | string | null;
   expire_date?: Date | string | null;
   start_time?: Date | string | null;
@@ -1331,6 +1380,10 @@ export type JobUpdateWithoutAssigned_employeeInput = {
     | null;
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus;
+  job_category?:
+    | Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput
+    | $Enums.JobCategory
+    | null;
   job_date?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
     | Date
@@ -1391,6 +1444,10 @@ export type JobUncheckedUpdateWithoutAssigned_employeeInput = {
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus;
+  job_category?:
+    | Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput
+    | $Enums.JobCategory
+    | null;
   job_date?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
     | Date
@@ -1441,6 +1498,7 @@ export type JobCreateWithoutEmployerInput = {
   requirements?: string | null;
   is_urgent?: boolean;
   status?: $Enums.JobStatus;
+  job_category?: $Enums.JobCategory | null;
   job_date?: Date | string | null;
   expire_date?: Date | string | null;
   start_time?: Date | string | null;
@@ -1471,6 +1529,7 @@ export type JobUncheckedCreateWithoutEmployerInput = {
   fileId?: string | null;
   is_urgent?: boolean;
   status?: $Enums.JobStatus;
+  job_category?: $Enums.JobCategory | null;
   job_date?: Date | string | null;
   expire_date?: Date | string | null;
   start_time?: Date | string | null;
@@ -1545,6 +1604,10 @@ export type JobScalarWhereInput = {
   fileId?: Prisma.StringNullableFilter<'Job'> | string | null;
   is_urgent?: Prisma.BoolFilter<'Job'> | boolean;
   status?: Prisma.EnumJobStatusFilter<'Job'> | $Enums.JobStatus;
+  job_category?:
+    | Prisma.EnumJobCategoryNullableFilter<'Job'>
+    | $Enums.JobCategory
+    | null;
   job_date?: Prisma.DateTimeNullableFilter<'Job'> | Date | string | null;
   expire_date?: Prisma.DateTimeNullableFilter<'Job'> | Date | string | null;
   start_time?: Prisma.DateTimeNullableFilter<'Job'> | Date | string | null;
@@ -1578,6 +1641,7 @@ export type JobCreateWithoutFileInput = {
   requirements?: string | null;
   is_urgent?: boolean;
   status?: $Enums.JobStatus;
+  job_category?: $Enums.JobCategory | null;
   job_date?: Date | string | null;
   expire_date?: Date | string | null;
   start_time?: Date | string | null;
@@ -1608,6 +1672,7 @@ export type JobUncheckedCreateWithoutFileInput = {
   requirements?: string | null;
   is_urgent?: boolean;
   status?: $Enums.JobStatus;
+  job_category?: $Enums.JobCategory | null;
   job_date?: Date | string | null;
   expire_date?: Date | string | null;
   start_time?: Date | string | null;
@@ -1670,6 +1735,10 @@ export type JobUpdateWithoutFileInput = {
     | null;
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus;
+  job_category?:
+    | Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput
+    | $Enums.JobCategory
+    | null;
   job_date?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
     | Date
@@ -1729,6 +1798,10 @@ export type JobUncheckedUpdateWithoutFileInput = {
     | null;
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus;
+  job_category?:
+    | Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput
+    | $Enums.JobCategory
+    | null;
   job_date?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
     | Date
@@ -1783,6 +1856,7 @@ export type JobCreateWithoutJob_applicationsInput = {
   requirements?: string | null;
   is_urgent?: boolean;
   status?: $Enums.JobStatus;
+  job_category?: $Enums.JobCategory | null;
   job_date?: Date | string | null;
   expire_date?: Date | string | null;
   start_time?: Date | string | null;
@@ -1814,6 +1888,7 @@ export type JobUncheckedCreateWithoutJob_applicationsInput = {
   fileId?: string | null;
   is_urgent?: boolean;
   status?: $Enums.JobStatus;
+  job_category?: $Enums.JobCategory | null;
   job_date?: Date | string | null;
   expire_date?: Date | string | null;
   start_time?: Date | string | null;
@@ -1875,6 +1950,10 @@ export type JobUpdateWithoutJob_applicationsInput = {
     | null;
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus;
+  job_category?:
+    | Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput
+    | $Enums.JobCategory
+    | null;
   job_date?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
     | Date
@@ -1935,6 +2014,10 @@ export type JobUncheckedUpdateWithoutJob_applicationsInput = {
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus;
+  job_category?:
+    | Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput
+    | $Enums.JobCategory
+    | null;
   job_date?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
     | Date
@@ -1988,6 +2071,7 @@ export type JobCreateWithoutPaymentsInput = {
   requirements?: string | null;
   is_urgent?: boolean;
   status?: $Enums.JobStatus;
+  job_category?: $Enums.JobCategory | null;
   job_date?: Date | string | null;
   expire_date?: Date | string | null;
   start_time?: Date | string | null;
@@ -2019,6 +2103,7 @@ export type JobUncheckedCreateWithoutPaymentsInput = {
   fileId?: string | null;
   is_urgent?: boolean;
   status?: $Enums.JobStatus;
+  job_category?: $Enums.JobCategory | null;
   job_date?: Date | string | null;
   expire_date?: Date | string | null;
   start_time?: Date | string | null;
@@ -2080,6 +2165,10 @@ export type JobUpdateWithoutPaymentsInput = {
     | null;
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus;
+  job_category?:
+    | Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput
+    | $Enums.JobCategory
+    | null;
   job_date?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
     | Date
@@ -2140,6 +2229,10 @@ export type JobUncheckedUpdateWithoutPaymentsInput = {
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus;
+  job_category?:
+    | Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput
+    | $Enums.JobCategory
+    | null;
   job_date?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
     | Date
@@ -2194,6 +2287,7 @@ export type JobCreateManyEmployerInput = {
   fileId?: string | null;
   is_urgent?: boolean;
   status?: $Enums.JobStatus;
+  job_category?: $Enums.JobCategory | null;
   job_date?: Date | string | null;
   expire_date?: Date | string | null;
   start_time?: Date | string | null;
@@ -2226,6 +2320,10 @@ export type JobUpdateWithoutEmployerInput = {
     | null;
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus;
+  job_category?:
+    | Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput
+    | $Enums.JobCategory
+    | null;
   job_date?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
     | Date
@@ -2285,6 +2383,10 @@ export type JobUncheckedUpdateWithoutEmployerInput = {
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus;
+  job_category?:
+    | Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput
+    | $Enums.JobCategory
+    | null;
   job_date?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
     | Date
@@ -2346,6 +2448,10 @@ export type JobUncheckedUpdateManyWithoutEmployerInput = {
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus;
+  job_category?:
+    | Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput
+    | $Enums.JobCategory
+    | null;
   job_date?:
     | Prisma.NullableDateTimeFieldUpdateOperationsInput
     | Date
@@ -2454,6 +2560,7 @@ export type JobSelect<
     fileId?: boolean;
     is_urgent?: boolean;
     status?: boolean;
+    job_category?: boolean;
     job_date?: boolean;
     expire_date?: boolean;
     start_time?: boolean;
@@ -2489,6 +2596,7 @@ export type JobSelectCreateManyAndReturn<
     fileId?: boolean;
     is_urgent?: boolean;
     status?: boolean;
+    job_category?: boolean;
     job_date?: boolean;
     expire_date?: boolean;
     start_time?: boolean;
@@ -2521,6 +2629,7 @@ export type JobSelectUpdateManyAndReturn<
     fileId?: boolean;
     is_urgent?: boolean;
     status?: boolean;
+    job_category?: boolean;
     job_date?: boolean;
     expire_date?: boolean;
     start_time?: boolean;
@@ -2549,6 +2658,7 @@ export type JobSelectScalar = {
   fileId?: boolean;
   is_urgent?: boolean;
   status?: boolean;
+  job_category?: boolean;
   job_date?: boolean;
   expire_date?: boolean;
   start_time?: boolean;
@@ -2575,6 +2685,7 @@ export type JobOmit<
   | 'fileId'
   | 'is_urgent'
   | 'status'
+  | 'job_category'
   | 'job_date'
   | 'expire_date'
   | 'start_time'
@@ -2639,6 +2750,7 @@ export type $JobPayload<
       fileId: string | null;
       is_urgent: boolean;
       status: $Enums.JobStatus;
+      job_category: $Enums.JobCategory | null;
       job_date: Date | null;
       expire_date: Date | null;
       start_time: Date | null;
@@ -3313,6 +3425,7 @@ export interface JobFieldRefs {
   readonly fileId: Prisma.FieldRef<'Job', 'String'>;
   readonly is_urgent: Prisma.FieldRef<'Job', 'Boolean'>;
   readonly status: Prisma.FieldRef<'Job', 'JobStatus'>;
+  readonly job_category: Prisma.FieldRef<'Job', 'JobCategory'>;
   readonly job_date: Prisma.FieldRef<'Job', 'DateTime'>;
   readonly expire_date: Prisma.FieldRef<'Job', 'DateTime'>;
   readonly start_time: Prisma.FieldRef<'Job', 'DateTime'>;

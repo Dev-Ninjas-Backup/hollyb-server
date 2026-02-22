@@ -126,6 +126,7 @@ export class EmployerService {
         dto.is_urgent !== undefined && dto.is_urgent !== null
           ? Boolean(dto.is_urgent)
           : false,
+      job_category: dto.job_category || null,
       job_date: dto.job_date ? new Date(dto.job_date) : null,
       expire_date: expireDate,
       start_time: dto.start_time ? new Date(dto.start_time) : null,
@@ -417,6 +418,8 @@ export class EmployerService {
       updateData.requirements = dto.requirements;
     if (dto.is_urgent !== undefined)
       updateData.is_urgent = Boolean(dto.is_urgent);
+    if (dto.job_category !== undefined)
+      updateData.job_category = dto.job_category;
     if (dto.start_time !== undefined)
       updateData.start_time = new Date(dto.start_time);
     if (dto.end_time !== undefined)

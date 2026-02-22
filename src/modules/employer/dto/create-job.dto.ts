@@ -4,8 +4,10 @@ import {
   IsBoolean,
   IsDecimal,
   Allow,
+  IsEnum,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { JobCategory } from '@prisma';
 
 export class CreateJobDto {
   @ApiProperty({
@@ -58,6 +60,16 @@ export class CreateJobDto {
   @IsOptional()
   @IsBoolean()
   is_urgent?: boolean;
+
+  @ApiPropertyOptional({
+    description: 'Job category',
+    enum: JobCategory,
+    enumName: 'JobCategory',
+    example: 'chef',
+  })
+  @IsOptional()
+  @IsEnum(JobCategory)
+  job_category?: JobCategory;
 
   @ApiPropertyOptional({
     description:

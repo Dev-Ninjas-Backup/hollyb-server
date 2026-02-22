@@ -261,6 +261,7 @@ export const JobScalarFieldEnum = {
   fileId: 'fileId',
   is_urgent: 'is_urgent',
   status: 'status',
+  job_category: 'job_category',
   job_date: 'job_date',
   expire_date: 'expire_date',
   start_time: 'start_time',
