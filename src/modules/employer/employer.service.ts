@@ -25,7 +25,15 @@ export class EmployerService {
     dto: CreateJobDto,
     files?: Express.Multer.File | undefined,
   ) {
-    // 1. Get employer profile for the user
+    // 1. Validate that expire_date is not provided (it's auto-calculated)
+    if ((dto as any).expire_date) {
+      throw new BusinessException(
+        'expire_date is automatically calculated and cannot be manually set. It will be set to 30 days after job_date.',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    // 2. Get employer profile for the user
     const employerProfile = await this.prisma.client.employerProfile.findUnique(
       {
         where: { user_id: userId },
@@ -37,21 +45,15 @@ export class EmployerService {
       throw new ResourceNotFoundException('Employer profile', userId);
     }
 
-    // 2. Validate dates if provided
-    if (dto.job_date && dto.expire_date) {
+    // 3. Calculate expire_date as 30 days after job_date if job_date is provided
+    let expireDate: Date | null = null;
+    if (dto.job_date) {
       const jobDate = new Date(dto.job_date);
-      const expireDate = new Date(dto.expire_date);
-      
-      // Check if job_date is after expire_date
-      if (jobDate > expireDate) {
-        throw new BusinessException(
-          'Job date must be within the expire date',
-          HttpStatus.BAD_REQUEST,
-        );
-      }
+      expireDate = new Date(jobDate);
+      expireDate.setDate(expireDate.getDate() + 30);
     }
 
-    // 3. Calculate totalAmount if start_time, end_time, and amount are provided
+    // 4. Calculate totalAmount if start_time, end_time, and amount are provided
     let totalAmount: Prisma.Decimal | null = null;
     if (dto.start_time && dto.end_time && dto.amount) {
       try {
@@ -113,16 +115,20 @@ export class EmployerService {
       }
     }
 
-    // 4. Prepare job data
+    // 6. Prepare job data
     const jobData: Prisma.JobCreateInput = {
       title: dto.title,
       company_name: dto.company_name || employerProfile.company_name || 'N/A',
       description: dto.description,
       job_responsibilities: dto.job_responsibilities,
       requirements: dto.requirements,
-      is_urgent: dto.is_urgent !== undefined && dto.is_urgent !== null ? Boolean(dto.is_urgent) : false,
+      is_urgent:
+        dto.is_urgent !== undefined && dto.is_urgent !== null
+          ? Boolean(dto.is_urgent)
+          : false,
+      job_category: dto.job_category || null,
       job_date: dto.job_date ? new Date(dto.job_date) : null,
-      expire_date: dto.expire_date ? new Date(dto.expire_date) : null,
+      expire_date: expireDate,
       start_time: dto.start_time ? new Date(dto.start_time) : null,
       end_time: dto.end_time ? new Date(dto.end_time) : null,
       amount: dto.amount ? new Prisma.Decimal(dto.amount) : null,
@@ -178,7 +184,7 @@ export class EmployerService {
     // Update jobs to 'closed' status if expire_date has passed
     const now = new Date();
     now.setHours(0, 0, 0, 0); // Set to start of day for comparison
-    
+
     await this.prisma.client.job.updateMany({
       where: {
         employer: { user_id: userId },
@@ -216,8 +222,8 @@ export class EmployerService {
         expire_date: true,
         file: {
           select: {
-            url: true
-          }
+            url: true,
+          },
         },
         start_time: true,
         end_time: true,
@@ -259,7 +265,7 @@ export class EmployerService {
     const job = await this.prisma.client.job.findUnique({
       where: {
         id: jobId,
-        employer: { user_id: userId }
+        employer: { user_id: userId },
       },
       include: {
         employer: {
@@ -270,7 +276,7 @@ export class EmployerService {
             profile_photo_url: true,
           },
         },
-        file: true
+        file: true,
       },
     });
 
@@ -287,7 +293,6 @@ export class EmployerService {
       data: job,
     };
   }
-
 
   async updateJob(
     userId: string,
@@ -314,10 +319,7 @@ export class EmployerService {
     });
 
     if (!existingJob) {
-      throw new BusinessException(
-        'Job not found',
-        HttpStatus.NOT_FOUND,
-      );
+      throw new BusinessException('Job not found', HttpStatus.NOT_FOUND);
     }
 
     if (existingJob.employer_id !== employerProfile.id) {
@@ -329,27 +331,34 @@ export class EmployerService {
 
     // 3. Calculate totalAmount if start_time, end_time, and amount are provided or updated
     let totalAmount: Prisma.Decimal | null = null;
-    const startTime = dto.start_time ? new Date(dto.start_time) : existingJob.start_time;
-    const endTime = dto.end_time ? new Date(dto.end_time) : existingJob.end_time;
-    const amount = dto.amount ? parseFloat(dto.amount) : (existingJob.amount ? parseFloat(existingJob.amount.toString()) : null);
+    const startTime = dto.start_time
+      ? new Date(dto.start_time)
+      : existingJob.start_time;
+    const endTime = dto.end_time
+      ? new Date(dto.end_time)
+      : existingJob.end_time;
+    const amount = dto.amount
+      ? parseFloat(dto.amount)
+      : existingJob.amount
+        ? parseFloat(existingJob.amount.toString())
+        : null;
 
     if (startTime && endTime && amount) {
       try {
         // Calculate hours difference
         const timeDiffMs = endTime.getTime() - startTime.getTime();
         const hours = timeDiffMs / (1000 * 60 * 60); // Convert milliseconds to hours
-        
+
         if (hours <= 0) {
           throw new BusinessException(
             'End time must be after start time',
             HttpStatus.BAD_REQUEST,
           );
         }
-        
+
         // Calculate total amount: hours * amount
         const calculatedTotal = hours * amount;
         totalAmount = new Prisma.Decimal(calculatedTotal.toFixed(2));
-        
       } catch (error) {
         if (error instanceof BusinessException) {
           throw error;
@@ -400,14 +409,23 @@ export class EmployerService {
     const updateData: Prisma.JobUpdateInput = {};
 
     if (dto.title !== undefined) updateData.title = dto.title;
-    if (dto.company_name !== undefined) updateData.company_name = dto.company_name;
+    if (dto.company_name !== undefined)
+      updateData.company_name = dto.company_name;
     if (dto.description !== undefined) updateData.description = dto.description;
-    if (dto.job_responsibilities !== undefined) updateData.job_responsibilities = dto.job_responsibilities;
-    if (dto.requirements !== undefined) updateData.requirements = dto.requirements;
-    if (dto.is_urgent !== undefined) updateData.is_urgent = Boolean(dto.is_urgent);
-    if (dto.start_time !== undefined) updateData.start_time = new Date(dto.start_time);
-    if (dto.end_time !== undefined) updateData.end_time = new Date(dto.end_time);
-    if (dto.amount !== undefined) updateData.amount = new Prisma.Decimal(dto.amount);
+    if (dto.job_responsibilities !== undefined)
+      updateData.job_responsibilities = dto.job_responsibilities;
+    if (dto.requirements !== undefined)
+      updateData.requirements = dto.requirements;
+    if (dto.is_urgent !== undefined)
+      updateData.is_urgent = Boolean(dto.is_urgent);
+    if (dto.job_category !== undefined)
+      updateData.job_category = dto.job_category;
+    if (dto.start_time !== undefined)
+      updateData.start_time = new Date(dto.start_time);
+    if (dto.end_time !== undefined)
+      updateData.end_time = new Date(dto.end_time);
+    if (dto.amount !== undefined)
+      updateData.amount = new Prisma.Decimal(dto.amount);
     if (dto.location !== undefined) updateData.location = dto.location;
     if (totalAmount !== null) updateData.totalAmount = totalAmount;
 

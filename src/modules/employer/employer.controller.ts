@@ -60,10 +60,44 @@ export class EmployerController {
         },
         requirements: { type: 'string', example: 'Must be able to lift 20kg.' },
         is_urgent: { type: 'boolean', example: false },
-        job_date: { type: 'string', format: 'date', example: '2026-03-01', description: 'Must be within expire_date' },
-        expire_date: { type: 'string', format: 'date', example: '2026-03-31' },
-        start_time: { type: 'string', format: 'date-time', example: '1970-01-01T08:00:00.000Z' },
-        end_time: { type: 'string', format: 'date-time', example: '1970-01-01T17:00:00.000Z' },
+        job_category: {
+          type: 'string',
+          enum: [
+            'chef',
+            'sous_chef',
+            'line_cook',
+            'pastry_chef',
+            'cleaner',
+            'dishwasher',
+            'helper',
+            'server',
+            'waiter',
+            'bartender',
+            'host',
+            'manager',
+            'supervisor',
+            'cook',
+          ],
+          example: 'chef',
+          description: 'Job category for restaurant positions',
+        },
+        job_date: {
+          type: 'string',
+          format: 'date',
+          example: '2026-03-01',
+          description:
+            'Expire date will be auto-set to 30 days after this date',
+        },
+        start_time: {
+          type: 'string',
+          format: 'date-time',
+          example: '1970-01-01T08:00:00.000Z',
+        },
+        end_time: {
+          type: 'string',
+          format: 'date-time',
+          example: '1970-01-01T17:00:00.000Z',
+        },
         amount: { type: 'string', example: '1500.00' },
         location: { type: 'string', example: 'New York, NY' },
         file: {
@@ -150,10 +184,7 @@ export class EmployerController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('employer')
   @ApiOperation({ summary: 'Get a specific job by ID' })
-  async getJobById(
-    @Req() req: AuthenticatedRequest,
-    @Param('id') id: string,
-  ) {
+  async getJobById(@Req() req: AuthenticatedRequest, @Param('id') id: string) {
     return this.employerService.getJobById(req.user.sub, id);
   }
 
@@ -162,7 +193,9 @@ export class EmployerController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('employer')
-  @ApiOperation({ summary: 'Update a job posting (cannot change start_date or end_date)' })
+  @ApiOperation({
+    summary: 'Update a job posting (cannot change start_date or end_date)',
+  })
   @UseInterceptors(FileFieldsInterceptor([{ name: 'file', maxCount: 1 }]))
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -185,5 +218,4 @@ export class EmployerController {
       uploadedFiles?.file?.[0],
     );
   }
-
 }

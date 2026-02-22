@@ -4,8 +4,10 @@ import {
   IsBoolean,
   IsDecimal,
   Allow,
+  IsEnum,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { JobCategory } from '@prisma';
 
 export class CreateJobDto {
   @ApiProperty({
@@ -60,20 +62,23 @@ export class CreateJobDto {
   is_urgent?: boolean;
 
   @ApiPropertyOptional({
-    description: 'Job date (YYYY-MM-DD) - must be within expire_date',
+    description: 'Job category',
+    enum: JobCategory,
+    enumName: 'JobCategory',
+    example: 'chef',
+  })
+  @IsOptional()
+  @IsEnum(JobCategory)
+  job_category?: JobCategory;
+
+  @ApiPropertyOptional({
+    description:
+      'Job date (YYYY-MM-DD) - expire date will be auto-set to 30 days after this date',
     example: '2026-03-01',
   })
   @IsOptional()
   @IsString()
   job_date?: string;
-
-  @ApiPropertyOptional({
-    description: 'Job expiration date (YYYY-MM-DD)',
-    example: '2026-03-31',
-  })
-  @IsOptional()
-  @IsString()
-  expire_date?: string;
 
   @ApiPropertyOptional({
     description: 'Shift start time (ISO string)',

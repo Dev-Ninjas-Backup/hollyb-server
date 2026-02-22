@@ -12,6 +12,7 @@ model Job {
 
   is_urgent    Boolean        @default(false)
   status       JobStatus      @default(open)
+  job_category JobCategory?
 
   job_date   DateTime?      @db.Date
   expire_date     DateTime?      @db.Date
