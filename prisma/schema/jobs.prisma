@@ -12,9 +12,10 @@ model Job {
 
   is_urgent    Boolean        @default(false)
   status       JobStatus      @default(open)
+  job_category JobCategory?
 
-  start_date   DateTime?      @db.Date
-  end_date     DateTime?      @db.Date
+  job_date   DateTime?      @db.Date
+  expire_date     DateTime?      @db.Date
   start_time   DateTime?      @db.Time(6)
   end_time     DateTime?      @db.Time(6)
 
@@ -32,7 +33,6 @@ model Job {
   employer         EmployerProfile @relation(fields: [employer_id], references: [id], onDelete: Cascade)
   job_applications JobApplication[]
   payments         Payment[]
-  reviews          Review[]
 
   @@map("jobs")
 }

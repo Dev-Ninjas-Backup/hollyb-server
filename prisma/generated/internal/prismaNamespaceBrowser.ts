@@ -241,20 +241,6 @@ export const JobApplicationScalarFieldEnum = {
 export type JobApplicationScalarFieldEnum =
   (typeof JobApplicationScalarFieldEnum)[keyof typeof JobApplicationScalarFieldEnum];
 
-<<<<<<< HEAD
-=======
-export const JobAssignmentScalarFieldEnum = {
-  id: 'id',
-  job_id: 'job_id',
-  employee_id: 'employee_id',
-  application_id: 'application_id',
-  assigned_at: 'assigned_at',
-} as const;
-
-export type JobAssignmentScalarFieldEnum =
-  (typeof JobAssignmentScalarFieldEnum)[keyof typeof JobAssignmentScalarFieldEnum];
-
->>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 export const JobSkillScalarFieldEnum = {
   id: 'id',
   job_id: 'job_id',
@@ -275,8 +261,9 @@ export const JobScalarFieldEnum = {
   fileId: 'fileId',
   is_urgent: 'is_urgent',
   status: 'status',
-  start_date: 'start_date',
-  end_date: 'end_date',
+  job_category: 'job_category',
+  job_date: 'job_date',
+  expire_date: 'expire_date',
   start_time: 'start_time',
   end_time: 'end_time',
   amount: 'amount',
@@ -284,14 +271,8 @@ export const JobScalarFieldEnum = {
   location: 'location',
   created_at: 'created_at',
   updated_at: 'updated_at',
-<<<<<<< HEAD
-  assigned_employee_id: 'assigned_employee_id'
-} as const
-
-export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum]
-=======
+  assigned_employee_id: 'assigned_employee_id',
 } as const;
->>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 
 export type JobScalarFieldEnum =
   (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum];
@@ -399,30 +380,12 @@ export const ReviewScalarFieldEnum = {
   rating: 'rating',
   comment: 'comment',
   created_at: 'created_at',
+  updated_at: 'updated_at',
 } as const;
 
 export type ReviewScalarFieldEnum =
   (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum];
 
-<<<<<<< HEAD
-=======
-export const ShiftScalarFieldEnum = {
-  id: 'id',
-  job_id: 'job_id',
-  assignment_id: 'assignment_id',
-  employee_id: 'employee_id',
-  check_in: 'check_in',
-  check_out: 'check_out',
-  break_minutes: 'break_minutes',
-  total_hours: 'total_hours',
-  status: 'status',
-  created_at: 'created_at',
-} as const;
-
-export type ShiftScalarFieldEnum =
-  (typeof ShiftScalarFieldEnum)[keyof typeof ShiftScalarFieldEnum];
-
->>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 export const SkillScalarFieldEnum = {
   id: 'id',
   name: 'name',

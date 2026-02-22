@@ -89,32 +89,12 @@ export const SubscriptionStatus = {
 export type SubscriptionStatus =
   (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus];
 
-<<<<<<< HEAD
-=======
-export const JobType = {
-  full_time: 'full_time',
-  part_time: 'part_time',
-  contract: 'contract',
-} as const;
-
-export type JobType = (typeof JobType)[keyof typeof JobType];
-
-export const JobPaymentType = {
-  hourly: 'hourly',
-  daily: 'daily',
-  weekly: 'weekly',
-  fixed: 'fixed',
-} as const;
-
-export type JobPaymentType =
-  (typeof JobPaymentType)[keyof typeof JobPaymentType];
-
->>>>>>> 54ba803b69ee759a6deb4e5a604877ba344a95d9
 export const JobStatus = {
   open: 'open',
   assigned: 'assigned',
   completed: 'completed',
   cancelled: 'cancelled',
+  closed: 'closed',
 } as const;
 
 export type JobStatus = (typeof JobStatus)[keyof typeof JobStatus];
@@ -190,6 +170,25 @@ export const ReferenceType = {
 } as const;
 
 export type ReferenceType = (typeof ReferenceType)[keyof typeof ReferenceType];
+
+export const JobCategory = {
+  chef: 'chef',
+  sous_chef: 'sous_chef',
+  line_cook: 'line_cook',
+  pastry_chef: 'pastry_chef',
+  cleaner: 'cleaner',
+  dishwasher: 'dishwasher',
+  helper: 'helper',
+  server: 'server',
+  waiter: 'waiter',
+  bartender: 'bartender',
+  host: 'host',
+  manager: 'manager',
+  supervisor: 'supervisor',
+  cook: 'cook',
+} as const;
+
+export type JobCategory = (typeof JobCategory)[keyof typeof JobCategory];
 
 export const FileType = {
   image: 'image',

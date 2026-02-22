@@ -452,12 +452,34 @@ export class AuthService {
   ) {
     const hashedAccessToken = await hash(accessToken, 10);
 
-    await this.prismaService.client.userAuthProvider.updateMany({
-      where: {
+    const existingProvider =
+      await this.prismaService.client.userAuthProvider.findFirst({
+        where: {
+          user_id: userId,
+          provider,
+        },
+        select: {
+          id: true,
+        },
+      });
+
+    if (existingProvider) {
+      await this.prismaService.client.userAuthProvider.update({
+        where: {
+          id: existingProvider.id,
+        },
+        data: {
+          access_token: hashedAccessToken,
+        },
+      });
+      return;
+    }
+
+    await this.prismaService.client.userAuthProvider.create({
+      data: {
         user_id: userId,
         provider,
-      },
-      data: {
+        provider_user_id: userId,
         access_token: hashedAccessToken,
       },
     });

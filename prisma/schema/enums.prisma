@@ -63,6 +63,7 @@ enum JobStatus {
   assigned
   completed
   cancelled
+  closed
 }
 
 enum JobApplicationStatus {
@@ -117,4 +118,21 @@ enum ReferenceType {
   payments
   messages
   reviews
+}
+
+enum JobCategory {
+  chef
+  sous_chef
+  line_cook
+  pastry_chef
+  cleaner
+  dishwasher
+  helper
+  server
+  waiter
+  bartender
+  host
+  manager
+  supervisor
+  cook
 }
