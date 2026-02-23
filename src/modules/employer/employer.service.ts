@@ -8,7 +8,6 @@ import { CreateJobDto } from './dto/create-job.dto';
 import { UpdateJobDto } from './dto/update-job.dto';
 import { Prisma, FileType } from '@prisma';
 import { S3UploadService } from '@/common/upload/s3-upload.service';
-import { count } from 'console';
 
 @Injectable()
 export class EmployerService {
