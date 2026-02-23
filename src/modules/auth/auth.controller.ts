@@ -8,6 +8,7 @@ import {
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { VerifyOtpDto } from './dto/verify-otp.dto';
+import { AdminVerifyOtpDto } from './dto/admin-verify-otp.dto';
 import { LoginDto } from './dto/login.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
@@ -58,6 +59,21 @@ export class AuthController {
   @ApiResponse({ status: 400, description: 'Invalid or expired OTP code.' })
   verifyOtp(@Body() dto: VerifyOtpDto) {
     return this.authService.verifyOtp(dto);
+  }
+
+  @Post('admin-verify-otp')
+  @ApiOperation({
+    summary: 'Verify admin 2FA OTP',
+    description: 'Verify the OTP code sent to admin email during two-factor authentication login.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Admin OTP verified successfully. Login completed.',
+  })
+  @ApiResponse({ status: 400, description: 'Invalid or expired OTP code.' })
+  @ApiResponse({ status: 403, description: 'Forbidden. Only for admin users.' })
+  adminVerifyOtp(@Body() dto: AdminVerifyOtpDto) {
+    return this.authService.adminVerifyOtp(dto);
   }
 
   @Post('resend-otp')
