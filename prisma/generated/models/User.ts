@@ -261,6 +261,7 @@ export type UserWhereInput = {
   subscriptions?: Prisma.SubscriptionListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
   admin_activity_logs?: Prisma.AdminActivityLogListRelationFilter
+  setting?: Prisma.XOR<Prisma.SettingNullableScalarRelationFilter, Prisma.SettingWhereInput> | null
   updated_settings?: Prisma.SystemSettingListRelationFilter
   employee_profile?: Prisma.XOR<Prisma.EmployeeProfileNullableScalarRelationFilter, Prisma.EmployeeProfileWhereInput> | null
   employer_profile?: Prisma.XOR<Prisma.EmployerProfileNullableScalarRelationFilter, Prisma.EmployerProfileWhereInput> | null
@@ -293,6 +294,7 @@ export type UserOrderByWithRelationInput = {
   subscriptions?: Prisma.SubscriptionOrderByRelationAggregateInput
   payments?: Prisma.PaymentOrderByRelationAggregateInput
   admin_activity_logs?: Prisma.AdminActivityLogOrderByRelationAggregateInput
+  setting?: Prisma.SettingOrderByWithRelationInput
   updated_settings?: Prisma.SystemSettingOrderByRelationAggregateInput
   employee_profile?: Prisma.EmployeeProfileOrderByWithRelationInput
   employer_profile?: Prisma.EmployerProfileOrderByWithRelationInput
@@ -328,6 +330,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   subscriptions?: Prisma.SubscriptionListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
   admin_activity_logs?: Prisma.AdminActivityLogListRelationFilter
+  setting?: Prisma.XOR<Prisma.SettingNullableScalarRelationFilter, Prisma.SettingWhereInput> | null
   updated_settings?: Prisma.SystemSettingListRelationFilter
   employee_profile?: Prisma.XOR<Prisma.EmployeeProfileNullableScalarRelationFilter, Prisma.EmployeeProfileWhereInput> | null
   employer_profile?: Prisma.XOR<Prisma.EmployerProfileNullableScalarRelationFilter, Prisma.EmployerProfileWhereInput> | null
@@ -400,6 +403,7 @@ export type UserCreateInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
@@ -432,6 +436,7 @@ export type UserUncheckedCreateInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
@@ -464,6 +469,7 @@ export type UserUpdateInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
@@ -496,6 +502,7 @@ export type UserUncheckedUpdateInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -786,6 +793,22 @@ export type UserUpdateOneRequiredWithoutMessageStatusesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMessageStatusesInput, Prisma.UserUpdateWithoutMessageStatusesInput>, Prisma.UserUncheckedUpdateWithoutMessageStatusesInput>
 }
 
+export type UserCreateNestedOneWithoutSettingInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSettingInput, Prisma.UserUncheckedCreateWithoutSettingInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSettingInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutSettingNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSettingInput, Prisma.UserUncheckedCreateWithoutSettingInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSettingInput
+  upsert?: Prisma.UserUpsertWithoutSettingInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSettingInput, Prisma.UserUpdateWithoutSettingInput>, Prisma.UserUncheckedUpdateWithoutSettingInput>
+}
+
 export type UserCreateNestedOneWithoutSubscriptionsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutSubscriptionsInput, Prisma.UserUncheckedCreateWithoutSubscriptionsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutSubscriptionsInput
@@ -859,6 +882,7 @@ export type UserCreateWithoutAdmin_activity_logsInput = {
   background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
@@ -890,6 +914,7 @@ export type UserUncheckedCreateWithoutAdmin_activity_logsInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
@@ -937,6 +962,7 @@ export type UserUpdateWithoutAdmin_activity_logsInput = {
   background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
@@ -968,6 +994,7 @@ export type UserUncheckedUpdateWithoutAdmin_activity_logsInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -999,6 +1026,7 @@ export type UserCreateWithoutBackground_checksInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
@@ -1030,6 +1058,7 @@ export type UserUncheckedCreateWithoutBackground_checksInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
@@ -1077,6 +1106,7 @@ export type UserUpdateWithoutBackground_checksInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
@@ -1108,6 +1138,7 @@ export type UserUncheckedUpdateWithoutBackground_checksInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -1139,6 +1170,7 @@ export type UserCreateWithoutDocumentsInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
@@ -1170,6 +1202,7 @@ export type UserUncheckedCreateWithoutDocumentsInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
@@ -1217,6 +1250,7 @@ export type UserUpdateWithoutDocumentsInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
@@ -1248,6 +1282,7 @@ export type UserUncheckedUpdateWithoutDocumentsInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -1280,6 +1315,7 @@ export type UserCreateWithoutEmployee_profileInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
   messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
@@ -1311,6 +1347,7 @@ export type UserUncheckedCreateWithoutEmployee_profileInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
   messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
@@ -1358,6 +1395,7 @@ export type UserUpdateWithoutEmployee_profileInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
   messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
@@ -1389,6 +1427,7 @@ export type UserUncheckedUpdateWithoutEmployee_profileInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
   messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
@@ -1420,6 +1459,7 @@ export type UserCreateWithoutEmployer_profileInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
@@ -1451,6 +1491,7 @@ export type UserUncheckedCreateWithoutEmployer_profileInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
@@ -1498,6 +1539,7 @@ export type UserUpdateWithoutEmployer_profileInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
@@ -1529,6 +1571,7 @@ export type UserUncheckedUpdateWithoutEmployer_profileInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
@@ -1560,6 +1603,7 @@ export type UserCreateWithoutNotificationsInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
@@ -1591,6 +1635,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
@@ -1638,6 +1683,7 @@ export type UserUpdateWithoutNotificationsInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
@@ -1669,6 +1715,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -1699,6 +1746,7 @@ export type UserCreateWithoutOtp_verificationsInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
@@ -1730,6 +1778,7 @@ export type UserUncheckedCreateWithoutOtp_verificationsInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
@@ -1777,6 +1826,7 @@ export type UserUpdateWithoutOtp_verificationsInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
@@ -1808,6 +1858,7 @@ export type UserUncheckedUpdateWithoutOtp_verificationsInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -1839,6 +1890,7 @@ export type UserCreateWithoutPaymentsInput = {
   background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
@@ -1870,6 +1922,7 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
@@ -1917,6 +1970,7 @@ export type UserUpdateWithoutPaymentsInput = {
   background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
@@ -1948,6 +2002,7 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -1980,6 +2035,7 @@ export type UserCreateWithoutConversationsInitiatedInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
@@ -2011,6 +2067,7 @@ export type UserUncheckedCreateWithoutConversationsInitiatedInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
@@ -2047,6 +2104,7 @@ export type UserCreateWithoutConversationsReceivedInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
@@ -2078,6 +2136,7 @@ export type UserUncheckedCreateWithoutConversationsReceivedInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
@@ -2125,6 +2184,7 @@ export type UserUpdateWithoutConversationsInitiatedInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
@@ -2156,6 +2216,7 @@ export type UserUncheckedUpdateWithoutConversationsInitiatedInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -2198,6 +2259,7 @@ export type UserUpdateWithoutConversationsReceivedInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
@@ -2229,6 +2291,7 @@ export type UserUncheckedUpdateWithoutConversationsReceivedInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -2260,6 +2323,7 @@ export type UserCreateWithoutMessagesSentInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
@@ -2291,6 +2355,7 @@ export type UserUncheckedCreateWithoutMessagesSentInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
@@ -2338,6 +2403,7 @@ export type UserUpdateWithoutMessagesSentInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
@@ -2369,6 +2435,7 @@ export type UserUncheckedUpdateWithoutMessagesSentInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -2400,6 +2467,7 @@ export type UserCreateWithoutMessageStatusesInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
@@ -2431,6 +2499,7 @@ export type UserUncheckedCreateWithoutMessageStatusesInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
@@ -2478,6 +2547,7 @@ export type UserUpdateWithoutMessageStatusesInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
@@ -2509,9 +2579,154 @@ export type UserUncheckedUpdateWithoutMessageStatusesInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSettingInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSettingInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSettingInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSettingInput, Prisma.UserUncheckedCreateWithoutSettingInput>
+}
+
+export type UserUpsertWithoutSettingInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSettingInput, Prisma.UserUncheckedUpdateWithoutSettingInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSettingInput, Prisma.UserUncheckedCreateWithoutSettingInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSettingInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSettingInput, Prisma.UserUncheckedUpdateWithoutSettingInput>
+}
+
+export type UserUpdateWithoutSettingInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSettingInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
   messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
   conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
   conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
@@ -2539,6 +2754,7 @@ export type UserCreateWithoutSubscriptionsInput = {
   background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
@@ -2570,6 +2786,7 @@ export type UserUncheckedCreateWithoutSubscriptionsInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
@@ -2617,6 +2834,7 @@ export type UserUpdateWithoutSubscriptionsInput = {
   background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
@@ -2648,6 +2866,7 @@ export type UserUncheckedUpdateWithoutSubscriptionsInput = {
   background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -2680,6 +2899,7 @@ export type UserCreateWithoutUpdated_settingsInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
   messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
@@ -2711,6 +2931,7 @@ export type UserUncheckedCreateWithoutUpdated_settingsInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
   messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
@@ -2758,6 +2979,7 @@ export type UserUpdateWithoutUpdated_settingsInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
   messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
@@ -2789,6 +3011,7 @@ export type UserUncheckedUpdateWithoutUpdated_settingsInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
   messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
@@ -2819,6 +3042,7 @@ export type UserCreateWithoutAuth_providersInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
@@ -2850,6 +3074,7 @@ export type UserUncheckedCreateWithoutAuth_providersInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
   updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
   employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
   employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
@@ -2897,6 +3122,7 @@ export type UserUpdateWithoutAuth_providersInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
@@ -2928,6 +3154,7 @@ export type UserUncheckedUpdateWithoutAuth_providersInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
   updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
   employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
   employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
@@ -3099,6 +3326,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
   payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
   admin_activity_logs?: boolean | Prisma.User$admin_activity_logsArgs<ExtArgs>
+  setting?: boolean | Prisma.User$settingArgs<ExtArgs>
   updated_settings?: boolean | Prisma.User$updated_settingsArgs<ExtArgs>
   employee_profile?: boolean | Prisma.User$employee_profileArgs<ExtArgs>
   employer_profile?: boolean | Prisma.User$employer_profileArgs<ExtArgs>
@@ -3170,6 +3398,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
   payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
   admin_activity_logs?: boolean | Prisma.User$admin_activity_logsArgs<ExtArgs>
+  setting?: boolean | Prisma.User$settingArgs<ExtArgs>
   updated_settings?: boolean | Prisma.User$updated_settingsArgs<ExtArgs>
   employee_profile?: boolean | Prisma.User$employee_profileArgs<ExtArgs>
   employer_profile?: boolean | Prisma.User$employer_profileArgs<ExtArgs>
@@ -3193,6 +3422,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     subscriptions: Prisma.$SubscriptionPayload<ExtArgs>[]
     payments: Prisma.$PaymentPayload<ExtArgs>[]
     admin_activity_logs: Prisma.$AdminActivityLogPayload<ExtArgs>[]
+    setting: Prisma.$SettingPayload<ExtArgs> | null
     updated_settings: Prisma.$SystemSettingPayload<ExtArgs>[]
     employee_profile: Prisma.$EmployeeProfilePayload<ExtArgs> | null
     employer_profile: Prisma.$EmployerProfilePayload<ExtArgs> | null
@@ -3618,6 +3848,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   subscriptions<T extends Prisma.User$subscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   payments<T extends Prisma.User$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   admin_activity_logs<T extends Prisma.User$admin_activity_logsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$admin_activity_logsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdminActivityLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  setting<T extends Prisma.User$settingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$settingArgs<ExtArgs>>): Prisma.Prisma__SettingClient<runtime.Types.Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   updated_settings<T extends Prisma.User$updated_settingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$updated_settingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SystemSettingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   employee_profile<T extends Prisma.User$employee_profileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$employee_profileArgs<ExtArgs>>): Prisma.Prisma__EmployeeProfileClient<runtime.Types.Result.GetResult<Prisma.$EmployeeProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   employer_profile<T extends Prisma.User$employer_profileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$employer_profileArgs<ExtArgs>>): Prisma.Prisma__EmployerProfileClient<runtime.Types.Result.GetResult<Prisma.$EmployerProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -4222,6 +4453,25 @@ export type User$admin_activity_logsArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.AdminActivityLogScalarFieldEnum | Prisma.AdminActivityLogScalarFieldEnum[]
+}
+
+/**
+ * User.setting
+ */
+export type User$settingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Setting
+   */
+  select?: Prisma.SettingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Setting
+   */
+  omit?: Prisma.SettingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SettingInclude<ExtArgs> | null
+  where?: Prisma.SettingWhereInput
 }
 
 /**

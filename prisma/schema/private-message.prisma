@@ -11,9 +11,9 @@ model PrivateMessage {
   conversation   PrivateConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
 
   senderId String @db.Uuid
-  sender   User @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  sender   User   @relation(fields: [senderId], references: [id], onDelete: Cascade)
 
-  privateLastMessage PrivateConversation[] @relation("PrivateLastMessage")
+  privateLastMessage PrivateConversation[]  @relation("PrivateLastMessage")
   statuses           PrivateMessageStatus[]
 
   createdAt DateTime @default(now())
@@ -29,7 +29,7 @@ model PrivateMessageStatus {
   messageId String
   message   PrivateMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
 
-  userId  String @db.Uuid 
+  userId String @db.Uuid
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   status MessageDeliveryStatus @default(SENT)

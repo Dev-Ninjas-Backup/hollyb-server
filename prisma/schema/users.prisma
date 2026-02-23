@@ -1,29 +1,34 @@
 model User {
-  id             String   @id @default(uuid()) @db.Uuid
+  id             String        @id @default(uuid()) @db.Uuid
   full_name      String
-  email          String?  @unique
+  email          String?       @unique
   role           UserRole
   password_hash  String?
   account_status AccountStatus
-  is_active      Boolean  @default(true)
-  is_verified    Boolean  @default(false)
-  isNotify  Boolean  @default(true)
-  is_deleted     Boolean  @default(false)
+  is_active      Boolean       @default(true)
+  is_verified    Boolean       @default(false)
+  isNotify       Boolean       @default(true)
+  is_deleted     Boolean       @default(false)
   last_active_at DateTime?
   last_login_at  DateTime?
-  created_at     DateTime @default(now())
-  updated_at     DateTime @updatedAt
+  created_at     DateTime      @default(now())
+  updated_at     DateTime      @updatedAt
 
-  auth_providers       UserAuthProvider[]
-  otp_verifications    OtpVerification[]
-  documents            Document[]
-  background_checks    BackgroundCheck[]
-  subscriptions        Subscription[]
-  payments             Payment[]
-  admin_activity_logs  AdminActivityLog[] @relation("AdminLogs")
+  auth_providers      UserAuthProvider[]
+  otp_verifications   OtpVerification[]
+  documents           Document[]
+  background_checks   BackgroundCheck[]
+  subscriptions       Subscription[]
+  payments            Payment[]
+  admin_activity_logs AdminActivityLog[] @relation("AdminLogs")
+
+  // System settings updated by only SuperAdmins
+  setting        Setting? @relation("SettingUpdatedBy")
   updated_settings     SystemSetting[]    @relation("SystemSettingUpdatedBy")
-  employee_profile     EmployeeProfile?
-  employer_profile     EmployerProfile?
+
+
+  employee_profile EmployeeProfile?
+  employer_profile EmployerProfile?
 
   // Message delivery/read statuses
   messageStatuses PrivateMessageStatus[]

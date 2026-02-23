@@ -1,36 +1,36 @@
 model Job {
-  id           String         @id @default(uuid()) @db.Uuid
-  employer_id  String         @db.Uuid
+  id          String @id @default(uuid()) @db.Uuid
+  employer_id String @db.Uuid
 
-  title        String
-  company_name String
-  description  String?
+  title                String
+  company_name         String
+  description          String?
   job_responsibilities String?
-  requirements  String?
-  fileId String? @unique
-  file   FileInstance? @relation(fields: [fileId], references: [id], onDelete: SetNull)
+  requirements         String?
+  fileId               String?       @unique
+  file                 FileInstance? @relation(fields: [fileId], references: [id], onDelete: SetNull)
 
-  is_urgent    Boolean        @default(false)
-  status       JobStatus      @default(open)
+  is_urgent    Boolean      @default(false)
+  status       JobStatus    @default(open)
   job_category JobCategory?
 
-  job_date   DateTime?      @db.Date
-  expire_date     DateTime?      @db.Date
-  start_time   DateTime?      @db.Time(6)
-  end_time     DateTime?      @db.Time(6)
+  job_date    DateTime? @db.Date
+  expire_date DateTime? @db.Date
+  start_time  DateTime? @db.Time(6)
+  end_time    DateTime? @db.Time(6)
 
-  amount       Decimal?       @db.Decimal(12, 2)
-  totalAmount  Decimal?       @db.Decimal(12, 2)
+  amount      Decimal? @db.Decimal(12, 2)
+  totalAmount Decimal? @db.Decimal(12, 2)
 
-  location     String?
+  location String?
 
-  created_at   DateTime       @default(now())
-  updated_at   DateTime       @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  assigned_employee_id String? @unique @db.Uuid
+  assigned_employee_id String?          @unique @db.Uuid
   assigned_employee    EmployeeProfile? @relation(fields: [assigned_employee_id], references: [id], onDelete: SetNull)
 
-  employer         EmployerProfile @relation(fields: [employer_id], references: [id], onDelete: Cascade)
+  employer         EmployerProfile  @relation(fields: [employer_id], references: [id], onDelete: Cascade)
   job_applications JobApplication[]
   payments         Payment[]
 

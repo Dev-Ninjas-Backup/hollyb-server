@@ -33,6 +33,26 @@ async function main() {
       console.log(
         `✅ Admin user already exists with email: ${adminEmail}. Skipping creation.`,
       );
+      
+      // Check if settings exist, if not create them
+      const existingSettings = await prisma.setting.findFirst();
+      if (!existingSettings) {
+        const setting = await prisma.setting.create({
+          data: {
+            workspaceName: 'Hollyb',
+            Timezone: 'UTC',
+            two_factor_authentication_enabled: false,
+            system_alerts_enabled: true,
+            email_notifications_enabled: false,
+            updated_by: existingAdmin.id,
+          },
+        });
+        console.log(`✅ System settings created for existing admin!`);
+        console.log(`   Workspace: ${setting.workspaceName}`);
+      } else {
+        console.log(`✅ Settings already exist. Skipping creation.`);
+      }
+      
       return;
     }
 
@@ -60,6 +80,22 @@ async function main() {
     console.log(`   Role: ${admin.role}`);
     console.log(`   Status: ${admin.account_status}`);
     console.log(`   ID: ${admin.id}`);
+
+    // Create Setting for the admin
+    const setting = await prisma.setting.create({
+      data: {
+        workspaceName: 'Hollyb',
+        Timezone: 'UTC',
+        two_factor_authentication_enabled: false,
+        system_alerts_enabled: true,
+        email_notifications_enabled: false,
+        updated_by: admin.id,
+      },
+    });
+
+    console.log(`✅ System settings created successfully!`);
+    console.log(`   Workspace: ${setting.workspaceName}`);
+    console.log(`   Updated by: ${admin.full_name}`);
   } catch (error) {
     if (error instanceof Error) {
       console.error('❌ Error creating admin user:', error.message);
