@@ -1,11 +1,11 @@
 model OtpVerification {
-  id         String    @id @default(uuid()) @db.Uuid
-  user_id    String    @db.Uuid
+  id         String   @id @default(uuid()) @db.Uuid
+  user_id    String   @db.Uuid
   code       String
   type       OtpType
-  is_used    Boolean   @default(false)
+  is_used    Boolean  @default(false)
   expires_at DateTime
-  created_at DateTime  @default(now())
+  created_at DateTime @default(now())
 
   user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
