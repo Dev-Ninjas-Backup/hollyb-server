@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Patch, Req, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiConsumes, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Roles } from '@/common/decorators/roles.decorator';
 import { JwtAuthGuard } from '@/common/guards/jwt-auth.guard';
 import { RolesGuard } from '@/common/guards/roles.guard';
@@ -26,7 +26,6 @@ export class SettingsController {
 
   @Patch('update')
   @ApiOperation({ summary: 'Update system settings' })
-  @ApiConsumes('multipart/form-data')
   @ApiBody({ type: UpdateSettingsDto })
   @ApiResponse({ status: 200, description: 'Settings updated successfully' })
   @ApiResponse({ status: 404, description: 'Settings not found' })

@@ -28,11 +28,18 @@ export class SettingsService {
   }
 
   async updateSettings(dto: UpdateSettingsDto, userId: string) {
-    // Check if settings exist
-    const existingSettings = await this.prisma.client.setting.findFirst();
+    // Try to find settings by updated_by for current user
+    let existingSettings = await this.prisma.client.setting.findUnique({
+      where: { updated_by: userId },
+    });
 
+    // If not found, get the first settings record
     if (!existingSettings) {
-      throw new NotFoundException('Settings not found');
+      existingSettings = await this.prisma.client.setting.findFirst();
+      
+      if (!existingSettings) {
+        throw new NotFoundException('Settings not found');
+      }
     }
 
     // Update settings
