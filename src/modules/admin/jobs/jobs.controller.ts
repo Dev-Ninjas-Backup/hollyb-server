@@ -38,6 +38,18 @@ export class JobsController {
     return this.jobsService.getAllJobs({ page, limit, status, timeFilter });
   }
 
+  @Get('get-all-recent')
+  @ApiOperation({ summary: 'Get recent jobs with basic info and time since last update' })
+  @ApiResponse({ status: 200, description: 'Recent jobs retrieved successfully' })
+  @ApiQuery({ name: 'page', required: false, type: Number, description: 'Page number' })
+  @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Items per page' })
+  getAllRecentJobs(
+    @Query('page') page?: number,
+    @Query('limit') limit?: number,
+  ) {
+    return this.jobsService.getAllRecentJobs({ page, limit });
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Get a specific job by ID' })
   @ApiResponse({ status: 200, description: 'Job retrieved successfully' })

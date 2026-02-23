@@ -118,6 +118,75 @@ export class JobsService {
     };
   }
 
+  async getAllRecentJobs(query: { page?: number; limit?: number; }) {
+    const page = query.page || 1;
+    const limit = query.limit || 10;
+    const skip = (page - 1) * limit;
+
+    // Build where clause
+    const where: Prisma.JobWhereInput = {};
+
+    const [jobs, total] = await Promise.all([
+      this.prisma.client.job.findMany({
+        where,
+        skip,
+        take: limit,
+        orderBy: { updated_at: 'desc' },
+        select: {
+          id: true,
+          title: true,
+          status: true,
+          updated_at: true,
+        },
+      }),
+      this.prisma.client.job.count({ where }),
+    ]);
+
+    // Calculate time difference for each job
+    const now = new Date();
+    const jobsWithTimeDiff = jobs.map(job => {
+      const diffMs = now.getTime() - job.updated_at.getTime();
+      const diffMinutes = Math.floor(diffMs / (1000 * 60));
+      const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+      const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+      let timeDifference: string;
+      if (diffMinutes < 1) {
+        timeDifference = 'Just now';
+      } else if (diffMinutes < 60) {
+        timeDifference = `${diffMinutes} minute${diffMinutes > 1 ? 's' : ''} ago`;
+      } else if (diffHours < 24) {
+        timeDifference = `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+      } else if (diffDays < 30) {
+        timeDifference = `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+      } else {
+        const diffMonths = Math.floor(diffDays / 30);
+        timeDifference = `${diffMonths} month${diffMonths > 1 ? 's' : ''} ago`;
+      }
+
+      return {
+        jobId: job.id,
+        jobTitle: job.title,
+        status: job.status,
+        timeDifference,
+      };
+    });
+
+    const totalPages = Math.ceil(total / limit);
+
+    return {
+      data: jobsWithTimeDiff,
+      meta: {
+        page,
+        limit,
+        total,
+        totalPages,
+        hasNextPage: page < totalPages,
+        hasPreviousPage: page > 1,
+      },
+    };
+  }
+
   async getJobById(id: string) {
     const job = await this.prisma.client.job.findUnique({
       where: { id },
