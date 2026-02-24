@@ -56,7 +56,22 @@ export class EmployerController {
         },
         job_category: {
           type: 'string',
-          enum: ['chef', 'sous_chef', 'line_cook', 'pastry_chef', 'cleaner', 'dishwasher', 'helper', 'helper', 'server', 'waiter', 'bartender', 'host', 'manager', 'supervisor'],
+          enum: [
+            'chef',
+            'sous_chef',
+            'line_cook',
+            'pastry_chef',
+            'cleaner',
+            'dishwasher',
+            'helper',
+            'helper',
+            'server',
+            'waiter',
+            'bartender',
+            'host',
+            'manager',
+            'supervisor',
+          ],
           example: 'chef',
         },
         job_responsibilities: {
