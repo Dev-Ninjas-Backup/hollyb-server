@@ -8,42 +8,122 @@ import { BusinessException } from '@/common/exceptions/business.exception';
 export class EmployeeService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getLatestJobs() {
-    const jobs = await this.prisma.client.job.findMany({
-      where: {
-        status: 'open',
-      },
-      select: {
-        id: true,
-        title: true,
-        company_name: true,
-        description: true,
-        requirements: true,
-        job_category: true,
-        is_urgent: true,
-        job_date: true,
-        start_time: true,
-        end_time: true,
-        amount: true,
-        totalAmount: true,
-        location: true,
-        created_at: true,
-        file: {
-          select: {
-            url: true,
-          },
+  private getOpenAndNotExpiredWhere(
+    search?: string,
+    jobCategory?: GetJobsQueryDto['job_category'],
+  ): Prisma.JobWhereInput {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    return {
+      AND: [
+        { status: 'open' },
+        {
+          OR: [{ expire_date: null }, { expire_date: { gte: today } }],
         },
+        ...(jobCategory ? [{ job_category: jobCategory }] : []),
+        ...(search
+          ? [
+              {
+                OR: [
+                  {
+                    title: {
+                      contains: search,
+                      mode: Prisma.QueryMode.insensitive,
+                    },
+                  },
+                  {
+                    company_name: {
+                      contains: search,
+                      mode: Prisma.QueryMode.insensitive,
+                    },
+                  },
+                  {
+                    description: {
+                      contains: search,
+                      mode: Prisma.QueryMode.insensitive,
+                    },
+                  },
+                  {
+                    requirements: {
+                      contains: search,
+                      mode: Prisma.QueryMode.insensitive,
+                    },
+                  },
+                ],
+              },
+            ]
+          : []),
+      ],
+    };
+  }
+
+  async getLatestJobs(
+    userId: string,
+    query: Pick<GetJobsQueryDto, 'search' | 'job_category'>,
+  ) {
+    const where = this.getOpenAndNotExpiredWhere(
+      query.search,
+      query.job_category,
+    );
+
+    const employeeProfile = await this.prisma.client.employeeProfile.findUnique(
+      {
+        where: { user_id: userId },
+        select: { id: true },
       },
-      orderBy: {
-        created_at: 'desc',
-      },
-      take: 5,
-    });
+    );
+
+    const [jobs, availableJobs, appliedJobs] =
+      await this.prisma.client.$transaction([
+        this.prisma.client.job.findMany({
+          where,
+          select: {
+            id: true,
+            title: true,
+            company_name: true,
+            description: true,
+            requirements: true,
+            job_category: true,
+            is_urgent: true,
+            job_date: true,
+            start_time: true,
+            end_time: true,
+            amount: true,
+            totalAmount: true,
+            location: true,
+            created_at: true,
+            file: {
+              select: {
+                url: true,
+              },
+            },
+          },
+          orderBy: {
+            created_at: 'desc',
+          },
+          take: 5,
+        }),
+        this.prisma.client.job.count({ where }),
+        this.prisma.client.jobApplication.count({
+          where: employeeProfile
+            ? {
+                employee_id: employeeProfile.id,
+              }
+            : {
+                id: '__no_application__',
+              },
+        }),
+      ]);
 
     return {
       success: true,
       message: 'Latest jobs retrieved successfully',
       data: jobs,
+      stats: {
+        availableJobs,
+        appliedJobs,
+      },
     };
   }
 
@@ -52,40 +132,10 @@ export class EmployeeService {
     const limit = query.limit ?? 10;
     const skip = (page - 1) * limit;
 
-    const where: Prisma.JobWhereInput = {
-      status: 'open',
-      ...(query.job_category ? { job_category: query.job_category } : {}),
-      ...(query.search
-        ? {
-            OR: [
-              {
-                title: {
-                  contains: query.search,
-                  mode: 'insensitive',
-                },
-              },
-              {
-                company_name: {
-                  contains: query.search,
-                  mode: 'insensitive',
-                },
-              },
-              {
-                description: {
-                  contains: query.search,
-                  mode: 'insensitive',
-                },
-              },
-              {
-                requirements: {
-                  contains: query.search,
-                  mode: 'insensitive',
-                },
-              },
-            ],
-          }
-        : {}),
-    };
+    const where = this.getOpenAndNotExpiredWhere(
+      query.search,
+      query.job_category,
+    );
 
     const [jobs, totalJobs] = await this.prisma.client.$transaction([
       this.prisma.client.job.findMany({
