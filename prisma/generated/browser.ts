@@ -122,6 +122,11 @@ export type PrivateMessageStatus = Prisma.PrivateMessageStatusModel;
  */
 export type Review = Prisma.ReviewModel;
 /**
+ * Model Setting
+ *
+ */
+export type Setting = Prisma.SettingModel;
+/**
  * Model Skill
  *
  */

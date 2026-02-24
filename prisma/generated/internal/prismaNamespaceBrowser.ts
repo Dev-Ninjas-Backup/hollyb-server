@@ -75,6 +75,7 @@ export const ModelName = {
   PrivateMessage: 'PrivateMessage',
   PrivateMessageStatus: 'PrivateMessageStatus',
   Review: 'Review',
+  Setting: 'Setting',
   Skill: 'Skill',
   Subscription: 'Subscription',
   SystemSetting: 'SystemSetting',
@@ -401,6 +402,21 @@ export const ReviewScalarFieldEnum = {
 
 export type ReviewScalarFieldEnum =
   (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum];
+
+export const SettingScalarFieldEnum = {
+  id: 'id',
+  workspaceName: 'workspaceName',
+  Timezone: 'Timezone',
+  two_factor_authentication_enabled: 'two_factor_authentication_enabled',
+  system_alerts_enabled: 'system_alerts_enabled',
+  email_notifications_enabled: 'email_notifications_enabled',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  updated_by: 'updated_by',
+} as const;
+
+export type SettingScalarFieldEnum =
+  (typeof SettingScalarFieldEnum)[keyof typeof SettingScalarFieldEnum];
 
 export const SkillScalarFieldEnum = {
   id: 'id',

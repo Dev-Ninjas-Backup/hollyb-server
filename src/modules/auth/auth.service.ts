@@ -168,6 +168,28 @@ export class AuthService {
       );
     }
 
+    // Check if user is admin and 2FA is enabled
+    if (user.role === UserRole.admin) {
+      const settings = await this.prismaService.client.setting.findUnique({
+        where: { updated_by: user.id },
+      });
+      console.log(settings);
+
+      console.log(
+        `🔒 Admin login detected. 2FA enabled: ${settings?.two_factor_authentication_enabled}`,
+      );
+
+      if (settings?.two_factor_authentication_enabled) {
+        // Generate and send OTP for admin 2FA
+        console.log(`📧 Generating 2FA OTP for admin: ${user.email}`);
+        await this.createOtp(user.id, OtpType.email);
+        return ResponseHelper.success(
+          { requiresTwoFactor: true },
+          'Two-factor authentication required. OTP has been sent to your email',
+        );
+      }
+    }
+
     const tokens = await this.generateTokens(user);
     await this.storeAccessTokenHash(user.id, tokens.accessToken);
 
@@ -202,6 +224,63 @@ export class AuthService {
         },
       },
       'Login successful',
+    );
+  }
+
+  async adminVerifyOtp(dto: VerifyOtpDto) {
+    const user = await this.findUserByEmail(dto.email);
+
+    // Verify user is admin
+    if (user.role !== UserRole.admin) {
+      throw new BusinessException(
+        'This endpoint is only for admin users',
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
+    // Verify OTP
+    const otp = await this.findValidOtpByCode(user.id, dto.code);
+
+    await this.prismaService.client.otpVerification.update({
+      where: { id: otp.id },
+      data: { is_used: true },
+    });
+
+    // Generate tokens and complete login
+    const tokens = await this.generateTokens(user);
+    await this.storeAccessTokenHash(user.id, tokens.accessToken);
+
+    await this.prismaService.client.$transaction([
+      this.prismaService.client.user.update({
+        where: { id: user.id },
+        data: {
+          last_login_at: new Date(),
+          last_active_at: new Date(),
+        },
+      }),
+      this.prismaService.client.userAuthProvider.updateMany({
+        where: {
+          user_id: user.id,
+          provider: AuthProvider.credentials,
+        },
+        data: {
+          refresh_token: null,
+        },
+      }),
+    ]);
+
+    return ResponseHelper.success(
+      {
+        accessToken: tokens.accessToken,
+        refreshToken: tokens.refreshToken,
+        user: {
+          id: user.id,
+          fullName: user.full_name,
+          email: user.email,
+          role: user.role,
+        },
+      },
+      'Admin login successful',
     );
   }
 
@@ -409,7 +488,7 @@ export class AuthService {
   private async createOtp(userId: string, type: OtpType) {
     const user = await this.prismaService.client.user.findUnique({
       where: { id: userId },
-      select: { email: true },
+      select: { email: true, full_name: true },
     });
 
     if (!user?.email) {
@@ -417,6 +496,10 @@ export class AuthService {
         'User email is not available for OTP sending',
       );
     }
+
+    console.log(
+      `🔐 Creating OTP for user: ${user.full_name} (${user.email}), type: ${type}`,
+    );
 
     const otpExpiryMinutes = this.configService.getOrThrow<number>(
       'OTP_EXPIRES_MINUTES',
@@ -431,6 +514,8 @@ export class AuthService {
         expires_at: new Date(Date.now() + otpExpiryMinutes * 60 * 1000),
       },
     });
+
+    console.log(`✅ OTP created: ${code}`);
 
     await this.sendOtpEmail(user.email, code, type);
 
@@ -512,6 +597,7 @@ export class AuthService {
     const mailConfig = getMailConfig();
 
     if (!mailConfig.auth.user || !mailConfig.auth.pass || !mailConfig.from) {
+      console.error('❌ SMTP configuration is missing');
       throw new BusinessException(
         'SMTP configuration is missing',
         HttpStatus.INTERNAL_SERVER_ERROR,
@@ -525,18 +611,46 @@ export class AuthService {
       auth: mailConfig.auth,
     });
 
-    const purpose =
-      type === OtpType.password_reset
-        ? 'Password Reset OTP'
-        : 'Account Verification OTP';
+    let purpose: string;
+    let message: string;
 
-    await transporter.sendMail({
-      from: mailConfig.from,
-      to: email,
-      subject: `Hollyb ${purpose}`,
-      text: `Your OTP is ${code}. It will expire in ${this.configService.getOrThrow<number>('OTP_EXPIRES_MINUTES')} minutes.`,
-      html: `<p>Your OTP is <b>${code}</b>.</p><p>It will expire in ${this.configService.getOrThrow<number>('OTP_EXPIRES_MINUTES')} minutes.</p>`,
-    });
+    if (type === OtpType.password_reset) {
+      purpose = 'Password Reset OTP';
+      message =
+        'You requested to reset your password. Use the OTP below to proceed.';
+    } else {
+      purpose = 'Account Verification OTP';
+      message = 'Please verify your account using the OTP below.';
+    }
+
+    try {
+      console.log(`📧 Sending OTP email to: ${email}`);
+      await transporter.sendMail({
+        from: mailConfig.from,
+        to: email,
+        subject: `Hollyb ${purpose}`,
+        text: `${message}\n\nYour OTP is ${code}. It will expire in ${this.configService.getOrThrow<number>('OTP_EXPIRES_MINUTES')} minutes.`,
+        html: `
+          <div style="font-family: Arial, sans-serif; padding: 20px;">
+            <h2>Hollyb ${purpose}</h2>
+            <p>${message}</p>
+            <div style="background-color: #f0f0f0; padding: 15px; margin: 20px 0; border-radius: 5px;">
+              <p style="margin: 0; font-size: 14px; color: #666;">Your OTP Code:</p>
+              <p style="margin: 10px 0; font-size: 32px; font-weight: bold; color: #333; letter-spacing: 5px;">${code}</p>
+            </div>
+            <p style="color: #666; font-size: 14px;">This code will expire in ${this.configService.getOrThrow<number>('OTP_EXPIRES_MINUTES')} minutes.</p>
+            <p style="color: #999; font-size: 12px; margin-top: 30px;">If you didn't request this code, please ignore this email.</p>
+          </div>
+        `,
+      });
+      console.log(`✅ OTP email sent successfully to: ${email}`);
+    } catch (error) {
+      console.error('❌ Failed to send OTP email:', error);
+      throw new BusinessException(
+        'Failed to send OTP email. Please try again later.',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   private async findValidOtp(userId: string, code: string, type: OtpType) {

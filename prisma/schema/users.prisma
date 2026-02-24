@@ -21,9 +21,14 @@ model User {
   subscriptions       Subscription[]
   payments            Payment[]
   admin_activity_logs AdminActivityLog[] @relation("AdminLogs")
-  updated_settings    SystemSetting[]    @relation("SystemSettingUpdatedBy")
-  employee_profile    EmployeeProfile?
-  employer_profile    EmployerProfile?
+
+  // System settings updated by only SuperAdmins
+  setting        Setting? @relation("SettingUpdatedBy")
+  updated_settings     SystemSetting[]    @relation("SystemSettingUpdatedBy")
+
+
+  employee_profile EmployeeProfile?
+  employer_profile EmployerProfile?
 
   // Message delivery/read statuses
   messageStatuses PrivateMessageStatus[]
