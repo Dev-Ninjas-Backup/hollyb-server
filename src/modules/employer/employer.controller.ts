@@ -60,9 +60,22 @@ export class EmployerController {
         },
         requirements: { type: 'string', example: 'Must be able to lift 20kg.' },
         is_urgent: { type: 'boolean', example: false },
-        job_date: { type: 'string', format: 'date', example: '2026-03-01', description: 'Must be within expire_date' },
-        start_time: { type: 'string', format: 'date-time', example: '1970-01-01T08:00:00.000Z' },
-        end_time: { type: 'string', format: 'date-time', example: '1970-01-01T17:00:00.000Z' },
+        job_date: {
+          type: 'string',
+          format: 'date',
+          example: '2026-03-01',
+          description: 'Must be within expire_date',
+        },
+        start_time: {
+          type: 'string',
+          format: 'date-time',
+          example: '1970-01-01T08:00:00.000Z',
+        },
+        end_time: {
+          type: 'string',
+          format: 'date-time',
+          example: '1970-01-01T17:00:00.000Z',
+        },
         amount: { type: 'string', example: '1500.00' },
         location: { type: 'string', example: 'New York, NY' },
         file: {
@@ -149,10 +162,7 @@ export class EmployerController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('employer')
   @ApiOperation({ summary: 'Get a specific job by ID' })
-  async getJobById(
-    @Req() req: AuthenticatedRequest,
-    @Param('id') id: string,
-  ) {
+  async getJobById(@Req() req: AuthenticatedRequest, @Param('id') id: string) {
     return this.employerService.getJobById(req.user.sub, id);
   }
 
@@ -161,7 +171,9 @@ export class EmployerController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('employer')
-  @ApiOperation({ summary: 'Update a job posting (cannot change start_date or end_date)' })
+  @ApiOperation({
+    summary: 'Update a job posting (cannot change start_date or end_date)',
+  })
   @UseInterceptors(FileFieldsInterceptor([{ name: 'file', maxCount: 1 }]))
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -185,4 +197,53 @@ export class EmployerController {
     );
   }
 
+  @Get('jobs/:jobId/applications')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('employer')
+  @ApiOperation({ summary: 'Get all applications for a specific job' })
+  @ApiResponse({
+    status: 200,
+    description: 'Job applications retrieved successfully',
+  })
+  async getJobApplications(
+    @Req() req: AuthenticatedRequest,
+    @Param('jobId') jobId: string,
+  ) {
+    return this.employerService.getJobApplications(req.user.sub, jobId);
+  }
+
+  @Post('applications/:applicationId/accept')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('employer')
+  @ApiOperation({
+    summary: 'Accept job application and assign employee to job',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Application accepted and employee assigned successfully',
+  })
+  async acceptApplication(
+    @Req() req: AuthenticatedRequest,
+    @Param('applicationId') applicationId: string,
+  ) {
+    return this.employerService.acceptApplication(req.user.sub, applicationId);
+  }
+
+  @Post('applications/:applicationId/reject')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('employer')
+  @ApiOperation({ summary: 'Reject job application' })
+  @ApiResponse({
+    status: 201,
+    description: 'Application rejected successfully',
+  })
+  async rejectApplication(
+    @Req() req: AuthenticatedRequest,
+    @Param('applicationId') applicationId: string,
+  ) {
+    return this.employerService.rejectApplication(req.user.sub, applicationId);
+  }
 }

@@ -94,4 +94,78 @@ export class EmployyeJobsApplyController {
   ) {
     return this.employeeJobsApplyService.getAppliedJobs(req.user.sub, query);
   }
+
+  @Get(':jobId/details')
+  @ApiOperation({
+    summary: 'Get assigned job details with shift progress and summary',
+  })
+  @ApiParam({
+    name: 'jobId',
+    type: String,
+    description: 'Job id (uuid)',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Job details retrieved successfully',
+  })
+  getJobDetails(
+    @Req() req: AuthenticatedRequest,
+    @Param('jobId') jobId: string,
+  ) {
+    return this.employeeJobsApplyService.getJobDetails(req.user.sub, jobId);
+  }
+
+  @Post(':jobId/check-in')
+  @ApiOperation({
+    summary: 'Check in to assigned shift',
+  })
+  @ApiParam({
+    name: 'jobId',
+    type: String,
+    description: 'Job id (uuid)',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Checked in successfully',
+  })
+  checkIn(@Req() req: AuthenticatedRequest, @Param('jobId') jobId: string) {
+    return this.employeeJobsApplyService.checkIn(req.user.sub, jobId);
+  }
+
+  @Post(':jobId/check-out')
+  @ApiOperation({
+    summary: 'Check out from assigned shift',
+  })
+  @ApiParam({
+    name: 'jobId',
+    type: String,
+    description: 'Job id (uuid)',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Checked out successfully',
+  })
+  checkOut(@Req() req: AuthenticatedRequest, @Param('jobId') jobId: string) {
+    return this.employeeJobsApplyService.checkOut(req.user.sub, jobId);
+  }
+
+  @Post(':jobId/mark-as-complete')
+  @ApiOperation({
+    summary: 'Mark assigned shift as completed',
+  })
+  @ApiParam({
+    name: 'jobId',
+    type: String,
+    description: 'Job id (uuid)',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Shift marked as completed successfully',
+  })
+  markAsComplete(
+    @Req() req: AuthenticatedRequest,
+    @Param('jobId') jobId: string,
+  ) {
+    return this.employeeJobsApplyService.markAsComplete(req.user.sub, jobId);
+  }
 }

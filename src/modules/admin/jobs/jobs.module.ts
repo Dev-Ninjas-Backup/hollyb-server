@@ -8,7 +8,7 @@ import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [PrismaModule, JwtModule.register({})],
-  controllers: [JobsController, ],
+  controllers: [JobsController],
   providers: [JobsService, JwtAuthGuard, RolesGuard],
 })
 export class JobsModule {}

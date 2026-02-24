@@ -6,7 +6,7 @@ import {
 } from '@/common/exceptions/business.exception';
 import { CreateJobDto } from './dto/create-job.dto';
 import { UpdateJobDto } from './dto/update-job.dto';
-import { Prisma, FileType } from '@prisma';
+import { Prisma, FileType, JobStatus, JobApplicationStatus } from '@prisma';
 import { S3UploadService } from '@/common/upload/s3-upload.service';
 
 @Injectable()
@@ -469,5 +469,264 @@ export class EmployerService {
     if (mimeType.includes('pdf') || mimeType.includes('document'))
       return FileType.document;
     return FileType.any;
+  }
+
+  async getJobApplications(userId: string, jobId: string) {
+    const employerProfile = await this.prisma.client.employerProfile.findUnique(
+      {
+        where: { user_id: userId },
+        select: { id: true },
+      },
+    );
+
+    if (!employerProfile) {
+      throw new ResourceNotFoundException('Employer profile', userId);
+    }
+
+    const job = await this.prisma.client.job.findUnique({
+      where: {
+        id: jobId,
+        employer_id: employerProfile.id,
+      },
+      select: {
+        id: true,
+        title: true,
+        status: true,
+        assigned_employee_id: true,
+      },
+    });
+
+    if (!job) {
+      throw new BusinessException(
+        'Job not found or access denied',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    const applications = await this.prisma.client.jobApplication.findMany({
+      where: {
+        job_id: jobId,
+      },
+      select: {
+        id: true,
+        status: true,
+        cover_note: true,
+        applied_at: true,
+        updated_at: true,
+        employee: {
+          select: {
+            id: true,
+            user_id: true,
+            profile_photo_url: true,
+            rating: true,
+            total_jobs: true,
+            total_hours: true,
+            experience_years: true,
+            bio: true,
+            user: {
+              select: {
+                full_name: true,
+                email: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        applied_at: 'desc',
+      },
+    });
+
+    return {
+      success: true,
+      message: 'Job applications retrieved successfully',
+      data: {
+        job: {
+          id: job.id,
+          title: job.title,
+          status: job.status,
+          hasAssignedEmployee: !!job.assigned_employee_id,
+        },
+        applications,
+        totalApplications: applications.length,
+      },
+    };
+  }
+
+  async acceptApplication(userId: string, applicationId: string) {
+    const employerProfile = await this.prisma.client.employerProfile.findUnique(
+      {
+        where: { user_id: userId },
+        select: { id: true },
+      },
+    );
+
+    if (!employerProfile) {
+      throw new ResourceNotFoundException('Employer profile', userId);
+    }
+
+    const application = await this.prisma.client.jobApplication.findUnique({
+      where: { id: applicationId },
+      include: {
+        job: {
+          select: {
+            id: true,
+            employer_id: true,
+            status: true,
+            assigned_employee_id: true,
+          },
+        },
+        employee: {
+          select: {
+            id: true,
+            user: {
+              select: {
+                full_name: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!application) {
+      throw new BusinessException(
+        'Application not found',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    if (application.job.employer_id !== employerProfile.id) {
+      throw new BusinessException(
+        'You do not have permission to manage this application',
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
+    if (application.status !== JobApplicationStatus.applied) {
+      throw new BusinessException(
+        `Application is already ${application.status}`,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    if (application.job.status !== JobStatus.open) {
+      throw new BusinessException(
+        'Job is not open for accepting applications',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    if (application.job.assigned_employee_id) {
+      throw new BusinessException(
+        'This job is already assigned to another employee',
+        HttpStatus.CONFLICT,
+      );
+    }
+
+    await this.prisma.client.$transaction([
+      this.prisma.client.job.updateMany({
+        where: {
+          assigned_employee_id: application.employee.id,
+          status: { in: [JobStatus.assigned, JobStatus.open] },
+        },
+        data: {
+          assigned_employee_id: null,
+          status: JobStatus.open,
+        },
+      }),
+      this.prisma.client.jobApplication.update({
+        where: { id: applicationId },
+        data: { status: JobApplicationStatus.accepted },
+      }),
+      this.prisma.client.job.update({
+        where: { id: application.job.id },
+        data: {
+          status: JobStatus.assigned,
+          assigned_employee_id: application.employee.id,
+        },
+      }),
+      this.prisma.client.jobApplication.updateMany({
+        where: {
+          job_id: application.job.id,
+          id: { not: applicationId },
+          status: JobApplicationStatus.applied,
+        },
+        data: {
+          status: JobApplicationStatus.rejected,
+        },
+      }),
+    ]);
+
+    return {
+      success: true,
+      message: `Application accepted. ${application.employee.user.full_name} is now assigned to this job.`,
+      data: {
+        applicationId,
+        jobId: application.job.id,
+        employeeId: application.employee.id,
+        status: JobApplicationStatus.accepted,
+      },
+    };
+  }
+
+  async rejectApplication(userId: string, applicationId: string) {
+    const employerProfile = await this.prisma.client.employerProfile.findUnique(
+      {
+        where: { user_id: userId },
+        select: { id: true },
+      },
+    );
+
+    if (!employerProfile) {
+      throw new ResourceNotFoundException('Employer profile', userId);
+    }
+
+    const application = await this.prisma.client.jobApplication.findUnique({
+      where: { id: applicationId },
+      include: {
+        job: {
+          select: {
+            id: true,
+            employer_id: true,
+          },
+        },
+      },
+    });
+
+    if (!application) {
+      throw new BusinessException(
+        'Application not found',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    if (application.job.employer_id !== employerProfile.id) {
+      throw new BusinessException(
+        'You do not have permission to manage this application',
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
+    if (application.status !== JobApplicationStatus.applied) {
+      throw new BusinessException(
+        `Application is already ${application.status}`,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    await this.prisma.client.jobApplication.update({
+      where: { id: applicationId },
+      data: { status: JobApplicationStatus.rejected },
+    });
+
+    return {
+      success: true,
+      message: 'Application rejected successfully',
+      data: {
+        applicationId,
+        status: JobApplicationStatus.rejected,
+      },
+    };
   }
 }

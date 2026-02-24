@@ -2,24 +2,32 @@ import { PrismaService } from '@/prisma/prisma.service';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { JobStatus, Prisma } from '@prisma';
 
-
 @Injectable()
 export class JobsService {
-  constructor( private readonly prisma: PrismaService ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async getOverview() {
     const totalJobs = await this.prisma.client.job.count();
-    const activeJobs = await this.prisma.client.job.count({ where: { status: JobStatus.open } });
-    const inactiveJobs = await this.prisma.client.job.count({ where: { status: { in: [JobStatus.cancelled, JobStatus.completed] } } });
+    const activeJobs = await this.prisma.client.job.count({
+      where: { status: JobStatus.open },
+    });
+    const inactiveJobs = await this.prisma.client.job.count({
+      where: { status: { in: [JobStatus.cancelled, JobStatus.completed] } },
+    });
 
     return {
       totalJobs,
       activeJobs,
-      inactiveJobs
+      inactiveJobs,
     };
   }
 
-  async getAllJobs(query: { page?: number; limit?: number; status?: JobStatus; timeFilter?: 'today' | 'yesterday' | 'this_week' | 'this_month' }) {
+  async getAllJobs(query: {
+    page?: number;
+    limit?: number;
+    status?: JobStatus;
+    timeFilter?: 'today' | 'yesterday' | 'this_week' | 'this_month';
+  }) {
     const page = query.page || 1;
     const limit = query.limit || 10;
     const skip = (page - 1) * limit;
@@ -39,17 +47,33 @@ export class JobsService {
 
       switch (query.timeFilter) {
         case 'today':
-          startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+          startDate = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate(),
+          );
           where.created_at = { gte: startDate };
           break;
         case 'yesterday':
-          const yesterday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
-          const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+          const yesterday = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate() - 1,
+          );
+          const today = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate(),
+          );
           where.created_at = { gte: yesterday, lt: today };
           break;
         case 'this_week':
           const dayOfWeek = now.getDay();
-          const startOfWeek = new Date(now.getFullYear(), now.getMonth(), now.getDate() - dayOfWeek);
+          const startOfWeek = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate() - dayOfWeek,
+          );
           where.created_at = { gte: startOfWeek };
           break;
         case 'this_month':
@@ -75,9 +99,9 @@ export class JobsService {
                   id: true,
                   full_name: true,
                   email: true,
-                }
-              }
-            }
+                },
+              },
+            },
           },
           assigned_employee: {
             select: {
@@ -87,15 +111,15 @@ export class JobsService {
                   id: true,
                   full_name: true,
                   email: true,
-                }
-              }
-            }
+                },
+              },
+            },
           },
           job_applications: {
             select: {
               id: true,
               status: true,
-            }
+            },
           },
           file: true,
         },
@@ -118,7 +142,7 @@ export class JobsService {
     };
   }
 
-  async getAllRecentJobs(query: { page?: number; limit?: number; }) {
+  async getAllRecentJobs(query: { page?: number; limit?: number }) {
     const page = query.page || 1;
     const limit = query.limit || 10;
     const skip = (page - 1) * limit;
@@ -144,7 +168,7 @@ export class JobsService {
 
     // Calculate time difference for each job
     const now = new Date();
-    const jobsWithTimeDiff = jobs.map(job => {
+    const jobsWithTimeDiff = jobs.map((job) => {
       const diffMs = now.getTime() - job.updated_at.getTime();
       const diffMinutes = Math.floor(diffMs / (1000 * 60));
       const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
@@ -201,9 +225,9 @@ export class JobsService {
                 id: true,
                 full_name: true,
                 email: true,
-              }
-            }
-          }
+              },
+            },
+          },
         },
         assigned_employee: {
           select: {
@@ -213,14 +237,14 @@ export class JobsService {
                 id: true,
                 full_name: true,
                 email: true,
-              }
+              },
             },
             employee_skills: {
               include: {
                 skill: true,
-              }
-            }
-          }
+              },
+            },
+          },
         },
         job_applications: {
           include: {
@@ -232,14 +256,14 @@ export class JobsService {
                     id: true,
                     full_name: true,
                     email: true,
-                  }
-                }
-              }
+                  },
+                },
+              },
             },
           },
           orderBy: {
             applied_at: 'desc',
-          }
+          },
         },
         payments: {
           select: {
@@ -252,7 +276,7 @@ export class JobsService {
           },
           orderBy: {
             created_at: 'desc',
-          }
+          },
         },
         file: true,
       },
