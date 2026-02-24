@@ -6,14 +6,16 @@ import {
 } from '@/common/exceptions/business.exception';
 import { CreateJobDto } from './dto/create-job.dto';
 import { UpdateJobDto } from './dto/update-job.dto';
-import { Prisma, FileType, JobStatus, JobApplicationStatus } from '@prisma';
+import { Prisma, FileType, JobStatus, JobApplicationStatus, SubscriptionPlanType } from '@prisma';
 import { S3UploadService } from '@/common/upload/s3-upload.service';
+import { SubscriptionService } from '../subscription/subscription.service';
 
 @Injectable()
 export class EmployerService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly s3UploadService: S3UploadService,
+    private readonly subscriptionService: SubscriptionService,
   ) {}
 
   /**
@@ -24,6 +26,20 @@ export class EmployerService {
     dto: CreateJobDto,
     files?: Express.Multer.File | undefined,
   ) {
+    // check active subscription for employer before allowing job creation
+    const hasActiveSubscription =
+      await this.subscriptionService.checkActiveSubscription(
+        userId,
+        SubscriptionPlanType.employee_premium,
+      );
+
+    if (!hasActiveSubscription) {
+      throw new BusinessException(
+        'Active subscription required. Please subscribe before applying to jobs.',
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
     // 1. Validate that expire_date is not provided (it's auto-calculated)
     if ((dto as any).expire_date) {
       throw new BusinessException(
