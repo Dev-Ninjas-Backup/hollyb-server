@@ -7,7 +7,6 @@
  *
  * 🟢 You can import this file directly.
  */
-<<<<<<< HEAD
 export type * from './models/AdminActivityLog';
 export type * from './models/BackgroundCheck';
 export type * from './models/Document';
@@ -29,38 +28,10 @@ export type * from './models/PrivateConversation';
 export type * from './models/PrivateMessage';
 export type * from './models/PrivateMessageStatus';
 export type * from './models/Review';
+export type * from './models/Setting';
 export type * from './models/Skill';
 export type * from './models/Subscription';
 export type * from './models/SystemSetting';
 export type * from './models/UserAuthProvider';
 export type * from './models/User';
 export type * from './commonInputTypes';
-=======
-export type * from './models/AdminActivityLog'
-export type * from './models/BackgroundCheck'
-export type * from './models/Document'
-export type * from './models/Earning'
-export type * from './models/EmployeeProfile'
-export type * from './models/EmployeeSkill'
-export type * from './models/EmployerProfile'
-export type * from './models/FavoriteWorker'
-export type * from './models/FileInstance'
-export type * from './models/JobApplication'
-export type * from './models/JobSkill'
-export type * from './models/Job'
-export type * from './models/Notification'
-export type * from './models/UserNotification'
-export type * from './models/OtpVerification'
-export type * from './models/Payment'
-export type * from './models/PrivateConversation'
-export type * from './models/PrivateMessage'
-export type * from './models/PrivateMessageStatus'
-export type * from './models/Review'
-export type * from './models/Setting'
-export type * from './models/Skill'
-export type * from './models/Subscription'
-export type * from './models/SystemSetting'
-export type * from './models/UserAuthProvider'
-export type * from './models/User'
-export type * from './commonInputTypes'
->>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
