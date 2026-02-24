@@ -23,9 +23,8 @@ model User {
   admin_activity_logs AdminActivityLog[] @relation("AdminLogs")
 
   // System settings updated by only SuperAdmins
-  setting        Setting? @relation("SettingUpdatedBy")
-  updated_settings     SystemSetting[]    @relation("SystemSettingUpdatedBy")
-
+  setting          Setting?        @relation("SettingUpdatedBy")
+  updated_settings SystemSetting[] @relation("SystemSettingUpdatedBy")
 
   employee_profile EmployeeProfile?
   employer_profile EmployerProfile?

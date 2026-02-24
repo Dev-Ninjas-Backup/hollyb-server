@@ -8,6 +8,7 @@
   "scripts": {
     "build": "npx prisma generate && nest build",
     "format": "prettier --ignore-path .gitignore --check \"**/*.+(js|ts|json)\"",
+    "format:fix": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts,.js,.jsx,.tsx --fix",
     "start": "npx prisma generate && npx prisma migrate deploy && npm run prisma:seed && pnpm format:fix && pnpm ci:fix && node dist/main",
@@ -22,10 +23,9 @@
     "prisma:reset": "npx prisma migrate reset",
     "prisma:seed": "npx tsx prisma/seed.ts",
     "prisma:studio": "npx prisma studio",
-    "format:fix": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
-    "ci:check": "npm run format && npm run lint && npm run prisma:validate && npm run build && npm run start:prod",
+    "ci:check": "pnpm format && pnpm lint && pnpm db:validate && pnpm build && pnpm start",
+    "ci:fix": "pnpm format:fix",
     "deploy:check": "docker compose --profile prod build --no-cache",
-    "ci:fix": "npm run format:fix",
     "test": "jest --config ./test/jest-e2e.json",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "dbup": "npx prisma migrate dev && npx prisma generate"
