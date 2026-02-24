@@ -64,7 +64,8 @@ export class AuthController {
   @Post('admin-verify-otp')
   @ApiOperation({
     summary: 'Verify admin 2FA OTP',
-    description: 'Verify the OTP code sent to admin email during two-factor authentication login.',
+    description:
+      'Verify the OTP code sent to admin email during two-factor authentication login.',
   })
   @ApiResponse({
     status: 200,

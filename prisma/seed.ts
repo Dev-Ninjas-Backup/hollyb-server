@@ -33,7 +33,7 @@ async function main() {
       console.log(
         `✅ Admin user already exists with email: ${adminEmail}. Skipping creation.`,
       );
-      
+
       // Check if settings exist, if not create them
       const existingSettings = await prisma.setting.findFirst();
       if (!existingSettings) {
@@ -52,7 +52,7 @@ async function main() {
       } else {
         console.log(`✅ Settings already exist. Skipping creation.`);
       }
-      
+
       return;
     }
 

@@ -171,12 +171,14 @@ export class AuthService {
     // Check if user is admin and 2FA is enabled
     if (user.role === UserRole.admin) {
       const settings = await this.prismaService.client.setting.findUnique({
-        where: { updated_by: user.id}
+        where: { updated_by: user.id },
       });
-      console.log(settings)
-      
-      console.log(`🔒 Admin login detected. 2FA enabled: ${settings?.two_factor_authentication_enabled}`);
-      
+      console.log(settings);
+
+      console.log(
+        `🔒 Admin login detected. 2FA enabled: ${settings?.two_factor_authentication_enabled}`,
+      );
+
       if (settings?.two_factor_authentication_enabled) {
         // Generate and send OTP for admin 2FA
         console.log(`📧 Generating 2FA OTP for admin: ${user.email}`);
@@ -495,7 +497,9 @@ export class AuthService {
       );
     }
 
-    console.log(`🔐 Creating OTP for user: ${user.full_name} (${user.email}), type: ${type}`);
+    console.log(
+      `🔐 Creating OTP for user: ${user.full_name} (${user.email}), type: ${type}`,
+    );
 
     const otpExpiryMinutes = this.configService.getOrThrow<number>(
       'OTP_EXPIRES_MINUTES',
@@ -609,10 +613,11 @@ export class AuthService {
 
     let purpose: string;
     let message: string;
-    
+
     if (type === OtpType.password_reset) {
       purpose = 'Password Reset OTP';
-      message = 'You requested to reset your password. Use the OTP below to proceed.';
+      message =
+        'You requested to reset your password. Use the OTP below to proceed.';
     } else {
       purpose = 'Account Verification OTP';
       message = 'Please verify your account using the OTP below.';

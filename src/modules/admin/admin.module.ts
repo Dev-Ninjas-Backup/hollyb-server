@@ -6,6 +6,12 @@ import { SettingsModule } from './settings/settings.module';
 import { OverviewModule } from './overview/overview.module';
 
 @Module({
-  imports: [SubscriptionModule, BackgroundCheckModule, JobsModule, SettingsModule, OverviewModule],
+  imports: [
+    SubscriptionModule,
+    BackgroundCheckModule,
+    JobsModule,
+    SettingsModule,
+    OverviewModule,
+  ],
 })
 export class AdminModule {}

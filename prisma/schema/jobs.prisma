@@ -32,6 +32,7 @@ model Job {
 
   employer         EmployerProfile  @relation(fields: [employer_id], references: [id], onDelete: Cascade)
   job_applications JobApplication[]
+  shifts           JobShift[]
   payments         Payment[]
 
   @@map("jobs")

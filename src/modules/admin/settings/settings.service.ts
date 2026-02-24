@@ -36,7 +36,7 @@ export class SettingsService {
     // If not found, get the first settings record
     if (!existingSettings) {
       existingSettings = await this.prisma.client.setting.findFirst();
-      
+
       if (!existingSettings) {
         throw new NotFoundException('Settings not found');
       }

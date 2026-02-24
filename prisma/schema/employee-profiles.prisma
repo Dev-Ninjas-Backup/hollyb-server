@@ -20,6 +20,7 @@ model EmployeeProfile {
   employee_skills  EmployeeSkill[]
   job_applications JobApplication[]
   assigned_job     Job?
+  shifts           JobShift[]
   earnings         Earning[]
   received_reviews Review[]
   favorite_workers FavoriteWorker[]
