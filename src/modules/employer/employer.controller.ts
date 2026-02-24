@@ -54,6 +54,11 @@ export class EmployerController {
           type: 'string',
           example: 'Assist with packaging and sorting shipments.',
         },
+        job_category: {
+          type: 'string',
+          enum: ['chef', 'sous_chef', 'line_cook', 'pastry_chef', 'cleaner', 'dishwasher', 'helper', 'helper', 'server', 'waiter', 'bartender', 'host', 'manager', 'supervisor'],
+          example: 'chef',
+        },
         job_responsibilities: {
           type: 'string',
           example: 'Load/unload goods, manage inventory.',
