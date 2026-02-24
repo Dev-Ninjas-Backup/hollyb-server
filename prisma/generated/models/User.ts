@@ -240,6 +240,7 @@ type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<
 >;
 
 export type UserWhereInput = {
+<<<<<<< HEAD
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[];
   OR?: Prisma.UserWhereInput[];
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[];
@@ -367,6 +368,111 @@ export type UserWhereUniqueInput = Prisma.AtLeast<
   },
   'id' | 'email'
 >;
+=======
+  AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
+  OR?: Prisma.UserWhereInput[]
+  NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
+  id?: Prisma.UuidFilter<"User"> | string
+  full_name?: Prisma.StringFilter<"User"> | string
+  email?: Prisma.StringNullableFilter<"User"> | string | null
+  role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
+  password_hash?: Prisma.StringNullableFilter<"User"> | string | null
+  account_status?: Prisma.EnumAccountStatusFilter<"User"> | $Enums.AccountStatus
+  is_active?: Prisma.BoolFilter<"User"> | boolean
+  is_verified?: Prisma.BoolFilter<"User"> | boolean
+  isNotify?: Prisma.BoolFilter<"User"> | boolean
+  is_deleted?: Prisma.BoolFilter<"User"> | boolean
+  last_active_at?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  last_login_at?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  created_at?: Prisma.DateTimeFilter<"User"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"User"> | Date | string
+  auth_providers?: Prisma.UserAuthProviderListRelationFilter
+  otp_verifications?: Prisma.OtpVerificationListRelationFilter
+  documents?: Prisma.DocumentListRelationFilter
+  background_checks?: Prisma.BackgroundCheckListRelationFilter
+  subscriptions?: Prisma.SubscriptionListRelationFilter
+  payments?: Prisma.PaymentListRelationFilter
+  admin_activity_logs?: Prisma.AdminActivityLogListRelationFilter
+  setting?: Prisma.XOR<Prisma.SettingNullableScalarRelationFilter, Prisma.SettingWhereInput> | null
+  updated_settings?: Prisma.SystemSettingListRelationFilter
+  employee_profile?: Prisma.XOR<Prisma.EmployeeProfileNullableScalarRelationFilter, Prisma.EmployeeProfileWhereInput> | null
+  employer_profile?: Prisma.XOR<Prisma.EmployerProfileNullableScalarRelationFilter, Prisma.EmployerProfileWhereInput> | null
+  messageStatuses?: Prisma.PrivateMessageStatusListRelationFilter
+  messagesSent?: Prisma.PrivateMessageListRelationFilter
+  conversationsInitiated?: Prisma.PrivateConversationListRelationFilter
+  conversationsReceived?: Prisma.PrivateConversationListRelationFilter
+  notifications?: Prisma.UserNotificationListRelationFilter
+}
+
+export type UserOrderByWithRelationInput = {
+  id?: Prisma.SortOrder
+  full_name?: Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
+  role?: Prisma.SortOrder
+  password_hash?: Prisma.SortOrderInput | Prisma.SortOrder
+  account_status?: Prisma.SortOrder
+  is_active?: Prisma.SortOrder
+  is_verified?: Prisma.SortOrder
+  isNotify?: Prisma.SortOrder
+  is_deleted?: Prisma.SortOrder
+  last_active_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  last_login_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  auth_providers?: Prisma.UserAuthProviderOrderByRelationAggregateInput
+  otp_verifications?: Prisma.OtpVerificationOrderByRelationAggregateInput
+  documents?: Prisma.DocumentOrderByRelationAggregateInput
+  background_checks?: Prisma.BackgroundCheckOrderByRelationAggregateInput
+  subscriptions?: Prisma.SubscriptionOrderByRelationAggregateInput
+  payments?: Prisma.PaymentOrderByRelationAggregateInput
+  admin_activity_logs?: Prisma.AdminActivityLogOrderByRelationAggregateInput
+  setting?: Prisma.SettingOrderByWithRelationInput
+  updated_settings?: Prisma.SystemSettingOrderByRelationAggregateInput
+  employee_profile?: Prisma.EmployeeProfileOrderByWithRelationInput
+  employer_profile?: Prisma.EmployerProfileOrderByWithRelationInput
+  messageStatuses?: Prisma.PrivateMessageStatusOrderByRelationAggregateInput
+  messagesSent?: Prisma.PrivateMessageOrderByRelationAggregateInput
+  conversationsInitiated?: Prisma.PrivateConversationOrderByRelationAggregateInput
+  conversationsReceived?: Prisma.PrivateConversationOrderByRelationAggregateInput
+  notifications?: Prisma.UserNotificationOrderByRelationAggregateInput
+}
+
+export type UserWhereUniqueInput = Prisma.AtLeast<{
+  id?: string
+  email?: string
+  AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
+  OR?: Prisma.UserWhereInput[]
+  NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
+  full_name?: Prisma.StringFilter<"User"> | string
+  role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
+  password_hash?: Prisma.StringNullableFilter<"User"> | string | null
+  account_status?: Prisma.EnumAccountStatusFilter<"User"> | $Enums.AccountStatus
+  is_active?: Prisma.BoolFilter<"User"> | boolean
+  is_verified?: Prisma.BoolFilter<"User"> | boolean
+  isNotify?: Prisma.BoolFilter<"User"> | boolean
+  is_deleted?: Prisma.BoolFilter<"User"> | boolean
+  last_active_at?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  last_login_at?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  created_at?: Prisma.DateTimeFilter<"User"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"User"> | Date | string
+  auth_providers?: Prisma.UserAuthProviderListRelationFilter
+  otp_verifications?: Prisma.OtpVerificationListRelationFilter
+  documents?: Prisma.DocumentListRelationFilter
+  background_checks?: Prisma.BackgroundCheckListRelationFilter
+  subscriptions?: Prisma.SubscriptionListRelationFilter
+  payments?: Prisma.PaymentListRelationFilter
+  admin_activity_logs?: Prisma.AdminActivityLogListRelationFilter
+  setting?: Prisma.XOR<Prisma.SettingNullableScalarRelationFilter, Prisma.SettingWhereInput> | null
+  updated_settings?: Prisma.SystemSettingListRelationFilter
+  employee_profile?: Prisma.XOR<Prisma.EmployeeProfileNullableScalarRelationFilter, Prisma.EmployeeProfileWhereInput> | null
+  employer_profile?: Prisma.XOR<Prisma.EmployerProfileNullableScalarRelationFilter, Prisma.EmployerProfileWhereInput> | null
+  messageStatuses?: Prisma.PrivateMessageStatusListRelationFilter
+  messagesSent?: Prisma.PrivateMessageListRelationFilter
+  conversationsInitiated?: Prisma.PrivateConversationListRelationFilter
+  conversationsReceived?: Prisma.PrivateConversationListRelationFilter
+  notifications?: Prisma.UserNotificationListRelationFilter
+}, "id" | "email">
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder;
@@ -426,6 +532,7 @@ export type UserScalarWhereWithAggregatesInput = {
 };
 
 export type UserCreateInput = {
+<<<<<<< HEAD
   id?: string;
   full_name: string;
   email?: string | null;
@@ -578,6 +685,138 @@ export type UserUncheckedUpdateInput = {
   conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput;
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput;
 };
+=======
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserUpdateInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
 
 export type UserCreateManyInput = {
   id?: string;
@@ -1029,6 +1268,22 @@ export type UserUpdateOneRequiredWithoutMessageStatusesNestedInput = {
   >;
 };
 
+export type UserCreateNestedOneWithoutSettingInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSettingInput, Prisma.UserUncheckedCreateWithoutSettingInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSettingInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutSettingNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSettingInput, Prisma.UserUncheckedCreateWithoutSettingInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSettingInput
+  upsert?: Prisma.UserUpsertWithoutSettingInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSettingInput, Prisma.UserUpdateWithoutSettingInput>, Prisma.UserUncheckedUpdateWithoutSettingInput>
+}
+
 export type UserCreateNestedOneWithoutSubscriptionsInput = {
   create?: Prisma.XOR<
     Prisma.UserCreateWithoutSubscriptionsInput,
@@ -1118,6 +1373,7 @@ export type EnumAccountStatusFieldUpdateOperationsInput = {
 };
 
 export type UserCreateWithoutAdmin_activity_logsInput = {
+<<<<<<< HEAD
   id?: string;
   full_name: string;
   email?: string | null;
@@ -1178,6 +1434,70 @@ export type UserUncheckedCreateWithoutAdmin_activity_logsInput = {
   conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput;
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput;
 };
+=======
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAdmin_activity_logsInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+}
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
 
 export type UserCreateOrConnectWithoutAdmin_activity_logsInput = {
   where: Prisma.UserWhereUniqueInput;
@@ -1208,6 +1528,7 @@ export type UserUpdateToOneWithWhereWithoutAdmin_activity_logsInput = {
 };
 
 export type UserUpdateWithoutAdmin_activity_logsInput = {
+<<<<<<< HEAD
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   full_name?: Prisma.StringFieldUpdateOperationsInput | string;
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1356,6 +1677,134 @@ export type UserUncheckedCreateWithoutBackground_checksInput = {
   conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput;
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput;
 };
+=======
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAdmin_activity_logsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutBackground_checksInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutBackground_checksInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+}
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
 
 export type UserCreateOrConnectWithoutBackground_checksInput = {
   where: Prisma.UserWhereUniqueInput;
@@ -1386,6 +1835,7 @@ export type UserUpdateToOneWithWhereWithoutBackground_checksInput = {
 };
 
 export type UserUpdateWithoutBackground_checksInput = {
+<<<<<<< HEAD
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   full_name?: Prisma.StringFieldUpdateOperationsInput | string;
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1534,6 +1984,134 @@ export type UserUncheckedCreateWithoutDocumentsInput = {
   conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput;
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput;
 };
+=======
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBackground_checksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutDocumentsInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDocumentsInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+}
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
 
 export type UserCreateOrConnectWithoutDocumentsInput = {
   where: Prisma.UserWhereUniqueInput;
@@ -1564,6 +2142,7 @@ export type UserUpdateToOneWithWhereWithoutDocumentsInput = {
 };
 
 export type UserUpdateWithoutDocumentsInput = {
+<<<<<<< HEAD
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   full_name?: Prisma.StringFieldUpdateOperationsInput | string;
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1712,6 +2291,134 @@ export type UserUncheckedCreateWithoutEmployee_profileInput = {
   conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput;
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput;
 };
+=======
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDocumentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutEmployee_profileInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
+  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutEmployee_profileInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
+  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+}
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
 
 export type UserCreateOrConnectWithoutEmployee_profileInput = {
   where: Prisma.UserWhereUniqueInput;
@@ -1742,6 +2449,7 @@ export type UserUpdateToOneWithWhereWithoutEmployee_profileInput = {
 };
 
 export type UserUpdateWithoutEmployee_profileInput = {
+<<<<<<< HEAD
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   full_name?: Prisma.StringFieldUpdateOperationsInput | string;
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1890,6 +2598,134 @@ export type UserUncheckedCreateWithoutEmployer_profileInput = {
   conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput;
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput;
 };
+=======
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
+  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutEmployee_profileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
+  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutEmployer_profileInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutEmployer_profileInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+}
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
 
 export type UserCreateOrConnectWithoutEmployer_profileInput = {
   where: Prisma.UserWhereUniqueInput;
@@ -1920,6 +2756,7 @@ export type UserUpdateToOneWithWhereWithoutEmployer_profileInput = {
 };
 
 export type UserUpdateWithoutEmployer_profileInput = {
+<<<<<<< HEAD
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   full_name?: Prisma.StringFieldUpdateOperationsInput | string;
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -2068,6 +2905,134 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput;
   conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput;
 };
+=======
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutEmployer_profileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutNotificationsInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
+}
+
+export type UserUncheckedCreateWithoutNotificationsInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
+}
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
   where: Prisma.UserWhereUniqueInput;
@@ -2098,6 +3063,7 @@ export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
 };
 
 export type UserUpdateWithoutNotificationsInput = {
+<<<<<<< HEAD
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   full_name?: Prisma.StringFieldUpdateOperationsInput | string;
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -2246,6 +3212,134 @@ export type UserUncheckedCreateWithoutOtp_verificationsInput = {
   conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput;
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput;
 };
+=======
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUncheckedUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserCreateWithoutOtp_verificationsInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutOtp_verificationsInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+}
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
 
 export type UserCreateOrConnectWithoutOtp_verificationsInput = {
   where: Prisma.UserWhereUniqueInput;
@@ -2276,6 +3370,7 @@ export type UserUpdateToOneWithWhereWithoutOtp_verificationsInput = {
 };
 
 export type UserUpdateWithoutOtp_verificationsInput = {
+<<<<<<< HEAD
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   full_name?: Prisma.StringFieldUpdateOperationsInput | string;
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -2424,6 +3519,134 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput;
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput;
 };
+=======
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutOtp_verificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutPaymentsInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutPaymentsInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+}
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
 
 export type UserCreateOrConnectWithoutPaymentsInput = {
   where: Prisma.UserWhereUniqueInput;
@@ -2454,6 +3677,7 @@ export type UserUpdateToOneWithWhereWithoutPaymentsInput = {
 };
 
 export type UserUpdateWithoutPaymentsInput = {
+<<<<<<< HEAD
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   full_name?: Prisma.StringFieldUpdateOperationsInput | string;
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -2602,6 +3826,134 @@ export type UserUncheckedCreateWithoutConversationsInitiatedInput = {
   conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput;
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput;
 };
+=======
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutConversationsInitiatedInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutConversationsInitiatedInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+}
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
 
 export type UserCreateOrConnectWithoutConversationsInitiatedInput = {
   where: Prisma.UserWhereUniqueInput;
@@ -2612,6 +3964,7 @@ export type UserCreateOrConnectWithoutConversationsInitiatedInput = {
 };
 
 export type UserCreateWithoutConversationsReceivedInput = {
+<<<<<<< HEAD
   id?: string;
   full_name: string;
   email?: string | null;
@@ -2672,6 +4025,70 @@ export type UserUncheckedCreateWithoutConversationsReceivedInput = {
   conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput;
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput;
 };
+=======
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutConversationsReceivedInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+}
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
 
 export type UserCreateOrConnectWithoutConversationsReceivedInput = {
   where: Prisma.UserWhereUniqueInput;
@@ -2702,6 +4119,7 @@ export type UserUpdateToOneWithWhereWithoutConversationsInitiatedInput = {
 };
 
 export type UserUpdateWithoutConversationsInitiatedInput = {
+<<<<<<< HEAD
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   full_name?: Prisma.StringFieldUpdateOperationsInput | string;
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -2788,6 +4206,70 @@ export type UserUncheckedUpdateWithoutConversationsInitiatedInput = {
   conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput;
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput;
 };
+=======
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutConversationsInitiatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
 
 export type UserUpsertWithoutConversationsReceivedInput = {
   update: Prisma.XOR<
@@ -2810,6 +4292,7 @@ export type UserUpdateToOneWithWhereWithoutConversationsReceivedInput = {
 };
 
 export type UserUpdateWithoutConversationsReceivedInput = {
+<<<<<<< HEAD
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   full_name?: Prisma.StringFieldUpdateOperationsInput | string;
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -2958,6 +4441,134 @@ export type UserUncheckedCreateWithoutMessagesSentInput = {
   conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput;
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput;
 };
+=======
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutConversationsReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutMessagesSentInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutMessagesSentInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+}
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
 
 export type UserCreateOrConnectWithoutMessagesSentInput = {
   where: Prisma.UserWhereUniqueInput;
@@ -2988,6 +4599,7 @@ export type UserUpdateToOneWithWhereWithoutMessagesSentInput = {
 };
 
 export type UserUpdateWithoutMessagesSentInput = {
+<<<<<<< HEAD
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   full_name?: Prisma.StringFieldUpdateOperationsInput | string;
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -3136,6 +4748,134 @@ export type UserUncheckedCreateWithoutMessageStatusesInput = {
   conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput;
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput;
 };
+=======
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMessagesSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutMessageStatusesInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutMessageStatusesInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+}
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
 
 export type UserCreateOrConnectWithoutMessageStatusesInput = {
   where: Prisma.UserWhereUniqueInput;
@@ -3166,6 +4906,7 @@ export type UserUpdateToOneWithWhereWithoutMessageStatusesInput = {
 };
 
 export type UserUpdateWithoutMessageStatusesInput = {
+<<<<<<< HEAD
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   full_name?: Prisma.StringFieldUpdateOperationsInput | string;
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -3252,8 +4993,217 @@ export type UserUncheckedUpdateWithoutMessageStatusesInput = {
   conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput;
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput;
 };
+=======
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMessageStatusesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
+
+export type UserCreateWithoutSettingInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSettingInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSettingInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSettingInput, Prisma.UserUncheckedCreateWithoutSettingInput>
+}
+
+export type UserUpsertWithoutSettingInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSettingInput, Prisma.UserUncheckedUpdateWithoutSettingInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSettingInput, Prisma.UserUncheckedCreateWithoutSettingInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSettingInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSettingInput, Prisma.UserUncheckedUpdateWithoutSettingInput>
+}
+
+export type UserUpdateWithoutSettingInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSettingInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+}
 
 export type UserCreateWithoutSubscriptionsInput = {
+<<<<<<< HEAD
   id?: string;
   full_name: string;
   email?: string | null;
@@ -3314,6 +5264,70 @@ export type UserUncheckedCreateWithoutSubscriptionsInput = {
   conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput;
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput;
 };
+=======
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSubscriptionsInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+}
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
 
 export type UserCreateOrConnectWithoutSubscriptionsInput = {
   where: Prisma.UserWhereUniqueInput;
@@ -3344,6 +5358,7 @@ export type UserUpdateToOneWithWhereWithoutSubscriptionsInput = {
 };
 
 export type UserUpdateWithoutSubscriptionsInput = {
+<<<<<<< HEAD
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   full_name?: Prisma.StringFieldUpdateOperationsInput | string;
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -3492,6 +5507,134 @@ export type UserUncheckedCreateWithoutUpdated_settingsInput = {
   conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput;
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput;
 };
+=======
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSubscriptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutUpdated_settingsInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutUpdated_settingsInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedCreateNestedManyWithoutUserInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+}
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
 
 export type UserCreateOrConnectWithoutUpdated_settingsInput = {
   where: Prisma.UserWhereUniqueInput;
@@ -3522,6 +5665,7 @@ export type UserUpdateToOneWithWhereWithoutUpdated_settingsInput = {
 };
 
 export type UserUpdateWithoutUpdated_settingsInput = {
+<<<<<<< HEAD
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   full_name?: Prisma.StringFieldUpdateOperationsInput | string;
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -3670,6 +5814,134 @@ export type UserUncheckedCreateWithoutAuth_providersInput = {
   conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput;
   notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput;
 };
+=======
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutUpdated_settingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  auth_providers?: Prisma.UserAuthProviderUncheckedUpdateManyWithoutUserNestedInput
+  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAuth_providersInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  otp_verifications?: Prisma.OtpVerificationCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAuth_providersInput = {
+  id?: string
+  full_name: string
+  email?: string | null
+  role: $Enums.UserRole
+  password_hash?: string | null
+  account_status: $Enums.AccountStatus
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: Date | string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  otp_verifications?: Prisma.OtpVerificationUncheckedCreateNestedManyWithoutUserInput
+  documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUserInput
+  background_checks?: Prisma.BackgroundCheckUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedCreateNestedManyWithoutAdminInput
+  setting?: Prisma.SettingUncheckedCreateNestedOneWithoutUpdaterInput
+  updated_settings?: Prisma.SystemSettingUncheckedCreateNestedManyWithoutUpdaterInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedCreateNestedOneWithoutUserInput
+  employer_profile?: Prisma.EmployerProfileUncheckedCreateNestedOneWithoutUserInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedCreateNestedManyWithoutUserInput
+  messagesSent?: Prisma.PrivateMessageUncheckedCreateNestedManyWithoutSenderInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutInitiatorInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedCreateNestedManyWithoutReceiverInput
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+}
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
 
 export type UserCreateOrConnectWithoutAuth_providersInput = {
   where: Prisma.UserWhereUniqueInput;
@@ -3700,6 +5972,7 @@ export type UserUpdateToOneWithWhereWithoutAuth_providersInput = {
 };
 
 export type UserUpdateWithoutAuth_providersInput = {
+<<<<<<< HEAD
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   full_name?: Prisma.StringFieldUpdateOperationsInput | string;
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -3786,6 +6059,71 @@ export type UserUncheckedUpdateWithoutAuth_providersInput = {
   conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput;
   notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput;
 };
+=======
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  otp_verifications?: Prisma.OtpVerificationUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAuth_providersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account_status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isNotify?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  last_active_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  otp_verifications?: Prisma.OtpVerificationUncheckedUpdateManyWithoutUserNestedInput
+  documents?: Prisma.DocumentUncheckedUpdateManyWithoutUserNestedInput
+  background_checks?: Prisma.BackgroundCheckUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  admin_activity_logs?: Prisma.AdminActivityLogUncheckedUpdateManyWithoutAdminNestedInput
+  setting?: Prisma.SettingUncheckedUpdateOneWithoutUpdaterNestedInput
+  updated_settings?: Prisma.SystemSettingUncheckedUpdateManyWithoutUpdaterNestedInput
+  employee_profile?: Prisma.EmployeeProfileUncheckedUpdateOneWithoutUserNestedInput
+  employer_profile?: Prisma.EmployerProfileUncheckedUpdateOneWithoutUserNestedInput
+  messageStatuses?: Prisma.PrivateMessageStatusUncheckedUpdateManyWithoutUserNestedInput
+  messagesSent?: Prisma.PrivateMessageUncheckedUpdateManyWithoutSenderNestedInput
+  conversationsInitiated?: Prisma.PrivateConversationUncheckedUpdateManyWithoutInitiatorNestedInput
+  conversationsReceived?: Prisma.PrivateConversationUncheckedUpdateManyWithoutReceiverNestedInput
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
 
 /**
  * Count Type UserCountOutputType
@@ -4020,6 +6358,7 @@ export type UserSelect<
   ExtArgs['result']['user']
 >;
 
+<<<<<<< HEAD
 export type UserSelectCreateManyAndReturn<
   ExtArgs extends runtime.Types.Extensions.InternalArgs =
     runtime.Types.Extensions.DefaultArgs,
@@ -4042,6 +6381,41 @@ export type UserSelectCreateManyAndReturn<
   },
   ExtArgs['result']['user']
 >;
+=======
+export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
+  full_name?: boolean
+  email?: boolean
+  role?: boolean
+  password_hash?: boolean
+  account_status?: boolean
+  is_active?: boolean
+  is_verified?: boolean
+  isNotify?: boolean
+  is_deleted?: boolean
+  last_active_at?: boolean
+  last_login_at?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  auth_providers?: boolean | Prisma.User$auth_providersArgs<ExtArgs>
+  otp_verifications?: boolean | Prisma.User$otp_verificationsArgs<ExtArgs>
+  documents?: boolean | Prisma.User$documentsArgs<ExtArgs>
+  background_checks?: boolean | Prisma.User$background_checksArgs<ExtArgs>
+  subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
+  payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
+  admin_activity_logs?: boolean | Prisma.User$admin_activity_logsArgs<ExtArgs>
+  setting?: boolean | Prisma.User$settingArgs<ExtArgs>
+  updated_settings?: boolean | Prisma.User$updated_settingsArgs<ExtArgs>
+  employee_profile?: boolean | Prisma.User$employee_profileArgs<ExtArgs>
+  employer_profile?: boolean | Prisma.User$employer_profileArgs<ExtArgs>
+  messageStatuses?: boolean | Prisma.User$messageStatusesArgs<ExtArgs>
+  messagesSent?: boolean | Prisma.User$messagesSentArgs<ExtArgs>
+  conversationsInitiated?: boolean | Prisma.User$conversationsInitiatedArgs<ExtArgs>
+  conversationsReceived?: boolean | Prisma.User$conversationsReceivedArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
+  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
+}, ExtArgs["result"]["user"]>
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
 
 export type UserSelectUpdateManyAndReturn<
   ExtArgs extends runtime.Types.Extensions.InternalArgs =
@@ -4083,6 +6457,7 @@ export type UserSelectScalar = {
   updated_at?: boolean;
 };
 
+<<<<<<< HEAD
 export type UserOmit<
   ExtArgs extends runtime.Types.Extensions.InternalArgs =
     runtime.Types.Extensions.DefaultArgs,
@@ -4136,6 +6511,30 @@ export type UserIncludeUpdateManyAndReturn<
   ExtArgs extends runtime.Types.Extensions.InternalArgs =
     runtime.Types.Extensions.DefaultArgs,
 > = {};
+=======
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "full_name" | "email" | "role" | "password_hash" | "account_status" | "is_active" | "is_verified" | "isNotify" | "is_deleted" | "last_active_at" | "last_login_at" | "created_at" | "updated_at", ExtArgs["result"]["user"]>
+export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  auth_providers?: boolean | Prisma.User$auth_providersArgs<ExtArgs>
+  otp_verifications?: boolean | Prisma.User$otp_verificationsArgs<ExtArgs>
+  documents?: boolean | Prisma.User$documentsArgs<ExtArgs>
+  background_checks?: boolean | Prisma.User$background_checksArgs<ExtArgs>
+  subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
+  payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
+  admin_activity_logs?: boolean | Prisma.User$admin_activity_logsArgs<ExtArgs>
+  setting?: boolean | Prisma.User$settingArgs<ExtArgs>
+  updated_settings?: boolean | Prisma.User$updated_settingsArgs<ExtArgs>
+  employee_profile?: boolean | Prisma.User$employee_profileArgs<ExtArgs>
+  employer_profile?: boolean | Prisma.User$employer_profileArgs<ExtArgs>
+  messageStatuses?: boolean | Prisma.User$messageStatusesArgs<ExtArgs>
+  messagesSent?: boolean | Prisma.User$messagesSentArgs<ExtArgs>
+  conversationsInitiated?: boolean | Prisma.User$conversationsInitiatedArgs<ExtArgs>
+  conversationsReceived?: boolean | Prisma.User$conversationsReceivedArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
+  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
 
 export type $UserPayload<
   ExtArgs extends runtime.Types.Extensions.InternalArgs =
@@ -4143,6 +6542,7 @@ export type $UserPayload<
 > = {
   name: 'User';
   objects: {
+<<<<<<< HEAD
     auth_providers: Prisma.$UserAuthProviderPayload<ExtArgs>[];
     otp_verifications: Prisma.$OtpVerificationPayload<ExtArgs>[];
     documents: Prisma.$DocumentPayload<ExtArgs>[];
@@ -4180,6 +6580,43 @@ export type $UserPayload<
   >;
   composites: {};
 };
+=======
+    auth_providers: Prisma.$UserAuthProviderPayload<ExtArgs>[]
+    otp_verifications: Prisma.$OtpVerificationPayload<ExtArgs>[]
+    documents: Prisma.$DocumentPayload<ExtArgs>[]
+    background_checks: Prisma.$BackgroundCheckPayload<ExtArgs>[]
+    subscriptions: Prisma.$SubscriptionPayload<ExtArgs>[]
+    payments: Prisma.$PaymentPayload<ExtArgs>[]
+    admin_activity_logs: Prisma.$AdminActivityLogPayload<ExtArgs>[]
+    setting: Prisma.$SettingPayload<ExtArgs> | null
+    updated_settings: Prisma.$SystemSettingPayload<ExtArgs>[]
+    employee_profile: Prisma.$EmployeeProfilePayload<ExtArgs> | null
+    employer_profile: Prisma.$EmployerProfilePayload<ExtArgs> | null
+    messageStatuses: Prisma.$PrivateMessageStatusPayload<ExtArgs>[]
+    messagesSent: Prisma.$PrivateMessagePayload<ExtArgs>[]
+    conversationsInitiated: Prisma.$PrivateConversationPayload<ExtArgs>[]
+    conversationsReceived: Prisma.$PrivateConversationPayload<ExtArgs>[]
+    notifications: Prisma.$UserNotificationPayload<ExtArgs>[]
+  }
+  scalars: runtime.Types.Extensions.GetPayloadResult<{
+    id: string
+    full_name: string
+    email: string | null
+    role: $Enums.UserRole
+    password_hash: string | null
+    account_status: $Enums.AccountStatus
+    is_active: boolean
+    is_verified: boolean
+    isNotify: boolean
+    is_deleted: boolean
+    last_active_at: Date | null
+    last_login_at: Date | null
+    created_at: Date
+    updated_at: Date
+  }, ExtArgs["result"]["user"]>
+  composites: {}
+}
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
 
 export type UserGetPayload<
   S extends boolean | null | undefined | UserDefaultArgs,
@@ -4717,6 +7154,7 @@ export interface UserDelegate<
  * Because we want to prevent naming conflicts as mentioned in
  * https://github.com/prisma/prisma-client-js/issues/707
  */
+<<<<<<< HEAD
 export interface Prisma__UserClient<
   T,
   Null = never,
@@ -4900,6 +7338,26 @@ export interface Prisma__UserClient<
       >
     | Null
   >;
+=======
+export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  readonly [Symbol.toStringTag]: "PrismaPromise"
+  auth_providers<T extends Prisma.User$auth_providersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auth_providersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserAuthProviderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  otp_verifications<T extends Prisma.User$otp_verificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$otp_verificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OtpVerificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  documents<T extends Prisma.User$documentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  background_checks<T extends Prisma.User$background_checksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$background_checksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BackgroundCheckPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  subscriptions<T extends Prisma.User$subscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  payments<T extends Prisma.User$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  admin_activity_logs<T extends Prisma.User$admin_activity_logsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$admin_activity_logsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdminActivityLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  setting<T extends Prisma.User$settingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$settingArgs<ExtArgs>>): Prisma.Prisma__SettingClient<runtime.Types.Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  updated_settings<T extends Prisma.User$updated_settingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$updated_settingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SystemSettingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  employee_profile<T extends Prisma.User$employee_profileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$employee_profileArgs<ExtArgs>>): Prisma.Prisma__EmployeeProfileClient<runtime.Types.Result.GetResult<Prisma.$EmployeeProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  employer_profile<T extends Prisma.User$employer_profileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$employer_profileArgs<ExtArgs>>): Prisma.Prisma__EmployerProfileClient<runtime.Types.Result.GetResult<Prisma.$EmployerProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  messageStatuses<T extends Prisma.User$messageStatusesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messageStatusesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PrivateMessageStatusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  messagesSent<T extends Prisma.User$messagesSentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messagesSentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PrivateMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conversationsInitiated<T extends Prisma.User$conversationsInitiatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$conversationsInitiatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PrivateConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conversationsReceived<T extends Prisma.User$conversationsReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$conversationsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PrivateConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserNotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+>>>>>>> 3ffcd0518fa663c9ce43cadb484f60dc83f227f8
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5608,6 +8066,25 @@ export type User$admin_activity_logsArgs<
     | Prisma.AdminActivityLogScalarFieldEnum
     | Prisma.AdminActivityLogScalarFieldEnum[];
 };
+
+/**
+ * User.setting
+ */
+export type User$settingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Setting
+   */
+  select?: Prisma.SettingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Setting
+   */
+  omit?: Prisma.SettingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SettingInclude<ExtArgs> | null
+  where?: Prisma.SettingWhereInput
+}
 
 /**
  * User.updated_settings

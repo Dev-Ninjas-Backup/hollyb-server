@@ -1,0 +1,22 @@
+model Setting {
+  id String @id @default(uuid()) @db.Uuid
+
+  // General settings
+  workspaceName String? @default("Hollyb")
+  Timezone      String? @default("UTC") //America/New_York, Asia/Dubai, Europe/Berlin
+
+  // security settings
+  two_factor_authentication_enabled Boolean @default(false)
+
+  // Notification settings
+  system_alerts_enabled       Boolean @default(true)
+  email_notifications_enabled Boolean @default(false)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  updated_by String? @unique @db.Uuid
+  updater    User?   @relation("SettingUpdatedBy", fields: [updated_by], references: [id], onDelete: SetNull)
+
+  @@map("settings")
+}

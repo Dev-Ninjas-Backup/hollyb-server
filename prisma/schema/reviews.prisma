@@ -1,15 +1,15 @@
 model Review {
-  id            String       @id @default(uuid()) @db.Uuid
-  job_id        String       @db.Uuid @unique
-  employer_id   String       @db.Uuid
-  employee_id   String       @db.Uuid
+  id            String          @id @default(uuid()) @db.Uuid
+  job_id        String          @unique @db.Uuid
+  employer_id   String          @db.Uuid
+  employee_id   String          @db.Uuid
   reviewer_type ReviewerType
   rating        Float
   comment       String?
-  created_at    DateTime     @default(now())
-  updated_at    DateTime     @updatedAt
-  employer EmployerProfile @relation(fields: [employer_id], references: [id], onDelete: Cascade)
-  employee EmployeeProfile @relation(fields: [employee_id], references: [id], onDelete: Cascade)
+  created_at    DateTime        @default(now())
+  updated_at    DateTime        @updatedAt
+  employer      EmployerProfile @relation(fields: [employer_id], references: [id], onDelete: Cascade)
+  employee      EmployeeProfile @relation(fields: [employee_id], references: [id], onDelete: Cascade)
 
   @@map("reviews")
 }

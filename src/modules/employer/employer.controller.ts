@@ -60,33 +60,11 @@ export class EmployerController {
         },
         requirements: { type: 'string', example: 'Must be able to lift 20kg.' },
         is_urgent: { type: 'boolean', example: false },
-        job_category: {
-          type: 'string',
-          enum: [
-            'chef',
-            'sous_chef',
-            'line_cook',
-            'pastry_chef',
-            'cleaner',
-            'dishwasher',
-            'helper',
-            'server',
-            'waiter',
-            'bartender',
-            'host',
-            'manager',
-            'supervisor',
-            'cook',
-          ],
-          example: 'chef',
-          description: 'Job category for restaurant positions',
-        },
         job_date: {
           type: 'string',
           format: 'date',
           example: '2026-03-01',
-          description:
-            'Expire date will be auto-set to 30 days after this date',
+          description: 'Must be within expire_date',
         },
         start_time: {
           type: 'string',
@@ -217,5 +195,55 @@ export class EmployerController {
       dto,
       uploadedFiles?.file?.[0],
     );
+  }
+
+  @Get('jobs/:jobId/applications')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('employer')
+  @ApiOperation({ summary: 'Get all applications for a specific job' })
+  @ApiResponse({
+    status: 200,
+    description: 'Job applications retrieved successfully',
+  })
+  async getJobApplications(
+    @Req() req: AuthenticatedRequest,
+    @Param('jobId') jobId: string,
+  ) {
+    return this.employerService.getJobApplications(req.user.sub, jobId);
+  }
+
+  @Post('applications/:applicationId/accept')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('employer')
+  @ApiOperation({
+    summary: 'Accept job application and assign employee to job',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Application accepted and employee assigned successfully',
+  })
+  async acceptApplication(
+    @Req() req: AuthenticatedRequest,
+    @Param('applicationId') applicationId: string,
+  ) {
+    return this.employerService.acceptApplication(req.user.sub, applicationId);
+  }
+
+  @Post('applications/:applicationId/reject')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('employer')
+  @ApiOperation({ summary: 'Reject job application' })
+  @ApiResponse({
+    status: 201,
+    description: 'Application rejected successfully',
+  })
+  async rejectApplication(
+    @Req() req: AuthenticatedRequest,
+    @Param('applicationId') applicationId: string,
+  ) {
+    return this.employerService.rejectApplication(req.user.sub, applicationId);
   }
 }

@@ -363,6 +363,7 @@ export type EmployeeProfileWhereInput = {
     Prisma.JobNullableScalarRelationFilter,
     Prisma.JobWhereInput
   > | null;
+  shifts?: Prisma.JobShiftListRelationFilter;
   earnings?: Prisma.EarningListRelationFilter;
   received_reviews?: Prisma.ReviewListRelationFilter;
   favorite_workers?: Prisma.FavoriteWorkerListRelationFilter;
@@ -389,6 +390,7 @@ export type EmployeeProfileOrderByWithRelationInput = {
   employee_skills?: Prisma.EmployeeSkillOrderByRelationAggregateInput;
   job_applications?: Prisma.JobApplicationOrderByRelationAggregateInput;
   assigned_job?: Prisma.JobOrderByWithRelationInput;
+  shifts?: Prisma.JobShiftOrderByRelationAggregateInput;
   earnings?: Prisma.EarningOrderByRelationAggregateInput;
   received_reviews?: Prisma.ReviewOrderByRelationAggregateInput;
   favorite_workers?: Prisma.FavoriteWorkerOrderByRelationAggregateInput;
@@ -437,6 +439,7 @@ export type EmployeeProfileWhereUniqueInput = Prisma.AtLeast<
       Prisma.JobNullableScalarRelationFilter,
       Prisma.JobWhereInput
     > | null;
+    shifts?: Prisma.JobShiftListRelationFilter;
     earnings?: Prisma.EarningListRelationFilter;
     received_reviews?: Prisma.ReviewListRelationFilter;
     favorite_workers?: Prisma.FavoriteWorkerListRelationFilter;
@@ -547,6 +550,7 @@ export type EmployeeProfileCreateInput = {
   employee_skills?: Prisma.EmployeeSkillCreateNestedManyWithoutEmployeeInput;
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutEmployeeInput;
   assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput;
+  shifts?: Prisma.JobShiftCreateNestedManyWithoutEmployeeInput;
   earnings?: Prisma.EarningCreateNestedManyWithoutEmployeeInput;
   received_reviews?: Prisma.ReviewCreateNestedManyWithoutEmployeeInput;
   favorite_workers?: Prisma.FavoriteWorkerCreateNestedManyWithoutEmployeeInput;
@@ -572,6 +576,7 @@ export type EmployeeProfileUncheckedCreateInput = {
   employee_skills?: Prisma.EmployeeSkillUncheckedCreateNestedManyWithoutEmployeeInput;
   job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutEmployeeInput;
   assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput;
+  shifts?: Prisma.JobShiftUncheckedCreateNestedManyWithoutEmployeeInput;
   earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput;
   received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput;
   favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput;
@@ -612,6 +617,7 @@ export type EmployeeProfileUpdateInput = {
   employee_skills?: Prisma.EmployeeSkillUpdateManyWithoutEmployeeNestedInput;
   job_applications?: Prisma.JobApplicationUpdateManyWithoutEmployeeNestedInput;
   assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput;
+  shifts?: Prisma.JobShiftUpdateManyWithoutEmployeeNestedInput;
   earnings?: Prisma.EarningUpdateManyWithoutEmployeeNestedInput;
   received_reviews?: Prisma.ReviewUpdateManyWithoutEmployeeNestedInput;
   favorite_workers?: Prisma.FavoriteWorkerUpdateManyWithoutEmployeeNestedInput;
@@ -652,6 +658,7 @@ export type EmployeeProfileUncheckedUpdateInput = {
   employee_skills?: Prisma.EmployeeSkillUncheckedUpdateManyWithoutEmployeeNestedInput;
   job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutEmployeeNestedInput;
   assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput;
+  shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutEmployeeNestedInput;
   earnings?: Prisma.EarningUncheckedUpdateManyWithoutEmployeeNestedInput;
   received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput;
   favorite_workers?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployeeNestedInput;
@@ -979,6 +986,32 @@ export type EmployeeProfileUpdateOneRequiredWithoutJob_applicationsNestedInput =
     >;
   };
 
+export type EmployeeProfileCreateNestedOneWithoutShiftsInput = {
+  create?: Prisma.XOR<
+    Prisma.EmployeeProfileCreateWithoutShiftsInput,
+    Prisma.EmployeeProfileUncheckedCreateWithoutShiftsInput
+  >;
+  connectOrCreate?: Prisma.EmployeeProfileCreateOrConnectWithoutShiftsInput;
+  connect?: Prisma.EmployeeProfileWhereUniqueInput;
+};
+
+export type EmployeeProfileUpdateOneRequiredWithoutShiftsNestedInput = {
+  create?: Prisma.XOR<
+    Prisma.EmployeeProfileCreateWithoutShiftsInput,
+    Prisma.EmployeeProfileUncheckedCreateWithoutShiftsInput
+  >;
+  connectOrCreate?: Prisma.EmployeeProfileCreateOrConnectWithoutShiftsInput;
+  upsert?: Prisma.EmployeeProfileUpsertWithoutShiftsInput;
+  connect?: Prisma.EmployeeProfileWhereUniqueInput;
+  update?: Prisma.XOR<
+    Prisma.XOR<
+      Prisma.EmployeeProfileUpdateToOneWithWhereWithoutShiftsInput,
+      Prisma.EmployeeProfileUpdateWithoutShiftsInput
+    >,
+    Prisma.EmployeeProfileUncheckedUpdateWithoutShiftsInput
+  >;
+};
+
 export type EmployeeProfileCreateNestedOneWithoutAssigned_jobInput = {
   create?: Prisma.XOR<
     Prisma.EmployeeProfileCreateWithoutAssigned_jobInput,
@@ -1110,6 +1143,7 @@ export type EmployeeProfileCreateWithoutEarningsInput = {
   employee_skills?: Prisma.EmployeeSkillCreateNestedManyWithoutEmployeeInput;
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutEmployeeInput;
   assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput;
+  shifts?: Prisma.JobShiftCreateNestedManyWithoutEmployeeInput;
   received_reviews?: Prisma.ReviewCreateNestedManyWithoutEmployeeInput;
   favorite_workers?: Prisma.FavoriteWorkerCreateNestedManyWithoutEmployeeInput;
 };
@@ -1134,6 +1168,7 @@ export type EmployeeProfileUncheckedCreateWithoutEarningsInput = {
   employee_skills?: Prisma.EmployeeSkillUncheckedCreateNestedManyWithoutEmployeeInput;
   job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutEmployeeInput;
   assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput;
+  shifts?: Prisma.JobShiftUncheckedCreateNestedManyWithoutEmployeeInput;
   received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput;
   favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput;
 };
@@ -1201,6 +1236,7 @@ export type EmployeeProfileUpdateWithoutEarningsInput = {
   employee_skills?: Prisma.EmployeeSkillUpdateManyWithoutEmployeeNestedInput;
   job_applications?: Prisma.JobApplicationUpdateManyWithoutEmployeeNestedInput;
   assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput;
+  shifts?: Prisma.JobShiftUpdateManyWithoutEmployeeNestedInput;
   received_reviews?: Prisma.ReviewUpdateManyWithoutEmployeeNestedInput;
   favorite_workers?: Prisma.FavoriteWorkerUpdateManyWithoutEmployeeNestedInput;
 };
@@ -1240,6 +1276,7 @@ export type EmployeeProfileUncheckedUpdateWithoutEarningsInput = {
   employee_skills?: Prisma.EmployeeSkillUncheckedUpdateManyWithoutEmployeeNestedInput;
   job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutEmployeeNestedInput;
   assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput;
+  shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutEmployeeNestedInput;
   received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput;
   favorite_workers?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployeeNestedInput;
 };
@@ -1263,6 +1300,7 @@ export type EmployeeProfileCreateWithoutEmployee_skillsInput = {
   user: Prisma.UserCreateNestedOneWithoutEmployee_profileInput;
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutEmployeeInput;
   assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput;
+  shifts?: Prisma.JobShiftCreateNestedManyWithoutEmployeeInput;
   earnings?: Prisma.EarningCreateNestedManyWithoutEmployeeInput;
   received_reviews?: Prisma.ReviewCreateNestedManyWithoutEmployeeInput;
   favorite_workers?: Prisma.FavoriteWorkerCreateNestedManyWithoutEmployeeInput;
@@ -1287,6 +1325,7 @@ export type EmployeeProfileUncheckedCreateWithoutEmployee_skillsInput = {
   updated_at?: Date | string;
   job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutEmployeeInput;
   assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput;
+  shifts?: Prisma.JobShiftUncheckedCreateNestedManyWithoutEmployeeInput;
   earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput;
   received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput;
   favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput;
@@ -1354,6 +1393,7 @@ export type EmployeeProfileUpdateWithoutEmployee_skillsInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutEmployee_profileNestedInput;
   job_applications?: Prisma.JobApplicationUpdateManyWithoutEmployeeNestedInput;
   assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput;
+  shifts?: Prisma.JobShiftUpdateManyWithoutEmployeeNestedInput;
   earnings?: Prisma.EarningUpdateManyWithoutEmployeeNestedInput;
   received_reviews?: Prisma.ReviewUpdateManyWithoutEmployeeNestedInput;
   favorite_workers?: Prisma.FavoriteWorkerUpdateManyWithoutEmployeeNestedInput;
@@ -1393,6 +1433,7 @@ export type EmployeeProfileUncheckedUpdateWithoutEmployee_skillsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutEmployeeNestedInput;
   assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput;
+  shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutEmployeeNestedInput;
   earnings?: Prisma.EarningUncheckedUpdateManyWithoutEmployeeNestedInput;
   received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput;
   favorite_workers?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployeeNestedInput;
@@ -1418,6 +1459,7 @@ export type EmployeeProfileCreateWithoutFavorite_workersInput = {
   employee_skills?: Prisma.EmployeeSkillCreateNestedManyWithoutEmployeeInput;
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutEmployeeInput;
   assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput;
+  shifts?: Prisma.JobShiftCreateNestedManyWithoutEmployeeInput;
   earnings?: Prisma.EarningCreateNestedManyWithoutEmployeeInput;
   received_reviews?: Prisma.ReviewCreateNestedManyWithoutEmployeeInput;
 };
@@ -1442,6 +1484,7 @@ export type EmployeeProfileUncheckedCreateWithoutFavorite_workersInput = {
   employee_skills?: Prisma.EmployeeSkillUncheckedCreateNestedManyWithoutEmployeeInput;
   job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutEmployeeInput;
   assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput;
+  shifts?: Prisma.JobShiftUncheckedCreateNestedManyWithoutEmployeeInput;
   earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput;
   received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput;
 };
@@ -1509,6 +1552,7 @@ export type EmployeeProfileUpdateWithoutFavorite_workersInput = {
   employee_skills?: Prisma.EmployeeSkillUpdateManyWithoutEmployeeNestedInput;
   job_applications?: Prisma.JobApplicationUpdateManyWithoutEmployeeNestedInput;
   assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput;
+  shifts?: Prisma.JobShiftUpdateManyWithoutEmployeeNestedInput;
   earnings?: Prisma.EarningUpdateManyWithoutEmployeeNestedInput;
   received_reviews?: Prisma.ReviewUpdateManyWithoutEmployeeNestedInput;
 };
@@ -1548,6 +1592,7 @@ export type EmployeeProfileUncheckedUpdateWithoutFavorite_workersInput = {
   employee_skills?: Prisma.EmployeeSkillUncheckedUpdateManyWithoutEmployeeNestedInput;
   job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutEmployeeNestedInput;
   assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput;
+  shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutEmployeeNestedInput;
   earnings?: Prisma.EarningUncheckedUpdateManyWithoutEmployeeNestedInput;
   received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput;
 };
@@ -1571,6 +1616,7 @@ export type EmployeeProfileCreateWithoutJob_applicationsInput = {
   user: Prisma.UserCreateNestedOneWithoutEmployee_profileInput;
   employee_skills?: Prisma.EmployeeSkillCreateNestedManyWithoutEmployeeInput;
   assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput;
+  shifts?: Prisma.JobShiftCreateNestedManyWithoutEmployeeInput;
   earnings?: Prisma.EarningCreateNestedManyWithoutEmployeeInput;
   received_reviews?: Prisma.ReviewCreateNestedManyWithoutEmployeeInput;
   favorite_workers?: Prisma.FavoriteWorkerCreateNestedManyWithoutEmployeeInput;
@@ -1595,6 +1641,7 @@ export type EmployeeProfileUncheckedCreateWithoutJob_applicationsInput = {
   updated_at?: Date | string;
   employee_skills?: Prisma.EmployeeSkillUncheckedCreateNestedManyWithoutEmployeeInput;
   assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput;
+  shifts?: Prisma.JobShiftUncheckedCreateNestedManyWithoutEmployeeInput;
   earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput;
   received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput;
   favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput;
@@ -1662,6 +1709,7 @@ export type EmployeeProfileUpdateWithoutJob_applicationsInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutEmployee_profileNestedInput;
   employee_skills?: Prisma.EmployeeSkillUpdateManyWithoutEmployeeNestedInput;
   assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput;
+  shifts?: Prisma.JobShiftUpdateManyWithoutEmployeeNestedInput;
   earnings?: Prisma.EarningUpdateManyWithoutEmployeeNestedInput;
   received_reviews?: Prisma.ReviewUpdateManyWithoutEmployeeNestedInput;
   favorite_workers?: Prisma.FavoriteWorkerUpdateManyWithoutEmployeeNestedInput;
@@ -1701,6 +1749,165 @@ export type EmployeeProfileUncheckedUpdateWithoutJob_applicationsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   employee_skills?: Prisma.EmployeeSkillUncheckedUpdateManyWithoutEmployeeNestedInput;
   assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput;
+  shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutEmployeeNestedInput;
+  earnings?: Prisma.EarningUncheckedUpdateManyWithoutEmployeeNestedInput;
+  received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput;
+  favorite_workers?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployeeNestedInput;
+};
+
+export type EmployeeProfileCreateWithoutShiftsInput = {
+  id?: string;
+  date_of_birth?: Date | string | null;
+  address?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
+  experience_years?: number | null;
+  bio?: string | null;
+  profile_photo_url?: string | null;
+  rating?: number;
+  total_reviews?: number;
+  total_jobs?: number;
+  total_hours?: number;
+  total_earned?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  created_at?: Date | string;
+  updated_at?: Date | string;
+  user: Prisma.UserCreateNestedOneWithoutEmployee_profileInput;
+  employee_skills?: Prisma.EmployeeSkillCreateNestedManyWithoutEmployeeInput;
+  job_applications?: Prisma.JobApplicationCreateNestedManyWithoutEmployeeInput;
+  assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput;
+  earnings?: Prisma.EarningCreateNestedManyWithoutEmployeeInput;
+  received_reviews?: Prisma.ReviewCreateNestedManyWithoutEmployeeInput;
+  favorite_workers?: Prisma.FavoriteWorkerCreateNestedManyWithoutEmployeeInput;
+};
+
+export type EmployeeProfileUncheckedCreateWithoutShiftsInput = {
+  id?: string;
+  user_id: string;
+  date_of_birth?: Date | string | null;
+  address?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
+  experience_years?: number | null;
+  bio?: string | null;
+  profile_photo_url?: string | null;
+  rating?: number;
+  total_reviews?: number;
+  total_jobs?: number;
+  total_hours?: number;
+  total_earned?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+  created_at?: Date | string;
+  updated_at?: Date | string;
+  employee_skills?: Prisma.EmployeeSkillUncheckedCreateNestedManyWithoutEmployeeInput;
+  job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutEmployeeInput;
+  assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput;
+  earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput;
+  received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput;
+  favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput;
+};
+
+export type EmployeeProfileCreateOrConnectWithoutShiftsInput = {
+  where: Prisma.EmployeeProfileWhereUniqueInput;
+  create: Prisma.XOR<
+    Prisma.EmployeeProfileCreateWithoutShiftsInput,
+    Prisma.EmployeeProfileUncheckedCreateWithoutShiftsInput
+  >;
+};
+
+export type EmployeeProfileUpsertWithoutShiftsInput = {
+  update: Prisma.XOR<
+    Prisma.EmployeeProfileUpdateWithoutShiftsInput,
+    Prisma.EmployeeProfileUncheckedUpdateWithoutShiftsInput
+  >;
+  create: Prisma.XOR<
+    Prisma.EmployeeProfileCreateWithoutShiftsInput,
+    Prisma.EmployeeProfileUncheckedCreateWithoutShiftsInput
+  >;
+  where?: Prisma.EmployeeProfileWhereInput;
+};
+
+export type EmployeeProfileUpdateToOneWithWhereWithoutShiftsInput = {
+  where?: Prisma.EmployeeProfileWhereInput;
+  data: Prisma.XOR<
+    Prisma.EmployeeProfileUpdateWithoutShiftsInput,
+    Prisma.EmployeeProfileUncheckedUpdateWithoutShiftsInput
+  >;
+};
+
+export type EmployeeProfileUpdateWithoutShiftsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  date_of_birth?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+  experience_years?:
+    | Prisma.NullableIntFieldUpdateOperationsInput
+    | number
+    | null;
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  profile_photo_url?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number;
+  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number;
+  total_jobs?: Prisma.IntFieldUpdateOperationsInput | number;
+  total_hours?: Prisma.FloatFieldUpdateOperationsInput | number;
+  total_earned?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  user?: Prisma.UserUpdateOneRequiredWithoutEmployee_profileNestedInput;
+  employee_skills?: Prisma.EmployeeSkillUpdateManyWithoutEmployeeNestedInput;
+  job_applications?: Prisma.JobApplicationUpdateManyWithoutEmployeeNestedInput;
+  assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput;
+  earnings?: Prisma.EarningUpdateManyWithoutEmployeeNestedInput;
+  received_reviews?: Prisma.ReviewUpdateManyWithoutEmployeeNestedInput;
+  favorite_workers?: Prisma.FavoriteWorkerUpdateManyWithoutEmployeeNestedInput;
+};
+
+export type EmployeeProfileUncheckedUpdateWithoutShiftsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string;
+  date_of_birth?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null;
+  experience_years?:
+    | Prisma.NullableIntFieldUpdateOperationsInput
+    | number
+    | null;
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  profile_photo_url?:
+    | Prisma.NullableStringFieldUpdateOperationsInput
+    | string
+    | null;
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number;
+  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number;
+  total_jobs?: Prisma.IntFieldUpdateOperationsInput | number;
+  total_hours?: Prisma.FloatFieldUpdateOperationsInput | number;
+  total_earned?:
+    | Prisma.DecimalFieldUpdateOperationsInput
+    | runtime.Decimal
+    | runtime.DecimalJsLike
+    | number
+    | string;
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  employee_skills?: Prisma.EmployeeSkillUncheckedUpdateManyWithoutEmployeeNestedInput;
+  job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutEmployeeNestedInput;
+  assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput;
   earnings?: Prisma.EarningUncheckedUpdateManyWithoutEmployeeNestedInput;
   received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput;
   favorite_workers?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployeeNestedInput;
@@ -1725,6 +1932,7 @@ export type EmployeeProfileCreateWithoutAssigned_jobInput = {
   user: Prisma.UserCreateNestedOneWithoutEmployee_profileInput;
   employee_skills?: Prisma.EmployeeSkillCreateNestedManyWithoutEmployeeInput;
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutEmployeeInput;
+  shifts?: Prisma.JobShiftCreateNestedManyWithoutEmployeeInput;
   earnings?: Prisma.EarningCreateNestedManyWithoutEmployeeInput;
   received_reviews?: Prisma.ReviewCreateNestedManyWithoutEmployeeInput;
   favorite_workers?: Prisma.FavoriteWorkerCreateNestedManyWithoutEmployeeInput;
@@ -1749,6 +1957,7 @@ export type EmployeeProfileUncheckedCreateWithoutAssigned_jobInput = {
   updated_at?: Date | string;
   employee_skills?: Prisma.EmployeeSkillUncheckedCreateNestedManyWithoutEmployeeInput;
   job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutEmployeeInput;
+  shifts?: Prisma.JobShiftUncheckedCreateNestedManyWithoutEmployeeInput;
   earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput;
   received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput;
   favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput;
@@ -1816,6 +2025,7 @@ export type EmployeeProfileUpdateWithoutAssigned_jobInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutEmployee_profileNestedInput;
   employee_skills?: Prisma.EmployeeSkillUpdateManyWithoutEmployeeNestedInput;
   job_applications?: Prisma.JobApplicationUpdateManyWithoutEmployeeNestedInput;
+  shifts?: Prisma.JobShiftUpdateManyWithoutEmployeeNestedInput;
   earnings?: Prisma.EarningUpdateManyWithoutEmployeeNestedInput;
   received_reviews?: Prisma.ReviewUpdateManyWithoutEmployeeNestedInput;
   favorite_workers?: Prisma.FavoriteWorkerUpdateManyWithoutEmployeeNestedInput;
@@ -1855,6 +2065,7 @@ export type EmployeeProfileUncheckedUpdateWithoutAssigned_jobInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   employee_skills?: Prisma.EmployeeSkillUncheckedUpdateManyWithoutEmployeeNestedInput;
   job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutEmployeeNestedInput;
+  shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutEmployeeNestedInput;
   earnings?: Prisma.EarningUncheckedUpdateManyWithoutEmployeeNestedInput;
   received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput;
   favorite_workers?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployeeNestedInput;
@@ -1880,6 +2091,7 @@ export type EmployeeProfileCreateWithoutReceived_reviewsInput = {
   employee_skills?: Prisma.EmployeeSkillCreateNestedManyWithoutEmployeeInput;
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutEmployeeInput;
   assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput;
+  shifts?: Prisma.JobShiftCreateNestedManyWithoutEmployeeInput;
   earnings?: Prisma.EarningCreateNestedManyWithoutEmployeeInput;
   favorite_workers?: Prisma.FavoriteWorkerCreateNestedManyWithoutEmployeeInput;
 };
@@ -1904,6 +2116,7 @@ export type EmployeeProfileUncheckedCreateWithoutReceived_reviewsInput = {
   employee_skills?: Prisma.EmployeeSkillUncheckedCreateNestedManyWithoutEmployeeInput;
   job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutEmployeeInput;
   assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput;
+  shifts?: Prisma.JobShiftUncheckedCreateNestedManyWithoutEmployeeInput;
   earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput;
   favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput;
 };
@@ -1971,6 +2184,7 @@ export type EmployeeProfileUpdateWithoutReceived_reviewsInput = {
   employee_skills?: Prisma.EmployeeSkillUpdateManyWithoutEmployeeNestedInput;
   job_applications?: Prisma.JobApplicationUpdateManyWithoutEmployeeNestedInput;
   assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput;
+  shifts?: Prisma.JobShiftUpdateManyWithoutEmployeeNestedInput;
   earnings?: Prisma.EarningUpdateManyWithoutEmployeeNestedInput;
   favorite_workers?: Prisma.FavoriteWorkerUpdateManyWithoutEmployeeNestedInput;
 };
@@ -2010,6 +2224,7 @@ export type EmployeeProfileUncheckedUpdateWithoutReceived_reviewsInput = {
   employee_skills?: Prisma.EmployeeSkillUncheckedUpdateManyWithoutEmployeeNestedInput;
   job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutEmployeeNestedInput;
   assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput;
+  shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutEmployeeNestedInput;
   earnings?: Prisma.EarningUncheckedUpdateManyWithoutEmployeeNestedInput;
   favorite_workers?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployeeNestedInput;
 };
@@ -2033,6 +2248,7 @@ export type EmployeeProfileCreateWithoutUserInput = {
   employee_skills?: Prisma.EmployeeSkillCreateNestedManyWithoutEmployeeInput;
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutEmployeeInput;
   assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput;
+  shifts?: Prisma.JobShiftCreateNestedManyWithoutEmployeeInput;
   earnings?: Prisma.EarningCreateNestedManyWithoutEmployeeInput;
   received_reviews?: Prisma.ReviewCreateNestedManyWithoutEmployeeInput;
   favorite_workers?: Prisma.FavoriteWorkerCreateNestedManyWithoutEmployeeInput;
@@ -2057,6 +2273,7 @@ export type EmployeeProfileUncheckedCreateWithoutUserInput = {
   employee_skills?: Prisma.EmployeeSkillUncheckedCreateNestedManyWithoutEmployeeInput;
   job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutEmployeeInput;
   assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput;
+  shifts?: Prisma.JobShiftUncheckedCreateNestedManyWithoutEmployeeInput;
   earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput;
   received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput;
   favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput;
@@ -2124,6 +2341,7 @@ export type EmployeeProfileUpdateWithoutUserInput = {
   employee_skills?: Prisma.EmployeeSkillUpdateManyWithoutEmployeeNestedInput;
   job_applications?: Prisma.JobApplicationUpdateManyWithoutEmployeeNestedInput;
   assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput;
+  shifts?: Prisma.JobShiftUpdateManyWithoutEmployeeNestedInput;
   earnings?: Prisma.EarningUpdateManyWithoutEmployeeNestedInput;
   received_reviews?: Prisma.ReviewUpdateManyWithoutEmployeeNestedInput;
   favorite_workers?: Prisma.FavoriteWorkerUpdateManyWithoutEmployeeNestedInput;
@@ -2163,6 +2381,7 @@ export type EmployeeProfileUncheckedUpdateWithoutUserInput = {
   employee_skills?: Prisma.EmployeeSkillUncheckedUpdateManyWithoutEmployeeNestedInput;
   job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutEmployeeNestedInput;
   assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput;
+  shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutEmployeeNestedInput;
   earnings?: Prisma.EarningUncheckedUpdateManyWithoutEmployeeNestedInput;
   received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput;
   favorite_workers?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployeeNestedInput;
@@ -2175,6 +2394,7 @@ export type EmployeeProfileUncheckedUpdateWithoutUserInput = {
 export type EmployeeProfileCountOutputType = {
   employee_skills: number;
   job_applications: number;
+  shifts: number;
   earnings: number;
   received_reviews: number;
   favorite_workers: number;
@@ -2190,6 +2410,7 @@ export type EmployeeProfileCountOutputTypeSelect<
   job_applications?:
     | boolean
     | EmployeeProfileCountOutputTypeCountJob_applicationsArgs;
+  shifts?: boolean | EmployeeProfileCountOutputTypeCountShiftsArgs;
   earnings?: boolean | EmployeeProfileCountOutputTypeCountEarningsArgs;
   received_reviews?:
     | boolean
@@ -2230,6 +2451,16 @@ export type EmployeeProfileCountOutputTypeCountJob_applicationsArgs<
     runtime.Types.Extensions.DefaultArgs,
 > = {
   where?: Prisma.JobApplicationWhereInput;
+};
+
+/**
+ * EmployeeProfileCountOutputType without action
+ */
+export type EmployeeProfileCountOutputTypeCountShiftsArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  where?: Prisma.JobShiftWhereInput;
 };
 
 /**
@@ -2291,6 +2522,7 @@ export type EmployeeProfileSelect<
       | boolean
       | Prisma.EmployeeProfile$job_applicationsArgs<ExtArgs>;
     assigned_job?: boolean | Prisma.EmployeeProfile$assigned_jobArgs<ExtArgs>;
+    shifts?: boolean | Prisma.EmployeeProfile$shiftsArgs<ExtArgs>;
     earnings?: boolean | Prisma.EmployeeProfile$earningsArgs<ExtArgs>;
     received_reviews?:
       | boolean
@@ -2410,6 +2642,7 @@ export type EmployeeProfileInclude<
     | boolean
     | Prisma.EmployeeProfile$job_applicationsArgs<ExtArgs>;
   assigned_job?: boolean | Prisma.EmployeeProfile$assigned_jobArgs<ExtArgs>;
+  shifts?: boolean | Prisma.EmployeeProfile$shiftsArgs<ExtArgs>;
   earnings?: boolean | Prisma.EmployeeProfile$earningsArgs<ExtArgs>;
   received_reviews?:
     | boolean
@@ -2442,6 +2675,7 @@ export type $EmployeeProfilePayload<
     employee_skills: Prisma.$EmployeeSkillPayload<ExtArgs>[];
     job_applications: Prisma.$JobApplicationPayload<ExtArgs>[];
     assigned_job: Prisma.$JobPayload<ExtArgs> | null;
+    shifts: Prisma.$JobShiftPayload<ExtArgs>[];
     earnings: Prisma.$EarningPayload<ExtArgs>[];
     received_reviews: Prisma.$ReviewPayload<ExtArgs>[];
     favorite_workers: Prisma.$FavoriteWorkerPayload<ExtArgs>[];
@@ -3084,6 +3318,17 @@ export interface Prisma__EmployeeProfileClient<
     null,
     ExtArgs,
     GlobalOmitOptions
+  >;
+  shifts<T extends Prisma.EmployeeProfile$shiftsArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.EmployeeProfile$shiftsArgs<ExtArgs>>,
+  ): Prisma.PrismaPromise<
+    | runtime.Types.Result.GetResult<
+        Prisma.$JobShiftPayload<ExtArgs>,
+        T,
+        'findMany',
+        GlobalOmitOptions
+      >
+    | Null
   >;
   earnings<T extends Prisma.EmployeeProfile$earningsArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.EmployeeProfile$earningsArgs<ExtArgs>>,
@@ -3738,6 +3983,35 @@ export type EmployeeProfile$assigned_jobArgs<
    */
   include?: Prisma.JobInclude<ExtArgs> | null;
   where?: Prisma.JobWhereInput;
+};
+
+/**
+ * EmployeeProfile.shifts
+ */
+export type EmployeeProfile$shiftsArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs =
+    runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the JobShift
+   */
+  select?: Prisma.JobShiftSelect<ExtArgs> | null;
+  /**
+   * Omit specific fields from the JobShift
+   */
+  omit?: Prisma.JobShiftOmit<ExtArgs> | null;
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JobShiftInclude<ExtArgs> | null;
+  where?: Prisma.JobShiftWhereInput;
+  orderBy?:
+    | Prisma.JobShiftOrderByWithRelationInput
+    | Prisma.JobShiftOrderByWithRelationInput[];
+  cursor?: Prisma.JobShiftWhereUniqueInput;
+  take?: number;
+  skip?: number;
+  distinct?: Prisma.JobShiftScalarFieldEnum | Prisma.JobShiftScalarFieldEnum[];
 };
 
 /**

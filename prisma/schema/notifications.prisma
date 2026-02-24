@@ -20,7 +20,7 @@ model UserNotification {
   id String @id @default(uuid())
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String  @db.Uuid
+  userId String @db.Uuid
 
   notification   Notification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
   notificationId String

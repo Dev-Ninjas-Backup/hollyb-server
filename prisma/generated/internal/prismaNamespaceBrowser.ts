@@ -64,6 +64,7 @@ export const ModelName = {
   FavoriteWorker: 'FavoriteWorker',
   FileInstance: 'FileInstance',
   JobApplication: 'JobApplication',
+  JobShift: 'JobShift',
   JobSkill: 'JobSkill',
   Job: 'Job',
   Notification: 'Notification',
@@ -74,6 +75,7 @@ export const ModelName = {
   PrivateMessage: 'PrivateMessage',
   PrivateMessageStatus: 'PrivateMessageStatus',
   Review: 'Review',
+  Setting: 'Setting',
   Skill: 'Skill',
   Subscription: 'Subscription',
   SystemSetting: 'SystemSetting',
@@ -241,6 +243,21 @@ export const JobApplicationScalarFieldEnum = {
 export type JobApplicationScalarFieldEnum =
   (typeof JobApplicationScalarFieldEnum)[keyof typeof JobApplicationScalarFieldEnum];
 
+export const JobShiftScalarFieldEnum = {
+  id: 'id',
+  job_id: 'job_id',
+  employee_id: 'employee_id',
+  status: 'status',
+  checked_in_at: 'checked_in_at',
+  checked_out_at: 'checked_out_at',
+  total_worked_seconds: 'total_worked_seconds',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+} as const;
+
+export type JobShiftScalarFieldEnum =
+  (typeof JobShiftScalarFieldEnum)[keyof typeof JobShiftScalarFieldEnum];
+
 export const JobSkillScalarFieldEnum = {
   id: 'id',
   job_id: 'job_id',
@@ -385,6 +402,21 @@ export const ReviewScalarFieldEnum = {
 
 export type ReviewScalarFieldEnum =
   (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum];
+
+export const SettingScalarFieldEnum = {
+  id: 'id',
+  workspaceName: 'workspaceName',
+  Timezone: 'Timezone',
+  two_factor_authentication_enabled: 'two_factor_authentication_enabled',
+  system_alerts_enabled: 'system_alerts_enabled',
+  email_notifications_enabled: 'email_notifications_enabled',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  updated_by: 'updated_by',
+} as const;
+
+export type SettingScalarFieldEnum =
+  (typeof SettingScalarFieldEnum)[keyof typeof SettingScalarFieldEnum];
 
 export const SkillScalarFieldEnum = {
   id: 'id',
