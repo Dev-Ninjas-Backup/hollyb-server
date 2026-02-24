@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Query, Req, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -8,28 +8,40 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { JobCategory } from '@prisma';
-import { EmployeeService } from './employee.service';
 import { GetJobsQueryDto } from './dto/get-jobs-query.dto';
 import { JwtAuthGuard } from '@/common/guards/jwt-auth.guard';
 import { RolesGuard } from '@/common/guards/roles.guard';
 import { Roles } from '@/common/decorators/roles.decorator';
+import { EmployeeService } from './employee.service';
 
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles('employee')
-@ApiTags('Employee')
+@ApiTags('Employee jobs')
 @Controller('employee')
 export class EmployeeController {
   constructor(private readonly employeeService: EmployeeService) {}
 
   @Get('latest-jobs')
   @ApiOperation({ summary: 'Get latest 5 open jobs' })
+  @ApiQuery({
+    name: 'search',
+    required: false,
+    type: String,
+    description: 'Search by title, company_name, description and requirements',
+  })
+  @ApiQuery({
+    name: 'job_category',
+    required: false,
+    enum: JobCategory,
+    description: 'Filter by job category',
+  })
   @ApiResponse({
     status: 200,
     description: 'Latest jobs retrieved successfully',
   })
-  getLatestJobs() {
-    return this.employeeService.getLatestJobs();
+  getLatestJobs(@Req() req: any, @Query() query: GetJobsQueryDto) {
+    return this.employeeService.getLatestJobs(req.user.sub, query);
   }
 
   @Get('jobs')

@@ -6,7 +6,7 @@ import { IsEnum, IsInt, IsOptional, IsString, Max, Min } from 'class-validator';
 export class GetJobsQueryDto {
   @ApiPropertyOptional({
     description: 'Search in title, company_name, description and requirements',
-    example: 'chef',
+    example: '',
   })
   @IsOptional()
   @IsString()
