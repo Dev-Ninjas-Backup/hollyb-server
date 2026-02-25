@@ -759,7 +759,7 @@ export class EmployerService {
       include: {
         employer: true,
         assigned_employee: true,
-        review: true
+        review: true,
       },
     });
 
@@ -811,9 +811,9 @@ export class EmployerService {
       // Get all reviews for this employee to recalculate average rating
       const allReviews = await tx.review.findMany({
         where: { employee_id: job.assigned_employee_id! },
-        select: { 
-          
-          rating: true },
+        select: {
+          rating: true,
+        },
       });
 
       // Calculate new average rating
@@ -916,6 +916,4 @@ export class EmployerService {
       },
     };
   }
-
-  
 }

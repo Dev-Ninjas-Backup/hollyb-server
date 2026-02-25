@@ -335,6 +335,4 @@ export class EmployerController {
       jobId,
     );
   }
-
-  
 }
