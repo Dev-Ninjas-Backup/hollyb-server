@@ -14,7 +14,6 @@ model EmployerProfile {
 
   user               User             @relation(fields: [user_id], references: [id], onDelete: Cascade)
   jobs               Job[]
-  reviews_written    Review[]
   favorite_employees FavoriteWorker[]
 
   @@map("employer_profiles")

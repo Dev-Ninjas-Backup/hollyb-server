@@ -1,3 +1,0 @@
--- AlterTable
-ALTER TABLE "jobs" ALTER COLUMN "end_date" DROP DEFAULT,
-ALTER COLUMN "end_date" SET DATA TYPE DATE;

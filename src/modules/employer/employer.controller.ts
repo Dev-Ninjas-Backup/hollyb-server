@@ -30,6 +30,7 @@ import { UpdateJobDto } from './dto/update-job.dto';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { RolesGuard } from '@/common/guards/roles.guard';
 import { Roles } from '@/common/decorators/roles.decorator';
+import { CreateReviewJobDto } from './dto/review-completed-job.dto';
 
 @ApiTags('Employer')
 @Controller('employer')
@@ -53,6 +54,26 @@ export class EmployerController {
         description: {
           type: 'string',
           example: 'Assist with packaging and sorting shipments.',
+        },
+        job_category: {
+          type: 'string',
+          enum: [
+            'chef',
+            'sous_chef',
+            'line_cook',
+            'pastry_chef',
+            'cleaner',
+            'dishwasher',
+            'helper',
+            'helper',
+            'server',
+            'waiter',
+            'bartender',
+            'host',
+            'manager',
+            'supervisor',
+          ],
+          example: 'chef',
         },
         job_responsibilities: {
           type: 'string',
@@ -105,8 +126,7 @@ export class EmployerController {
   // Get my posted jobs with filters and pagination
   @Get('jobs')
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('employer')
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Get my posted jobs with filters and pagination' })
   @ApiQuery({
     name: 'status',
@@ -159,8 +179,7 @@ export class EmployerController {
 
   @Get('jobs/:id')
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('employer')
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Get a specific job by ID' })
   async getJobById(@Req() req: AuthenticatedRequest, @Param('id') id: string) {
     return this.employerService.getJobById(req.user.sub, id);
@@ -169,8 +188,7 @@ export class EmployerController {
   // Update a job posting
   @Patch('jobs/:id')
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('employer')
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: 'Update a job posting (cannot change start_date or end_date)',
   })
@@ -199,8 +217,7 @@ export class EmployerController {
 
   @Get('jobs/:jobId/applications')
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('employer')
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Get all applications for a specific job' })
   @ApiResponse({
     status: 200,
@@ -246,4 +263,78 @@ export class EmployerController {
   ) {
     return this.employerService.rejectApplication(req.user.sub, applicationId);
   }
+
+  @Post('review/create/:id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('employer')
+  @ApiOperation({ summary: 'Review completed job and update employer profile' })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        company_name: { type: 'string', example: 'Amazon Logistics' },
+        contact_email: { type: 'string', example: 'contact@amazon.com' },
+      },
+    },
+  })
+  async reviewCompletedJob(
+    @Param('id') id: string,
+    @Body() dto: CreateReviewJobDto,
+  ) {
+    return this.employerService.createReviewJob(id, dto);
+  }
+
+  @Get('reviews')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: 'Get all reviews with pagination and filters' })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    type: Number,
+    description: 'Page number for pagination',
+    example: 1,
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    description: 'Number of items per page',
+    example: 10,
+  })
+  @ApiQuery({
+    name: 'employeeId',
+    required: false,
+    type: String,
+    description: 'Filter by employee ID',
+  })
+  @ApiQuery({
+    name: 'jobId',
+    required: false,
+    type: String,
+    description: 'Filter by job ID',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Reviews retrieved successfully',
+  })
+  async getAllReviews(
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+    @Query('employeeId') employeeId?: string,
+    @Query('jobId') jobId?: string,
+  ) {
+    const pageNum = page ? parseInt(page, 10) : 1;
+    const limitNum = limit ? parseInt(limit, 10) : 10;
+
+    return this.employerService.getAllReviews(
+      pageNum,
+      limitNum,
+      employeeId,
+      jobId,
+    );
+  }
+
+  
 }
