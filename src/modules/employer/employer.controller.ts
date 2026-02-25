@@ -88,13 +88,13 @@ export class EmployerController {
         },
         start_time: {
           type: 'string',
-          format: 'date-time',
-          example: '1970-01-01T08:00:00.000Z',
+          example: '03:30 PM',
+          description: 'Shift start time in HH:mm or hh:mm AM/PM format',
         },
         end_time: {
           type: 'string',
-          format: 'date-time',
-          example: '1970-01-01T17:00:00.000Z',
+          example: '05:30 PM',
+          description: 'Shift end time in HH:mm or hh:mm AM/PM format',
         },
         amount: { type: 'string', example: '1500.00' },
         location: { type: 'string', example: 'New York, NY' },

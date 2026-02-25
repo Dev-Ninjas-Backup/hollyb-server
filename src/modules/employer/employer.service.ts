@@ -24,6 +24,46 @@ export class EmployerService {
     private readonly subscriptionService: SubscriptionService,
   ) {}
 
+  private parseTimeToDate(time: string): Date {
+    const normalizedTime = time.trim().replace(/\s+/g, ' ');
+
+    const match24Hour = normalizedTime.match(/^([01]\d|2[0-3]):([0-5]\d)$/);
+    if (match24Hour) {
+      const hours = Number(match24Hour[1]);
+      const minutes = Number(match24Hour[2]);
+      return new Date(Date.UTC(1970, 0, 1, hours, minutes, 0, 0));
+    }
+
+    const match12Hour = normalizedTime.match(
+      /^(0?[1-9]|1[0-2]):([0-5]\d)\s?(AM|PM)$/i,
+    );
+    if (match12Hour) {
+      const hour12 = Number(match12Hour[1]);
+      const minutes = Number(match12Hour[2]);
+      const meridiem = match12Hour[3].toUpperCase();
+      const hours = hour12 % 12 + (meridiem === 'PM' ? 12 : 0);
+      return new Date(Date.UTC(1970, 0, 1, hours, minutes, 0, 0));
+    }
+
+    throw new BusinessException(
+      'Invalid time format. Use HH:mm or hh:mm AM/PM',
+      HttpStatus.BAD_REQUEST,
+    );
+  }
+
+  private formatTime12h(time: Date | null | undefined): string | null {
+    if (!time) {
+      return null;
+    }
+
+    const hours24 = time.getUTCHours();
+    const minutes = String(time.getUTCMinutes()).padStart(2, '0');
+    const hour12 = hours24 % 12 || 12;
+    const suffix = hours24 >= 12 ? 'PM' : 'AM';
+
+    return `${String(hour12).padStart(2, '0')}:${minutes} ${suffix}`;
+  }
+
   /**
    * Create a new job posting
    */
@@ -36,7 +76,7 @@ export class EmployerService {
     const hasActiveSubscription =
       await this.subscriptionService.checkActiveSubscription(
         userId,
-        SubscriptionPlanType.employee_premium,
+        SubscriptionPlanType.employer_premium,
       );
 
     if (!hasActiveSubscription) {
@@ -78,8 +118,8 @@ export class EmployerService {
     let totalAmount: Prisma.Decimal | null = null;
     if (dto.start_time && dto.end_time && dto.amount) {
       try {
-        const startTime = new Date(dto.start_time);
-        const endTime = new Date(dto.end_time);
+        const startTime = this.parseTimeToDate(dto.start_time);
+        const endTime = this.parseTimeToDate(dto.end_time);
 
         // Calculate hours difference
         const timeDiffMs = endTime.getTime() - startTime.getTime();
@@ -150,8 +190,8 @@ export class EmployerService {
       job_category: dto.job_category || null,
       job_date: dto.job_date ? new Date(dto.job_date) : null,
       expire_date: expireDate,
-      start_time: dto.start_time ? new Date(dto.start_time) : null,
-      end_time: dto.end_time ? new Date(dto.end_time) : null,
+      start_time: dto.start_time ? this.parseTimeToDate(dto.start_time) : null,
+      end_time: dto.end_time ? this.parseTimeToDate(dto.end_time) : null,
       amount: dto.amount ? new Prisma.Decimal(dto.amount) : null,
       totalAmount: totalAmount,
       location: dto.location,
@@ -186,7 +226,11 @@ export class EmployerService {
     return {
       success: true,
       message: 'Job created successfully',
-      data: job,
+      data: {
+        ...job,
+        start_time: this.formatTime12h(job.start_time),
+        end_time: this.formatTime12h(job.end_time),
+      },
     };
   }
 
@@ -204,7 +248,7 @@ export class EmployerService {
 
     // Update jobs to 'closed' status if expire_date has passed
     const now = new Date();
-    now.setHours(0, 0, 0, 0); // Set to start of day for comparison
+    now.setUTCHours(0, 0, 0, 0);
 
     await this.prisma.client.job.updateMany({
       where: {
@@ -269,7 +313,11 @@ export class EmployerService {
     return {
       success: true,
       message: 'Jobs retrieved successfully',
-      data: jobs,
+      data: jobs.map((job) => ({
+        ...job,
+        start_time: this.formatTime12h(job.start_time),
+        end_time: this.formatTime12h(job.end_time),
+      })),
       paginationInfo: {
         page,
         limit,
@@ -311,7 +359,11 @@ export class EmployerService {
     return {
       success: true,
       message: 'Job retrieved successfully',
-      data: job,
+      data: {
+        ...job,
+        start_time: this.formatTime12h(job.start_time),
+        end_time: this.formatTime12h(job.end_time),
+      },
     };
   }
 
@@ -353,10 +405,10 @@ export class EmployerService {
     // 3. Calculate totalAmount if start_time, end_time, and amount are provided or updated
     let totalAmount: Prisma.Decimal | null = null;
     const startTime = dto.start_time
-      ? new Date(dto.start_time)
+      ? this.parseTimeToDate(dto.start_time)
       : existingJob.start_time;
     const endTime = dto.end_time
-      ? new Date(dto.end_time)
+      ? this.parseTimeToDate(dto.end_time)
       : existingJob.end_time;
     const amount = dto.amount
       ? parseFloat(dto.amount)
@@ -442,9 +494,9 @@ export class EmployerService {
     if (dto.job_category !== undefined)
       updateData.job_category = dto.job_category;
     if (dto.start_time !== undefined)
-      updateData.start_time = new Date(dto.start_time);
+      updateData.start_time = this.parseTimeToDate(dto.start_time);
     if (dto.end_time !== undefined)
-      updateData.end_time = new Date(dto.end_time);
+      updateData.end_time = this.parseTimeToDate(dto.end_time);
     if (dto.amount !== undefined)
       updateData.amount = new Prisma.Decimal(dto.amount);
     if (dto.location !== undefined) updateData.location = dto.location;
@@ -477,7 +529,11 @@ export class EmployerService {
     return {
       success: true,
       message: 'Job updated successfully',
-      data: updatedJob,
+      data: {
+        ...updatedJob,
+        start_time: this.formatTime12h(updatedJob.start_time),
+        end_time: this.formatTime12h(updatedJob.end_time),
+      },
     };
   }
 

@@ -8,12 +8,25 @@ import { BusinessException } from '@/common/exceptions/business.exception';
 export class EmployeeService {
   constructor(private readonly prisma: PrismaService) {}
 
+  private formatTime12h(time: Date | null | undefined): string | null {
+    if (!time) {
+      return null;
+    }
+
+    const hours24 = time.getUTCHours();
+    const minutes = String(time.getUTCMinutes()).padStart(2, '0');
+    const hour12 = hours24 % 12 || 12;
+    const suffix = hours24 >= 12 ? 'PM' : 'AM';
+
+    return `${String(hour12).padStart(2, '0')}:${minutes} ${suffix}`;
+  }
+
   private getOpenAndNotExpiredWhere(
     search?: string,
     jobCategory?: GetJobsQueryDto['job_category'],
   ): Prisma.JobWhereInput {
     const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    today.setUTCHours(0, 0, 0, 0);
 
     return {
       AND: [
@@ -119,7 +132,11 @@ export class EmployeeService {
     return {
       success: true,
       message: 'Latest jobs retrieved successfully',
-      data: jobs,
+      data: jobs.map((job) => ({
+        ...job,
+        start_time: this.formatTime12h(job.start_time),
+        end_time: this.formatTime12h(job.end_time),
+      })),
       stats: {
         availableJobs,
         appliedJobs,
@@ -173,7 +190,11 @@ export class EmployeeService {
     return {
       success: true,
       message: 'Jobs retrieved successfully',
-      data: jobs,
+      data: jobs.map((job) => ({
+        ...job,
+        start_time: this.formatTime12h(job.start_time),
+        end_time: this.formatTime12h(job.end_time),
+      })),
       meta: {
         page,
         limit,
@@ -215,7 +236,11 @@ export class EmployeeService {
     return {
       success: true,
       message: 'Job details retrieved successfully',
-      data: job,
+      data: {
+        ...job,
+        start_time: this.formatTime12h(job.start_time),
+        end_time: this.formatTime12h(job.end_time),
+      },
     };
   }
 }
