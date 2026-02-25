@@ -721,23 +721,6 @@ export type EnumMessageDeliveryStatusWithAggregatesFilter<$PrismaModel = never> 
   _max?: Prisma.NestedEnumMessageDeliveryStatusFilter<$PrismaModel>
 }
 
-export type EnumReviewerTypeFilter<$PrismaModel = never> = {
-  equals?: $Enums.ReviewerType | Prisma.EnumReviewerTypeFieldRefInput<$PrismaModel>
-  in?: $Enums.ReviewerType[] | Prisma.ListEnumReviewerTypeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.ReviewerType[] | Prisma.ListEnumReviewerTypeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumReviewerTypeFilter<$PrismaModel> | $Enums.ReviewerType
-}
-
-export type EnumReviewerTypeWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.ReviewerType | Prisma.EnumReviewerTypeFieldRefInput<$PrismaModel>
-  in?: $Enums.ReviewerType[] | Prisma.ListEnumReviewerTypeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.ReviewerType[] | Prisma.ListEnumReviewerTypeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumReviewerTypeWithAggregatesFilter<$PrismaModel> | $Enums.ReviewerType
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumReviewerTypeFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumReviewerTypeFilter<$PrismaModel>
-}
-
 export type EnumSubscriptionPlanTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.SubscriptionPlanType | Prisma.EnumSubscriptionPlanTypeFieldRefInput<$PrismaModel>
   in?: $Enums.SubscriptionPlanType[] | Prisma.ListEnumSubscriptionPlanTypeFieldRefInput<$PrismaModel>
@@ -1461,23 +1444,6 @@ export type NestedEnumMessageDeliveryStatusWithAggregatesFilter<$PrismaModel = n
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumMessageDeliveryStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumMessageDeliveryStatusFilter<$PrismaModel>
-}
-
-export type NestedEnumReviewerTypeFilter<$PrismaModel = never> = {
-  equals?: $Enums.ReviewerType | Prisma.EnumReviewerTypeFieldRefInput<$PrismaModel>
-  in?: $Enums.ReviewerType[] | Prisma.ListEnumReviewerTypeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.ReviewerType[] | Prisma.ListEnumReviewerTypeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumReviewerTypeFilter<$PrismaModel> | $Enums.ReviewerType
-}
-
-export type NestedEnumReviewerTypeWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.ReviewerType | Prisma.EnumReviewerTypeFieldRefInput<$PrismaModel>
-  in?: $Enums.ReviewerType[] | Prisma.ListEnumReviewerTypeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.ReviewerType[] | Prisma.ListEnumReviewerTypeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumReviewerTypeWithAggregatesFilter<$PrismaModel> | $Enums.ReviewerType
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumReviewerTypeFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumReviewerTypeFilter<$PrismaModel>
 }
 
 export type NestedEnumSubscriptionPlanTypeFilter<$PrismaModel = never> = {
