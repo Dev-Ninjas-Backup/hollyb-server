@@ -350,6 +350,7 @@ export type JobWhereInput = {
   assigned_employee_id?: Prisma.UuidNullableFilter<"Job"> | string | null
   file?: Prisma.XOR<Prisma.FileInstanceNullableScalarRelationFilter, Prisma.FileInstanceWhereInput> | null
   assigned_employee?: Prisma.XOR<Prisma.EmployeeProfileNullableScalarRelationFilter, Prisma.EmployeeProfileWhereInput> | null
+  review?: Prisma.XOR<Prisma.ReviewNullableScalarRelationFilter, Prisma.ReviewWhereInput> | null
   employer?: Prisma.XOR<Prisma.EmployerProfileScalarRelationFilter, Prisma.EmployerProfileWhereInput>
   job_applications?: Prisma.JobApplicationListRelationFilter
   shifts?: Prisma.JobShiftListRelationFilter
@@ -380,6 +381,7 @@ export type JobOrderByWithRelationInput = {
   assigned_employee_id?: Prisma.SortOrderInput | Prisma.SortOrder
   file?: Prisma.FileInstanceOrderByWithRelationInput
   assigned_employee?: Prisma.EmployeeProfileOrderByWithRelationInput
+  review?: Prisma.ReviewOrderByWithRelationInput
   employer?: Prisma.EmployerProfileOrderByWithRelationInput
   job_applications?: Prisma.JobApplicationOrderByRelationAggregateInput
   shifts?: Prisma.JobShiftOrderByRelationAggregateInput
@@ -413,6 +415,7 @@ export type JobWhereUniqueInput = Prisma.AtLeast<{
   updated_at?: Prisma.DateTimeFilter<"Job"> | Date | string
   file?: Prisma.XOR<Prisma.FileInstanceNullableScalarRelationFilter, Prisma.FileInstanceWhereInput> | null
   assigned_employee?: Prisma.XOR<Prisma.EmployeeProfileNullableScalarRelationFilter, Prisma.EmployeeProfileWhereInput> | null
+  review?: Prisma.XOR<Prisma.ReviewNullableScalarRelationFilter, Prisma.ReviewWhereInput> | null
   employer?: Prisma.XOR<Prisma.EmployerProfileScalarRelationFilter, Prisma.EmployerProfileWhereInput>
   job_applications?: Prisma.JobApplicationListRelationFilter
   shifts?: Prisma.JobShiftListRelationFilter
@@ -496,6 +499,7 @@ export type JobCreateInput = {
   updated_at?: Date | string
   file?: Prisma.FileInstanceCreateNestedOneWithoutJobInput
   assigned_employee?: Prisma.EmployeeProfileCreateNestedOneWithoutAssigned_jobInput
+  review?: Prisma.ReviewCreateNestedOneWithoutJobInput
   employer: Prisma.EmployerProfileCreateNestedOneWithoutJobsInput
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutJobInput
   shifts?: Prisma.JobShiftCreateNestedManyWithoutJobInput
@@ -524,6 +528,7 @@ export type JobUncheckedCreateInput = {
   created_at?: Date | string
   updated_at?: Date | string
   assigned_employee_id?: string | null
+  review?: Prisma.ReviewUncheckedCreateNestedOneWithoutJobInput
   job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutJobInput
   shifts?: Prisma.JobShiftUncheckedCreateNestedManyWithoutJobInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutJobInput
@@ -550,6 +555,7 @@ export type JobUpdateInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   file?: Prisma.FileInstanceUpdateOneWithoutJobNestedInput
   assigned_employee?: Prisma.EmployeeProfileUpdateOneWithoutAssigned_jobNestedInput
+  review?: Prisma.ReviewUpdateOneWithoutJobNestedInput
   employer?: Prisma.EmployerProfileUpdateOneRequiredWithoutJobsNestedInput
   job_applications?: Prisma.JobApplicationUpdateManyWithoutJobNestedInput
   shifts?: Prisma.JobShiftUpdateManyWithoutJobNestedInput
@@ -578,6 +584,7 @@ export type JobUncheckedUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assigned_employee_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  review?: Prisma.ReviewUncheckedUpdateOneWithoutJobNestedInput
   job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutJobNestedInput
   shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutJobNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutJobNestedInput
@@ -912,6 +919,20 @@ export type JobUpdateOneWithoutPaymentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.JobUpdateToOneWithWhereWithoutPaymentsInput, Prisma.JobUpdateWithoutPaymentsInput>, Prisma.JobUncheckedUpdateWithoutPaymentsInput>
 }
 
+export type JobCreateNestedOneWithoutReviewInput = {
+  create?: Prisma.XOR<Prisma.JobCreateWithoutReviewInput, Prisma.JobUncheckedCreateWithoutReviewInput>
+  connectOrCreate?: Prisma.JobCreateOrConnectWithoutReviewInput
+  connect?: Prisma.JobWhereUniqueInput
+}
+
+export type JobUpdateOneRequiredWithoutReviewNestedInput = {
+  create?: Prisma.XOR<Prisma.JobCreateWithoutReviewInput, Prisma.JobUncheckedCreateWithoutReviewInput>
+  connectOrCreate?: Prisma.JobCreateOrConnectWithoutReviewInput
+  upsert?: Prisma.JobUpsertWithoutReviewInput
+  connect?: Prisma.JobWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.JobUpdateToOneWithWhereWithoutReviewInput, Prisma.JobUpdateWithoutReviewInput>, Prisma.JobUncheckedUpdateWithoutReviewInput>
+}
+
 export type JobCreateWithoutAssigned_employeeInput = {
   id?: string
   title: string
@@ -932,6 +953,7 @@ export type JobCreateWithoutAssigned_employeeInput = {
   created_at?: Date | string
   updated_at?: Date | string
   file?: Prisma.FileInstanceCreateNestedOneWithoutJobInput
+  review?: Prisma.ReviewCreateNestedOneWithoutJobInput
   employer: Prisma.EmployerProfileCreateNestedOneWithoutJobsInput
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutJobInput
   shifts?: Prisma.JobShiftCreateNestedManyWithoutJobInput
@@ -959,6 +981,7 @@ export type JobUncheckedCreateWithoutAssigned_employeeInput = {
   location?: string | null
   created_at?: Date | string
   updated_at?: Date | string
+  review?: Prisma.ReviewUncheckedCreateNestedOneWithoutJobInput
   job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutJobInput
   shifts?: Prisma.JobShiftUncheckedCreateNestedManyWithoutJobInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutJobInput
@@ -1000,6 +1023,7 @@ export type JobUpdateWithoutAssigned_employeeInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   file?: Prisma.FileInstanceUpdateOneWithoutJobNestedInput
+  review?: Prisma.ReviewUpdateOneWithoutJobNestedInput
   employer?: Prisma.EmployerProfileUpdateOneRequiredWithoutJobsNestedInput
   job_applications?: Prisma.JobApplicationUpdateManyWithoutJobNestedInput
   shifts?: Prisma.JobShiftUpdateManyWithoutJobNestedInput
@@ -1027,6 +1051,7 @@ export type JobUncheckedUpdateWithoutAssigned_employeeInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  review?: Prisma.ReviewUncheckedUpdateOneWithoutJobNestedInput
   job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutJobNestedInput
   shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutJobNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutJobNestedInput
@@ -1053,6 +1078,7 @@ export type JobCreateWithoutEmployerInput = {
   updated_at?: Date | string
   file?: Prisma.FileInstanceCreateNestedOneWithoutJobInput
   assigned_employee?: Prisma.EmployeeProfileCreateNestedOneWithoutAssigned_jobInput
+  review?: Prisma.ReviewCreateNestedOneWithoutJobInput
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutJobInput
   shifts?: Prisma.JobShiftCreateNestedManyWithoutJobInput
   payments?: Prisma.PaymentCreateNestedManyWithoutJobInput
@@ -1079,6 +1105,7 @@ export type JobUncheckedCreateWithoutEmployerInput = {
   created_at?: Date | string
   updated_at?: Date | string
   assigned_employee_id?: string | null
+  review?: Prisma.ReviewUncheckedCreateNestedOneWithoutJobInput
   job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutJobInput
   shifts?: Prisma.JobShiftUncheckedCreateNestedManyWithoutJobInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutJobInput
@@ -1157,6 +1184,7 @@ export type JobCreateWithoutFileInput = {
   created_at?: Date | string
   updated_at?: Date | string
   assigned_employee?: Prisma.EmployeeProfileCreateNestedOneWithoutAssigned_jobInput
+  review?: Prisma.ReviewCreateNestedOneWithoutJobInput
   employer: Prisma.EmployerProfileCreateNestedOneWithoutJobsInput
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutJobInput
   shifts?: Prisma.JobShiftCreateNestedManyWithoutJobInput
@@ -1184,6 +1212,7 @@ export type JobUncheckedCreateWithoutFileInput = {
   created_at?: Date | string
   updated_at?: Date | string
   assigned_employee_id?: string | null
+  review?: Prisma.ReviewUncheckedCreateNestedOneWithoutJobInput
   job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutJobInput
   shifts?: Prisma.JobShiftUncheckedCreateNestedManyWithoutJobInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutJobInput
@@ -1225,6 +1254,7 @@ export type JobUpdateWithoutFileInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assigned_employee?: Prisma.EmployeeProfileUpdateOneWithoutAssigned_jobNestedInput
+  review?: Prisma.ReviewUpdateOneWithoutJobNestedInput
   employer?: Prisma.EmployerProfileUpdateOneRequiredWithoutJobsNestedInput
   job_applications?: Prisma.JobApplicationUpdateManyWithoutJobNestedInput
   shifts?: Prisma.JobShiftUpdateManyWithoutJobNestedInput
@@ -1252,6 +1282,7 @@ export type JobUncheckedUpdateWithoutFileInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assigned_employee_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  review?: Prisma.ReviewUncheckedUpdateOneWithoutJobNestedInput
   job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutJobNestedInput
   shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutJobNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutJobNestedInput
@@ -1278,6 +1309,7 @@ export type JobCreateWithoutJob_applicationsInput = {
   updated_at?: Date | string
   file?: Prisma.FileInstanceCreateNestedOneWithoutJobInput
   assigned_employee?: Prisma.EmployeeProfileCreateNestedOneWithoutAssigned_jobInput
+  review?: Prisma.ReviewCreateNestedOneWithoutJobInput
   employer: Prisma.EmployerProfileCreateNestedOneWithoutJobsInput
   shifts?: Prisma.JobShiftCreateNestedManyWithoutJobInput
   payments?: Prisma.PaymentCreateNestedManyWithoutJobInput
@@ -1305,6 +1337,7 @@ export type JobUncheckedCreateWithoutJob_applicationsInput = {
   created_at?: Date | string
   updated_at?: Date | string
   assigned_employee_id?: string | null
+  review?: Prisma.ReviewUncheckedCreateNestedOneWithoutJobInput
   shifts?: Prisma.JobShiftUncheckedCreateNestedManyWithoutJobInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutJobInput
 }
@@ -1346,6 +1379,7 @@ export type JobUpdateWithoutJob_applicationsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   file?: Prisma.FileInstanceUpdateOneWithoutJobNestedInput
   assigned_employee?: Prisma.EmployeeProfileUpdateOneWithoutAssigned_jobNestedInput
+  review?: Prisma.ReviewUpdateOneWithoutJobNestedInput
   employer?: Prisma.EmployerProfileUpdateOneRequiredWithoutJobsNestedInput
   shifts?: Prisma.JobShiftUpdateManyWithoutJobNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutJobNestedInput
@@ -1373,6 +1407,7 @@ export type JobUncheckedUpdateWithoutJob_applicationsInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assigned_employee_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  review?: Prisma.ReviewUncheckedUpdateOneWithoutJobNestedInput
   shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutJobNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutJobNestedInput
 }
@@ -1398,6 +1433,7 @@ export type JobCreateWithoutShiftsInput = {
   updated_at?: Date | string
   file?: Prisma.FileInstanceCreateNestedOneWithoutJobInput
   assigned_employee?: Prisma.EmployeeProfileCreateNestedOneWithoutAssigned_jobInput
+  review?: Prisma.ReviewCreateNestedOneWithoutJobInput
   employer: Prisma.EmployerProfileCreateNestedOneWithoutJobsInput
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutJobInput
   payments?: Prisma.PaymentCreateNestedManyWithoutJobInput
@@ -1425,6 +1461,7 @@ export type JobUncheckedCreateWithoutShiftsInput = {
   created_at?: Date | string
   updated_at?: Date | string
   assigned_employee_id?: string | null
+  review?: Prisma.ReviewUncheckedCreateNestedOneWithoutJobInput
   job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutJobInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutJobInput
 }
@@ -1466,6 +1503,7 @@ export type JobUpdateWithoutShiftsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   file?: Prisma.FileInstanceUpdateOneWithoutJobNestedInput
   assigned_employee?: Prisma.EmployeeProfileUpdateOneWithoutAssigned_jobNestedInput
+  review?: Prisma.ReviewUpdateOneWithoutJobNestedInput
   employer?: Prisma.EmployerProfileUpdateOneRequiredWithoutJobsNestedInput
   job_applications?: Prisma.JobApplicationUpdateManyWithoutJobNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutJobNestedInput
@@ -1493,6 +1531,7 @@ export type JobUncheckedUpdateWithoutShiftsInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assigned_employee_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  review?: Prisma.ReviewUncheckedUpdateOneWithoutJobNestedInput
   job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutJobNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutJobNestedInput
 }
@@ -1518,6 +1557,7 @@ export type JobCreateWithoutPaymentsInput = {
   updated_at?: Date | string
   file?: Prisma.FileInstanceCreateNestedOneWithoutJobInput
   assigned_employee?: Prisma.EmployeeProfileCreateNestedOneWithoutAssigned_jobInput
+  review?: Prisma.ReviewCreateNestedOneWithoutJobInput
   employer: Prisma.EmployerProfileCreateNestedOneWithoutJobsInput
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutJobInput
   shifts?: Prisma.JobShiftCreateNestedManyWithoutJobInput
@@ -1545,6 +1585,7 @@ export type JobUncheckedCreateWithoutPaymentsInput = {
   created_at?: Date | string
   updated_at?: Date | string
   assigned_employee_id?: string | null
+  review?: Prisma.ReviewUncheckedCreateNestedOneWithoutJobInput
   job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutJobInput
   shifts?: Prisma.JobShiftUncheckedCreateNestedManyWithoutJobInput
 }
@@ -1586,6 +1627,7 @@ export type JobUpdateWithoutPaymentsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   file?: Prisma.FileInstanceUpdateOneWithoutJobNestedInput
   assigned_employee?: Prisma.EmployeeProfileUpdateOneWithoutAssigned_jobNestedInput
+  review?: Prisma.ReviewUpdateOneWithoutJobNestedInput
   employer?: Prisma.EmployerProfileUpdateOneRequiredWithoutJobsNestedInput
   job_applications?: Prisma.JobApplicationUpdateManyWithoutJobNestedInput
   shifts?: Prisma.JobShiftUpdateManyWithoutJobNestedInput
@@ -1613,8 +1655,133 @@ export type JobUncheckedUpdateWithoutPaymentsInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assigned_employee_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  review?: Prisma.ReviewUncheckedUpdateOneWithoutJobNestedInput
   job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutJobNestedInput
   shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutJobNestedInput
+}
+
+export type JobCreateWithoutReviewInput = {
+  id?: string
+  title: string
+  company_name: string
+  description?: string | null
+  job_responsibilities?: string | null
+  requirements?: string | null
+  is_urgent?: boolean
+  status?: $Enums.JobStatus
+  job_category?: $Enums.JobCategory | null
+  job_date?: Date | string | null
+  expire_date?: Date | string | null
+  start_time?: Date | string | null
+  end_time?: Date | string | null
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  location?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  file?: Prisma.FileInstanceCreateNestedOneWithoutJobInput
+  assigned_employee?: Prisma.EmployeeProfileCreateNestedOneWithoutAssigned_jobInput
+  employer: Prisma.EmployerProfileCreateNestedOneWithoutJobsInput
+  job_applications?: Prisma.JobApplicationCreateNestedManyWithoutJobInput
+  shifts?: Prisma.JobShiftCreateNestedManyWithoutJobInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutJobInput
+}
+
+export type JobUncheckedCreateWithoutReviewInput = {
+  id?: string
+  employer_id: string
+  title: string
+  company_name: string
+  description?: string | null
+  job_responsibilities?: string | null
+  requirements?: string | null
+  fileId?: string | null
+  is_urgent?: boolean
+  status?: $Enums.JobStatus
+  job_category?: $Enums.JobCategory | null
+  job_date?: Date | string | null
+  expire_date?: Date | string | null
+  start_time?: Date | string | null
+  end_time?: Date | string | null
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  location?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  assigned_employee_id?: string | null
+  job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutJobInput
+  shifts?: Prisma.JobShiftUncheckedCreateNestedManyWithoutJobInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutJobInput
+}
+
+export type JobCreateOrConnectWithoutReviewInput = {
+  where: Prisma.JobWhereUniqueInput
+  create: Prisma.XOR<Prisma.JobCreateWithoutReviewInput, Prisma.JobUncheckedCreateWithoutReviewInput>
+}
+
+export type JobUpsertWithoutReviewInput = {
+  update: Prisma.XOR<Prisma.JobUpdateWithoutReviewInput, Prisma.JobUncheckedUpdateWithoutReviewInput>
+  create: Prisma.XOR<Prisma.JobCreateWithoutReviewInput, Prisma.JobUncheckedCreateWithoutReviewInput>
+  where?: Prisma.JobWhereInput
+}
+
+export type JobUpdateToOneWithWhereWithoutReviewInput = {
+  where?: Prisma.JobWhereInput
+  data: Prisma.XOR<Prisma.JobUpdateWithoutReviewInput, Prisma.JobUncheckedUpdateWithoutReviewInput>
+}
+
+export type JobUpdateWithoutReviewInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+  job_category?: Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput | $Enums.JobCategory | null
+  job_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expire_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  file?: Prisma.FileInstanceUpdateOneWithoutJobNestedInput
+  assigned_employee?: Prisma.EmployeeProfileUpdateOneWithoutAssigned_jobNestedInput
+  employer?: Prisma.EmployerProfileUpdateOneRequiredWithoutJobsNestedInput
+  job_applications?: Prisma.JobApplicationUpdateManyWithoutJobNestedInput
+  shifts?: Prisma.JobShiftUpdateManyWithoutJobNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutJobNestedInput
+}
+
+export type JobUncheckedUpdateWithoutReviewInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  employer_id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  company_name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
+  job_category?: Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput | $Enums.JobCategory | null
+  job_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  expire_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  totalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  assigned_employee_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutJobNestedInput
+  shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutJobNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutJobNestedInput
 }
 
 export type JobCreateManyEmployerInput = {
@@ -1661,6 +1828,7 @@ export type JobUpdateWithoutEmployerInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   file?: Prisma.FileInstanceUpdateOneWithoutJobNestedInput
   assigned_employee?: Prisma.EmployeeProfileUpdateOneWithoutAssigned_jobNestedInput
+  review?: Prisma.ReviewUpdateOneWithoutJobNestedInput
   job_applications?: Prisma.JobApplicationUpdateManyWithoutJobNestedInput
   shifts?: Prisma.JobShiftUpdateManyWithoutJobNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutJobNestedInput
@@ -1687,6 +1855,7 @@ export type JobUncheckedUpdateWithoutEmployerInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assigned_employee_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  review?: Prisma.ReviewUncheckedUpdateOneWithoutJobNestedInput
   job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutJobNestedInput
   shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutJobNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutJobNestedInput
@@ -1788,6 +1957,7 @@ export type JobSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   assigned_employee_id?: boolean
   file?: boolean | Prisma.Job$fileArgs<ExtArgs>
   assigned_employee?: boolean | Prisma.Job$assigned_employeeArgs<ExtArgs>
+  review?: boolean | Prisma.Job$reviewArgs<ExtArgs>
   employer?: boolean | Prisma.EmployerProfileDefaultArgs<ExtArgs>
   job_applications?: boolean | Prisma.Job$job_applicationsArgs<ExtArgs>
   shifts?: boolean | Prisma.Job$shiftsArgs<ExtArgs>
@@ -1877,6 +2047,7 @@ export type JobOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
 export type JobInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   file?: boolean | Prisma.Job$fileArgs<ExtArgs>
   assigned_employee?: boolean | Prisma.Job$assigned_employeeArgs<ExtArgs>
+  review?: boolean | Prisma.Job$reviewArgs<ExtArgs>
   employer?: boolean | Prisma.EmployerProfileDefaultArgs<ExtArgs>
   job_applications?: boolean | Prisma.Job$job_applicationsArgs<ExtArgs>
   shifts?: boolean | Prisma.Job$shiftsArgs<ExtArgs>
@@ -1899,6 +2070,7 @@ export type $JobPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   objects: {
     file: Prisma.$FileInstancePayload<ExtArgs> | null
     assigned_employee: Prisma.$EmployeeProfilePayload<ExtArgs> | null
+    review: Prisma.$ReviewPayload<ExtArgs> | null
     employer: Prisma.$EmployerProfilePayload<ExtArgs>
     job_applications: Prisma.$JobApplicationPayload<ExtArgs>[]
     shifts: Prisma.$JobShiftPayload<ExtArgs>[]
@@ -2322,6 +2494,7 @@ export interface Prisma__JobClient<T, Null = never, ExtArgs extends runtime.Type
   readonly [Symbol.toStringTag]: "PrismaPromise"
   file<T extends Prisma.Job$fileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Job$fileArgs<ExtArgs>>): Prisma.Prisma__FileInstanceClient<runtime.Types.Result.GetResult<Prisma.$FileInstancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   assigned_employee<T extends Prisma.Job$assigned_employeeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Job$assigned_employeeArgs<ExtArgs>>): Prisma.Prisma__EmployeeProfileClient<runtime.Types.Result.GetResult<Prisma.$EmployeeProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  review<T extends Prisma.Job$reviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Job$reviewArgs<ExtArgs>>): Prisma.Prisma__ReviewClient<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   employer<T extends Prisma.EmployerProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployerProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__EmployerProfileClient<runtime.Types.Result.GetResult<Prisma.$EmployerProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   job_applications<T extends Prisma.Job$job_applicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Job$job_applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   shifts<T extends Prisma.Job$shiftsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Job$shiftsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobShiftPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2807,6 +2980,25 @@ export type Job$assigned_employeeArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   include?: Prisma.EmployeeProfileInclude<ExtArgs> | null
   where?: Prisma.EmployeeProfileWhereInput
+}
+
+/**
+ * Job.review
+ */
+export type Job$reviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Review
+   */
+  select?: Prisma.ReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Review
+   */
+  omit?: Prisma.ReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewInclude<ExtArgs> | null
+  where?: Prisma.ReviewWhereInput
 }
 
 /**

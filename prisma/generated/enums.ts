@@ -156,14 +156,6 @@ export const PaymentStatus = {
 export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
 
 
-export const ReviewerType = {
-  employer: 'employer',
-  employee: 'employee'
-} as const
-
-export type ReviewerType = (typeof ReviewerType)[keyof typeof ReviewerType]
-
-
 export const NotificationType = {
   job_update: 'job_update',
   message: 'message',

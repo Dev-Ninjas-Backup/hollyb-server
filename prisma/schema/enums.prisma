@@ -100,11 +100,6 @@ enum PaymentStatus {
   refunded
 }
 
-enum ReviewerType {
-  employer
-  employee
-}
-
 enum NotificationType {
   job_update
   message

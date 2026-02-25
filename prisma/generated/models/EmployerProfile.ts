@@ -290,7 +290,6 @@ export type EmployerProfileWhereInput = {
   updated_at?: Prisma.DateTimeFilter<"EmployerProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   jobs?: Prisma.JobListRelationFilter
-  reviews_written?: Prisma.ReviewListRelationFilter
   favorite_employees?: Prisma.FavoriteWorkerListRelationFilter
 }
 
@@ -309,7 +308,6 @@ export type EmployerProfileOrderByWithRelationInput = {
   updated_at?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   jobs?: Prisma.JobOrderByRelationAggregateInput
-  reviews_written?: Prisma.ReviewOrderByRelationAggregateInput
   favorite_employees?: Prisma.FavoriteWorkerOrderByRelationAggregateInput
 }
 
@@ -331,7 +329,6 @@ export type EmployerProfileWhereUniqueInput = Prisma.AtLeast<{
   updated_at?: Prisma.DateTimeFilter<"EmployerProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   jobs?: Prisma.JobListRelationFilter
-  reviews_written?: Prisma.ReviewListRelationFilter
   favorite_employees?: Prisma.FavoriteWorkerListRelationFilter
 }, "id" | "user_id">
 
@@ -387,7 +384,6 @@ export type EmployerProfileCreateInput = {
   updated_at?: Date | string
   user: Prisma.UserCreateNestedOneWithoutEmployer_profileInput
   jobs?: Prisma.JobCreateNestedManyWithoutEmployerInput
-  reviews_written?: Prisma.ReviewCreateNestedManyWithoutEmployerInput
   favorite_employees?: Prisma.FavoriteWorkerCreateNestedManyWithoutEmployerInput
 }
 
@@ -405,7 +401,6 @@ export type EmployerProfileUncheckedCreateInput = {
   created_at?: Date | string
   updated_at?: Date | string
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutEmployerInput
-  reviews_written?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployerInput
   favorite_employees?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployerInput
 }
 
@@ -423,7 +418,6 @@ export type EmployerProfileUpdateInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutEmployer_profileNestedInput
   jobs?: Prisma.JobUpdateManyWithoutEmployerNestedInput
-  reviews_written?: Prisma.ReviewUpdateManyWithoutEmployerNestedInput
   favorite_employees?: Prisma.FavoriteWorkerUpdateManyWithoutEmployerNestedInput
 }
 
@@ -441,7 +435,6 @@ export type EmployerProfileUncheckedUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   jobs?: Prisma.JobUncheckedUpdateManyWithoutEmployerNestedInput
-  reviews_written?: Prisma.ReviewUncheckedUpdateManyWithoutEmployerNestedInput
   favorite_employees?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployerNestedInput
 }
 
@@ -588,20 +581,6 @@ export type EmployerProfileUpdateOneRequiredWithoutJobsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EmployerProfileUpdateToOneWithWhereWithoutJobsInput, Prisma.EmployerProfileUpdateWithoutJobsInput>, Prisma.EmployerProfileUncheckedUpdateWithoutJobsInput>
 }
 
-export type EmployerProfileCreateNestedOneWithoutReviews_writtenInput = {
-  create?: Prisma.XOR<Prisma.EmployerProfileCreateWithoutReviews_writtenInput, Prisma.EmployerProfileUncheckedCreateWithoutReviews_writtenInput>
-  connectOrCreate?: Prisma.EmployerProfileCreateOrConnectWithoutReviews_writtenInput
-  connect?: Prisma.EmployerProfileWhereUniqueInput
-}
-
-export type EmployerProfileUpdateOneRequiredWithoutReviews_writtenNestedInput = {
-  create?: Prisma.XOR<Prisma.EmployerProfileCreateWithoutReviews_writtenInput, Prisma.EmployerProfileUncheckedCreateWithoutReviews_writtenInput>
-  connectOrCreate?: Prisma.EmployerProfileCreateOrConnectWithoutReviews_writtenInput
-  upsert?: Prisma.EmployerProfileUpsertWithoutReviews_writtenInput
-  connect?: Prisma.EmployerProfileWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployerProfileUpdateToOneWithWhereWithoutReviews_writtenInput, Prisma.EmployerProfileUpdateWithoutReviews_writtenInput>, Prisma.EmployerProfileUncheckedUpdateWithoutReviews_writtenInput>
-}
-
 export type EmployerProfileCreateNestedOneWithoutUserInput = {
   create?: Prisma.XOR<Prisma.EmployerProfileCreateWithoutUserInput, Prisma.EmployerProfileUncheckedCreateWithoutUserInput>
   connectOrCreate?: Prisma.EmployerProfileCreateOrConnectWithoutUserInput
@@ -648,7 +627,6 @@ export type EmployerProfileCreateWithoutFavorite_employeesInput = {
   updated_at?: Date | string
   user: Prisma.UserCreateNestedOneWithoutEmployer_profileInput
   jobs?: Prisma.JobCreateNestedManyWithoutEmployerInput
-  reviews_written?: Prisma.ReviewCreateNestedManyWithoutEmployerInput
 }
 
 export type EmployerProfileUncheckedCreateWithoutFavorite_employeesInput = {
@@ -665,7 +643,6 @@ export type EmployerProfileUncheckedCreateWithoutFavorite_employeesInput = {
   created_at?: Date | string
   updated_at?: Date | string
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutEmployerInput
-  reviews_written?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployerInput
 }
 
 export type EmployerProfileCreateOrConnectWithoutFavorite_employeesInput = {
@@ -698,7 +675,6 @@ export type EmployerProfileUpdateWithoutFavorite_employeesInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutEmployer_profileNestedInput
   jobs?: Prisma.JobUpdateManyWithoutEmployerNestedInput
-  reviews_written?: Prisma.ReviewUpdateManyWithoutEmployerNestedInput
 }
 
 export type EmployerProfileUncheckedUpdateWithoutFavorite_employeesInput = {
@@ -715,7 +691,6 @@ export type EmployerProfileUncheckedUpdateWithoutFavorite_employeesInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   jobs?: Prisma.JobUncheckedUpdateManyWithoutEmployerNestedInput
-  reviews_written?: Prisma.ReviewUncheckedUpdateManyWithoutEmployerNestedInput
 }
 
 export type EmployerProfileCreateWithoutJobsInput = {
@@ -731,7 +706,6 @@ export type EmployerProfileCreateWithoutJobsInput = {
   created_at?: Date | string
   updated_at?: Date | string
   user: Prisma.UserCreateNestedOneWithoutEmployer_profileInput
-  reviews_written?: Prisma.ReviewCreateNestedManyWithoutEmployerInput
   favorite_employees?: Prisma.FavoriteWorkerCreateNestedManyWithoutEmployerInput
 }
 
@@ -748,7 +722,6 @@ export type EmployerProfileUncheckedCreateWithoutJobsInput = {
   total_hires?: number
   created_at?: Date | string
   updated_at?: Date | string
-  reviews_written?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployerInput
   favorite_employees?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployerInput
 }
 
@@ -781,7 +754,6 @@ export type EmployerProfileUpdateWithoutJobsInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutEmployer_profileNestedInput
-  reviews_written?: Prisma.ReviewUpdateManyWithoutEmployerNestedInput
   favorite_employees?: Prisma.FavoriteWorkerUpdateManyWithoutEmployerNestedInput
 }
 
@@ -798,91 +770,6 @@ export type EmployerProfileUncheckedUpdateWithoutJobsInput = {
   total_hires?: Prisma.IntFieldUpdateOperationsInput | number
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  reviews_written?: Prisma.ReviewUncheckedUpdateManyWithoutEmployerNestedInput
-  favorite_employees?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployerNestedInput
-}
-
-export type EmployerProfileCreateWithoutReviews_writtenInput = {
-  id?: string
-  company_name?: string | null
-  address?: string | null
-  latitude?: number | null
-  longitude?: number | null
-  profile_photo_url?: string | null
-  rating?: number
-  total_reviews?: number
-  total_hires?: number
-  created_at?: Date | string
-  updated_at?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutEmployer_profileInput
-  jobs?: Prisma.JobCreateNestedManyWithoutEmployerInput
-  favorite_employees?: Prisma.FavoriteWorkerCreateNestedManyWithoutEmployerInput
-}
-
-export type EmployerProfileUncheckedCreateWithoutReviews_writtenInput = {
-  id?: string
-  user_id: string
-  company_name?: string | null
-  address?: string | null
-  latitude?: number | null
-  longitude?: number | null
-  profile_photo_url?: string | null
-  rating?: number
-  total_reviews?: number
-  total_hires?: number
-  created_at?: Date | string
-  updated_at?: Date | string
-  jobs?: Prisma.JobUncheckedCreateNestedManyWithoutEmployerInput
-  favorite_employees?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployerInput
-}
-
-export type EmployerProfileCreateOrConnectWithoutReviews_writtenInput = {
-  where: Prisma.EmployerProfileWhereUniqueInput
-  create: Prisma.XOR<Prisma.EmployerProfileCreateWithoutReviews_writtenInput, Prisma.EmployerProfileUncheckedCreateWithoutReviews_writtenInput>
-}
-
-export type EmployerProfileUpsertWithoutReviews_writtenInput = {
-  update: Prisma.XOR<Prisma.EmployerProfileUpdateWithoutReviews_writtenInput, Prisma.EmployerProfileUncheckedUpdateWithoutReviews_writtenInput>
-  create: Prisma.XOR<Prisma.EmployerProfileCreateWithoutReviews_writtenInput, Prisma.EmployerProfileUncheckedCreateWithoutReviews_writtenInput>
-  where?: Prisma.EmployerProfileWhereInput
-}
-
-export type EmployerProfileUpdateToOneWithWhereWithoutReviews_writtenInput = {
-  where?: Prisma.EmployerProfileWhereInput
-  data: Prisma.XOR<Prisma.EmployerProfileUpdateWithoutReviews_writtenInput, Prisma.EmployerProfileUncheckedUpdateWithoutReviews_writtenInput>
-}
-
-export type EmployerProfileUpdateWithoutReviews_writtenInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  company_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
-  total_hires?: Prisma.IntFieldUpdateOperationsInput | number
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutEmployer_profileNestedInput
-  jobs?: Prisma.JobUpdateManyWithoutEmployerNestedInput
-  favorite_employees?: Prisma.FavoriteWorkerUpdateManyWithoutEmployerNestedInput
-}
-
-export type EmployerProfileUncheckedUpdateWithoutReviews_writtenInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  user_id?: Prisma.StringFieldUpdateOperationsInput | string
-  company_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  total_reviews?: Prisma.IntFieldUpdateOperationsInput | number
-  total_hires?: Prisma.IntFieldUpdateOperationsInput | number
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  jobs?: Prisma.JobUncheckedUpdateManyWithoutEmployerNestedInput
   favorite_employees?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployerNestedInput
 }
 
@@ -899,7 +786,6 @@ export type EmployerProfileCreateWithoutUserInput = {
   created_at?: Date | string
   updated_at?: Date | string
   jobs?: Prisma.JobCreateNestedManyWithoutEmployerInput
-  reviews_written?: Prisma.ReviewCreateNestedManyWithoutEmployerInput
   favorite_employees?: Prisma.FavoriteWorkerCreateNestedManyWithoutEmployerInput
 }
 
@@ -916,7 +802,6 @@ export type EmployerProfileUncheckedCreateWithoutUserInput = {
   created_at?: Date | string
   updated_at?: Date | string
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutEmployerInput
-  reviews_written?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployerInput
   favorite_employees?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployerInput
 }
 
@@ -949,7 +834,6 @@ export type EmployerProfileUpdateWithoutUserInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   jobs?: Prisma.JobUpdateManyWithoutEmployerNestedInput
-  reviews_written?: Prisma.ReviewUpdateManyWithoutEmployerNestedInput
   favorite_employees?: Prisma.FavoriteWorkerUpdateManyWithoutEmployerNestedInput
 }
 
@@ -966,7 +850,6 @@ export type EmployerProfileUncheckedUpdateWithoutUserInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   jobs?: Prisma.JobUncheckedUpdateManyWithoutEmployerNestedInput
-  reviews_written?: Prisma.ReviewUncheckedUpdateManyWithoutEmployerNestedInput
   favorite_employees?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployerNestedInput
 }
 
@@ -977,13 +860,11 @@ export type EmployerProfileUncheckedUpdateWithoutUserInput = {
 
 export type EmployerProfileCountOutputType = {
   jobs: number
-  reviews_written: number
   favorite_employees: number
 }
 
 export type EmployerProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   jobs?: boolean | EmployerProfileCountOutputTypeCountJobsArgs
-  reviews_written?: boolean | EmployerProfileCountOutputTypeCountReviews_writtenArgs
   favorite_employees?: boolean | EmployerProfileCountOutputTypeCountFavorite_employeesArgs
 }
 
@@ -1002,13 +883,6 @@ export type EmployerProfileCountOutputTypeDefaultArgs<ExtArgs extends runtime.Ty
  */
 export type EmployerProfileCountOutputTypeCountJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.JobWhereInput
-}
-
-/**
- * EmployerProfileCountOutputType without action
- */
-export type EmployerProfileCountOutputTypeCountReviews_writtenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ReviewWhereInput
 }
 
 /**
@@ -1034,7 +908,6 @@ export type EmployerProfileSelect<ExtArgs extends runtime.Types.Extensions.Inter
   updated_at?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   jobs?: boolean | Prisma.EmployerProfile$jobsArgs<ExtArgs>
-  reviews_written?: boolean | Prisma.EmployerProfile$reviews_writtenArgs<ExtArgs>
   favorite_employees?: boolean | Prisma.EmployerProfile$favorite_employeesArgs<ExtArgs>
   _count?: boolean | Prisma.EmployerProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["employerProfile"]>
@@ -1090,7 +963,6 @@ export type EmployerProfileOmit<ExtArgs extends runtime.Types.Extensions.Interna
 export type EmployerProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   jobs?: boolean | Prisma.EmployerProfile$jobsArgs<ExtArgs>
-  reviews_written?: boolean | Prisma.EmployerProfile$reviews_writtenArgs<ExtArgs>
   favorite_employees?: boolean | Prisma.EmployerProfile$favorite_employeesArgs<ExtArgs>
   _count?: boolean | Prisma.EmployerProfileCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1106,7 +978,6 @@ export type $EmployerProfilePayload<ExtArgs extends runtime.Types.Extensions.Int
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
     jobs: Prisma.$JobPayload<ExtArgs>[]
-    reviews_written: Prisma.$ReviewPayload<ExtArgs>[]
     favorite_employees: Prisma.$FavoriteWorkerPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1518,7 +1389,6 @@ export interface Prisma__EmployerProfileClient<T, Null = never, ExtArgs extends 
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   jobs<T extends Prisma.EmployerProfile$jobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployerProfile$jobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  reviews_written<T extends Prisma.EmployerProfile$reviews_writtenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployerProfile$reviews_writtenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   favorite_employees<T extends Prisma.EmployerProfile$favorite_employeesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployerProfile$favorite_employeesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FavoriteWorkerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1978,30 +1848,6 @@ export type EmployerProfile$jobsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.JobScalarFieldEnum | Prisma.JobScalarFieldEnum[]
-}
-
-/**
- * EmployerProfile.reviews_written
- */
-export type EmployerProfile$reviews_writtenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Review
-   */
-  select?: Prisma.ReviewSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Review
-   */
-  omit?: Prisma.ReviewOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ReviewInclude<ExtArgs> | null
-  where?: Prisma.ReviewWhereInput
-  orderBy?: Prisma.ReviewOrderByWithRelationInput | Prisma.ReviewOrderByWithRelationInput[]
-  cursor?: Prisma.ReviewWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
 }
 
 /**

@@ -37,9 +37,7 @@ export type ReviewSumAggregateOutputType = {
 export type ReviewMinAggregateOutputType = {
   id: string | null
   job_id: string | null
-  employer_id: string | null
   employee_id: string | null
-  reviewer_type: $Enums.ReviewerType | null
   rating: number | null
   comment: string | null
   created_at: Date | null
@@ -49,9 +47,7 @@ export type ReviewMinAggregateOutputType = {
 export type ReviewMaxAggregateOutputType = {
   id: string | null
   job_id: string | null
-  employer_id: string | null
   employee_id: string | null
-  reviewer_type: $Enums.ReviewerType | null
   rating: number | null
   comment: string | null
   created_at: Date | null
@@ -61,9 +57,7 @@ export type ReviewMaxAggregateOutputType = {
 export type ReviewCountAggregateOutputType = {
   id: number
   job_id: number
-  employer_id: number
   employee_id: number
-  reviewer_type: number
   rating: number
   comment: number
   created_at: number
@@ -83,9 +77,7 @@ export type ReviewSumAggregateInputType = {
 export type ReviewMinAggregateInputType = {
   id?: true
   job_id?: true
-  employer_id?: true
   employee_id?: true
-  reviewer_type?: true
   rating?: true
   comment?: true
   created_at?: true
@@ -95,9 +87,7 @@ export type ReviewMinAggregateInputType = {
 export type ReviewMaxAggregateInputType = {
   id?: true
   job_id?: true
-  employer_id?: true
   employee_id?: true
-  reviewer_type?: true
   rating?: true
   comment?: true
   created_at?: true
@@ -107,9 +97,7 @@ export type ReviewMaxAggregateInputType = {
 export type ReviewCountAggregateInputType = {
   id?: true
   job_id?: true
-  employer_id?: true
   employee_id?: true
-  reviewer_type?: true
   rating?: true
   comment?: true
   created_at?: true
@@ -206,9 +194,7 @@ export type ReviewGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 export type ReviewGroupByOutputType = {
   id: string
   job_id: string
-  employer_id: string
   employee_id: string
-  reviewer_type: $Enums.ReviewerType
   rating: number
   comment: string | null
   created_at: Date
@@ -241,28 +227,24 @@ export type ReviewWhereInput = {
   NOT?: Prisma.ReviewWhereInput | Prisma.ReviewWhereInput[]
   id?: Prisma.UuidFilter<"Review"> | string
   job_id?: Prisma.UuidFilter<"Review"> | string
-  employer_id?: Prisma.UuidFilter<"Review"> | string
   employee_id?: Prisma.UuidFilter<"Review"> | string
-  reviewer_type?: Prisma.EnumReviewerTypeFilter<"Review"> | $Enums.ReviewerType
   rating?: Prisma.FloatFilter<"Review"> | number
   comment?: Prisma.StringNullableFilter<"Review"> | string | null
   created_at?: Prisma.DateTimeFilter<"Review"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Review"> | Date | string
-  employer?: Prisma.XOR<Prisma.EmployerProfileScalarRelationFilter, Prisma.EmployerProfileWhereInput>
+  job?: Prisma.XOR<Prisma.JobScalarRelationFilter, Prisma.JobWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeProfileScalarRelationFilter, Prisma.EmployeeProfileWhereInput>
 }
 
 export type ReviewOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   job_id?: Prisma.SortOrder
-  employer_id?: Prisma.SortOrder
   employee_id?: Prisma.SortOrder
-  reviewer_type?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   comment?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
-  employer?: Prisma.EmployerProfileOrderByWithRelationInput
+  job?: Prisma.JobOrderByWithRelationInput
   employee?: Prisma.EmployeeProfileOrderByWithRelationInput
 }
 
@@ -272,23 +254,19 @@ export type ReviewWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ReviewWhereInput | Prisma.ReviewWhereInput[]
   OR?: Prisma.ReviewWhereInput[]
   NOT?: Prisma.ReviewWhereInput | Prisma.ReviewWhereInput[]
-  employer_id?: Prisma.UuidFilter<"Review"> | string
   employee_id?: Prisma.UuidFilter<"Review"> | string
-  reviewer_type?: Prisma.EnumReviewerTypeFilter<"Review"> | $Enums.ReviewerType
   rating?: Prisma.FloatFilter<"Review"> | number
   comment?: Prisma.StringNullableFilter<"Review"> | string | null
   created_at?: Prisma.DateTimeFilter<"Review"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Review"> | Date | string
-  employer?: Prisma.XOR<Prisma.EmployerProfileScalarRelationFilter, Prisma.EmployerProfileWhereInput>
+  job?: Prisma.XOR<Prisma.JobScalarRelationFilter, Prisma.JobWhereInput>
   employee?: Prisma.XOR<Prisma.EmployeeProfileScalarRelationFilter, Prisma.EmployeeProfileWhereInput>
 }, "id" | "job_id">
 
 export type ReviewOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   job_id?: Prisma.SortOrder
-  employer_id?: Prisma.SortOrder
   employee_id?: Prisma.SortOrder
-  reviewer_type?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   comment?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -306,9 +284,7 @@ export type ReviewScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ReviewScalarWhereWithAggregatesInput | Prisma.ReviewScalarWhereWithAggregatesInput[]
   id?: Prisma.UuidWithAggregatesFilter<"Review"> | string
   job_id?: Prisma.UuidWithAggregatesFilter<"Review"> | string
-  employer_id?: Prisma.UuidWithAggregatesFilter<"Review"> | string
   employee_id?: Prisma.UuidWithAggregatesFilter<"Review"> | string
-  reviewer_type?: Prisma.EnumReviewerTypeWithAggregatesFilter<"Review"> | $Enums.ReviewerType
   rating?: Prisma.FloatWithAggregatesFilter<"Review"> | number
   comment?: Prisma.StringNullableWithAggregatesFilter<"Review"> | string | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Review"> | Date | string
@@ -317,22 +293,18 @@ export type ReviewScalarWhereWithAggregatesInput = {
 
 export type ReviewCreateInput = {
   id?: string
-  job_id: string
-  reviewer_type: $Enums.ReviewerType
   rating: number
   comment?: string | null
   created_at?: Date | string
   updated_at?: Date | string
-  employer: Prisma.EmployerProfileCreateNestedOneWithoutReviews_writtenInput
+  job: Prisma.JobCreateNestedOneWithoutReviewInput
   employee: Prisma.EmployeeProfileCreateNestedOneWithoutReceived_reviewsInput
 }
 
 export type ReviewUncheckedCreateInput = {
   id?: string
   job_id: string
-  employer_id: string
   employee_id: string
-  reviewer_type: $Enums.ReviewerType
   rating: number
   comment?: string | null
   created_at?: Date | string
@@ -341,22 +313,18 @@ export type ReviewUncheckedCreateInput = {
 
 export type ReviewUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  job_id?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewer_type?: Prisma.EnumReviewerTypeFieldUpdateOperationsInput | $Enums.ReviewerType
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  employer?: Prisma.EmployerProfileUpdateOneRequiredWithoutReviews_writtenNestedInput
+  job?: Prisma.JobUpdateOneRequiredWithoutReviewNestedInput
   employee?: Prisma.EmployeeProfileUpdateOneRequiredWithoutReceived_reviewsNestedInput
 }
 
 export type ReviewUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   job_id?: Prisma.StringFieldUpdateOperationsInput | string
-  employer_id?: Prisma.StringFieldUpdateOperationsInput | string
   employee_id?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewer_type?: Prisma.EnumReviewerTypeFieldUpdateOperationsInput | $Enums.ReviewerType
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -366,9 +334,7 @@ export type ReviewUncheckedUpdateInput = {
 export type ReviewCreateManyInput = {
   id?: string
   job_id: string
-  employer_id: string
   employee_id: string
-  reviewer_type: $Enums.ReviewerType
   rating: number
   comment?: string | null
   created_at?: Date | string
@@ -377,8 +343,6 @@ export type ReviewCreateManyInput = {
 
 export type ReviewUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  job_id?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewer_type?: Prisma.EnumReviewerTypeFieldUpdateOperationsInput | $Enums.ReviewerType
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -388,9 +352,7 @@ export type ReviewUpdateManyMutationInput = {
 export type ReviewUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   job_id?: Prisma.StringFieldUpdateOperationsInput | string
-  employer_id?: Prisma.StringFieldUpdateOperationsInput | string
   employee_id?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewer_type?: Prisma.EnumReviewerTypeFieldUpdateOperationsInput | $Enums.ReviewerType
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -407,12 +369,15 @@ export type ReviewOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type ReviewNullableScalarRelationFilter = {
+  is?: Prisma.ReviewWhereInput | null
+  isNot?: Prisma.ReviewWhereInput | null
+}
+
 export type ReviewCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   job_id?: Prisma.SortOrder
-  employer_id?: Prisma.SortOrder
   employee_id?: Prisma.SortOrder
-  reviewer_type?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   comment?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -426,9 +391,7 @@ export type ReviewAvgOrderByAggregateInput = {
 export type ReviewMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   job_id?: Prisma.SortOrder
-  employer_id?: Prisma.SortOrder
   employee_id?: Prisma.SortOrder
-  reviewer_type?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   comment?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -438,9 +401,7 @@ export type ReviewMaxOrderByAggregateInput = {
 export type ReviewMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   job_id?: Prisma.SortOrder
-  employer_id?: Prisma.SortOrder
   employee_id?: Prisma.SortOrder
-  reviewer_type?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   comment?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
@@ -493,68 +454,50 @@ export type ReviewUncheckedUpdateManyWithoutEmployeeNestedInput = {
   deleteMany?: Prisma.ReviewScalarWhereInput | Prisma.ReviewScalarWhereInput[]
 }
 
-export type ReviewCreateNestedManyWithoutEmployerInput = {
-  create?: Prisma.XOR<Prisma.ReviewCreateWithoutEmployerInput, Prisma.ReviewUncheckedCreateWithoutEmployerInput> | Prisma.ReviewCreateWithoutEmployerInput[] | Prisma.ReviewUncheckedCreateWithoutEmployerInput[]
-  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutEmployerInput | Prisma.ReviewCreateOrConnectWithoutEmployerInput[]
-  createMany?: Prisma.ReviewCreateManyEmployerInputEnvelope
-  connect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
+export type ReviewCreateNestedOneWithoutJobInput = {
+  create?: Prisma.XOR<Prisma.ReviewCreateWithoutJobInput, Prisma.ReviewUncheckedCreateWithoutJobInput>
+  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutJobInput
+  connect?: Prisma.ReviewWhereUniqueInput
 }
 
-export type ReviewUncheckedCreateNestedManyWithoutEmployerInput = {
-  create?: Prisma.XOR<Prisma.ReviewCreateWithoutEmployerInput, Prisma.ReviewUncheckedCreateWithoutEmployerInput> | Prisma.ReviewCreateWithoutEmployerInput[] | Prisma.ReviewUncheckedCreateWithoutEmployerInput[]
-  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutEmployerInput | Prisma.ReviewCreateOrConnectWithoutEmployerInput[]
-  createMany?: Prisma.ReviewCreateManyEmployerInputEnvelope
-  connect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
+export type ReviewUncheckedCreateNestedOneWithoutJobInput = {
+  create?: Prisma.XOR<Prisma.ReviewCreateWithoutJobInput, Prisma.ReviewUncheckedCreateWithoutJobInput>
+  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutJobInput
+  connect?: Prisma.ReviewWhereUniqueInput
 }
 
-export type ReviewUpdateManyWithoutEmployerNestedInput = {
-  create?: Prisma.XOR<Prisma.ReviewCreateWithoutEmployerInput, Prisma.ReviewUncheckedCreateWithoutEmployerInput> | Prisma.ReviewCreateWithoutEmployerInput[] | Prisma.ReviewUncheckedCreateWithoutEmployerInput[]
-  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutEmployerInput | Prisma.ReviewCreateOrConnectWithoutEmployerInput[]
-  upsert?: Prisma.ReviewUpsertWithWhereUniqueWithoutEmployerInput | Prisma.ReviewUpsertWithWhereUniqueWithoutEmployerInput[]
-  createMany?: Prisma.ReviewCreateManyEmployerInputEnvelope
-  set?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
-  disconnect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
-  delete?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
-  connect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
-  update?: Prisma.ReviewUpdateWithWhereUniqueWithoutEmployerInput | Prisma.ReviewUpdateWithWhereUniqueWithoutEmployerInput[]
-  updateMany?: Prisma.ReviewUpdateManyWithWhereWithoutEmployerInput | Prisma.ReviewUpdateManyWithWhereWithoutEmployerInput[]
-  deleteMany?: Prisma.ReviewScalarWhereInput | Prisma.ReviewScalarWhereInput[]
+export type ReviewUpdateOneWithoutJobNestedInput = {
+  create?: Prisma.XOR<Prisma.ReviewCreateWithoutJobInput, Prisma.ReviewUncheckedCreateWithoutJobInput>
+  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutJobInput
+  upsert?: Prisma.ReviewUpsertWithoutJobInput
+  disconnect?: Prisma.ReviewWhereInput | boolean
+  delete?: Prisma.ReviewWhereInput | boolean
+  connect?: Prisma.ReviewWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ReviewUpdateToOneWithWhereWithoutJobInput, Prisma.ReviewUpdateWithoutJobInput>, Prisma.ReviewUncheckedUpdateWithoutJobInput>
 }
 
-export type ReviewUncheckedUpdateManyWithoutEmployerNestedInput = {
-  create?: Prisma.XOR<Prisma.ReviewCreateWithoutEmployerInput, Prisma.ReviewUncheckedCreateWithoutEmployerInput> | Prisma.ReviewCreateWithoutEmployerInput[] | Prisma.ReviewUncheckedCreateWithoutEmployerInput[]
-  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutEmployerInput | Prisma.ReviewCreateOrConnectWithoutEmployerInput[]
-  upsert?: Prisma.ReviewUpsertWithWhereUniqueWithoutEmployerInput | Prisma.ReviewUpsertWithWhereUniqueWithoutEmployerInput[]
-  createMany?: Prisma.ReviewCreateManyEmployerInputEnvelope
-  set?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
-  disconnect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
-  delete?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
-  connect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
-  update?: Prisma.ReviewUpdateWithWhereUniqueWithoutEmployerInput | Prisma.ReviewUpdateWithWhereUniqueWithoutEmployerInput[]
-  updateMany?: Prisma.ReviewUpdateManyWithWhereWithoutEmployerInput | Prisma.ReviewUpdateManyWithWhereWithoutEmployerInput[]
-  deleteMany?: Prisma.ReviewScalarWhereInput | Prisma.ReviewScalarWhereInput[]
-}
-
-export type EnumReviewerTypeFieldUpdateOperationsInput = {
-  set?: $Enums.ReviewerType
+export type ReviewUncheckedUpdateOneWithoutJobNestedInput = {
+  create?: Prisma.XOR<Prisma.ReviewCreateWithoutJobInput, Prisma.ReviewUncheckedCreateWithoutJobInput>
+  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutJobInput
+  upsert?: Prisma.ReviewUpsertWithoutJobInput
+  disconnect?: Prisma.ReviewWhereInput | boolean
+  delete?: Prisma.ReviewWhereInput | boolean
+  connect?: Prisma.ReviewWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ReviewUpdateToOneWithWhereWithoutJobInput, Prisma.ReviewUpdateWithoutJobInput>, Prisma.ReviewUncheckedUpdateWithoutJobInput>
 }
 
 export type ReviewCreateWithoutEmployeeInput = {
   id?: string
-  job_id: string
-  reviewer_type: $Enums.ReviewerType
   rating: number
   comment?: string | null
   created_at?: Date | string
   updated_at?: Date | string
-  employer: Prisma.EmployerProfileCreateNestedOneWithoutReviews_writtenInput
+  job: Prisma.JobCreateNestedOneWithoutReviewInput
 }
 
 export type ReviewUncheckedCreateWithoutEmployeeInput = {
   id?: string
   job_id: string
-  employer_id: string
-  reviewer_type: $Enums.ReviewerType
   rating: number
   comment?: string | null
   created_at?: Date | string
@@ -593,19 +536,15 @@ export type ReviewScalarWhereInput = {
   NOT?: Prisma.ReviewScalarWhereInput | Prisma.ReviewScalarWhereInput[]
   id?: Prisma.UuidFilter<"Review"> | string
   job_id?: Prisma.UuidFilter<"Review"> | string
-  employer_id?: Prisma.UuidFilter<"Review"> | string
   employee_id?: Prisma.UuidFilter<"Review"> | string
-  reviewer_type?: Prisma.EnumReviewerTypeFilter<"Review"> | $Enums.ReviewerType
   rating?: Prisma.FloatFilter<"Review"> | number
   comment?: Prisma.StringNullableFilter<"Review"> | string | null
   created_at?: Prisma.DateTimeFilter<"Review"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Review"> | Date | string
 }
 
-export type ReviewCreateWithoutEmployerInput = {
+export type ReviewCreateWithoutJobInput = {
   id?: string
-  job_id: string
-  reviewer_type: $Enums.ReviewerType
   rating: number
   comment?: string | null
   created_at?: Date | string
@@ -613,48 +552,52 @@ export type ReviewCreateWithoutEmployerInput = {
   employee: Prisma.EmployeeProfileCreateNestedOneWithoutReceived_reviewsInput
 }
 
-export type ReviewUncheckedCreateWithoutEmployerInput = {
+export type ReviewUncheckedCreateWithoutJobInput = {
   id?: string
-  job_id: string
   employee_id: string
-  reviewer_type: $Enums.ReviewerType
   rating: number
   comment?: string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
 
-export type ReviewCreateOrConnectWithoutEmployerInput = {
+export type ReviewCreateOrConnectWithoutJobInput = {
   where: Prisma.ReviewWhereUniqueInput
-  create: Prisma.XOR<Prisma.ReviewCreateWithoutEmployerInput, Prisma.ReviewUncheckedCreateWithoutEmployerInput>
+  create: Prisma.XOR<Prisma.ReviewCreateWithoutJobInput, Prisma.ReviewUncheckedCreateWithoutJobInput>
 }
 
-export type ReviewCreateManyEmployerInputEnvelope = {
-  data: Prisma.ReviewCreateManyEmployerInput | Prisma.ReviewCreateManyEmployerInput[]
-  skipDuplicates?: boolean
+export type ReviewUpsertWithoutJobInput = {
+  update: Prisma.XOR<Prisma.ReviewUpdateWithoutJobInput, Prisma.ReviewUncheckedUpdateWithoutJobInput>
+  create: Prisma.XOR<Prisma.ReviewCreateWithoutJobInput, Prisma.ReviewUncheckedCreateWithoutJobInput>
+  where?: Prisma.ReviewWhereInput
 }
 
-export type ReviewUpsertWithWhereUniqueWithoutEmployerInput = {
-  where: Prisma.ReviewWhereUniqueInput
-  update: Prisma.XOR<Prisma.ReviewUpdateWithoutEmployerInput, Prisma.ReviewUncheckedUpdateWithoutEmployerInput>
-  create: Prisma.XOR<Prisma.ReviewCreateWithoutEmployerInput, Prisma.ReviewUncheckedCreateWithoutEmployerInput>
+export type ReviewUpdateToOneWithWhereWithoutJobInput = {
+  where?: Prisma.ReviewWhereInput
+  data: Prisma.XOR<Prisma.ReviewUpdateWithoutJobInput, Prisma.ReviewUncheckedUpdateWithoutJobInput>
 }
 
-export type ReviewUpdateWithWhereUniqueWithoutEmployerInput = {
-  where: Prisma.ReviewWhereUniqueInput
-  data: Prisma.XOR<Prisma.ReviewUpdateWithoutEmployerInput, Prisma.ReviewUncheckedUpdateWithoutEmployerInput>
+export type ReviewUpdateWithoutJobInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employee?: Prisma.EmployeeProfileUpdateOneRequiredWithoutReceived_reviewsNestedInput
 }
 
-export type ReviewUpdateManyWithWhereWithoutEmployerInput = {
-  where: Prisma.ReviewScalarWhereInput
-  data: Prisma.XOR<Prisma.ReviewUpdateManyMutationInput, Prisma.ReviewUncheckedUpdateManyWithoutEmployerInput>
+export type ReviewUncheckedUpdateWithoutJobInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  employee_id?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReviewCreateManyEmployeeInput = {
   id?: string
   job_id: string
-  employer_id: string
-  reviewer_type: $Enums.ReviewerType
   rating: number
   comment?: string | null
   created_at?: Date | string
@@ -663,20 +606,16 @@ export type ReviewCreateManyEmployeeInput = {
 
 export type ReviewUpdateWithoutEmployeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  job_id?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewer_type?: Prisma.EnumReviewerTypeFieldUpdateOperationsInput | $Enums.ReviewerType
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  employer?: Prisma.EmployerProfileUpdateOneRequiredWithoutReviews_writtenNestedInput
+  job?: Prisma.JobUpdateOneRequiredWithoutReviewNestedInput
 }
 
 export type ReviewUncheckedUpdateWithoutEmployeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   job_id?: Prisma.StringFieldUpdateOperationsInput | string
-  employer_id?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewer_type?: Prisma.EnumReviewerTypeFieldUpdateOperationsInput | $Enums.ReviewerType
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -686,52 +625,6 @@ export type ReviewUncheckedUpdateWithoutEmployeeInput = {
 export type ReviewUncheckedUpdateManyWithoutEmployeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   job_id?: Prisma.StringFieldUpdateOperationsInput | string
-  employer_id?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewer_type?: Prisma.EnumReviewerTypeFieldUpdateOperationsInput | $Enums.ReviewerType
-  rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type ReviewCreateManyEmployerInput = {
-  id?: string
-  job_id: string
-  employee_id: string
-  reviewer_type: $Enums.ReviewerType
-  rating: number
-  comment?: string | null
-  created_at?: Date | string
-  updated_at?: Date | string
-}
-
-export type ReviewUpdateWithoutEmployerInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  job_id?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewer_type?: Prisma.EnumReviewerTypeFieldUpdateOperationsInput | $Enums.ReviewerType
-  rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  employee?: Prisma.EmployeeProfileUpdateOneRequiredWithoutReceived_reviewsNestedInput
-}
-
-export type ReviewUncheckedUpdateWithoutEmployerInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  job_id?: Prisma.StringFieldUpdateOperationsInput | string
-  employee_id?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewer_type?: Prisma.EnumReviewerTypeFieldUpdateOperationsInput | $Enums.ReviewerType
-  rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type ReviewUncheckedUpdateManyWithoutEmployerInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  job_id?: Prisma.StringFieldUpdateOperationsInput | string
-  employee_id?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewer_type?: Prisma.EnumReviewerTypeFieldUpdateOperationsInput | $Enums.ReviewerType
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -743,83 +636,73 @@ export type ReviewUncheckedUpdateManyWithoutEmployerInput = {
 export type ReviewSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   job_id?: boolean
-  employer_id?: boolean
   employee_id?: boolean
-  reviewer_type?: boolean
   rating?: boolean
   comment?: boolean
   created_at?: boolean
   updated_at?: boolean
-  employer?: boolean | Prisma.EmployerProfileDefaultArgs<ExtArgs>
+  job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeProfileDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["review"]>
 
 export type ReviewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   job_id?: boolean
-  employer_id?: boolean
   employee_id?: boolean
-  reviewer_type?: boolean
   rating?: boolean
   comment?: boolean
   created_at?: boolean
   updated_at?: boolean
-  employer?: boolean | Prisma.EmployerProfileDefaultArgs<ExtArgs>
+  job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeProfileDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["review"]>
 
 export type ReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   job_id?: boolean
-  employer_id?: boolean
   employee_id?: boolean
-  reviewer_type?: boolean
   rating?: boolean
   comment?: boolean
   created_at?: boolean
   updated_at?: boolean
-  employer?: boolean | Prisma.EmployerProfileDefaultArgs<ExtArgs>
+  job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeProfileDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["review"]>
 
 export type ReviewSelectScalar = {
   id?: boolean
   job_id?: boolean
-  employer_id?: boolean
   employee_id?: boolean
-  reviewer_type?: boolean
   rating?: boolean
   comment?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type ReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "job_id" | "employer_id" | "employee_id" | "reviewer_type" | "rating" | "comment" | "created_at" | "updated_at", ExtArgs["result"]["review"]>
+export type ReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "job_id" | "employee_id" | "rating" | "comment" | "created_at" | "updated_at", ExtArgs["result"]["review"]>
 export type ReviewInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  employer?: boolean | Prisma.EmployerProfileDefaultArgs<ExtArgs>
+  job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeProfileDefaultArgs<ExtArgs>
 }
 export type ReviewIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  employer?: boolean | Prisma.EmployerProfileDefaultArgs<ExtArgs>
+  job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeProfileDefaultArgs<ExtArgs>
 }
 export type ReviewIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  employer?: boolean | Prisma.EmployerProfileDefaultArgs<ExtArgs>
+  job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
   employee?: boolean | Prisma.EmployeeProfileDefaultArgs<ExtArgs>
 }
 
 export type $ReviewPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Review"
   objects: {
-    employer: Prisma.$EmployerProfilePayload<ExtArgs>
+    job: Prisma.$JobPayload<ExtArgs>
     employee: Prisma.$EmployeeProfilePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     job_id: string
-    employer_id: string
     employee_id: string
-    reviewer_type: $Enums.ReviewerType
     rating: number
     comment: string | null
     created_at: Date
@@ -1218,7 +1101,7 @@ readonly fields: ReviewFieldRefs;
  */
 export interface Prisma__ReviewClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  employer<T extends Prisma.EmployerProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployerProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__EmployerProfileClient<runtime.Types.Result.GetResult<Prisma.$EmployerProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  job<T extends Prisma.JobDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobDefaultArgs<ExtArgs>>): Prisma.Prisma__JobClient<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   employee<T extends Prisma.EmployeeProfileDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeProfileDefaultArgs<ExtArgs>>): Prisma.Prisma__EmployeeProfileClient<runtime.Types.Result.GetResult<Prisma.$EmployeeProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1251,9 +1134,7 @@ export interface Prisma__ReviewClient<T, Null = never, ExtArgs extends runtime.T
 export interface ReviewFieldRefs {
   readonly id: Prisma.FieldRef<"Review", 'String'>
   readonly job_id: Prisma.FieldRef<"Review", 'String'>
-  readonly employer_id: Prisma.FieldRef<"Review", 'String'>
   readonly employee_id: Prisma.FieldRef<"Review", 'String'>
-  readonly reviewer_type: Prisma.FieldRef<"Review", 'ReviewerType'>
   readonly rating: Prisma.FieldRef<"Review", 'Float'>
   readonly comment: Prisma.FieldRef<"Review", 'String'>
   readonly created_at: Prisma.FieldRef<"Review", 'DateTime'>

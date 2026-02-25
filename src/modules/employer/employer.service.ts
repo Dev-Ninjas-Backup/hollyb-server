@@ -15,6 +15,7 @@ import {
 } from '@prisma';
 import { S3UploadService } from '@/common/upload/s3-upload.service';
 import { SubscriptionService } from '../subscription/subscription.service';
+import { CreateReviewJobDto } from './dto/review-completed-job.dto';
 
 @Injectable()
 export class EmployerService {
@@ -751,4 +752,170 @@ export class EmployerService {
       },
     };
   }
+
+  async createReviewJob(job_id: string, dto: CreateReviewJobDto) {
+    const job = await this.prisma.client.job.findUnique({
+      where: { id: job_id },
+      include: {
+        employer: true,
+        assigned_employee: true,
+        review: true
+      },
+    });
+
+    if (!job) {
+      throw new BusinessException('Job not found', HttpStatus.NOT_FOUND);
+    }
+
+    if (job.status !== JobStatus.completed) {
+      throw new BusinessException(
+        'Only completed jobs can be reviewed',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    if (!job.assigned_employee_id) {
+      throw new BusinessException(
+        'Cannot review a job without an assigned employee',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    if (job.review) {
+      throw new BusinessException(
+        'This job has already been reviewed',
+        HttpStatus.CONFLICT,
+      );
+    }
+
+    // Validate rating range
+    if (dto.rating < 0 || dto.rating > 5) {
+      throw new BusinessException(
+        'Rating must be between 0 and 5',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    // Create review and update employee profile in a transaction
+    const result = await this.prisma.client.$transaction(async (tx) => {
+      // Create the review
+      const review = await tx.review.create({
+        data: {
+          job_id: job_id,
+          employee_id: job.assigned_employee_id!,
+          rating: dto.rating,
+          comment: dto.comment || null,
+        },
+      });
+
+      // Get all reviews for this employee to recalculate average rating
+      const allReviews = await tx.review.findMany({
+        where: { employee_id: job.assigned_employee_id! },
+        select: { 
+          
+          rating: true },
+      });
+
+      // Calculate new average rating
+      const totalRating = allReviews.reduce((sum, r) => sum + r.rating, 0);
+      const averageRating = totalRating / allReviews.length;
+
+      // Update employee profile with new rating and review count
+      const updatedEmployee = await tx.employeeProfile.update({
+        where: { id: job.assigned_employee_id! },
+        data: {
+          rating: averageRating,
+          total_reviews: allReviews.length,
+        },
+      });
+
+      return { review, updatedEmployee };
+    });
+
+    return {
+      success: true,
+      message: 'Job reviewed and employee profile updated successfully',
+      data: {
+        reviewId: result.review.id,
+        rating: result.review.rating,
+        employeeNewRating: result.updatedEmployee.rating,
+        employeeTotalReviews: result.updatedEmployee.total_reviews,
+      },
+    };
+  }
+
+  async getAllReviews(
+    page: number = 1,
+    limit: number = 10,
+    employeeId?: string,
+    jobId?: string,
+  ) {
+    const skip = (page - 1) * limit;
+
+    const whereConditions: Prisma.ReviewWhereInput = {};
+
+    if (employeeId) {
+      whereConditions.employee_id = employeeId;
+    }
+
+    if (jobId) {
+      whereConditions.job_id = jobId;
+    }
+
+    const reviews = await this.prisma.client.review.findMany({
+      where: whereConditions,
+      select: {
+        id: true,
+        rating: true,
+        comment: true,
+        created_at: true,
+        updated_at: true,
+        job: {
+          select: {
+            id: true,
+            title: true,
+            company_name: true,
+            status: true,
+            job_date: true,
+            location: true,
+          },
+        },
+        employee: {
+          select: {
+            id: true,
+            profile_photo_url: true,
+            rating: true,
+            total_reviews: true,
+            user: {
+              select: {
+                full_name: true,
+                email: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: { created_at: 'desc' },
+      skip,
+      take: limit,
+    });
+
+    const totalReviews = await this.prisma.client.review.count({
+      where: whereConditions,
+    });
+
+    return {
+      success: true,
+      message: 'Reviews retrieved successfully',
+      data: reviews,
+      paginationInfo: {
+        page,
+        limit,
+        totalReviews,
+        totalPages: Math.ceil(totalReviews / limit),
+      },
+    };
+  }
+
+  
 }
