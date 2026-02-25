@@ -1,4 +1,12 @@
-import { Controller, Get, Param, Query, Req, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Query,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -85,7 +93,7 @@ export class EmployeeController {
     description: 'Job details retrieved successfully',
   })
   @ApiResponse({ status: 404, description: 'Job not found' })
-  getJobById(@Param('id') id: string) {
+  getJobById(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.employeeService.getJobById(id);
   }
 }

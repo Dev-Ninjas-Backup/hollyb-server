@@ -17,6 +17,6 @@ import { EmployeeService } from './employee.service';
     JwtAuthGuard,
     RolesGuard,
   ],
-  controllers: [EmployeeController, EmployyeJobsApplyController],
+  controllers: [EmployyeJobsApplyController, EmployeeController],
 })
 export class EmployeeModule {}

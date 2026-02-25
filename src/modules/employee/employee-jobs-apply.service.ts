@@ -18,6 +18,19 @@ export class EmployeeJobsApplyService {
     private readonly subscriptionService: SubscriptionService,
   ) {}
 
+  private formatTime12h(time: Date | null | undefined): string | null {
+    if (!time) {
+      return null;
+    }
+
+    const hours24 = time.getUTCHours();
+    const minutes = String(time.getUTCMinutes()).padStart(2, '0');
+    const hour12 = hours24 % 12 || 12;
+    const suffix = hours24 >= 12 ? 'PM' : 'AM';
+
+    return `${String(hour12).padStart(2, '0')}:${minutes} ${suffix}`;
+  }
+
   async applyToJob(userId: string, jobId: string, dto: ApplyJobDto) {
     const employeeProfile = await this.prisma.client.employeeProfile.findUnique(
       {
@@ -240,7 +253,11 @@ export class EmployeeJobsApplyService {
         applied_at: item.applied_at,
         updated_at: item.updated_at,
         list_state: isCompleted ? 'completed' : 'active',
-        job: item.job,
+        job: {
+          ...item.job,
+          start_time: this.formatTime12h(item.job.start_time),
+          end_time: this.formatTime12h(item.job.end_time),
+        },
       };
     });
 
@@ -325,8 +342,8 @@ export class EmployeeJobsApplyService {
           amount: job.amount,
           totalAmount: job.totalAmount,
           job_date: job.job_date,
-          start_time: job.start_time,
-          end_time: job.end_time,
+          start_time: this.formatTime12h(job.start_time),
+          end_time: this.formatTime12h(job.end_time),
           status: job.status,
           file: job.file,
         },
@@ -723,10 +740,10 @@ export class EmployeeJobsApplyService {
   private combineDateAndTime(datePart: Date, timePart: Date) {
     const combined = new Date(datePart);
     combined.setHours(
-      timePart.getHours(),
-      timePart.getMinutes(),
-      timePart.getSeconds(),
-      timePart.getMilliseconds(),
+      timePart.getUTCHours(),
+      timePart.getUTCMinutes(),
+      timePart.getUTCSeconds(),
+      timePart.getUTCMilliseconds(),
     );
     return combined;
   }
