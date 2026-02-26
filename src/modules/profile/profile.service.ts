@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from '@/prisma/prisma.service';
 import { ResponseHelper } from '@/common/utils/response.helper';
 import {
@@ -6,8 +6,10 @@ import {
   ResourceNotFoundException,
 } from '@/common/exceptions/business.exception';
 import { UpdateProfileDto } from './dto/update-profile.dto';
-import { UserRole } from '@prisma';
+import { AccountStatus, AuthProvider, UserRole } from '@prisma';
 import { S3UploadService } from '@/common/upload/s3-upload.service';
+import { compare, hash } from 'bcryptjs';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
 @Injectable()
 export class ProfileService {
@@ -213,5 +215,107 @@ export class ProfileService {
       { isNotify: updated.isNotify },
       'Notification preference updated successfully',
     );
+  }
+
+  async changePassword(userId: string, dto: ChangePasswordDto) {
+    const user = await this.prismaService.client.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        password_hash: true,
+        is_deleted: true,
+      },
+    });
+
+    if (!user) {
+      throw new ResourceNotFoundException('User', userId);
+    }
+
+    if (user.is_deleted) {
+      throw new BusinessException(
+        'Your account has been deleted. Please contact support for help.',
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
+    if (!user.password_hash) {
+      throw new BusinessException(
+        'Password is not set for this account',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    const isOldPasswordValid = await compare(
+      dto.oldPassword,
+      user.password_hash,
+    );
+    if (!isOldPasswordValid) {
+      throw new BusinessException(
+        'Old password is incorrect',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    const newPasswordHash = await hash(dto.newPassword, 10);
+
+    await this.prismaService.client.$transaction([
+      this.prismaService.client.user.update({
+        where: { id: userId },
+        data: {
+          password_hash: newPasswordHash,
+          last_active_at: new Date(),
+        },
+      }),
+      this.prismaService.client.userAuthProvider.updateMany({
+        where: {
+          user_id: userId,
+          provider: AuthProvider.credentials,
+        },
+        data: {
+          access_token: null,
+          refresh_token: null,
+        },
+      }),
+    ]);
+
+    return ResponseHelper.success(null, 'Password changed successfully');
+  }
+
+  async deleteMe(userId: string) {
+    const user = await this.prismaService.client.user.findUnique({
+      where: { id: userId },
+      select: { id: true, is_deleted: true },
+    });
+
+    if (!user) {
+      throw new ResourceNotFoundException('User', userId);
+    }
+
+    if (user.is_deleted) {
+      return ResponseHelper.success(null, 'Account is already deleted');
+    }
+
+    await this.prismaService.client.$transaction([
+      this.prismaService.client.user.update({
+        where: { id: userId },
+        data: {
+          is_deleted: true,
+          is_active: false,
+          account_status: AccountStatus.blocked,
+          last_active_at: new Date(),
+        },
+      }),
+      this.prismaService.client.userAuthProvider.updateMany({
+        where: {
+          user_id: userId,
+        },
+        data: {
+          access_token: null,
+          refresh_token: null,
+        },
+      }),
+    ]);
+
+    return ResponseHelper.success(null, 'Account deleted successfully');
   }
 }
