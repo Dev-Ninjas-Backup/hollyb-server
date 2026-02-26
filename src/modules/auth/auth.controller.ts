@@ -11,7 +11,6 @@ import { VerifyOtpDto } from './dto/verify-otp.dto';
 import { AdminVerifyOtpDto } from './dto/admin-verify-otp.dto';
 import { LoginDto } from './dto/login.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
-import { ChangePasswordDto } from './dto/change-password.dto';
 import { ResetOtpDto } from './dto/reset-otp.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { SocialLoginDto } from './dto/social-login.dto';
@@ -153,27 +152,6 @@ export class AuthController {
   @ApiResponse({ status: 404, description: 'Email not found.' })
   forgotPassword(@Body() dto: ForgotPasswordDto) {
     return this.authService.forgotPassword(dto);
-  }
-
-  @Post('change-password')
-  @ApiOperation({
-    summary: 'Change password',
-    description:
-      'Change password for authenticated user. Requires old password verification.',
-  })
-  @ApiResponse({ status: 200, description: 'Password changed successfully.' })
-  @ApiResponse({ status: 400, description: 'Invalid old password.' })
-  @ApiResponse({
-    status: 401,
-    description: 'Unauthorized. Invalid or missing token.',
-  })
-  @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
-  changePassword(
-    @Body() dto: ChangePasswordDto,
-    @Req() req: AuthenticatedRequest,
-  ) {
-    return this.authService.changePassword(req.user.sub, dto);
   }
 
   @Post('reset-password')

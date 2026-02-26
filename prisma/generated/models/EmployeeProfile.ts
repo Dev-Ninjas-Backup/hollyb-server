@@ -335,7 +335,7 @@ export type EmployeeProfileWhereInput = {
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   employee_skills?: Prisma.EmployeeSkillListRelationFilter
   job_applications?: Prisma.JobApplicationListRelationFilter
-  assigned_job?: Prisma.XOR<Prisma.JobNullableScalarRelationFilter, Prisma.JobWhereInput> | null
+  assigned_job?: Prisma.JobListRelationFilter
   shifts?: Prisma.JobShiftListRelationFilter
   earnings?: Prisma.EarningListRelationFilter
   received_reviews?: Prisma.ReviewListRelationFilter
@@ -362,7 +362,7 @@ export type EmployeeProfileOrderByWithRelationInput = {
   user?: Prisma.UserOrderByWithRelationInput
   employee_skills?: Prisma.EmployeeSkillOrderByRelationAggregateInput
   job_applications?: Prisma.JobApplicationOrderByRelationAggregateInput
-  assigned_job?: Prisma.JobOrderByWithRelationInput
+  assigned_job?: Prisma.JobOrderByRelationAggregateInput
   shifts?: Prisma.JobShiftOrderByRelationAggregateInput
   earnings?: Prisma.EarningOrderByRelationAggregateInput
   received_reviews?: Prisma.ReviewOrderByRelationAggregateInput
@@ -392,7 +392,7 @@ export type EmployeeProfileWhereUniqueInput = Prisma.AtLeast<{
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   employee_skills?: Prisma.EmployeeSkillListRelationFilter
   job_applications?: Prisma.JobApplicationListRelationFilter
-  assigned_job?: Prisma.XOR<Prisma.JobNullableScalarRelationFilter, Prisma.JobWhereInput> | null
+  assigned_job?: Prisma.JobListRelationFilter
   shifts?: Prisma.JobShiftListRelationFilter
   earnings?: Prisma.EarningListRelationFilter
   received_reviews?: Prisma.ReviewListRelationFilter
@@ -464,7 +464,7 @@ export type EmployeeProfileCreateInput = {
   user: Prisma.UserCreateNestedOneWithoutEmployee_profileInput
   employee_skills?: Prisma.EmployeeSkillCreateNestedManyWithoutEmployeeInput
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutEmployeeInput
-  assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput
+  assigned_job?: Prisma.JobCreateNestedManyWithoutAssigned_employeeInput
   shifts?: Prisma.JobShiftCreateNestedManyWithoutEmployeeInput
   earnings?: Prisma.EarningCreateNestedManyWithoutEmployeeInput
   received_reviews?: Prisma.ReviewCreateNestedManyWithoutEmployeeInput
@@ -490,7 +490,7 @@ export type EmployeeProfileUncheckedCreateInput = {
   updated_at?: Date | string
   employee_skills?: Prisma.EmployeeSkillUncheckedCreateNestedManyWithoutEmployeeInput
   job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutEmployeeInput
-  assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput
+  assigned_job?: Prisma.JobUncheckedCreateNestedManyWithoutAssigned_employeeInput
   shifts?: Prisma.JobShiftUncheckedCreateNestedManyWithoutEmployeeInput
   earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput
   received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput
@@ -516,7 +516,7 @@ export type EmployeeProfileUpdateInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutEmployee_profileNestedInput
   employee_skills?: Prisma.EmployeeSkillUpdateManyWithoutEmployeeNestedInput
   job_applications?: Prisma.JobApplicationUpdateManyWithoutEmployeeNestedInput
-  assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput
+  assigned_job?: Prisma.JobUpdateManyWithoutAssigned_employeeNestedInput
   shifts?: Prisma.JobShiftUpdateManyWithoutEmployeeNestedInput
   earnings?: Prisma.EarningUpdateManyWithoutEmployeeNestedInput
   received_reviews?: Prisma.ReviewUpdateManyWithoutEmployeeNestedInput
@@ -542,7 +542,7 @@ export type EmployeeProfileUncheckedUpdateInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employee_skills?: Prisma.EmployeeSkillUncheckedUpdateManyWithoutEmployeeNestedInput
   job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutEmployeeNestedInput
-  assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput
+  assigned_job?: Prisma.JobUncheckedUpdateManyWithoutAssigned_employeeNestedInput
   shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutEmployeeNestedInput
   earnings?: Prisma.EarningUncheckedUpdateManyWithoutEmployeeNestedInput
   received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -885,7 +885,7 @@ export type EmployeeProfileCreateWithoutEarningsInput = {
   user: Prisma.UserCreateNestedOneWithoutEmployee_profileInput
   employee_skills?: Prisma.EmployeeSkillCreateNestedManyWithoutEmployeeInput
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutEmployeeInput
-  assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput
+  assigned_job?: Prisma.JobCreateNestedManyWithoutAssigned_employeeInput
   shifts?: Prisma.JobShiftCreateNestedManyWithoutEmployeeInput
   received_reviews?: Prisma.ReviewCreateNestedManyWithoutEmployeeInput
   favorite_workers?: Prisma.FavoriteWorkerCreateNestedManyWithoutEmployeeInput
@@ -910,7 +910,7 @@ export type EmployeeProfileUncheckedCreateWithoutEarningsInput = {
   updated_at?: Date | string
   employee_skills?: Prisma.EmployeeSkillUncheckedCreateNestedManyWithoutEmployeeInput
   job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutEmployeeInput
-  assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput
+  assigned_job?: Prisma.JobUncheckedCreateNestedManyWithoutAssigned_employeeInput
   shifts?: Prisma.JobShiftUncheckedCreateNestedManyWithoutEmployeeInput
   received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput
   favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput
@@ -951,7 +951,7 @@ export type EmployeeProfileUpdateWithoutEarningsInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutEmployee_profileNestedInput
   employee_skills?: Prisma.EmployeeSkillUpdateManyWithoutEmployeeNestedInput
   job_applications?: Prisma.JobApplicationUpdateManyWithoutEmployeeNestedInput
-  assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput
+  assigned_job?: Prisma.JobUpdateManyWithoutAssigned_employeeNestedInput
   shifts?: Prisma.JobShiftUpdateManyWithoutEmployeeNestedInput
   received_reviews?: Prisma.ReviewUpdateManyWithoutEmployeeNestedInput
   favorite_workers?: Prisma.FavoriteWorkerUpdateManyWithoutEmployeeNestedInput
@@ -976,7 +976,7 @@ export type EmployeeProfileUncheckedUpdateWithoutEarningsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employee_skills?: Prisma.EmployeeSkillUncheckedUpdateManyWithoutEmployeeNestedInput
   job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutEmployeeNestedInput
-  assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput
+  assigned_job?: Prisma.JobUncheckedUpdateManyWithoutAssigned_employeeNestedInput
   shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutEmployeeNestedInput
   received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput
   favorite_workers?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -1000,7 +1000,7 @@ export type EmployeeProfileCreateWithoutEmployee_skillsInput = {
   updated_at?: Date | string
   user: Prisma.UserCreateNestedOneWithoutEmployee_profileInput
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutEmployeeInput
-  assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput
+  assigned_job?: Prisma.JobCreateNestedManyWithoutAssigned_employeeInput
   shifts?: Prisma.JobShiftCreateNestedManyWithoutEmployeeInput
   earnings?: Prisma.EarningCreateNestedManyWithoutEmployeeInput
   received_reviews?: Prisma.ReviewCreateNestedManyWithoutEmployeeInput
@@ -1025,7 +1025,7 @@ export type EmployeeProfileUncheckedCreateWithoutEmployee_skillsInput = {
   created_at?: Date | string
   updated_at?: Date | string
   job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutEmployeeInput
-  assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput
+  assigned_job?: Prisma.JobUncheckedCreateNestedManyWithoutAssigned_employeeInput
   shifts?: Prisma.JobShiftUncheckedCreateNestedManyWithoutEmployeeInput
   earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput
   received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput
@@ -1066,7 +1066,7 @@ export type EmployeeProfileUpdateWithoutEmployee_skillsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutEmployee_profileNestedInput
   job_applications?: Prisma.JobApplicationUpdateManyWithoutEmployeeNestedInput
-  assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput
+  assigned_job?: Prisma.JobUpdateManyWithoutAssigned_employeeNestedInput
   shifts?: Prisma.JobShiftUpdateManyWithoutEmployeeNestedInput
   earnings?: Prisma.EarningUpdateManyWithoutEmployeeNestedInput
   received_reviews?: Prisma.ReviewUpdateManyWithoutEmployeeNestedInput
@@ -1091,7 +1091,7 @@ export type EmployeeProfileUncheckedUpdateWithoutEmployee_skillsInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutEmployeeNestedInput
-  assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput
+  assigned_job?: Prisma.JobUncheckedUpdateManyWithoutAssigned_employeeNestedInput
   shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutEmployeeNestedInput
   earnings?: Prisma.EarningUncheckedUpdateManyWithoutEmployeeNestedInput
   received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -1117,7 +1117,7 @@ export type EmployeeProfileCreateWithoutFavorite_workersInput = {
   user: Prisma.UserCreateNestedOneWithoutEmployee_profileInput
   employee_skills?: Prisma.EmployeeSkillCreateNestedManyWithoutEmployeeInput
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutEmployeeInput
-  assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput
+  assigned_job?: Prisma.JobCreateNestedManyWithoutAssigned_employeeInput
   shifts?: Prisma.JobShiftCreateNestedManyWithoutEmployeeInput
   earnings?: Prisma.EarningCreateNestedManyWithoutEmployeeInput
   received_reviews?: Prisma.ReviewCreateNestedManyWithoutEmployeeInput
@@ -1142,7 +1142,7 @@ export type EmployeeProfileUncheckedCreateWithoutFavorite_workersInput = {
   updated_at?: Date | string
   employee_skills?: Prisma.EmployeeSkillUncheckedCreateNestedManyWithoutEmployeeInput
   job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutEmployeeInput
-  assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput
+  assigned_job?: Prisma.JobUncheckedCreateNestedManyWithoutAssigned_employeeInput
   shifts?: Prisma.JobShiftUncheckedCreateNestedManyWithoutEmployeeInput
   earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput
   received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput
@@ -1183,7 +1183,7 @@ export type EmployeeProfileUpdateWithoutFavorite_workersInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutEmployee_profileNestedInput
   employee_skills?: Prisma.EmployeeSkillUpdateManyWithoutEmployeeNestedInput
   job_applications?: Prisma.JobApplicationUpdateManyWithoutEmployeeNestedInput
-  assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput
+  assigned_job?: Prisma.JobUpdateManyWithoutAssigned_employeeNestedInput
   shifts?: Prisma.JobShiftUpdateManyWithoutEmployeeNestedInput
   earnings?: Prisma.EarningUpdateManyWithoutEmployeeNestedInput
   received_reviews?: Prisma.ReviewUpdateManyWithoutEmployeeNestedInput
@@ -1208,7 +1208,7 @@ export type EmployeeProfileUncheckedUpdateWithoutFavorite_workersInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employee_skills?: Prisma.EmployeeSkillUncheckedUpdateManyWithoutEmployeeNestedInput
   job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutEmployeeNestedInput
-  assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput
+  assigned_job?: Prisma.JobUncheckedUpdateManyWithoutAssigned_employeeNestedInput
   shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutEmployeeNestedInput
   earnings?: Prisma.EarningUncheckedUpdateManyWithoutEmployeeNestedInput
   received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -1232,7 +1232,7 @@ export type EmployeeProfileCreateWithoutJob_applicationsInput = {
   updated_at?: Date | string
   user: Prisma.UserCreateNestedOneWithoutEmployee_profileInput
   employee_skills?: Prisma.EmployeeSkillCreateNestedManyWithoutEmployeeInput
-  assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput
+  assigned_job?: Prisma.JobCreateNestedManyWithoutAssigned_employeeInput
   shifts?: Prisma.JobShiftCreateNestedManyWithoutEmployeeInput
   earnings?: Prisma.EarningCreateNestedManyWithoutEmployeeInput
   received_reviews?: Prisma.ReviewCreateNestedManyWithoutEmployeeInput
@@ -1257,7 +1257,7 @@ export type EmployeeProfileUncheckedCreateWithoutJob_applicationsInput = {
   created_at?: Date | string
   updated_at?: Date | string
   employee_skills?: Prisma.EmployeeSkillUncheckedCreateNestedManyWithoutEmployeeInput
-  assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput
+  assigned_job?: Prisma.JobUncheckedCreateNestedManyWithoutAssigned_employeeInput
   shifts?: Prisma.JobShiftUncheckedCreateNestedManyWithoutEmployeeInput
   earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput
   received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput
@@ -1298,7 +1298,7 @@ export type EmployeeProfileUpdateWithoutJob_applicationsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutEmployee_profileNestedInput
   employee_skills?: Prisma.EmployeeSkillUpdateManyWithoutEmployeeNestedInput
-  assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput
+  assigned_job?: Prisma.JobUpdateManyWithoutAssigned_employeeNestedInput
   shifts?: Prisma.JobShiftUpdateManyWithoutEmployeeNestedInput
   earnings?: Prisma.EarningUpdateManyWithoutEmployeeNestedInput
   received_reviews?: Prisma.ReviewUpdateManyWithoutEmployeeNestedInput
@@ -1323,7 +1323,7 @@ export type EmployeeProfileUncheckedUpdateWithoutJob_applicationsInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employee_skills?: Prisma.EmployeeSkillUncheckedUpdateManyWithoutEmployeeNestedInput
-  assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput
+  assigned_job?: Prisma.JobUncheckedUpdateManyWithoutAssigned_employeeNestedInput
   shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutEmployeeNestedInput
   earnings?: Prisma.EarningUncheckedUpdateManyWithoutEmployeeNestedInput
   received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -1349,7 +1349,7 @@ export type EmployeeProfileCreateWithoutShiftsInput = {
   user: Prisma.UserCreateNestedOneWithoutEmployee_profileInput
   employee_skills?: Prisma.EmployeeSkillCreateNestedManyWithoutEmployeeInput
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutEmployeeInput
-  assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput
+  assigned_job?: Prisma.JobCreateNestedManyWithoutAssigned_employeeInput
   earnings?: Prisma.EarningCreateNestedManyWithoutEmployeeInput
   received_reviews?: Prisma.ReviewCreateNestedManyWithoutEmployeeInput
   favorite_workers?: Prisma.FavoriteWorkerCreateNestedManyWithoutEmployeeInput
@@ -1374,7 +1374,7 @@ export type EmployeeProfileUncheckedCreateWithoutShiftsInput = {
   updated_at?: Date | string
   employee_skills?: Prisma.EmployeeSkillUncheckedCreateNestedManyWithoutEmployeeInput
   job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutEmployeeInput
-  assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput
+  assigned_job?: Prisma.JobUncheckedCreateNestedManyWithoutAssigned_employeeInput
   earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput
   received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput
   favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput
@@ -1415,7 +1415,7 @@ export type EmployeeProfileUpdateWithoutShiftsInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutEmployee_profileNestedInput
   employee_skills?: Prisma.EmployeeSkillUpdateManyWithoutEmployeeNestedInput
   job_applications?: Prisma.JobApplicationUpdateManyWithoutEmployeeNestedInput
-  assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput
+  assigned_job?: Prisma.JobUpdateManyWithoutAssigned_employeeNestedInput
   earnings?: Prisma.EarningUpdateManyWithoutEmployeeNestedInput
   received_reviews?: Prisma.ReviewUpdateManyWithoutEmployeeNestedInput
   favorite_workers?: Prisma.FavoriteWorkerUpdateManyWithoutEmployeeNestedInput
@@ -1440,7 +1440,7 @@ export type EmployeeProfileUncheckedUpdateWithoutShiftsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employee_skills?: Prisma.EmployeeSkillUncheckedUpdateManyWithoutEmployeeNestedInput
   job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutEmployeeNestedInput
-  assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput
+  assigned_job?: Prisma.JobUncheckedUpdateManyWithoutAssigned_employeeNestedInput
   earnings?: Prisma.EarningUncheckedUpdateManyWithoutEmployeeNestedInput
   received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput
   favorite_workers?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -1581,7 +1581,7 @@ export type EmployeeProfileCreateWithoutReceived_reviewsInput = {
   user: Prisma.UserCreateNestedOneWithoutEmployee_profileInput
   employee_skills?: Prisma.EmployeeSkillCreateNestedManyWithoutEmployeeInput
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutEmployeeInput
-  assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput
+  assigned_job?: Prisma.JobCreateNestedManyWithoutAssigned_employeeInput
   shifts?: Prisma.JobShiftCreateNestedManyWithoutEmployeeInput
   earnings?: Prisma.EarningCreateNestedManyWithoutEmployeeInput
   favorite_workers?: Prisma.FavoriteWorkerCreateNestedManyWithoutEmployeeInput
@@ -1606,7 +1606,7 @@ export type EmployeeProfileUncheckedCreateWithoutReceived_reviewsInput = {
   updated_at?: Date | string
   employee_skills?: Prisma.EmployeeSkillUncheckedCreateNestedManyWithoutEmployeeInput
   job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutEmployeeInput
-  assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput
+  assigned_job?: Prisma.JobUncheckedCreateNestedManyWithoutAssigned_employeeInput
   shifts?: Prisma.JobShiftUncheckedCreateNestedManyWithoutEmployeeInput
   earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput
   favorite_workers?: Prisma.FavoriteWorkerUncheckedCreateNestedManyWithoutEmployeeInput
@@ -1647,7 +1647,7 @@ export type EmployeeProfileUpdateWithoutReceived_reviewsInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutEmployee_profileNestedInput
   employee_skills?: Prisma.EmployeeSkillUpdateManyWithoutEmployeeNestedInput
   job_applications?: Prisma.JobApplicationUpdateManyWithoutEmployeeNestedInput
-  assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput
+  assigned_job?: Prisma.JobUpdateManyWithoutAssigned_employeeNestedInput
   shifts?: Prisma.JobShiftUpdateManyWithoutEmployeeNestedInput
   earnings?: Prisma.EarningUpdateManyWithoutEmployeeNestedInput
   favorite_workers?: Prisma.FavoriteWorkerUpdateManyWithoutEmployeeNestedInput
@@ -1672,7 +1672,7 @@ export type EmployeeProfileUncheckedUpdateWithoutReceived_reviewsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employee_skills?: Prisma.EmployeeSkillUncheckedUpdateManyWithoutEmployeeNestedInput
   job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutEmployeeNestedInput
-  assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput
+  assigned_job?: Prisma.JobUncheckedUpdateManyWithoutAssigned_employeeNestedInput
   shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutEmployeeNestedInput
   earnings?: Prisma.EarningUncheckedUpdateManyWithoutEmployeeNestedInput
   favorite_workers?: Prisma.FavoriteWorkerUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -1696,7 +1696,7 @@ export type EmployeeProfileCreateWithoutUserInput = {
   updated_at?: Date | string
   employee_skills?: Prisma.EmployeeSkillCreateNestedManyWithoutEmployeeInput
   job_applications?: Prisma.JobApplicationCreateNestedManyWithoutEmployeeInput
-  assigned_job?: Prisma.JobCreateNestedOneWithoutAssigned_employeeInput
+  assigned_job?: Prisma.JobCreateNestedManyWithoutAssigned_employeeInput
   shifts?: Prisma.JobShiftCreateNestedManyWithoutEmployeeInput
   earnings?: Prisma.EarningCreateNestedManyWithoutEmployeeInput
   received_reviews?: Prisma.ReviewCreateNestedManyWithoutEmployeeInput
@@ -1721,7 +1721,7 @@ export type EmployeeProfileUncheckedCreateWithoutUserInput = {
   updated_at?: Date | string
   employee_skills?: Prisma.EmployeeSkillUncheckedCreateNestedManyWithoutEmployeeInput
   job_applications?: Prisma.JobApplicationUncheckedCreateNestedManyWithoutEmployeeInput
-  assigned_job?: Prisma.JobUncheckedCreateNestedOneWithoutAssigned_employeeInput
+  assigned_job?: Prisma.JobUncheckedCreateNestedManyWithoutAssigned_employeeInput
   shifts?: Prisma.JobShiftUncheckedCreateNestedManyWithoutEmployeeInput
   earnings?: Prisma.EarningUncheckedCreateNestedManyWithoutEmployeeInput
   received_reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutEmployeeInput
@@ -1762,7 +1762,7 @@ export type EmployeeProfileUpdateWithoutUserInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employee_skills?: Prisma.EmployeeSkillUpdateManyWithoutEmployeeNestedInput
   job_applications?: Prisma.JobApplicationUpdateManyWithoutEmployeeNestedInput
-  assigned_job?: Prisma.JobUpdateOneWithoutAssigned_employeeNestedInput
+  assigned_job?: Prisma.JobUpdateManyWithoutAssigned_employeeNestedInput
   shifts?: Prisma.JobShiftUpdateManyWithoutEmployeeNestedInput
   earnings?: Prisma.EarningUpdateManyWithoutEmployeeNestedInput
   received_reviews?: Prisma.ReviewUpdateManyWithoutEmployeeNestedInput
@@ -1787,7 +1787,7 @@ export type EmployeeProfileUncheckedUpdateWithoutUserInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   employee_skills?: Prisma.EmployeeSkillUncheckedUpdateManyWithoutEmployeeNestedInput
   job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutEmployeeNestedInput
-  assigned_job?: Prisma.JobUncheckedUpdateOneWithoutAssigned_employeeNestedInput
+  assigned_job?: Prisma.JobUncheckedUpdateManyWithoutAssigned_employeeNestedInput
   shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutEmployeeNestedInput
   earnings?: Prisma.EarningUncheckedUpdateManyWithoutEmployeeNestedInput
   received_reviews?: Prisma.ReviewUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -1802,6 +1802,7 @@ export type EmployeeProfileUncheckedUpdateWithoutUserInput = {
 export type EmployeeProfileCountOutputType = {
   employee_skills: number
   job_applications: number
+  assigned_job: number
   shifts: number
   earnings: number
   received_reviews: number
@@ -1811,6 +1812,7 @@ export type EmployeeProfileCountOutputType = {
 export type EmployeeProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   employee_skills?: boolean | EmployeeProfileCountOutputTypeCountEmployee_skillsArgs
   job_applications?: boolean | EmployeeProfileCountOutputTypeCountJob_applicationsArgs
+  assigned_job?: boolean | EmployeeProfileCountOutputTypeCountAssigned_jobArgs
   shifts?: boolean | EmployeeProfileCountOutputTypeCountShiftsArgs
   earnings?: boolean | EmployeeProfileCountOutputTypeCountEarningsArgs
   received_reviews?: boolean | EmployeeProfileCountOutputTypeCountReceived_reviewsArgs
@@ -1839,6 +1841,13 @@ export type EmployeeProfileCountOutputTypeCountEmployee_skillsArgs<ExtArgs exten
  */
 export type EmployeeProfileCountOutputTypeCountJob_applicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.JobApplicationWhereInput
+}
+
+/**
+ * EmployeeProfileCountOutputType without action
+ */
+export type EmployeeProfileCountOutputTypeCountAssigned_jobArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.JobWhereInput
 }
 
 /**
@@ -1982,7 +1991,7 @@ export type $EmployeeProfilePayload<ExtArgs extends runtime.Types.Extensions.Int
     user: Prisma.$UserPayload<ExtArgs>
     employee_skills: Prisma.$EmployeeSkillPayload<ExtArgs>[]
     job_applications: Prisma.$JobApplicationPayload<ExtArgs>[]
-    assigned_job: Prisma.$JobPayload<ExtArgs> | null
+    assigned_job: Prisma.$JobPayload<ExtArgs>[]
     shifts: Prisma.$JobShiftPayload<ExtArgs>[]
     earnings: Prisma.$EarningPayload<ExtArgs>[]
     received_reviews: Prisma.$ReviewPayload<ExtArgs>[]
@@ -2402,7 +2411,7 @@ export interface Prisma__EmployeeProfileClient<T, Null = never, ExtArgs extends 
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   employee_skills<T extends Prisma.EmployeeProfile$employee_skillsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeProfile$employee_skillsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmployeeSkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   job_applications<T extends Prisma.EmployeeProfile$job_applicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeProfile$job_applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  assigned_job<T extends Prisma.EmployeeProfile$assigned_jobArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeProfile$assigned_jobArgs<ExtArgs>>): Prisma.Prisma__JobClient<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  assigned_job<T extends Prisma.EmployeeProfile$assigned_jobArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeProfile$assigned_jobArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   shifts<T extends Prisma.EmployeeProfile$shiftsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeProfile$shiftsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobShiftPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   earnings<T extends Prisma.EmployeeProfile$earningsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeProfile$earningsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EarningPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   received_reviews<T extends Prisma.EmployeeProfile$received_reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EmployeeProfile$received_reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2912,6 +2921,11 @@ export type EmployeeProfile$assigned_jobArgs<ExtArgs extends runtime.Types.Exten
    */
   include?: Prisma.JobInclude<ExtArgs> | null
   where?: Prisma.JobWhereInput
+  orderBy?: Prisma.JobOrderByWithRelationInput | Prisma.JobOrderByWithRelationInput[]
+  cursor?: Prisma.JobWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.JobScalarFieldEnum | Prisma.JobScalarFieldEnum[]
 }
 
 /**

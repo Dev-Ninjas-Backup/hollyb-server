@@ -63,6 +63,18 @@ export class JwtAuthGuard implements CanActivate {
       );
     }
 
+    const user = await this.prismaService.client.user.findUnique({
+      where: { id: payload.sub },
+      select: { is_deleted: true },
+    });
+
+    if (!user || user.is_deleted) {
+      throw new BusinessException(
+        'Your account has been deleted. Please contact support for help.',
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
     const providers = await this.prismaService.client.userAuthProvider.findMany(
       {
         where: {

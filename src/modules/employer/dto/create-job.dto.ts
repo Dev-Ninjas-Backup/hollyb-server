@@ -87,7 +87,9 @@ export class CreateJobDto {
   })
   @IsOptional()
   @IsString()
-  @Matches(/^(([01]\d|2[0-3]):([0-5]\d)|((0?[1-9]|1[0-2]):([0-5]\d)\s?(AM|PM|am|pm)))$/)
+  @Matches(
+    /^(([01]\d|2[0-3]):([0-5]\d)|((0?[1-9]|1[0-2]):([0-5]\d)\s?(AM|PM|am|pm)))$/,
+  )
   start_time?: string;
 
   @ApiPropertyOptional({
@@ -96,7 +98,9 @@ export class CreateJobDto {
   })
   @IsOptional()
   @IsString()
-  @Matches(/^(([01]\d|2[0-3]):([0-5]\d)|((0?[1-9]|1[0-2]):([0-5]\d)\s?(AM|PM|am|pm)))$/)
+  @Matches(
+    /^(([01]\d|2[0-3]):([0-5]\d)|((0?[1-9]|1[0-2]):([0-5]\d)\s?(AM|PM|am|pm)))$/,
+  )
   end_time?: string;
 
   @ApiPropertyOptional({

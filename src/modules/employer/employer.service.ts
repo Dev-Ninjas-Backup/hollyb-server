@@ -42,7 +42,7 @@ export class EmployerService {
       const hour12 = Number(match12Hour[1]);
       const minutes = Number(match12Hour[2]);
       const meridiem = match12Hour[3].toUpperCase();
-      const hours = hour12 % 12 + (meridiem === 'PM' ? 12 : 0);
+      const hours = (hour12 % 12) + (meridiem === 'PM' ? 12 : 0);
       return new Date(Date.UTC(1970, 0, 1, hours, minutes, 0, 0));
     }
 
@@ -815,7 +815,7 @@ export class EmployerService {
       include: {
         employer: true,
         assigned_employee: true,
-        review: true
+        review: true,
       },
     });
 
@@ -867,9 +867,9 @@ export class EmployerService {
       // Get all reviews for this employee to recalculate average rating
       const allReviews = await tx.review.findMany({
         where: { employee_id: job.assigned_employee_id! },
-        select: { 
-          
-          rating: true },
+        select: {
+          rating: true,
+        },
       });
 
       // Calculate new average rating
@@ -972,7 +972,4 @@ export class EmployerService {
       },
     };
   }
-
-
-  
 }
