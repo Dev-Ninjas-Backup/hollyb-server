@@ -270,13 +270,8 @@ export class EmployerController {
   @Roles('employer')
   @ApiOperation({ summary: 'Review completed job and update employer profile' })
   @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        company_name: { type: 'string', example: 'Amazon Logistics' },
-        contact_email: { type: 'string', example: 'contact@amazon.com' },
-      },
-    },
+    description: 'Review data for completed job',
+    type: CreateReviewJobDto,
   })
   async reviewCompletedJob(
     @Param('id') id: string,

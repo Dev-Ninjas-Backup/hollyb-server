@@ -11,7 +11,7 @@ export class CreateReviewJobDto {
 
   @ApiProperty({
     description: 'Comment about the completed job',
-    example: 'Great experience working with this employer.',
+    example: 'Great experience working with this employee.',
   })
   @IsString()
   comment: string;
