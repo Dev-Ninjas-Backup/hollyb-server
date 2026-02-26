@@ -96,4 +96,16 @@ export class EmployeeController {
   getJobById(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.employeeService.getJobById(id);
   }
+
+  @Get('stats')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get employee stats by employee id' })
+  @ApiResponse({
+    status: 200,
+    description: 'Employee stats retrieved successfully',
+  })
+  @ApiResponse({ status: 404, description: 'Employee not found' })
+  getJobStats(@Req() req: any) {
+    return this.employeeService.getJobStats(req.user.sub);
+  }
 }

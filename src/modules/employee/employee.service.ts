@@ -243,4 +243,63 @@ export class EmployeeService {
       },
     };
   }
+
+    async getJobStats(employeeId: string) {
+    // Check if employee exists
+    const employee = await this.prisma.client.employeeProfile.findUnique({
+      where: { user_id: employeeId },
+      select: { id: true },
+    });
+
+    if (!employee) {
+      throw new BusinessException(
+        'Employee not found',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    // Get completed jobs count
+    const completedJobsCount = await this.prisma.client.jobShift.count({
+      where: {
+        employee_id: employeeId,
+        status: 'completed',
+      },
+    });
+
+    // Get total work hours from completed shifts
+    const shiftsAggregate = await this.prisma.client.jobShift.aggregate({
+      where: {
+        employee_id: employeeId,
+        status: 'completed',
+      },
+      _sum: {
+        total_worked_seconds: true,
+      },
+    });
+
+    const totalWorkedSeconds = shiftsAggregate._sum.total_worked_seconds ?? 0;
+    const totalWorkHours = Number((totalWorkedSeconds / 3600).toFixed(2));
+
+    // Get total earned money
+    const earningsAggregate = await this.prisma.client.earning.aggregate({
+      where: {
+        employee_id: employeeId,
+      },
+      _sum: {
+        net_amount: true,
+      },
+    });
+
+    const totalEarned = earningsAggregate._sum.net_amount ?? 0;
+
+    return {
+      success: true,
+      message: 'Employee stats retrieved successfully',
+      data: {
+        completedJobsCount,
+        totalWorkHours,
+        totalEarned: Number(totalEarned),
+      },
+    };
+  }
 }
