@@ -2759,9 +2759,7 @@ export type PrivateMessageStatusScalarFieldEnum = (typeof PrivateMessageStatusSc
 export const ReviewScalarFieldEnum = {
   id: 'id',
   job_id: 'job_id',
-  employer_id: 'employer_id',
   employee_id: 'employee_id',
-  reviewer_type: 'reviewer_type',
   rating: 'rating',
   comment: 'comment',
   created_at: 'created_at',
@@ -3208,20 +3206,6 @@ export type EnumMessageDeliveryStatusFieldRefInput<$PrismaModel> = FieldRefInput
  * Reference to a field of type 'MessageDeliveryStatus[]'
  */
 export type ListEnumMessageDeliveryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageDeliveryStatus[]'>
-    
-
-
-/**
- * Reference to a field of type 'ReviewerType'
- */
-export type EnumReviewerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReviewerType'>
-    
-
-
-/**
- * Reference to a field of type 'ReviewerType[]'
- */
-export type ListEnumReviewerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReviewerType[]'>
     
 
 
