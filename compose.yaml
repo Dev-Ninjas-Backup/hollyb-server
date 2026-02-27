@@ -1,0 +1,75 @@
+
+services:
+
+  api:
+    profiles: ['prod']
+    platform: linux/amd64
+    image: ${DOCKER_USERNAME}/${DOCKER_PACKAGE_NAME}:latest
+    container_name: ${DOCKER_PACKAGE_NAME}_api
+    restart: always
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://postgres:postgres@db:5443/${DOCKER_PACKAGE_NAME}_db
+
+      BASE_URL: http://0.0.0.0:5000
+      PORT: 5000
+    ports:
+      - '5000:5000'
+    depends_on:
+      db:
+        condition: service_healthy
+      redis-master:
+        condition: service_healthy
+    command: >
+      sh -c "
+        echo '🏁 Waiting for DB...';
+        sleep 5;
+        npx prisma migrate deploy;
+        echo '🚀 Starting app...';
+        pnpm start
+      "
+    volumes:
+      - files-data:/app/uploads
+      - temp-data:/app/tmp
+      - logs-data:/app/logs
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://0.0.0.0:5000/health']
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - hollyb-server_network
+
+  db:
+    profiles: ['dev', 'prod']
+    image: postgres:17
+    container_name: ${DOCKER_PACKAGE_NAME}_db
+    restart: always
+    user: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${DOCKER_PACKAGE_NAME}_db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - '127.0.0.1:5443:5432'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - hollyb-server_network
+
+volumes:
+  db_data:
+  files-data:
+  temp-data:
+  logs-data:
+
+networks:
+  hollyb-server_network:
+    driver: bridge
