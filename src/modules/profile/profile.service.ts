@@ -217,6 +217,143 @@ export class ProfileService {
     );
   }
 
+  async getMyReviews(userId: string) {
+    const user = await this.prismaService.client.user.findUnique({
+      where: { id: userId },
+      include: {
+        employee_profile: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+
+    if (!user) {
+      throw new ResourceNotFoundException('User', userId);
+    }
+
+    if (user.role !== UserRole.employee) {
+      throw new BusinessException(
+        'Only employee accounts can access my reviews',
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
+    if (!user.employee_profile) {
+      return ResponseHelper.success(
+        {
+          averageRating: 0,
+          totalReviews: 0,
+          ratingBreakdown: {
+            excellent: { count: 0, percentage: 0 },
+            good: { count: 0, percentage: 0 },
+            average: { count: 0, percentage: 0 },
+            poor: { count: 0, percentage: 0 },
+          },
+          reviews: [],
+        },
+        'My reviews fetched successfully',
+      );
+    }
+
+    const reviews = await this.prismaService.client.review.findMany({
+      where: {
+        employee_id: user.employee_profile.id,
+      },
+      select: {
+        id: true,
+        rating: true,
+        comment: true,
+        created_at: true,
+        job: {
+          select: {
+            id: true,
+            title: true,
+            company_name: true,
+            employer: {
+              select: {
+                company_name: true,
+                profile_photo_url: true,
+                user: {
+                  select: {
+                    full_name: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        created_at: 'desc',
+      },
+    });
+
+    const totalReviews = reviews.length;
+    const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+    const averageRating =
+      totalReviews > 0 ? Number((totalRating / totalReviews).toFixed(1)) : 0;
+
+    const excellentCount = reviews.filter(
+      (review) => review.rating >= 4.5,
+    ).length;
+    const goodCount = reviews.filter(
+      (review) => review.rating >= 3.5 && review.rating < 4.5,
+    ).length;
+    const averageCount = reviews.filter(
+      (review) => review.rating >= 2.5 && review.rating < 3.5,
+    ).length;
+    const poorCount = reviews.filter((review) => review.rating < 2.5).length;
+
+    const toPercentage = (count: number) =>
+      totalReviews > 0 ? Number(((count / totalReviews) * 100).toFixed(1)) : 0;
+
+    const formattedReviews = reviews.map((review) => ({
+      id: review.id,
+      rating: Number(review.rating.toFixed(1)),
+      comment: review.comment,
+      createdAt: review.created_at,
+      reviewerName:
+        review.job.employer?.company_name ??
+        review.job.company_name ??
+        review.job.employer?.user.full_name ??
+        'Unknown',
+      reviewerImageUrl: review.job.employer?.profile_photo_url ?? null,
+      job: {
+        id: review.job.id,
+        title: review.job.title,
+      },
+    }));
+
+    return ResponseHelper.success(
+      {
+        averageRating,
+        totalReviews,
+        ratingBreakdown: {
+          excellent: {
+            count: excellentCount,
+            percentage: toPercentage(excellentCount),
+          },
+          good: {
+            count: goodCount,
+            percentage: toPercentage(goodCount),
+          },
+          average: {
+            count: averageCount,
+            percentage: toPercentage(averageCount),
+          },
+          poor: {
+            count: poorCount,
+            percentage: toPercentage(poorCount),
+          },
+        },
+        reviews: formattedReviews,
+      },
+      'My reviews fetched successfully',
+    );
+  }
+
   async changePassword(userId: string, dto: ChangePasswordDto) {
     const user = await this.prismaService.client.user.findUnique({
       where: { id: userId },

@@ -133,6 +133,23 @@ export class ProfileController {
     return this.profileService.toggleNotify(req.user.sub);
   }
 
+  @Get('my-reviews')
+  @ApiOperation({
+    summary: 'Get my reviews',
+    description:
+      'Get authenticated employee review summary and review list for profile reviews screen.',
+  })
+  @ApiResponse({ status: 200, description: 'Reviews fetched successfully.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing token.',
+  })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  getMyReviews(@Req() req: AuthenticatedRequest) {
+    return this.profileService.getMyReviews(req.user.sub);
+  }
+
   @Post('change-password')
   @ApiOperation({
     summary: 'Change password',
