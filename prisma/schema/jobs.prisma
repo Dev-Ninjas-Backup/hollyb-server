@@ -30,6 +30,7 @@ model Job {
   assigned_employee_id String?          @unique @db.Uuid
   assigned_employee    EmployeeProfile? @relation(fields: [assigned_employee_id], references: [id], onDelete: SetNull)
 
+  review           Review?
   employer         EmployerProfile  @relation(fields: [employer_id], references: [id], onDelete: Cascade)
   job_applications JobApplication[]
   shifts           JobShift[]

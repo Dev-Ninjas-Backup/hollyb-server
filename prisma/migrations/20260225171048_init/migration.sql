@@ -11,7 +11,7 @@ CREATE TYPE "AuthProvider" AS ENUM ('google', 'facebook', 'credentials');
 CREATE TYPE "OtpType" AS ENUM ('email', 'phone', 'password_reset');
 
 -- CreateEnum
-CREATE TYPE "DocumentType" AS ENUM ('profile_photo', 'nid_front', 'nid_back', 'passport_front', 'passport_back', 'trade_license', 'utility_bill');
+CREATE TYPE "DocumentType" AS ENUM ('profile_photo', 'nid_front', 'nid_back', 'passport_front', 'passport_back', 'trade_license_front', 'trade_license_back', 'trade_license', 'utility_bill');
 
 -- CreateEnum
 CREATE TYPE "ReviewStatus" AS ENUM ('pending', 'approved', 'rejected');
@@ -26,13 +26,7 @@ CREATE TYPE "SubscriptionPlanType" AS ENUM ('employer_premium', 'employee_premiu
 CREATE TYPE "SubscriptionStatus" AS ENUM ('active', 'expired', 'cancelled');
 
 -- CreateEnum
-CREATE TYPE "JobType" AS ENUM ('hourly', 'daily', 'weekly', 'full_time', 'part_time', 'contract');
-
--- CreateEnum
-CREATE TYPE "JobPaymentType" AS ENUM ('hourly', 'fixed');
-
--- CreateEnum
-CREATE TYPE "JobStatus" AS ENUM ('open', 'assigned', 'completed', 'cancelled');
+CREATE TYPE "JobStatus" AS ENUM ('open', 'assigned', 'completed', 'cancelled', 'closed');
 
 -- CreateEnum
 CREATE TYPE "JobApplicationStatus" AS ENUM ('applied', 'accepted', 'rejected', 'withdrawn', 'confirmed');
@@ -50,13 +44,25 @@ CREATE TYPE "PaymentMethod" AS ENUM ('card', 'mobile_banking', 'bank_transfer', 
 CREATE TYPE "PaymentStatus" AS ENUM ('pending', 'success', 'failed', 'refunded');
 
 -- CreateEnum
-CREATE TYPE "ReviewerType" AS ENUM ('employer', 'employee');
-
--- CreateEnum
 CREATE TYPE "NotificationType" AS ENUM ('job_update', 'message', 'payment', 'system', 'review');
 
 -- CreateEnum
 CREATE TYPE "ReferenceType" AS ENUM ('jobs', 'payments', 'messages', 'reviews');
+
+-- CreateEnum
+CREATE TYPE "JobCategory" AS ENUM ('chef', 'sous_chef', 'line_cook', 'pastry_chef', 'cleaner', 'dishwasher', 'helper', 'server', 'waiter', 'bartender', 'host', 'manager', 'supervisor', 'cook');
+
+-- CreateEnum
+CREATE TYPE "FileType" AS ENUM ('image', 'docs', 'link', 'document', 'any', 'video', 'audio');
+
+-- CreateEnum
+CREATE TYPE "ConversationStatus" AS ENUM ('ACTIVE', 'ARCHIVED', 'BLOCKED');
+
+-- CreateEnum
+CREATE TYPE "MessageType" AS ENUM ('TEXT', 'IMAGE', 'VIDEO', 'AUDIO', 'FILE', 'CALL_EVENT');
+
+-- CreateEnum
+CREATE TYPE "MessageDeliveryStatus" AS ENUM ('SENT', 'DELIVERED', 'READ');
 
 -- CreateTable
 CREATE TABLE "admin_activity_logs" (
@@ -83,27 +89,6 @@ CREATE TABLE "background_checks" (
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "background_checks_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "conversation_members" (
-    "id" UUID NOT NULL,
-    "conversation_id" UUID NOT NULL,
-    "user_id" UUID NOT NULL,
-    "joined_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "last_read_at" TIMESTAMP(3),
-
-    CONSTRAINT "conversation_members_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "conversations" (
-    "id" UUID NOT NULL,
-    "job_id" UUID,
-    "title" TEXT,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT "conversations_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -195,6 +180,22 @@ CREATE TABLE "favorite_workers" (
 );
 
 -- CreateTable
+CREATE TABLE "file_instances" (
+    "id" TEXT NOT NULL,
+    "filename" TEXT NOT NULL,
+    "originalFilename" TEXT NOT NULL,
+    "path" TEXT NOT NULL,
+    "url" TEXT NOT NULL,
+    "fileType" "FileType" NOT NULL DEFAULT 'any',
+    "mimeType" TEXT NOT NULL,
+    "size" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "file_instances_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "job_applications" (
     "id" UUID NOT NULL,
     "job_id" UUID NOT NULL,
@@ -208,14 +209,18 @@ CREATE TABLE "job_applications" (
 );
 
 -- CreateTable
-CREATE TABLE "job_assignments" (
+CREATE TABLE "job_shifts" (
     "id" UUID NOT NULL,
     "job_id" UUID NOT NULL,
     "employee_id" UUID NOT NULL,
-    "application_id" UUID,
-    "assigned_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "status" "ShiftStatus" NOT NULL DEFAULT 'in_progress',
+    "checked_in_at" TIMESTAMP(3),
+    "checked_out_at" TIMESTAMP(3),
+    "total_worked_seconds" INTEGER NOT NULL DEFAULT 0,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "job_assignments_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "job_shifts_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -232,62 +237,51 @@ CREATE TABLE "jobs" (
     "id" UUID NOT NULL,
     "employer_id" UUID NOT NULL,
     "title" TEXT NOT NULL,
-    "category" TEXT,
+    "company_name" TEXT NOT NULL,
     "description" TEXT,
-    "job_type" "JobType" NOT NULL,
+    "job_responsibilities" TEXT,
+    "requirements" TEXT,
+    "fileId" TEXT,
     "is_urgent" BOOLEAN NOT NULL DEFAULT false,
-    "start_date" DATE,
-    "end_date" DATE,
+    "status" "JobStatus" NOT NULL DEFAULT 'open',
+    "job_category" "JobCategory",
+    "job_date" DATE,
+    "expire_date" DATE,
     "start_time" TIME(6),
     "end_time" TIME(6),
-    "payment_type" "JobPaymentType" NOT NULL,
     "amount" DECIMAL(12,2),
+    "totalAmount" DECIMAL(12,2),
     "location" TEXT,
-    "latitude" DOUBLE PRECISION,
-    "longitude" DOUBLE PRECISION,
-    "status" "JobStatus" NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
+    "assigned_employee_id" UUID,
 
     CONSTRAINT "jobs_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "message_reads" (
-    "id" UUID NOT NULL,
-    "message_id" UUID NOT NULL,
-    "user_id" UUID NOT NULL,
-    "read_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT "message_reads_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "messages" (
-    "id" UUID NOT NULL,
-    "conversation_id" UUID NOT NULL,
-    "sender_id" UUID NOT NULL,
-    "message" TEXT NOT NULL,
-    "attachment_url" TEXT,
-    "is_deleted" BOOLEAN NOT NULL DEFAULT false,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT "messages_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "notifications" (
-    "id" UUID NOT NULL,
-    "user_id" UUID NOT NULL,
-    "title" TEXT,
-    "body" TEXT,
-    "type" "NotificationType" NOT NULL,
-    "reference_id" UUID,
-    "reference_type" "ReferenceType",
-    "is_read" BOOLEAN NOT NULL DEFAULT false,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "id" TEXT NOT NULL,
+    "type" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "message" TEXT NOT NULL,
+    "meta" JSONB NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "notifications_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "user_notifications" (
+    "id" TEXT NOT NULL,
+    "userId" UUID NOT NULL,
+    "notificationId" TEXT NOT NULL,
+    "read" BOOLEAN NOT NULL DEFAULT false,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "user_notifications_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -321,33 +315,70 @@ CREATE TABLE "payments" (
 );
 
 -- CreateTable
+CREATE TABLE "private_conversations" (
+    "id" TEXT NOT NULL,
+    "initiatorId" UUID NOT NULL,
+    "receiverId" UUID NOT NULL,
+    "lastMessageId" TEXT,
+    "status" "ConversationStatus" NOT NULL DEFAULT 'ACTIVE',
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "private_conversations_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "private_messages" (
+    "id" TEXT NOT NULL,
+    "content" TEXT,
+    "type" "MessageType" NOT NULL DEFAULT 'TEXT',
+    "fileId" TEXT,
+    "conversationId" TEXT NOT NULL,
+    "senderId" UUID NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "private_messages_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "private_message_statuses" (
+    "id" TEXT NOT NULL,
+    "messageId" TEXT NOT NULL,
+    "userId" UUID NOT NULL,
+    "status" "MessageDeliveryStatus" NOT NULL DEFAULT 'SENT',
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "private_message_statuses_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "reviews" (
     "id" UUID NOT NULL,
     "job_id" UUID NOT NULL,
-    "employer_id" UUID NOT NULL,
     "employee_id" UUID NOT NULL,
-    "reviewer_type" "ReviewerType" NOT NULL,
     "rating" DOUBLE PRECISION NOT NULL,
     "comment" TEXT,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "reviews_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "shifts" (
+CREATE TABLE "settings" (
     "id" UUID NOT NULL,
-    "job_id" UUID NOT NULL,
-    "assignment_id" UUID NOT NULL,
-    "employee_id" UUID NOT NULL,
-    "check_in" TIMESTAMP(3),
-    "check_out" TIMESTAMP(3),
-    "break_minutes" INTEGER NOT NULL DEFAULT 0,
-    "total_hours" DOUBLE PRECISION,
-    "status" "ShiftStatus" NOT NULL,
+    "workspaceName" TEXT DEFAULT 'Hollyb',
+    "Timezone" TEXT DEFAULT 'UTC',
+    "two_factor_authentication_enabled" BOOLEAN NOT NULL DEFAULT false,
+    "system_alerts_enabled" BOOLEAN NOT NULL DEFAULT true,
+    "email_notifications_enabled" BOOLEAN NOT NULL DEFAULT false,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+    "updated_by" UUID,
 
-    CONSTRAINT "shifts_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "settings_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -405,12 +436,12 @@ CREATE TABLE "users" (
     "id" UUID NOT NULL,
     "full_name" TEXT NOT NULL,
     "email" TEXT,
-    "phone" TEXT,
     "role" "UserRole" NOT NULL,
     "password_hash" TEXT,
     "account_status" "AccountStatus" NOT NULL,
     "is_active" BOOLEAN NOT NULL DEFAULT true,
     "is_verified" BOOLEAN NOT NULL DEFAULT false,
+    "isNotify" BOOLEAN NOT NULL DEFAULT true,
     "is_deleted" BOOLEAN NOT NULL DEFAULT false,
     "last_active_at" TIMESTAMP(3),
     "last_login_at" TIMESTAMP(3),
@@ -419,9 +450,6 @@ CREATE TABLE "users" (
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
-
--- CreateIndex
-CREATE UNIQUE INDEX "conversation_members_conversation_id_user_id_key" ON "conversation_members"("conversation_id", "user_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "employee_profiles_user_id_key" ON "employee_profiles"("user_id");
@@ -436,16 +464,37 @@ CREATE UNIQUE INDEX "employer_profiles_user_id_key" ON "employer_profiles"("user
 CREATE UNIQUE INDEX "favorite_workers_employer_id_employee_id_key" ON "favorite_workers"("employer_id", "employee_id");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "job_assignments_application_id_key" ON "job_assignments"("application_id");
+CREATE UNIQUE INDEX "job_shifts_job_id_employee_id_key" ON "job_shifts"("job_id", "employee_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "job_skills_job_id_skill_id_key" ON "job_skills"("job_id", "skill_id");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "message_reads_message_id_user_id_key" ON "message_reads"("message_id", "user_id");
+CREATE UNIQUE INDEX "jobs_fileId_key" ON "jobs"("fileId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "jobs_assigned_employee_id_key" ON "jobs"("assigned_employee_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "user_notifications_userId_notificationId_key" ON "user_notifications"("userId", "notificationId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "payments_transaction_id_key" ON "payments"("transaction_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "private_conversations_initiatorId_receiverId_key" ON "private_conversations"("initiatorId", "receiverId");
+
+-- CreateIndex
+CREATE INDEX "private_messages_conversationId_createdAt_idx" ON "private_messages"("conversationId", "createdAt");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "private_message_statuses_messageId_userId_key" ON "private_message_statuses"("messageId", "userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "reviews_job_id_key" ON "reviews"("job_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "settings_updated_by_key" ON "settings"("updated_by");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "skills_name_key" ON "skills"("name");
@@ -459,9 +508,6 @@ CREATE UNIQUE INDEX "user_auth_providers_provider_provider_user_id_key" ON "user
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
--- CreateIndex
-CREATE UNIQUE INDEX "users_phone_key" ON "users"("phone");
-
 -- AddForeignKey
 ALTER TABLE "admin_activity_logs" ADD CONSTRAINT "admin_activity_logs_admin_id_fkey" FOREIGN KEY ("admin_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -472,19 +518,7 @@ ALTER TABLE "background_checks" ADD CONSTRAINT "background_checks_user_id_fkey" 
 ALTER TABLE "background_checks" ADD CONSTRAINT "background_checks_payment_id_fkey" FOREIGN KEY ("payment_id") REFERENCES "payments"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "conversation_members" ADD CONSTRAINT "conversation_members_conversation_id_fkey" FOREIGN KEY ("conversation_id") REFERENCES "conversations"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "conversation_members" ADD CONSTRAINT "conversation_members_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "conversations" ADD CONSTRAINT "conversations_job_id_fkey" FOREIGN KEY ("job_id") REFERENCES "jobs"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "documents" ADD CONSTRAINT "documents_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "earnings" ADD CONSTRAINT "earnings_shift_id_fkey" FOREIGN KEY ("shift_id") REFERENCES "shifts"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "earnings" ADD CONSTRAINT "earnings_employee_id_fkey" FOREIGN KEY ("employee_id") REFERENCES "employee_profiles"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -514,37 +548,28 @@ ALTER TABLE "job_applications" ADD CONSTRAINT "job_applications_job_id_fkey" FOR
 ALTER TABLE "job_applications" ADD CONSTRAINT "job_applications_employee_id_fkey" FOREIGN KEY ("employee_id") REFERENCES "employee_profiles"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "job_assignments" ADD CONSTRAINT "job_assignments_job_id_fkey" FOREIGN KEY ("job_id") REFERENCES "jobs"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "job_shifts" ADD CONSTRAINT "job_shifts_job_id_fkey" FOREIGN KEY ("job_id") REFERENCES "jobs"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "job_assignments" ADD CONSTRAINT "job_assignments_employee_id_fkey" FOREIGN KEY ("employee_id") REFERENCES "employee_profiles"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "job_assignments" ADD CONSTRAINT "job_assignments_application_id_fkey" FOREIGN KEY ("application_id") REFERENCES "job_applications"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "job_skills" ADD CONSTRAINT "job_skills_job_id_fkey" FOREIGN KEY ("job_id") REFERENCES "jobs"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "job_shifts" ADD CONSTRAINT "job_shifts_employee_id_fkey" FOREIGN KEY ("employee_id") REFERENCES "employee_profiles"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "job_skills" ADD CONSTRAINT "job_skills_skill_id_fkey" FOREIGN KEY ("skill_id") REFERENCES "skills"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "jobs" ADD CONSTRAINT "jobs_fileId_fkey" FOREIGN KEY ("fileId") REFERENCES "file_instances"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "jobs" ADD CONSTRAINT "jobs_assigned_employee_id_fkey" FOREIGN KEY ("assigned_employee_id") REFERENCES "employee_profiles"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "jobs" ADD CONSTRAINT "jobs_employer_id_fkey" FOREIGN KEY ("employer_id") REFERENCES "employer_profiles"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "message_reads" ADD CONSTRAINT "message_reads_message_id_fkey" FOREIGN KEY ("message_id") REFERENCES "messages"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "user_notifications" ADD CONSTRAINT "user_notifications_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "message_reads" ADD CONSTRAINT "message_reads_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "messages" ADD CONSTRAINT "messages_conversation_id_fkey" FOREIGN KEY ("conversation_id") REFERENCES "conversations"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "messages" ADD CONSTRAINT "messages_sender_id_fkey" FOREIGN KEY ("sender_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "notifications" ADD CONSTRAINT "notifications_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "user_notifications" ADD CONSTRAINT "user_notifications_notificationId_fkey" FOREIGN KEY ("notificationId") REFERENCES "notifications"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "otp_verifications" ADD CONSTRAINT "otp_verifications_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -556,22 +581,37 @@ ALTER TABLE "payments" ADD CONSTRAINT "payments_user_id_fkey" FOREIGN KEY ("user
 ALTER TABLE "payments" ADD CONSTRAINT "payments_job_id_fkey" FOREIGN KEY ("job_id") REFERENCES "jobs"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "reviews" ADD CONSTRAINT "reviews_job_id_fkey" FOREIGN KEY ("job_id") REFERENCES "jobs"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "private_conversations" ADD CONSTRAINT "private_conversations_initiatorId_fkey" FOREIGN KEY ("initiatorId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "reviews" ADD CONSTRAINT "reviews_employer_id_fkey" FOREIGN KEY ("employer_id") REFERENCES "employer_profiles"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "private_conversations" ADD CONSTRAINT "private_conversations_receiverId_fkey" FOREIGN KEY ("receiverId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "private_conversations" ADD CONSTRAINT "private_conversations_lastMessageId_fkey" FOREIGN KEY ("lastMessageId") REFERENCES "private_messages"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "private_messages" ADD CONSTRAINT "private_messages_fileId_fkey" FOREIGN KEY ("fileId") REFERENCES "file_instances"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "private_messages" ADD CONSTRAINT "private_messages_conversationId_fkey" FOREIGN KEY ("conversationId") REFERENCES "private_conversations"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "private_messages" ADD CONSTRAINT "private_messages_senderId_fkey" FOREIGN KEY ("senderId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "private_message_statuses" ADD CONSTRAINT "private_message_statuses_messageId_fkey" FOREIGN KEY ("messageId") REFERENCES "private_messages"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "private_message_statuses" ADD CONSTRAINT "private_message_statuses_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "reviews" ADD CONSTRAINT "reviews_job_id_fkey" FOREIGN KEY ("job_id") REFERENCES "jobs"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "reviews" ADD CONSTRAINT "reviews_employee_id_fkey" FOREIGN KEY ("employee_id") REFERENCES "employee_profiles"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "shifts" ADD CONSTRAINT "shifts_job_id_fkey" FOREIGN KEY ("job_id") REFERENCES "jobs"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "shifts" ADD CONSTRAINT "shifts_assignment_id_fkey" FOREIGN KEY ("assignment_id") REFERENCES "job_assignments"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "shifts" ADD CONSTRAINT "shifts_employee_id_fkey" FOREIGN KEY ("employee_id") REFERENCES "employee_profiles"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "settings" ADD CONSTRAINT "settings_updated_by_fkey" FOREIGN KEY ("updated_by") REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "subscriptions" ADD CONSTRAINT "subscriptions_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;

@@ -6,15 +6,64 @@ import {
 } from '@/common/exceptions/business.exception';
 import { CreateJobDto } from './dto/create-job.dto';
 import { UpdateJobDto } from './dto/update-job.dto';
-import { Prisma, FileType, JobStatus, JobApplicationStatus } from '@prisma';
+import {
+  Prisma,
+  FileType,
+  JobStatus,
+  JobApplicationStatus,
+  SubscriptionPlanType,
+} from '@prisma';
 import { S3UploadService } from '@/common/upload/s3-upload.service';
+import { SubscriptionService } from '../subscription/subscription.service';
+import { CreateReviewJobDto } from './dto/review-completed-job.dto';
 
 @Injectable()
 export class EmployerService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly s3UploadService: S3UploadService,
+    private readonly subscriptionService: SubscriptionService,
   ) {}
+
+  private parseTimeToDate(time: string): Date {
+    const normalizedTime = time.trim().replace(/\s+/g, ' ');
+
+    const match24Hour = normalizedTime.match(/^([01]\d|2[0-3]):([0-5]\d)$/);
+    if (match24Hour) {
+      const hours = Number(match24Hour[1]);
+      const minutes = Number(match24Hour[2]);
+      return new Date(Date.UTC(1970, 0, 1, hours, minutes, 0, 0));
+    }
+
+    const match12Hour = normalizedTime.match(
+      /^(0?[1-9]|1[0-2]):([0-5]\d)\s?(AM|PM)$/i,
+    );
+    if (match12Hour) {
+      const hour12 = Number(match12Hour[1]);
+      const minutes = Number(match12Hour[2]);
+      const meridiem = match12Hour[3].toUpperCase();
+      const hours = (hour12 % 12) + (meridiem === 'PM' ? 12 : 0);
+      return new Date(Date.UTC(1970, 0, 1, hours, minutes, 0, 0));
+    }
+
+    throw new BusinessException(
+      'Invalid time format. Use HH:mm or hh:mm AM/PM',
+      HttpStatus.BAD_REQUEST,
+    );
+  }
+
+  private formatTime12h(time: Date | null | undefined): string | null {
+    if (!time) {
+      return null;
+    }
+
+    const hours24 = time.getUTCHours();
+    const minutes = String(time.getUTCMinutes()).padStart(2, '0');
+    const hour12 = hours24 % 12 || 12;
+    const suffix = hours24 >= 12 ? 'PM' : 'AM';
+
+    return `${String(hour12).padStart(2, '0')}:${minutes} ${suffix}`;
+  }
 
   /**
    * Create a new job posting
@@ -24,6 +73,20 @@ export class EmployerService {
     dto: CreateJobDto,
     files?: Express.Multer.File | undefined,
   ) {
+    // check active subscription for employer before allowing job creation
+    const hasActiveSubscription =
+      await this.subscriptionService.checkActiveSubscription(
+        userId,
+        SubscriptionPlanType.employer_premium,
+      );
+
+    if (!hasActiveSubscription) {
+      throw new BusinessException(
+        'Active subscription required. Please subscribe before applying to jobs.',
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
     // 1. Validate that expire_date is not provided (it's auto-calculated)
     if ((dto as any).expire_date) {
       throw new BusinessException(
@@ -56,8 +119,8 @@ export class EmployerService {
     let totalAmount: Prisma.Decimal | null = null;
     if (dto.start_time && dto.end_time && dto.amount) {
       try {
-        const startTime = new Date(dto.start_time);
-        const endTime = new Date(dto.end_time);
+        const startTime = this.parseTimeToDate(dto.start_time);
+        const endTime = this.parseTimeToDate(dto.end_time);
 
         // Calculate hours difference
         const timeDiffMs = endTime.getTime() - startTime.getTime();
@@ -128,8 +191,8 @@ export class EmployerService {
       job_category: dto.job_category || null,
       job_date: dto.job_date ? new Date(dto.job_date) : null,
       expire_date: expireDate,
-      start_time: dto.start_time ? new Date(dto.start_time) : null,
-      end_time: dto.end_time ? new Date(dto.end_time) : null,
+      start_time: dto.start_time ? this.parseTimeToDate(dto.start_time) : null,
+      end_time: dto.end_time ? this.parseTimeToDate(dto.end_time) : null,
       amount: dto.amount ? new Prisma.Decimal(dto.amount) : null,
       totalAmount: totalAmount,
       location: dto.location,
@@ -164,7 +227,11 @@ export class EmployerService {
     return {
       success: true,
       message: 'Job created successfully',
-      data: job,
+      data: {
+        ...job,
+        start_time: this.formatTime12h(job.start_time),
+        end_time: this.formatTime12h(job.end_time),
+      },
     };
   }
 
@@ -182,7 +249,7 @@ export class EmployerService {
 
     // Update jobs to 'closed' status if expire_date has passed
     const now = new Date();
-    now.setHours(0, 0, 0, 0); // Set to start of day for comparison
+    now.setUTCHours(0, 0, 0, 0);
 
     await this.prisma.client.job.updateMany({
       where: {
@@ -247,7 +314,11 @@ export class EmployerService {
     return {
       success: true,
       message: 'Jobs retrieved successfully',
-      data: jobs,
+      data: jobs.map((job) => ({
+        ...job,
+        start_time: this.formatTime12h(job.start_time),
+        end_time: this.formatTime12h(job.end_time),
+      })),
       paginationInfo: {
         page,
         limit,
@@ -289,7 +360,11 @@ export class EmployerService {
     return {
       success: true,
       message: 'Job retrieved successfully',
-      data: job,
+      data: {
+        ...job,
+        start_time: this.formatTime12h(job.start_time),
+        end_time: this.formatTime12h(job.end_time),
+      },
     };
   }
 
@@ -331,10 +406,10 @@ export class EmployerService {
     // 3. Calculate totalAmount if start_time, end_time, and amount are provided or updated
     let totalAmount: Prisma.Decimal | null = null;
     const startTime = dto.start_time
-      ? new Date(dto.start_time)
+      ? this.parseTimeToDate(dto.start_time)
       : existingJob.start_time;
     const endTime = dto.end_time
-      ? new Date(dto.end_time)
+      ? this.parseTimeToDate(dto.end_time)
       : existingJob.end_time;
     const amount = dto.amount
       ? parseFloat(dto.amount)
@@ -420,9 +495,9 @@ export class EmployerService {
     if (dto.job_category !== undefined)
       updateData.job_category = dto.job_category;
     if (dto.start_time !== undefined)
-      updateData.start_time = new Date(dto.start_time);
+      updateData.start_time = this.parseTimeToDate(dto.start_time);
     if (dto.end_time !== undefined)
-      updateData.end_time = new Date(dto.end_time);
+      updateData.end_time = this.parseTimeToDate(dto.end_time);
     if (dto.amount !== undefined)
       updateData.amount = new Prisma.Decimal(dto.amount);
     if (dto.location !== undefined) updateData.location = dto.location;
@@ -455,7 +530,11 @@ export class EmployerService {
     return {
       success: true,
       message: 'Job updated successfully',
-      data: updatedJob,
+      data: {
+        ...updatedJob,
+        start_time: this.formatTime12h(updatedJob.start_time),
+        end_time: this.formatTime12h(updatedJob.end_time),
+      },
     };
   }
 
@@ -726,6 +805,170 @@ export class EmployerService {
       data: {
         applicationId,
         status: JobApplicationStatus.rejected,
+      },
+    };
+  }
+
+  async createReviewJob(job_id: string, dto: CreateReviewJobDto) {
+    const job = await this.prisma.client.job.findUnique({
+      where: { id: job_id },
+      include: {
+        employer: true,
+        assigned_employee: true,
+        review: true,
+      },
+    });
+
+    if (!job) {
+      throw new BusinessException('Job not found', HttpStatus.NOT_FOUND);
+    }
+
+    if (job.status !== JobStatus.completed) {
+      throw new BusinessException(
+        'Only completed jobs can be reviewed',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    if (!job.assigned_employee_id) {
+      throw new BusinessException(
+        'Cannot review a job without an assigned employee',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    if (job.review) {
+      throw new BusinessException(
+        'This job has already been reviewed',
+        HttpStatus.CONFLICT,
+      );
+    }
+
+    // Validate rating range
+    if (dto.rating < 0 || dto.rating > 5) {
+      throw new BusinessException(
+        'Rating must be between 0 and 5',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    // Create review and update employee profile in a transaction
+    const result = await this.prisma.client.$transaction(async (tx) => {
+      // Create the review
+      const review = await tx.review.create({
+        data: {
+          job_id: job_id,
+          employee_id: job.assigned_employee_id!,
+          rating: dto.rating,
+          comment: dto.comment || null,
+        },
+      });
+
+      // Get all reviews for this employee to recalculate average rating
+      const allReviews = await tx.review.findMany({
+        where: { employee_id: job.assigned_employee_id! },
+        select: {
+          rating: true,
+        },
+      });
+
+      // Calculate new average rating
+      const totalRating = allReviews.reduce((sum, r) => sum + r.rating, 0);
+      const averageRating = totalRating / allReviews.length;
+
+      // Update employee profile with new rating and review count
+      const updatedEmployee = await tx.employeeProfile.update({
+        where: { id: job.assigned_employee_id! },
+        data: {
+          rating: averageRating,
+          total_reviews: allReviews.length,
+        },
+      });
+
+      return { review, updatedEmployee };
+    });
+
+    return {
+      success: true,
+      message: 'Job reviewed and employee profile updated successfully',
+      data: {
+        reviewId: result.review.id,
+        rating: result.review.rating,
+        employeeNewRating: result.updatedEmployee.rating,
+        employeeTotalReviews: result.updatedEmployee.total_reviews,
+      },
+    };
+  }
+
+  async getAllReviews(
+    page: number = 1,
+    limit: number = 10,
+    employeeId?: string,
+    jobId?: string,
+  ) {
+    const skip = (page - 1) * limit;
+
+    const whereConditions: Prisma.ReviewWhereInput = {};
+
+    if (employeeId) {
+      whereConditions.employee_id = employeeId;
+    }
+
+    if (jobId) {
+      whereConditions.job_id = jobId;
+    }
+
+    const reviews = await this.prisma.client.review.findMany({
+      where: whereConditions,
+      select: {
+        id: true,
+        rating: true,
+        comment: true,
+        created_at: true,
+        updated_at: true,
+        job: {
+          select: {
+            id: true,
+            title: true,
+            company_name: true,
+            status: true,
+            job_date: true,
+            location: true,
+          },
+        },
+        employee: {
+          select: {
+            id: true,
+            profile_photo_url: true,
+            rating: true,
+            total_reviews: true,
+            user: {
+              select: {
+                full_name: true,
+                email: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: { created_at: 'desc' },
+      skip,
+      take: limit,
+    });
+
+    const totalReviews = await this.prisma.client.review.count({
+      where: whereConditions,
+    });
+
+    return {
+      success: true,
+      message: 'Reviews retrieved successfully',
+      data: reviews,
+      paginationInfo: {
+        page,
+        limit,
+        totalReviews,
+        totalPages: Math.ceil(totalReviews / limit),
       },
     };
   }

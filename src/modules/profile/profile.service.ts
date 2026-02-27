@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from '@/prisma/prisma.service';
 import { ResponseHelper } from '@/common/utils/response.helper';
 import {
@@ -6,8 +6,10 @@ import {
   ResourceNotFoundException,
 } from '@/common/exceptions/business.exception';
 import { UpdateProfileDto } from './dto/update-profile.dto';
-import { UserRole } from '@prisma';
+import { AccountStatus, AuthProvider, UserRole } from '@prisma';
 import { S3UploadService } from '@/common/upload/s3-upload.service';
+import { compare, hash } from 'bcryptjs';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
 @Injectable()
 export class ProfileService {
@@ -213,5 +215,244 @@ export class ProfileService {
       { isNotify: updated.isNotify },
       'Notification preference updated successfully',
     );
+  }
+
+  async getMyReviews(userId: string) {
+    const user = await this.prismaService.client.user.findUnique({
+      where: { id: userId },
+      include: {
+        employee_profile: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+
+    if (!user) {
+      throw new ResourceNotFoundException('User', userId);
+    }
+
+    if (user.role !== UserRole.employee) {
+      throw new BusinessException(
+        'Only employee accounts can access my reviews',
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
+    if (!user.employee_profile) {
+      return ResponseHelper.success(
+        {
+          averageRating: 0,
+          totalReviews: 0,
+          ratingBreakdown: {
+            excellent: { count: 0, percentage: 0 },
+            good: { count: 0, percentage: 0 },
+            average: { count: 0, percentage: 0 },
+            poor: { count: 0, percentage: 0 },
+          },
+          reviews: [],
+        },
+        'My reviews fetched successfully',
+      );
+    }
+
+    const reviews = await this.prismaService.client.review.findMany({
+      where: {
+        employee_id: user.employee_profile.id,
+      },
+      select: {
+        id: true,
+        rating: true,
+        comment: true,
+        created_at: true,
+        job: {
+          select: {
+            id: true,
+            title: true,
+            company_name: true,
+            employer: {
+              select: {
+                company_name: true,
+                profile_photo_url: true,
+                user: {
+                  select: {
+                    full_name: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        created_at: 'desc',
+      },
+    });
+
+    const totalReviews = reviews.length;
+    const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+    const averageRating =
+      totalReviews > 0 ? Number((totalRating / totalReviews).toFixed(1)) : 0;
+
+    const excellentCount = reviews.filter(
+      (review) => review.rating >= 4.5,
+    ).length;
+    const goodCount = reviews.filter(
+      (review) => review.rating >= 3.5 && review.rating < 4.5,
+    ).length;
+    const averageCount = reviews.filter(
+      (review) => review.rating >= 2.5 && review.rating < 3.5,
+    ).length;
+    const poorCount = reviews.filter((review) => review.rating < 2.5).length;
+
+    const toPercentage = (count: number) =>
+      totalReviews > 0 ? Number(((count / totalReviews) * 100).toFixed(1)) : 0;
+
+    const formattedReviews = reviews.map((review) => ({
+      id: review.id,
+      rating: Number(review.rating.toFixed(1)),
+      comment: review.comment,
+      createdAt: review.created_at,
+      reviewerName:
+        review.job.employer?.company_name ??
+        review.job.company_name ??
+        review.job.employer?.user.full_name ??
+        'Unknown',
+      reviewerImageUrl: review.job.employer?.profile_photo_url ?? null,
+      job: {
+        id: review.job.id,
+        title: review.job.title,
+      },
+    }));
+
+    return ResponseHelper.success(
+      {
+        averageRating,
+        totalReviews,
+        ratingBreakdown: {
+          excellent: {
+            count: excellentCount,
+            percentage: toPercentage(excellentCount),
+          },
+          good: {
+            count: goodCount,
+            percentage: toPercentage(goodCount),
+          },
+          average: {
+            count: averageCount,
+            percentage: toPercentage(averageCount),
+          },
+          poor: {
+            count: poorCount,
+            percentage: toPercentage(poorCount),
+          },
+        },
+        reviews: formattedReviews,
+      },
+      'My reviews fetched successfully',
+    );
+  }
+
+  async changePassword(userId: string, dto: ChangePasswordDto) {
+    const user = await this.prismaService.client.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        password_hash: true,
+        is_deleted: true,
+      },
+    });
+
+    if (!user) {
+      throw new ResourceNotFoundException('User', userId);
+    }
+
+    if (user.is_deleted) {
+      throw new BusinessException(
+        'Your account has been deleted. Please contact support for help.',
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
+    if (!user.password_hash) {
+      throw new BusinessException(
+        'Password is not set for this account',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    const isOldPasswordValid = await compare(
+      dto.oldPassword,
+      user.password_hash,
+    );
+    if (!isOldPasswordValid) {
+      throw new BusinessException(
+        'Old password is incorrect',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    const newPasswordHash = await hash(dto.newPassword, 10);
+
+    await this.prismaService.client.$transaction([
+      this.prismaService.client.user.update({
+        where: { id: userId },
+        data: {
+          password_hash: newPasswordHash,
+          last_active_at: new Date(),
+        },
+      }),
+      this.prismaService.client.userAuthProvider.updateMany({
+        where: {
+          user_id: userId,
+          provider: AuthProvider.credentials,
+        },
+        data: {
+          access_token: null,
+          refresh_token: null,
+        },
+      }),
+    ]);
+
+    return ResponseHelper.success(null, 'Password changed successfully');
+  }
+
+  async deleteMe(userId: string) {
+    const user = await this.prismaService.client.user.findUnique({
+      where: { id: userId },
+      select: { id: true, is_deleted: true },
+    });
+
+    if (!user) {
+      throw new ResourceNotFoundException('User', userId);
+    }
+
+    if (user.is_deleted) {
+      return ResponseHelper.success(null, 'Account is already deleted');
+    }
+
+    await this.prismaService.client.$transaction([
+      this.prismaService.client.user.update({
+        where: { id: userId },
+        data: {
+          is_deleted: true,
+          is_active: false,
+          account_status: AccountStatus.blocked,
+          last_active_at: new Date(),
+        },
+      }),
+      this.prismaService.client.userAuthProvider.updateMany({
+        where: {
+          user_id: userId,
+        },
+        data: {
+          access_token: null,
+          refresh_token: null,
+        },
+      }),
+    ]);
+
+    return ResponseHelper.success(null, 'Account deleted successfully');
   }
 }

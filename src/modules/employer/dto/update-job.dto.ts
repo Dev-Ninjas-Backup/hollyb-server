@@ -5,6 +5,7 @@ import {
   IsDecimal,
   Allow,
   IsEnum,
+  Matches,
 } from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { JobCategory } from '@prisma';
@@ -73,19 +74,25 @@ export class UpdateJobDto {
   job_category?: JobCategory;
 
   @ApiPropertyOptional({
-    description: 'Shift start time (ISO string)',
-    example: '1970-01-01T08:00:00.000Z',
+    description: 'Shift start time (HH:mm or hh:mm AM/PM)',
+    example: '03:30 PM',
   })
   @IsOptional()
   @IsString()
+  @Matches(
+    /^(([01]\d|2[0-3]):([0-5]\d)|((0?[1-9]|1[0-2]):([0-5]\d)\s?(AM|PM|am|pm)))$/,
+  )
   start_time?: string;
 
   @ApiPropertyOptional({
-    description: 'Shift end time (ISO string)',
-    example: '1970-01-01T17:00:00.000Z',
+    description: 'Shift end time (HH:mm or hh:mm AM/PM)',
+    example: '05:30 PM',
   })
   @IsOptional()
   @IsString()
+  @Matches(
+    /^(([01]\d|2[0-3]):([0-5]\d)|((0?[1-9]|1[0-2]):([0-5]\d)\s?(AM|PM|am|pm)))$/,
+  )
   end_time?: string;
 
   @ApiPropertyOptional({
