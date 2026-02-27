@@ -48,7 +48,6 @@ COPY --from=builder /app/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma.config.ts ./
 COPY --from=builder /app/prisma ./prisma
-COPY --from=builder /app/public ./public
 
 # Install dependencies
 RUN pnpm install --frozen-lockfile
