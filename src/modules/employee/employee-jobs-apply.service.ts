@@ -228,6 +228,11 @@ export class EmployeeJobsApplyService {
                     url: true,
                   },
                 },
+                review: {
+                  select: {
+                    rating: true,
+                  },
+                },
               },
             },
           },
@@ -246,6 +251,8 @@ export class EmployeeJobsApplyService {
         item.status === JobApplicationStatus.withdrawn ||
         completedJobStatuses.includes(item.job.status);
 
+      const { review, ...jobData } = item.job;
+
       return {
         application_id: item.id,
         application_status: item.status,
@@ -254,9 +261,10 @@ export class EmployeeJobsApplyService {
         updated_at: item.updated_at,
         list_state: isCompleted ? 'completed' : 'active',
         job: {
-          ...item.job,
-          start_time: this.formatTime12h(item.job.start_time),
-          end_time: this.formatTime12h(item.job.end_time),
+          ...jobData,
+          rating: review?.rating ?? null,
+          start_time: this.formatTime12h(jobData.start_time),
+          end_time: this.formatTime12h(jobData.end_time),
         },
       };
     });
@@ -345,6 +353,18 @@ export class EmployeeJobsApplyService {
           start_time: this.formatTime12h(job.start_time),
           end_time: this.formatTime12h(job.end_time),
           status: job.status,
+          rating: job.review?.rating ?? null,
+          review: job.review
+            ? {
+                id: job.review.id,
+                rating: job.review.rating,
+                comment: job.review.comment,
+                reviewerName: job.employer?.user.full_name ?? 'Unknown',
+                reviewerImageUrl: job.employer?.profile_photo_url ?? null,
+                created_at: job.review.created_at,
+                updated_at: job.review.updated_at,
+              }
+            : null,
           file: job.file,
         },
         shiftProgress: {
@@ -685,6 +705,26 @@ export class EmployeeJobsApplyService {
         start_time: true,
         end_time: true,
         assigned_employee_id: true,
+        employer: {
+          select: {
+            company_name: true,
+            profile_photo_url: true,
+            user: {
+              select: {
+                full_name: true,
+              },
+            },
+          },
+        },
+        review: {
+          select: {
+            id: true,
+            rating: true,
+            comment: true,
+            created_at: true,
+            updated_at: true,
+          },
+        },
         file: {
           select: {
             url: true,
