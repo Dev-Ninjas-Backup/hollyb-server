@@ -233,6 +233,15 @@ export class EmployeeJobsApplyService {
                     rating: true,
                   },
                 },
+                shifts: {
+                  where: {
+                    employee_id: employeeProfile.id,
+                  },
+                  select: {
+                    status: true,
+                  },
+                  take: 1,
+                },
               },
             },
           },
@@ -251,15 +260,17 @@ export class EmployeeJobsApplyService {
         item.status === JobApplicationStatus.withdrawn ||
         completedJobStatuses.includes(item.job.status);
 
-      const { review, ...jobData } = item.job;
+      const { review, shifts, ...jobData } = item.job;
+      const shift = shifts[0];
+      const applicationStatus =
+        shift?.status === ShiftStatus.in_progress ? 'in-progress' : item.status;
 
       return {
         application_id: item.id,
-        application_status: item.status,
+        application_status: applicationStatus,
         cover_note: item.cover_note,
         applied_at: item.applied_at,
         updated_at: item.updated_at,
-        list_state: isCompleted ? 'completed' : 'active',
         job: {
           ...jobData,
           rating: review?.rating ?? null,
