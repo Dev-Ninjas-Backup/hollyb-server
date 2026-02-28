@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { App, cert, getApp, getApps, initializeApp } from 'firebase-admin/app';
 import { DecodedIdToken, getAuth } from 'firebase-admin/auth';
-import { compare, hash } from 'bcryptjs';
+import { hash } from 'bcryptjs';
 import { AccountStatus, AuthProvider, User, UserRole } from '@prisma';
 import { PrismaService } from '@/prisma/prisma.service';
 import { ResponseHelper } from '@/common/utils/response.helper';
@@ -41,7 +41,14 @@ export class AuthSocialService {
     expectedProvider: 'google.com' | 'facebook.com',
   ) {
     const decodedToken = await this.verifyFirebaseToken(dto.idToken);
-    const signInProvider = decodedToken.firebase?.sign_in_provider;
+    const firebaseData: unknown = decodedToken.firebase;
+    const signInProvider =
+      typeof firebaseData === 'object' &&
+      firebaseData !== null &&
+      'sign_in_provider' in firebaseData &&
+      typeof firebaseData.sign_in_provider === 'string'
+        ? firebaseData.sign_in_provider
+        : '';
 
     if (signInProvider !== expectedProvider) {
       throw new BusinessException(
@@ -57,9 +64,21 @@ export class AuthSocialService {
       );
     }
 
+    const displayName =
+      typeof decodedToken.name === 'string' && decodedToken.name.trim().length
+        ? decodedToken.name
+        : decodedToken.email;
+
     let user = await this.prismaService.client.user.findFirst({
       where: { email: decodedToken.email },
     });
+
+    if (user?.is_deleted) {
+      throw new BusinessException(
+        'Your account has been deleted. Please contact support for help.',
+        HttpStatus.FORBIDDEN,
+      );
+    }
 
     if (user && dto.role && user.role !== dto.role) {
       throw new BusinessException(
@@ -71,7 +90,7 @@ export class AuthSocialService {
     if (!user) {
       user = await this.prismaService.client.user.create({
         data: {
-          full_name: decodedToken.name ?? decodedToken.email,
+          full_name: displayName,
           email: decodedToken.email,
           role: dto.role ?? UserRole.employee,
           account_status: AccountStatus.active,

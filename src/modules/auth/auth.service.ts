@@ -16,7 +16,6 @@ import { RegisterDto } from './dto/register.dto';
 import { VerifyOtpDto } from './dto/verify-otp.dto';
 import { LoginDto } from './dto/login.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
-import { ChangePasswordDto } from './dto/change-password.dto';
 import { ResetOtpDto } from './dto/reset-otp.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { NotificationService } from '../notification/notification.service';
@@ -138,6 +137,7 @@ export class AuthService {
 
   async login(dto: LoginDto) {
     const user = await this.findUserByEmail(dto.email);
+    this.ensureUserCanAuthenticate(user);
 
     if (!user.password_hash) {
       throw new BusinessException(
@@ -229,6 +229,7 @@ export class AuthService {
 
   async adminVerifyOtp(dto: VerifyOtpDto) {
     const user = await this.findUserByEmail(dto.email);
+    this.ensureUserCanAuthenticate(user);
 
     // Verify user is admin
     if (user.role !== UserRole.admin) {
@@ -286,6 +287,7 @@ export class AuthService {
 
   async forgotPassword(dto: ForgotPasswordDto) {
     const user = await this.findUserByEmail(dto.email);
+    this.ensureUserCanAuthenticate(user);
     await this.createOtp(user.id, OtpType.password_reset);
     return ResponseHelper.success(
       null,
@@ -295,6 +297,7 @@ export class AuthService {
 
   async resendOtp(dto: ResetOtpDto) {
     const user = await this.findUserByEmail(dto.email);
+    this.ensureUserCanAuthenticate(user);
     await this.createOtp(user.id, OtpType.password_reset);
 
     return ResponseHelper.success(
@@ -312,6 +315,7 @@ export class AuthService {
     }
 
     const user = await this.findUserByEmail(dto.email);
+    this.ensureUserCanAuthenticate(user);
     const latestUsedPasswordResetOtp =
       await this.prismaService.client.otpVerification.findFirst({
         where: {
@@ -365,62 +369,6 @@ export class AuthService {
     return ResponseHelper.success(null, 'Password updated successfully');
   }
 
-  async changePassword(userId: string, dto: ChangePasswordDto) {
-    const user = await this.prismaService.client.user.findUnique({
-      where: { id: userId },
-      select: {
-        id: true,
-        password_hash: true,
-      },
-    });
-
-    if (!user) {
-      throw new ResourceNotFoundException('User', userId);
-    }
-
-    if (!user.password_hash) {
-      throw new BusinessException(
-        'Password is not set for this account',
-        HttpStatus.BAD_REQUEST,
-      );
-    }
-
-    const isOldPasswordValid = await compare(
-      dto.oldPassword,
-      user.password_hash,
-    );
-    if (!isOldPasswordValid) {
-      throw new BusinessException(
-        'Old password is incorrect',
-        HttpStatus.BAD_REQUEST,
-      );
-    }
-
-    const newPasswordHash = await hash(dto.newPassword, 10);
-
-    await this.prismaService.client.$transaction([
-      this.prismaService.client.user.update({
-        where: { id: userId },
-        data: {
-          password_hash: newPasswordHash,
-          last_active_at: new Date(),
-        },
-      }),
-      this.prismaService.client.userAuthProvider.updateMany({
-        where: {
-          user_id: userId,
-          provider: AuthProvider.credentials,
-        },
-        data: {
-          access_token: null,
-          refresh_token: null,
-        },
-      }),
-    ]);
-
-    return ResponseHelper.success(null, 'Password changed successfully');
-  }
-
   async logout(userId: string, token: string) {
     const providers = await this.prismaService.client.userAuthProvider.findMany(
       {
@@ -466,6 +414,15 @@ export class AuthService {
   private ensureEmail(email?: string) {
     if (!email) {
       throw new BusinessException('Email is required');
+    }
+  }
+
+  private ensureUserCanAuthenticate(user: User) {
+    if (user.is_deleted) {
+      throw new BusinessException(
+        'Your account has been deleted. Please contact support for help.',
+        HttpStatus.FORBIDDEN,
+      );
     }
   }
 

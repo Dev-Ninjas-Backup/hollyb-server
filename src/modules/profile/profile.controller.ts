@@ -1,8 +1,10 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Patch,
+  Post,
   UseGuards,
   Req,
   UploadedFile,
@@ -22,6 +24,7 @@ import { JwtAuthGuard } from '@/common/guards/jwt-auth.guard';
 import type { AuthenticatedRequest } from '@/common/guards/jwt-auth.guard';
 import { ProfileService } from './profile.service';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 
@@ -128,5 +131,60 @@ export class ProfileController {
   @UseGuards(JwtAuthGuard)
   toggleNotify(@Req() req: AuthenticatedRequest) {
     return this.profileService.toggleNotify(req.user.sub);
+  }
+
+  @Get('my-reviews')
+  @ApiOperation({
+    summary: 'Get my reviews',
+    description:
+      'Get authenticated employee review summary and review list for profile reviews screen.',
+  })
+  @ApiResponse({ status: 200, description: 'Reviews fetched successfully.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing token.',
+  })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  getMyReviews(@Req() req: AuthenticatedRequest) {
+    return this.profileService.getMyReviews(req.user.sub);
+  }
+
+  @Post('change-password')
+  @ApiOperation({
+    summary: 'Change password',
+    description:
+      'Change password for authenticated user. Requires old password verification.',
+  })
+  @ApiResponse({ status: 200, description: 'Password changed successfully.' })
+  @ApiResponse({ status: 400, description: 'Invalid old password.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing token.',
+  })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  changePassword(
+    @Body() dto: ChangePasswordDto,
+    @Req() req: AuthenticatedRequest,
+  ) {
+    return this.profileService.changePassword(req.user.sub, dto);
+  }
+
+  @Delete('delete')
+  @ApiOperation({
+    summary: 'Soft delete current user',
+    description:
+      'Soft delete authenticated user account, revoke all active tokens, and block further login.',
+  })
+  @ApiResponse({ status: 200, description: 'Account deleted successfully.' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing token.',
+  })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  deleteMe(@Req() req: AuthenticatedRequest) {
+    return this.profileService.deleteMe(req.user.sub);
   }
 }

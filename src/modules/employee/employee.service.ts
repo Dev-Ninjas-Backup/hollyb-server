@@ -244,7 +244,7 @@ export class EmployeeService {
     };
   }
 
-    async getJobStats(employeeId: string) {
+  async getJobStats(employeeId: string) {
     // Check if employee exists
     const employee = await this.prisma.client.employeeProfile.findUnique({
       where: { user_id: employeeId },
@@ -252,10 +252,7 @@ export class EmployeeService {
     });
 
     if (!employee) {
-      throw new BusinessException(
-        'Employee not found',
-        HttpStatus.NOT_FOUND,
-      );
+      throw new BusinessException('Employee not found', HttpStatus.NOT_FOUND);
     }
 
     // Get completed jobs count
