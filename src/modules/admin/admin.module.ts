@@ -4,6 +4,7 @@ import { BackgroundCheckModule } from './background-check/background-check.modul
 import { JobsModule } from './jobs/jobs.module';
 import { SettingsModule } from './settings/settings.module';
 import { OverviewModule } from './overview/overview.module';
+import { EmployeesModule } from './employees/employees.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { OverviewModule } from './overview/overview.module';
     JobsModule,
     SettingsModule,
     OverviewModule,
+    EmployeesModule,
   ],
 })
 export class AdminModule {}
