@@ -9,6 +9,7 @@ import {
   PaymentStatus,
   PaymentType,
   PaymentMethod,
+  UserRole,
 } from '@prisma';
 import { DirectPaymentDto } from './dto/direct-payment.dto';
 import { RenewSubscriptionDto } from './dto/renew-subscription.dto';
@@ -373,6 +374,39 @@ export class SubscriptionService {
         isRunning: isActive,
       };
     });
+  }
+
+  async getSubscriptionPricing(userId: string) {
+    const user = await this.prisma.client.user.findUnique({
+      where: { id: userId },
+      select: { role: true },
+    });
+
+    if (!user) {
+      throw new BusinessException('User not found', HttpStatus.NOT_FOUND);
+    }
+
+    if (user.role !== UserRole.employee && user.role !== UserRole.employer) {
+      throw new BusinessException(
+        'Subscription pricing is only available for employee and employer accounts',
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
+    const planType =
+      user.role === UserRole.employee
+        ? SubscriptionPlanType.employee_premium
+        : SubscriptionPlanType.employer_premium;
+
+    const amount = await this.getPlanAmount(planType);
+
+    return {
+      userType: user.role,
+      planType,
+      amount,
+      currency: 'USD',
+      billingCycle: 'monthly',
+    };
   }
 
   async checkActiveSubscription(

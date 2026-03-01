@@ -33,6 +33,7 @@ import {
   PaymentConfigDataDto,
   ProcessSubscriptionPaymentDataDto,
   RenewSubscriptionDataDto,
+  SubscriptionPricingDataDto,
   StripeWebhookReceivedDto,
   UserSubscriptionItemDto,
 } from './dto/subscription-response.dto';
@@ -97,10 +98,20 @@ export class SubscriptionController {
   @ApiSuccessResponse(CurrentSubscriptionStateDto, {
     description: 'Current subscription state retrieved successfully',
   })
-  @ApiErrorResponses()
   @UseGuards(JwtAuthGuard)
   async getCurrentSubscription(@Req() req: AuthenticatedRequest) {
     return this.subscriptionService.getCurrentActiveSubscription(req.user.sub);
+  }
+
+  @Get('pricing')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get subscription pricing for current user role' })
+  @ApiSuccessResponse(SubscriptionPricingDataDto, {
+    description: 'Subscription pricing retrieved successfully',
+  })
+  @UseGuards(JwtAuthGuard)
+  async getSubscriptionPricing(@Req() req: AuthenticatedRequest) {
+    return this.subscriptionService.getSubscriptionPricing(req.user.sub);
   }
 
   @Post('webhook/stripe')
