@@ -27,7 +27,7 @@ model Job {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  assigned_employee_id String?          @unique @db.Uuid
+  assigned_employee_id String?          @db.Uuid
   assigned_employee    EmployeeProfile? @relation(fields: [assigned_employee_id], references: [id], onDelete: SetNull)
 
   review           Review?
