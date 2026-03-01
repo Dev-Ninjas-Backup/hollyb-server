@@ -5,6 +5,7 @@ import { JobsModule } from './jobs/jobs.module';
 import { SettingsModule } from './settings/settings.module';
 import { OverviewModule } from './overview/overview.module';
 import { EmployeesModule } from './employees/employees.module';
+import { EmployersModule } from './employers/employers.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { EmployeesModule } from './employees/employees.module';
     SettingsModule,
     OverviewModule,
     EmployeesModule,
+    EmployersModule,
   ],
 })
 export class AdminModule {}
