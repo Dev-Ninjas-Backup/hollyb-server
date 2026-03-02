@@ -6,6 +6,7 @@ import { SettingsModule } from './settings/settings.module';
 import { OverviewModule } from './overview/overview.module';
 import { EmployeesModule } from './employees/employees.module';
 import { EmployersModule } from './employers/employers.module';
+import { ReportAnalyticsModule } from './report-analytics/report-analytics.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { EmployersModule } from './employers/employers.module';
     OverviewModule,
     EmployeesModule,
     EmployersModule,
+    ReportAnalyticsModule,
   ],
 })
 export class AdminModule {}
