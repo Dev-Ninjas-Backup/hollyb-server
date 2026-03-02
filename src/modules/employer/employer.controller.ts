@@ -37,6 +37,36 @@ import { CreateReviewJobDto } from './dto/review-completed-job.dto';
 export class EmployerController {
   constructor(private readonly employerService: EmployerService) {}
 
+  private parseMultipartBoolean(value: unknown): boolean | undefined {
+    if (value === undefined || value === null) {
+      return undefined;
+    }
+
+    if (Array.isArray(value)) {
+      return this.parseMultipartBoolean(value[0]);
+    }
+
+    if (typeof value === 'boolean') {
+      return value;
+    }
+
+    if (typeof value === 'number') {
+      return value === 1;
+    }
+
+    if (typeof value === 'string') {
+      const normalizedValue = value.trim().toLowerCase();
+      if (['true', '1', 'yes', 'on'].includes(normalizedValue)) {
+        return true;
+      }
+      if (['false', '0', 'no', 'off', ''].includes(normalizedValue)) {
+        return false;
+      }
+    }
+
+    return undefined;
+  }
+
   // Create a new job posting
   @Post('job/create')
   @ApiBearerAuth()
@@ -125,7 +155,11 @@ export class EmployerController {
       file?: Express.Multer.File[];
     },
   ) {
-    console.log('Received create job request with data:', dto);
+    const normalizedUrgent = this.parseMultipartBoolean(req.body?.is_urgent);
+    if (normalizedUrgent !== undefined) {
+      dto.is_urgent = normalizedUrgent;
+    }
+
     return this.employerService.createJob(
       req.user.sub,
       dto,
@@ -217,6 +251,11 @@ export class EmployerController {
       file?: Express.Multer.File[];
     },
   ) {
+    const normalizedUrgent = this.parseMultipartBoolean(req.body?.is_urgent);
+    if (normalizedUrgent !== undefined) {
+      dto.is_urgent = normalizedUrgent;
+    }
+
     return this.employerService.updateJob(
       req.user.sub,
       id,

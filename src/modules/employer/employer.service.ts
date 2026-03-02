@@ -65,6 +65,36 @@ export class EmployerService {
     return `${String(hour12).padStart(2, '0')}:${minutes} ${suffix}`;
   }
 
+  private toBoolean(value: unknown): boolean {
+    if (value === undefined || value === null) {
+      return false;
+    }
+
+    if (typeof value === 'boolean') {
+      return value;
+    }
+
+    if (Array.isArray(value)) {
+      return this.toBoolean(value[0]);
+    }
+
+    if (typeof value === 'number') {
+      return value === 1;
+    }
+
+    if (typeof value === 'string') {
+      const normalizedValue = value.trim().toLowerCase();
+      if (['true', '1', 'yes', 'on'].includes(normalizedValue)) {
+        return true;
+      }
+      if (['false', '0', 'no', 'off', ''].includes(normalizedValue)) {
+        return false;
+      }
+    }
+
+    return false;
+  }
+
   /**
    * Create a new job posting
    */
@@ -73,7 +103,6 @@ export class EmployerService {
     dto: CreateJobDto,
     files?: Express.Multer.File | undefined,
   ) {
-    console.log('dto:', dto);
     // check active subscription for employer before allowing job creation
     const hasActiveSubscription =
       await this.subscriptionService.checkActiveSubscription(
@@ -185,7 +214,7 @@ export class EmployerService {
       description: dto.description,
       job_responsibilities: dto.job_responsibilities,
       requirements: dto.requirements,
-      is_urgent: Boolean(dto.is_urgent),
+      is_urgent: this.toBoolean(dto.is_urgent),
       job_category: dto.job_category || null,
       job_date: dto.job_date ? new Date(dto.job_date) : null,
       expire_date: expireDate,
@@ -489,7 +518,7 @@ export class EmployerService {
     if (dto.requirements !== undefined)
       updateData.requirements = dto.requirements;
     if (dto.is_urgent !== undefined)
-      updateData.is_urgent = Boolean(dto.is_urgent);
+      updateData.is_urgent = this.toBoolean(dto.is_urgent);
     if (dto.job_category !== undefined)
       updateData.job_category = dto.job_category;
     if (dto.start_time !== undefined)
