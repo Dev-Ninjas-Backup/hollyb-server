@@ -1,6 +1,7 @@
 import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
+  ApiBody,
   ApiOperation,
   ApiResponse,
   ApiTags,
@@ -97,6 +98,7 @@ export class AuthController {
     description:
       'Authenticate user with email and password. Returns JWT access token.',
   })
+  @ApiBody({ type: LoginDto })
   @ApiResponse({
     status: 200,
     description: 'Login successful. Returns access token and user data.',

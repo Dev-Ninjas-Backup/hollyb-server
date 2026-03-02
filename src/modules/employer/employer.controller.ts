@@ -76,10 +76,15 @@ export class EmployerController {
           example: 'chef',
         },
         job_responsibilities: {
-          type: 'string',
-          example: 'Load/unload goods, manage inventory.',
+          type: 'array',
+          items: { type: 'string' },
+          example: ['Load/unload goods', 'Manage inventory', 'Sort shipments'],
         },
-        requirements: { type: 'string', example: 'Must be able to lift 20kg.' },
+        requirements: {
+          type: 'array',
+          items: { type: 'string' },
+          example: ['Must be able to lift 20kg', 'Previous experience preferred', 'Must have valid ID'],
+        },
         is_urgent: { type: 'boolean', example: false },
         job_date: {
           type: 'string',
@@ -116,6 +121,7 @@ export class EmployerController {
       file?: Express.Multer.File[];
     },
   ) {
+    console.log('Received create job request with data:', dto);
     return this.employerService.createJob(
       req.user.sub,
       dto,

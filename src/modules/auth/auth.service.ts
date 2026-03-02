@@ -173,15 +173,10 @@ export class AuthService {
       const settings = await this.prismaService.client.setting.findUnique({
         where: { updated_by: user.id },
       });
-      console.log(settings);
-
-      console.log(
-        `🔒 Admin login detected. 2FA enabled: ${settings?.two_factor_authentication_enabled}`,
-      );
 
       if (settings?.two_factor_authentication_enabled) {
         // Generate and send OTP for admin 2FA
-        console.log(`📧 Generating 2FA OTP for admin: ${user.email}`);
+        console.warn(`📧 Generating 2FA OTP for admin: ${user.email}`);
         await this.createOtp(user.id, OtpType.email);
         return ResponseHelper.success(
           { requiresTwoFactor: true },
