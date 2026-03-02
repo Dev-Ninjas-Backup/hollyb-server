@@ -5,8 +5,8 @@ model Job {
   title                String
   company_name         String
   description          String?
-  job_responsibilities String?
-  requirements         String?
+  job_responsibilities String[]
+  requirements         String[]
   fileId               String?       @unique
   file                 FileInstance? @relation(fields: [fileId], references: [id], onDelete: SetNull)
 
