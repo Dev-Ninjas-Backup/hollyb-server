@@ -1,10 +1,418 @@
 import { PrismaService } from '@/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
-import { JobStatus, SubscriptionStatus } from '@prisma';
+import * as os from 'os';
+import {
+  BackgroundCheckStatus,
+  JobStatus,
+  ShiftStatus,
+  SubscriptionPlanType,
+  SubscriptionStatus,
+  UserRole,
+} from '@prisma';
+import { createPaginationMeta } from '@/common/utils/response.helper';
+import { OverviewRecentActivityQueryDto } from './dto/overview-recent-activity-query.dto';
+
+type AdminRecentActivityItem = {
+  actorId: string;
+  actorName: string;
+  actorType: 'employee' | 'employer';
+  avatarUrl: string | null;
+  action: string;
+  occurredAt: Date;
+};
 
 @Injectable()
 export class OverviewService {
   constructor(private readonly prisma: PrismaService) {}
+
+  async getSystemHealth() {
+    const [databaseHealthy, lastSystemSyncAt] = await Promise.all([
+      this.isDatabaseHealthy(),
+      this.getLastSystemSyncAt(),
+    ]);
+
+    const serverLoadPercent = this.getServerLoadPercent();
+    const syncAgeMinutes = Math.max(
+      0,
+      Math.floor((Date.now() - lastSystemSyncAt.getTime()) / 60000),
+    );
+
+    let autoCheckStatus: {
+      value: string;
+      badge: string;
+      level: 'healthy' | 'normal' | 'attention' | 'critical';
+    };
+
+    if (databaseHealthy && syncAgeMinutes <= 180) {
+      autoCheckStatus = {
+        value: 'Running Smoothly',
+        badge: 'Healthy',
+        level: 'healthy',
+      };
+    } else if (databaseHealthy) {
+      autoCheckStatus = {
+        value: 'Operational',
+        badge: 'Normal',
+        level: 'normal',
+      };
+    } else {
+      autoCheckStatus = {
+        value: 'Degraded',
+        badge: 'Critical',
+        level: 'critical',
+      };
+    }
+
+    let serverLoadStatus: {
+      badge: string;
+      level: 'healthy' | 'normal' | 'attention' | 'critical';
+    };
+
+    if (serverLoadPercent < 50) {
+      serverLoadStatus = { badge: 'Normal', level: 'normal' };
+    } else if (serverLoadPercent < 80) {
+      serverLoadStatus = { badge: 'Attention', level: 'attention' };
+    } else {
+      serverLoadStatus = { badge: 'Critical', level: 'critical' };
+    }
+
+    let syncStatus: {
+      badge: string;
+      level: 'healthy' | 'normal' | 'attention' | 'critical';
+    };
+
+    if (syncAgeMinutes <= 60) {
+      syncStatus = { badge: 'Normal', level: 'normal' };
+    } else if (syncAgeMinutes <= 180) {
+      syncStatus = { badge: 'Attention', level: 'attention' };
+    } else {
+      syncStatus = { badge: 'Critical', level: 'critical' };
+    }
+
+    return {
+      autoCheckStatus: {
+        title: 'Auto Check Status',
+        value: autoCheckStatus.value,
+        badge: autoCheckStatus.badge,
+        level: autoCheckStatus.level,
+      },
+      serverLoad: {
+        title: 'Server Load',
+        value: `${serverLoadPercent}%`,
+        badge: serverLoadStatus.badge,
+        level: serverLoadStatus.level,
+      },
+      lastSystemSync: {
+        title: 'Last System Sync',
+        value: this.toRelativeTime(lastSystemSyncAt),
+        badge: syncStatus.badge,
+        level: syncStatus.level,
+      },
+      generatedAt: new Date(),
+    };
+  }
+
+  async getRecentActivity(query: OverviewRecentActivityQueryDto) {
+    const page = query.page ?? 1;
+    const limit = query.limit ?? 10;
+    const sourceTake = Math.max(page * limit, 30);
+
+    const [
+      employeeRegistrations,
+      employerRegistrations,
+      jobPosts,
+      jobApplications,
+      subscriptions,
+      backgroundChecks,
+      completedShifts,
+    ] = await Promise.all([
+      this.prisma.client.user.findMany({
+        where: {
+          role: UserRole.employee,
+          is_deleted: false,
+        },
+        orderBy: { created_at: 'desc' },
+        take: sourceTake,
+        select: {
+          id: true,
+          full_name: true,
+          created_at: true,
+          employee_profile: {
+            select: {
+              profile_photo_url: true,
+            },
+          },
+        },
+      }),
+      this.prisma.client.user.findMany({
+        where: {
+          role: UserRole.employer,
+          is_deleted: false,
+        },
+        orderBy: { created_at: 'desc' },
+        take: sourceTake,
+        select: {
+          id: true,
+          full_name: true,
+          created_at: true,
+          employer_profile: {
+            select: {
+              company_name: true,
+              profile_photo_url: true,
+            },
+          },
+        },
+      }),
+      this.prisma.client.job.findMany({
+        orderBy: { created_at: 'desc' },
+        take: sourceTake,
+        select: {
+          title: true,
+          created_at: true,
+          employer: {
+            select: {
+              user_id: true,
+              company_name: true,
+              profile_photo_url: true,
+              user: {
+                select: {
+                  full_name: true,
+                },
+              },
+            },
+          },
+        },
+      }),
+      this.prisma.client.jobApplication.findMany({
+        orderBy: { applied_at: 'desc' },
+        take: sourceTake,
+        select: {
+          applied_at: true,
+          job: {
+            select: {
+              title: true,
+            },
+          },
+          employee: {
+            select: {
+              user_id: true,
+              profile_photo_url: true,
+              user: {
+                select: {
+                  full_name: true,
+                },
+              },
+            },
+          },
+        },
+      }),
+      this.prisma.client.subscription.findMany({
+        where: {
+          plan_type: {
+            in: [
+              SubscriptionPlanType.employee_premium,
+              SubscriptionPlanType.employer_premium,
+            ],
+          },
+        },
+        orderBy: { created_at: 'desc' },
+        take: sourceTake,
+        select: {
+          user_id: true,
+          amount: true,
+          created_at: true,
+          user: {
+            select: {
+              role: true,
+              full_name: true,
+              employee_profile: {
+                select: {
+                  profile_photo_url: true,
+                },
+              },
+              employer_profile: {
+                select: {
+                  company_name: true,
+                  profile_photo_url: true,
+                },
+              },
+            },
+          },
+        },
+      }),
+      this.prisma.client.backgroundCheck.findMany({
+        where: {
+          status: BackgroundCheckStatus.passed,
+        },
+        orderBy: { created_at: 'desc' },
+        take: sourceTake,
+        select: {
+          user_id: true,
+          checked_at: true,
+          created_at: true,
+          user: {
+            select: {
+              role: true,
+              full_name: true,
+              employee_profile: {
+                select: {
+                  profile_photo_url: true,
+                },
+              },
+              employer_profile: {
+                select: {
+                  company_name: true,
+                  profile_photo_url: true,
+                },
+              },
+            },
+          },
+        },
+      }),
+      this.prisma.client.jobShift.findMany({
+        where: {
+          status: ShiftStatus.completed,
+        },
+        orderBy: { updated_at: 'desc' },
+        take: sourceTake,
+        select: {
+          checked_out_at: true,
+          updated_at: true,
+          employee: {
+            select: {
+              user_id: true,
+              profile_photo_url: true,
+              user: {
+                select: {
+                  full_name: true,
+                },
+              },
+            },
+          },
+          job: {
+            select: {
+              title: true,
+            },
+          },
+        },
+      }),
+    ]);
+
+    const subscriptionCounts = await this.prisma.client.subscription.groupBy({
+      by: ['user_id'],
+      where: {
+        plan_type: {
+          in: [
+            SubscriptionPlanType.employee_premium,
+            SubscriptionPlanType.employer_premium,
+          ],
+        },
+      },
+      _count: {
+        _all: true,
+      },
+    });
+
+    const subscriptionCountMap = new Map(
+      subscriptionCounts.map((row) => [row.user_id, row._count._all]),
+    );
+
+    const itemsAll: AdminRecentActivityItem[] = [
+      ...employeeRegistrations.map((row) => ({
+        actorId: row.id,
+        actorName: row.full_name,
+        actorType: 'employee' as const,
+        avatarUrl: row.employee_profile?.profile_photo_url ?? null,
+        action: 'Employee registration completed',
+        occurredAt: row.created_at,
+      })),
+      ...employerRegistrations.map((row) => ({
+        actorId: row.id,
+        actorName: row.employer_profile?.company_name ?? row.full_name,
+        actorType: 'employer' as const,
+        avatarUrl: row.employer_profile?.profile_photo_url ?? null,
+        action: 'Employer registration completed',
+        occurredAt: row.created_at,
+      })),
+      ...jobPosts.map((row) => ({
+        actorId: row.employer.user_id,
+        actorName: row.employer.company_name ?? row.employer.user.full_name,
+        actorType: 'employer' as const,
+        avatarUrl: row.employer.profile_photo_url,
+        action: `Posted new job \"${row.title}\"`,
+        occurredAt: row.created_at,
+      })),
+      ...jobApplications.map((row) => ({
+        actorId: row.employee.user_id,
+        actorName: row.employee.user.full_name,
+        actorType: 'employee' as const,
+        avatarUrl: row.employee.profile_photo_url,
+        action: `Applied to job \"${row.job.title}\"`,
+        occurredAt: row.applied_at,
+      })),
+      ...subscriptions.map((row) => {
+        const count = subscriptionCountMap.get(row.user_id) ?? 1;
+        const isEmployer = row.user.role === UserRole.employer;
+
+        return {
+          actorId: row.user_id,
+          actorName: isEmployer
+            ? (row.user.employer_profile?.company_name ?? row.user.full_name)
+            : row.user.full_name,
+          actorType: isEmployer ? ('employer' as const) : ('employee' as const),
+          avatarUrl: isEmployer
+            ? (row.user.employer_profile?.profile_photo_url ?? null)
+            : (row.user.employee_profile?.profile_photo_url ?? null),
+          action:
+            count > 1
+              ? `Subscription renewed (USD ${String(row.amount)})`
+              : `Subscription started (USD ${String(row.amount)})`,
+          occurredAt: row.created_at,
+        };
+      }),
+      ...backgroundChecks.map((row) => {
+        const isEmployer = row.user.role === UserRole.employer;
+
+        return {
+          actorId: row.user_id,
+          actorName: isEmployer
+            ? (row.user.employer_profile?.company_name ?? row.user.full_name)
+            : row.user.full_name,
+          actorType: isEmployer ? ('employer' as const) : ('employee' as const),
+          avatarUrl: isEmployer
+            ? (row.user.employer_profile?.profile_photo_url ?? null)
+            : (row.user.employee_profile?.profile_photo_url ?? null),
+          action: 'Background check verified',
+          occurredAt: row.checked_at ?? row.created_at,
+        };
+      }),
+      ...completedShifts.map((row) => ({
+        actorId: row.employee.user_id,
+        actorName: row.employee.user.full_name,
+        actorType: 'employee' as const,
+        avatarUrl: row.employee.profile_photo_url,
+        action: `Completed job \"${row.job.title}\"`,
+        occurredAt: row.checked_out_at ?? row.updated_at,
+      })),
+    ].sort((a, b) => b.occurredAt.getTime() - a.occurredAt.getTime());
+
+    const startIndex = (page - 1) * limit;
+    const endIndex = startIndex + limit;
+    const items = itemsAll.slice(startIndex, endIndex).map((item) => ({
+      actorId: item.actorId,
+      actorName: item.actorName,
+      actorType: item.actorType,
+      avatarUrl: item.avatarUrl,
+      action: item.action,
+      relativeTime: this.toRelativeTime(item.occurredAt),
+      occurredAt: item.occurredAt,
+    }));
+
+    return {
+      items,
+      meta: createPaginationMeta(itemsAll.length, page, limit),
+    };
+  }
 
   async getOverview() {
     const totalEmployee = await this.prisma.client.employeeProfile.count();
@@ -233,5 +641,93 @@ export class OverviewService {
       data: statistics,
       period: 'this_week',
     };
+  }
+
+  private async isDatabaseHealthy() {
+    try {
+      await this.prisma.client.$queryRaw`SELECT 1`;
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  private getServerLoadPercent() {
+    const cpuCount = Math.max(os.cpus().length, 1);
+    const loadAverage = os.loadavg()[0] ?? 0;
+    const loadPercent = Math.round((loadAverage / cpuCount) * 100);
+
+    if (!Number.isFinite(loadPercent)) {
+      return 0;
+    }
+
+    return Math.min(Math.max(loadPercent, 0), 100);
+  }
+
+  private async getLastSystemSyncAt() {
+    const [latestSystemSetting, latestUser, latestJob, latestSubscription] =
+      await Promise.all([
+        this.prisma.client.systemSetting.findFirst({
+          orderBy: { updated_at: 'desc' },
+          select: { updated_at: true },
+        }),
+        this.prisma.client.user.findFirst({
+          where: { is_deleted: false },
+          orderBy: { updated_at: 'desc' },
+          select: { updated_at: true },
+        }),
+        this.prisma.client.job.findFirst({
+          orderBy: { updated_at: 'desc' },
+          select: { updated_at: true },
+        }),
+        this.prisma.client.subscription.findFirst({
+          orderBy: { created_at: 'desc' },
+          select: { created_at: true },
+        }),
+      ]);
+
+    const candidates = [
+      latestSystemSetting?.updated_at,
+      latestUser?.updated_at,
+      latestJob?.updated_at,
+      latestSubscription?.created_at,
+    ].filter((value): value is Date => Boolean(value));
+
+    if (!candidates.length) {
+      return new Date();
+    }
+
+    return new Date(Math.max(...candidates.map((value) => value.getTime())));
+  }
+
+  private toRelativeTime(date: Date) {
+    const diffMs = Date.now() - date.getTime();
+    const minutes = Math.floor(diffMs / 60000);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (minutes < 1) {
+      return 'just now';
+    }
+
+    if (minutes < 60) {
+      return `${minutes} min ago`;
+    }
+
+    if (hours < 24) {
+      return `${hours} hr ago`;
+    }
+
+    if (days < 7) {
+      return `${days} day ago`;
+    }
+
+    const weeks = Math.floor(days / 7);
+    if (weeks < 5) {
+      return `${weeks} week ago`;
+    }
+
+    const months = Math.floor(days / 30);
+    return `${months} month ago`;
   }
 }
