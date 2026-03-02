@@ -8,6 +8,7 @@ import {
   SubscriptionStatus,
   UserRole,
 } from '@prisma';
+import { PrismaService } from '@/prisma/prisma.service';
 
 @Injectable()
 export class ReportAnalyticsService {
