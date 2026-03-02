@@ -1,3 +1,4 @@
+import { PrismaService } from '@/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import {
   JobApplicationStatus,
@@ -7,7 +8,6 @@ import {
   SubscriptionStatus,
   UserRole,
 } from '@prisma';
-import { PrismaService } from '@/prisma/prisma.service';
 
 @Injectable()
 export class ReportAnalyticsService {

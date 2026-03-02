@@ -83,7 +83,11 @@ export class EmployerController {
         requirements: {
           type: 'array',
           items: { type: 'string' },
-          example: ['Must be able to lift 20kg', 'Previous experience preferred', 'Must have valid ID'],
+          example: [
+            'Must be able to lift 20kg',
+            'Previous experience preferred',
+            'Must have valid ID',
+          ],
         },
         is_urgent: { type: 'boolean', example: false },
         job_date: {

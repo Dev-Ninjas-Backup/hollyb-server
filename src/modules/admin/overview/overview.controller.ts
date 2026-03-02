@@ -11,6 +11,10 @@ import { JwtAuthGuard } from '@/common/guards/jwt-auth.guard';
 import { RolesGuard } from '@/common/guards/roles.guard';
 import { UserRole } from '@prisma';
 import { Roles } from '@/common/decorators/roles.decorator';
+import { ResponseHelper } from '@/common/utils/response.helper';
+import { ApiPaginatedResponse } from '@/common/decorators/api-response.decorator';
+import { OverviewRecentActivityQueryDto } from './dto/overview-recent-activity-query.dto';
+import { OverviewRecentActivityItemDto } from './dto/overview-recent-activity-response.dto';
 
 @ApiTags('Admin Overview')
 @Controller('admin/overview')
@@ -43,5 +47,20 @@ export class OverviewController {
     @Query('period') period?: 'this_week' | 'this_month' | 'this_year',
   ) {
     return this.overviewService.getStatistics(period);
+  }
+
+  @Get('recent-activity')
+  @ApiOperation({ summary: 'Get merged recent activity for admin overview' })
+  @ApiPaginatedResponse(
+    OverviewRecentActivityItemDto,
+    'Recent activity retrieved successfully',
+  )
+  async getRecentActivity(@Query() query: OverviewRecentActivityQueryDto) {
+    const result = await this.overviewService.getRecentActivity(query);
+    return ResponseHelper.successWithPagination(
+      result.items,
+      result.meta,
+      'Recent activity retrieved successfully',
+    );
   }
 }
