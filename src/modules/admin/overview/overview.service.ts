@@ -1,5 +1,6 @@
 import { PrismaService } from '@/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
+import * as os from 'os';
 import {
   BackgroundCheckStatus,
   JobStatus,
@@ -23,6 +24,93 @@ type AdminRecentActivityItem = {
 @Injectable()
 export class OverviewService {
   constructor(private readonly prisma: PrismaService) {}
+
+  async getSystemHealth() {
+    const [databaseHealthy, lastSystemSyncAt] = await Promise.all([
+      this.isDatabaseHealthy(),
+      this.getLastSystemSyncAt(),
+    ]);
+
+    const serverLoadPercent = this.getServerLoadPercent();
+    const syncAgeMinutes = Math.max(
+      0,
+      Math.floor((Date.now() - lastSystemSyncAt.getTime()) / 60000),
+    );
+
+    let autoCheckStatus: {
+      value: string;
+      badge: string;
+      level: 'healthy' | 'normal' | 'attention' | 'critical';
+    };
+
+    if (databaseHealthy && syncAgeMinutes <= 180) {
+      autoCheckStatus = {
+        value: 'Running Smoothly',
+        badge: 'Healthy',
+        level: 'healthy',
+      };
+    } else if (databaseHealthy) {
+      autoCheckStatus = {
+        value: 'Operational',
+        badge: 'Normal',
+        level: 'normal',
+      };
+    } else {
+      autoCheckStatus = {
+        value: 'Degraded',
+        badge: 'Critical',
+        level: 'critical',
+      };
+    }
+
+    let serverLoadStatus: {
+      badge: string;
+      level: 'healthy' | 'normal' | 'attention' | 'critical';
+    };
+
+    if (serverLoadPercent < 50) {
+      serverLoadStatus = { badge: 'Normal', level: 'normal' };
+    } else if (serverLoadPercent < 80) {
+      serverLoadStatus = { badge: 'Attention', level: 'attention' };
+    } else {
+      serverLoadStatus = { badge: 'Critical', level: 'critical' };
+    }
+
+    let syncStatus: {
+      badge: string;
+      level: 'healthy' | 'normal' | 'attention' | 'critical';
+    };
+
+    if (syncAgeMinutes <= 60) {
+      syncStatus = { badge: 'Normal', level: 'normal' };
+    } else if (syncAgeMinutes <= 180) {
+      syncStatus = { badge: 'Attention', level: 'attention' };
+    } else {
+      syncStatus = { badge: 'Critical', level: 'critical' };
+    }
+
+    return {
+      autoCheckStatus: {
+        title: 'Auto Check Status',
+        value: autoCheckStatus.value,
+        badge: autoCheckStatus.badge,
+        level: autoCheckStatus.level,
+      },
+      serverLoad: {
+        title: 'Server Load',
+        value: `${serverLoadPercent}%`,
+        badge: serverLoadStatus.badge,
+        level: serverLoadStatus.level,
+      },
+      lastSystemSync: {
+        title: 'Last System Sync',
+        value: this.toRelativeTime(lastSystemSyncAt),
+        badge: syncStatus.badge,
+        level: syncStatus.level,
+      },
+      generatedAt: new Date(),
+    };
+  }
 
   async getRecentActivity(query: OverviewRecentActivityQueryDto) {
     const page = query.page ?? 1;
@@ -553,6 +641,63 @@ export class OverviewService {
       data: statistics,
       period: 'this_week',
     };
+  }
+
+  private async isDatabaseHealthy() {
+    try {
+      await this.prisma.client.$queryRaw`SELECT 1`;
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  private getServerLoadPercent() {
+    const cpuCount = Math.max(os.cpus().length, 1);
+    const loadAverage = os.loadavg()[0] ?? 0;
+    const loadPercent = Math.round((loadAverage / cpuCount) * 100);
+
+    if (!Number.isFinite(loadPercent)) {
+      return 0;
+    }
+
+    return Math.min(Math.max(loadPercent, 0), 100);
+  }
+
+  private async getLastSystemSyncAt() {
+    const [latestSystemSetting, latestUser, latestJob, latestSubscription] =
+      await Promise.all([
+        this.prisma.client.systemSetting.findFirst({
+          orderBy: { updated_at: 'desc' },
+          select: { updated_at: true },
+        }),
+        this.prisma.client.user.findFirst({
+          where: { is_deleted: false },
+          orderBy: { updated_at: 'desc' },
+          select: { updated_at: true },
+        }),
+        this.prisma.client.job.findFirst({
+          orderBy: { updated_at: 'desc' },
+          select: { updated_at: true },
+        }),
+        this.prisma.client.subscription.findFirst({
+          orderBy: { created_at: 'desc' },
+          select: { created_at: true },
+        }),
+      ]);
+
+    const candidates = [
+      latestSystemSetting?.updated_at,
+      latestUser?.updated_at,
+      latestJob?.updated_at,
+      latestSubscription?.created_at,
+    ].filter((value): value is Date => Boolean(value));
+
+    if (!candidates.length) {
+      return new Date();
+    }
+
+    return new Date(Math.max(...candidates.map((value) => value.getTime())));
   }
 
   private toRelativeTime(date: Date) {

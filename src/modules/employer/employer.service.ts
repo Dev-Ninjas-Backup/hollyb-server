@@ -73,6 +73,7 @@ export class EmployerService {
     dto: CreateJobDto,
     files?: Express.Multer.File | undefined,
   ) {
+    console.log('dto:', dto);
     // check active subscription for employer before allowing job creation
     const hasActiveSubscription =
       await this.subscriptionService.checkActiveSubscription(
@@ -184,10 +185,7 @@ export class EmployerService {
       description: dto.description,
       job_responsibilities: dto.job_responsibilities,
       requirements: dto.requirements,
-      is_urgent:
-        dto.is_urgent !== undefined && dto.is_urgent !== null
-          ? Boolean(dto.is_urgent)
-          : false,
+      is_urgent: Boolean(dto.is_urgent),
       job_category: dto.job_category || null,
       job_date: dto.job_date ? new Date(dto.job_date) : null,
       expire_date: expireDate,

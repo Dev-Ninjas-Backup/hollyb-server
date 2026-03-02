@@ -12,9 +12,13 @@ import { RolesGuard } from '@/common/guards/roles.guard';
 import { UserRole } from '@prisma';
 import { Roles } from '@/common/decorators/roles.decorator';
 import { ResponseHelper } from '@/common/utils/response.helper';
-import { ApiPaginatedResponse } from '@/common/decorators/api-response.decorator';
+import {
+  ApiPaginatedResponse,
+  ApiSuccessResponse,
+} from '@/common/decorators/api-response.decorator';
 import { OverviewRecentActivityQueryDto } from './dto/overview-recent-activity-query.dto';
 import { OverviewRecentActivityItemDto } from './dto/overview-recent-activity-response.dto';
+import { OverviewSystemHealthResponseDto } from './dto/overview-system-health-response.dto';
 
 @ApiTags('Admin Overview')
 @Controller('admin/overview')
@@ -47,6 +51,16 @@ export class OverviewController {
     @Query('period') period?: 'this_week' | 'this_month' | 'this_year',
   ) {
     return this.overviewService.getStatistics(period);
+  }
+
+  @Get('system-health')
+  @ApiOperation({ summary: 'Get system health cards for admin overview' })
+  @ApiSuccessResponse(OverviewSystemHealthResponseDto, {
+    description: 'System health retrieved successfully',
+  })
+  async getSystemHealth() {
+    const data = await this.overviewService.getSystemHealth();
+    return ResponseHelper.success(data, 'System health retrieved successfully');
   }
 
   @Get('recent-activity')
