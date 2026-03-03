@@ -67,6 +67,23 @@ export class EmployerController {
     return undefined;
   }
 
+  @Get('stats')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('employer')
+  @ApiOperation({
+    summary: 'Get employer stats',
+    description:
+      'Returns active jobs, completed jobs, favourite workers and total hires for the authenticated employer.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Employer stats retrieved successfully',
+  })
+  async getStats(@Req() req: AuthenticatedRequest) {
+    return this.employerService.getStats(req.user.sub);
+  }
+
   // Create a new job posting
   @Post('job/create')
   @ApiBearerAuth()
