@@ -302,6 +302,7 @@ export class ReportAnalyticsService {
     const employees = await this.prisma.client.employeeProfile.findMany({
       select: {
         id: true,
+        rating: true,
         total_jobs: true,
         user: {
           select: {
@@ -356,6 +357,7 @@ export class ReportAnalyticsService {
         return {
           id: employee.id,
           name: employee.user.full_name,
+          averageRating: Number((employee.rating ?? 0).toFixed(2)),
           totalJobs,
           completedJobs,
           completionRate,
@@ -380,6 +382,7 @@ export class ReportAnalyticsService {
       rank: index + 1,
       id: item.id,
       name: item.name,
+      averageRating: item.averageRating,
       totalJobs: item.totalJobs,
       completedJobs: item.completedJobs,
       completionRate: item.completionRate,

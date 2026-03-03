@@ -108,6 +108,9 @@ export class ReportAnalyticsTopEmployeeItemDto {
   @ApiProperty({ example: 'Marcus Johnson' })
   name: string;
 
+  @ApiProperty({ example: 4.75 })
+  averageRating: number;
+
   @ApiProperty({ example: 45 })
   totalJobs: number;
 
