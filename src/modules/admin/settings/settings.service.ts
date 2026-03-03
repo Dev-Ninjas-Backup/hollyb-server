@@ -86,6 +86,11 @@ export class SettingsService {
         ...dto,
         updated_by: userId,
       },
+      select: {
+        id: true,
+        workspaceName: true,
+        Timezone: true
+      }
     });
 
     return updatedSettings;
@@ -116,6 +121,12 @@ export class SettingsService {
         ...dto,
         updated_by: userId,
       },
+      select: {
+        id: true,
+        two_factor_authentication_enabled: true,
+        system_alerts_enabled: true,
+        email_notifications_enabled: true
+      }
     });
 
     return updatedSettings;
