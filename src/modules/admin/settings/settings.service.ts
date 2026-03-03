@@ -29,14 +29,15 @@ export class SettingsService {
   async getAccountSettings(userId: string) {
     const settings = await this.prisma.client.setting.findUnique({
       where: { updated_by: userId },
-      include: {
+      select: {
         updater: {
           select: {
+            id: true,
             full_name: true,
-            email: true,
-          },
-        },
-      },
+            email: true
+          }
+        }
+      }
     });
 
     if (!settings) {
