@@ -1,6 +1,9 @@
 import { PrismaService } from '@/prisma/prisma.service';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { UpdateGeneralSettingsDto, UpdateNotificationSettingsDto } from './dto/update-settings.dto';
+import {
+  UpdateGeneralSettingsDto,
+  UpdateNotificationSettingsDto,
+} from './dto/update-settings.dto';
 
 @Injectable()
 export class SettingsService {
@@ -12,8 +15,8 @@ export class SettingsService {
       select: {
         id: true,
         workspaceName: true,
-        Timezone: true
-      }
+        Timezone: true,
+      },
     });
 
     if (!settings) {
@@ -30,10 +33,10 @@ export class SettingsService {
         updater: {
           select: {
             full_name: true,
-            email: true
-          }
-        }
-      }
+            email: true,
+          },
+        },
+      },
     });
 
     if (!settings) {
@@ -50,8 +53,8 @@ export class SettingsService {
         id: true,
         two_factor_authentication_enabled: true,
         system_alerts_enabled: true,
-        email_notifications_enabled: true
-      }
+        email_notifications_enabled: true,
+      },
     });
 
     if (!settings) {
@@ -88,7 +91,10 @@ export class SettingsService {
     return updatedSettings;
   }
 
-  async updateNotificationSettings(dto: UpdateNotificationSettingsDto, userId: string) {
+  async updateNotificationSettings(
+    dto: UpdateNotificationSettingsDto,
+    userId: string,
+  ) {
     // Try to find settings by updated_by for current user
     let existingSettings = await this.prisma.client.setting.findUnique({
       where: { updated_by: userId },
