@@ -95,6 +95,26 @@ export class EmployerService {
     return false;
   }
 
+  private async syncExpiredJobsStatus(userId: string) {
+    const now = new Date();
+    now.setUTCHours(0, 0, 0, 0);
+
+    await this.prisma.client.job.updateMany({
+      where: {
+        employer: { user_id: userId },
+        expire_date: {
+          lt: now,
+        },
+        status: {
+          notIn: [JobStatus.closed, JobStatus.completed, JobStatus.cancelled],
+        },
+      },
+      data: {
+        status: JobStatus.closed,
+      },
+    });
+  }
+
   /**
    * Create a new job posting
    */
@@ -274,24 +294,7 @@ export class EmployerService {
   ) {
     const skip = (page - 1) * limit;
 
-    // Update jobs to 'closed' status if expire_date has passed
-    const now = new Date();
-    now.setUTCHours(0, 0, 0, 0);
-
-    await this.prisma.client.job.updateMany({
-      where: {
-        employer: { user_id: userId },
-        expire_date: {
-          lt: now,
-        },
-        status: {
-          notIn: ['closed', 'completed', 'cancelled'],
-        },
-      },
-      data: {
-        status: 'closed',
-      },
-    });
+    await this.syncExpiredJobsStatus(userId);
 
     const whereConditions: any = { employer: { user_id: userId } };
 
@@ -351,6 +354,68 @@ export class EmployerService {
         limit,
         totalJobs,
         totalPages: Math.ceil(totalJobs / limit),
+      },
+    };
+  }
+
+  async getStats(userId: string) {
+    const employerProfile = await this.prisma.client.employerProfile.findUnique(
+      {
+        where: { user_id: userId },
+        select: { id: true },
+      },
+    );
+
+    if (!employerProfile) {
+      throw new ResourceNotFoundException('Employer profile', userId);
+    }
+
+    await this.syncExpiredJobsStatus(userId);
+
+    const [activeJobs, completedJobs, favouriteWorkers, totalHires] =
+      await this.prisma.client.$transaction([
+        this.prisma.client.job.count({
+          where: {
+            employer_id: employerProfile.id,
+            status: {
+              in: [JobStatus.open, JobStatus.assigned],
+            },
+          },
+        }),
+        this.prisma.client.job.count({
+          where: {
+            employer_id: employerProfile.id,
+            status: JobStatus.completed,
+          },
+        }),
+        this.prisma.client.favoriteWorker.count({
+          where: {
+            employer_id: employerProfile.id,
+          },
+        }),
+        this.prisma.client.jobApplication.count({
+          where: {
+            job: {
+              employer_id: employerProfile.id,
+            },
+            status: {
+              in: [
+                JobApplicationStatus.accepted,
+                JobApplicationStatus.confirmed,
+              ],
+            },
+          },
+        }),
+      ]);
+
+    return {
+      success: true,
+      message: 'Employer stats retrieved successfully',
+      data: {
+        activeJobs,
+        completedJobs,
+        favouriteWorkers,
+        totalHires,
       },
     };
   }
