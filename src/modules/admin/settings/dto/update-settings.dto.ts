@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsOptional, IsString } from 'class-validator';
 
-export class UpdateSettingsDto {
+export class UpdateGeneralSettingsDto {
   @ApiProperty({
     example: 'Hollyb',
     description: 'Workspace name',
@@ -19,7 +19,9 @@ export class UpdateSettingsDto {
   @IsOptional()
   @IsString()
   Timezone?: string;
+}
 
+export class UpdateNotificationSettingsDto {
   @ApiProperty({
     example: false,
     description: 'Enable or disable two-factor authentication',
