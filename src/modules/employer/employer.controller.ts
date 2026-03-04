@@ -31,6 +31,7 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { RolesGuard } from '@/common/guards/roles.guard';
 import { Roles } from '@/common/decorators/roles.decorator';
 import { CreateReviewJobDto } from './dto/review-completed-job.dto';
+import { AddFavoriteEmployeeDto } from './dto/manage-favorite.dto';
 
 @ApiTags('Employer')
 @Controller('employer')
@@ -394,6 +395,112 @@ export class EmployerController {
       limitNum,
       employeeId,
       jobId,
+    );
+  }
+
+  // ==================== FAVORITE EMPLOYEES ENDPOINTS ====================
+
+  @Post('favorites')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('employer')
+  @ApiOperation({ summary: 'Add an employee to favorites' })
+  @ApiBody({
+    description: 'Employee ID to add as favorite',
+    type: AddFavoriteEmployeeDto,
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Employee added to favorites successfully',
+  })
+  @ApiResponse({
+    status: 409,
+    description: 'Employee is already in favorites',
+  })
+  async addFavoriteEmployee(
+    @Req() req: AuthenticatedRequest,
+    @Body() dto: AddFavoriteEmployeeDto,
+  ) {
+    return this.employerService.addFavoriteEmployee(
+      req.user.sub,
+      dto.employee_id,
+    );
+  }
+
+  @Get('favorites')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('employer')
+  @ApiOperation({ summary: 'Get all favorite employees with pagination' })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    type: Number,
+    description: 'Page number for pagination',
+    example: 1,
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    description: 'Number of items per page',
+    example: 10,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Favorite employees retrieved successfully',
+  })
+  async getFavoriteEmployees(
+    @Req() req: AuthenticatedRequest,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+  ) {
+    const pageNum = page ? parseInt(page, 10) : 1;
+    const limitNum = limit ? parseInt(limit, 10) : 10;
+
+    return this.employerService.getFavoriteEmployees(
+      req.user.sub,
+      pageNum,
+      limitNum,
+    );
+  }
+
+  @Get('favorites/:employeeId/check')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('employer')
+  @ApiOperation({ summary: 'Check if an employee is in favorites' })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns favorite status',
+  })
+  async isFavoriteEmployee(
+    @Req() req: AuthenticatedRequest,
+    @Param('employeeId') employeeId: string,
+  ) {
+    return this.employerService.isFavoriteEmployee(req.user.sub, employeeId);
+  }
+
+  @Patch('favorites/:employeeId')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('employer')
+  @ApiOperation({ summary: 'Remove an employee from favorites' })
+  @ApiResponse({
+    status: 200,
+    description: 'Employee removed from favorites successfully',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Employee not found in favorites',
+  })
+  async removeFavoriteEmployee(
+    @Req() req: AuthenticatedRequest,
+    @Param('employeeId') employeeId: string,
+  ) {
+    return this.employerService.removeFavoriteEmployee(
+      req.user.sub,
+      employeeId,
     );
   }
 }

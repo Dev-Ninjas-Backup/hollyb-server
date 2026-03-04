@@ -1064,4 +1064,232 @@ export class EmployerService {
       },
     };
   }
+
+  /**
+   * Add an employee to favorites
+   */
+  async addFavoriteEmployee(userId: string, employeeId: string) {
+    // Get employer profile
+    const employerProfile = await this.prisma.client.employerProfile.findUnique(
+      {
+        where: { user_id: userId },
+        select: { id: true },
+      },
+    );
+
+    if (!employerProfile) {
+      throw new ResourceNotFoundException('Employer profile', userId);
+    }
+
+    // Verify employee exists
+    const employee = await this.prisma.client.employeeProfile.findUnique({
+      where: { id: employeeId },
+      select: { id: true },
+    });
+
+    if (!employee) {
+      throw new ResourceNotFoundException('Employee profile', employeeId);
+    }
+
+    // Check if already favorited
+    const existingFavorite = await this.prisma.client.favoriteWorker.findUnique(
+      {
+        where: {
+          employer_id_employee_id: {
+            employer_id: employerProfile.id,
+            employee_id: employeeId,
+          },
+        },
+      },
+    );
+
+    if (existingFavorite) {
+      throw new BusinessException(
+        'This employee is already in your favorites',
+        HttpStatus.CONFLICT,
+      );
+    }
+
+    // Add to favorites
+    const favorite = await this.prisma.client.favoriteWorker.create({
+      data: {
+        employer_id: employerProfile.id,
+        employee_id: employeeId,
+      },
+      include: {
+        employee: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                full_name: true,
+                email: true,
+              },
+            },
+            employee_skills: {
+              include: {
+                skill: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return {
+      success: true,
+      message: 'Employee added to favorites successfully',
+      data: favorite,
+    };
+  }
+
+  /**
+   * Remove an employee from favorites
+   */
+  async removeFavoriteEmployee(userId: string, employeeId: string) {
+    // Get employer profile
+    const employerProfile = await this.prisma.client.employerProfile.findUnique(
+      {
+        where: { user_id: userId },
+        select: { id: true },
+      },
+    );
+
+    if (!employerProfile) {
+      throw new ResourceNotFoundException('Employer profile', userId);
+    }
+
+    // Check if favorite exists
+    const favorite = await this.prisma.client.favoriteWorker.findUnique({
+      where: {
+        employer_id_employee_id: {
+          employer_id: employerProfile.id,
+          employee_id: employeeId,
+        },
+      },
+    });
+
+    if (!favorite) {
+      throw new ResourceNotFoundException(
+        'Favorite employee',
+        `employer_id: ${employerProfile.id}, employee_id: ${employeeId}`,
+      );
+    }
+
+    // Remove from favorites
+    await this.prisma.client.favoriteWorker.delete({
+      where: {
+        id: favorite.id,
+      },
+    });
+
+    return {
+      success: true,
+      message: 'Employee removed from favorites successfully',
+    };
+  }
+
+  /**
+   * Get all favorite employees with pagination
+   */
+  async getFavoriteEmployees(
+    userId: string,
+    page: number = 1,
+    limit: number = 10,
+  ) {
+    // Get employer profile
+    const employerProfile = await this.prisma.client.employerProfile.findUnique(
+      {
+        where: { user_id: userId },
+        select: { id: true },
+      },
+    );
+
+    if (!employerProfile) {
+      throw new ResourceNotFoundException('Employer profile', userId);
+    }
+
+    const skip = (page - 1) * limit;
+
+    const [favorites, totalFavorites] = await this.prisma.client.$transaction([
+      this.prisma.client.favoriteWorker.findMany({
+        where: {
+          employer_id: employerProfile.id,
+        },
+        include: {
+          employee: {
+            include: {
+              user: {
+                select: {
+                  id: true,
+                  full_name: true,
+                  email: true,
+                },
+              },
+              employee_skills: {
+                include: {
+                  skill: true,
+                },
+              },
+            },
+          },
+        },
+        orderBy: {
+          created_at: 'desc',
+        },
+        skip,
+        take: limit,
+      }),
+      this.prisma.client.favoriteWorker.count({
+        where: {
+          employer_id: employerProfile.id,
+        },
+      }),
+    ]);
+
+    return {
+      success: true,
+      message: 'Favorite employees retrieved successfully',
+      data: favorites,
+      paginationInfo: {
+        page,
+        limit,
+        totalFavorites,
+        totalPages: Math.ceil(totalFavorites / limit),
+      },
+    };
+  }
+
+  /**
+   * Check if an employee is in favorites
+   */
+  async isFavoriteEmployee(userId: string, employeeId: string) {
+    // Get employer profile
+    const employerProfile = await this.prisma.client.employerProfile.findUnique(
+      {
+        where: { user_id: userId },
+        select: { id: true },
+      },
+    );
+
+    if (!employerProfile) {
+      throw new ResourceNotFoundException('Employer profile', userId);
+    }
+
+    const favorite = await this.prisma.client.favoriteWorker.findUnique({
+      where: {
+        employer_id_employee_id: {
+          employer_id: employerProfile.id,
+          employee_id: employeeId,
+        },
+      },
+    });
+
+    return {
+      success: true,
+      data: {
+        isFavorite: !!favorite,
+      },
+    };
+  }
 }
