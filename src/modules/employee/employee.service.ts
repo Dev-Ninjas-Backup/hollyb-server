@@ -57,12 +57,12 @@ export class EmployeeService {
                       mode: Prisma.QueryMode.insensitive,
                     },
                   },
-                  {
-                    requirements: {
-                      contains: search,
-                      mode: Prisma.QueryMode.insensitive,
-                    },
-                  },
+                  // {
+                  //   requirements: {
+                  //     contains: search,
+                  //     mode: Prisma.QueryMode.insensitive,
+                  //   },
+                  // },
                 ],
               },
             ]

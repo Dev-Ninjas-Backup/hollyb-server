@@ -27,8 +27,6 @@ export type AggregateEmployeeProfile = {
 }
 
 export type EmployeeProfileAvgAggregateOutputType = {
-  latitude: number | null
-  longitude: number | null
   experience_years: number | null
   rating: number | null
   total_reviews: number | null
@@ -38,8 +36,6 @@ export type EmployeeProfileAvgAggregateOutputType = {
 }
 
 export type EmployeeProfileSumAggregateOutputType = {
-  latitude: number | null
-  longitude: number | null
   experience_years: number | null
   rating: number | null
   total_reviews: number | null
@@ -53,8 +49,6 @@ export type EmployeeProfileMinAggregateOutputType = {
   user_id: string | null
   date_of_birth: Date | null
   address: string | null
-  latitude: number | null
-  longitude: number | null
   experience_years: number | null
   bio: string | null
   profile_photo_url: string | null
@@ -72,8 +66,6 @@ export type EmployeeProfileMaxAggregateOutputType = {
   user_id: string | null
   date_of_birth: Date | null
   address: string | null
-  latitude: number | null
-  longitude: number | null
   experience_years: number | null
   bio: string | null
   profile_photo_url: string | null
@@ -91,8 +83,6 @@ export type EmployeeProfileCountAggregateOutputType = {
   user_id: number
   date_of_birth: number
   address: number
-  latitude: number
-  longitude: number
   experience_years: number
   bio: number
   profile_photo_url: number
@@ -108,8 +98,6 @@ export type EmployeeProfileCountAggregateOutputType = {
 
 
 export type EmployeeProfileAvgAggregateInputType = {
-  latitude?: true
-  longitude?: true
   experience_years?: true
   rating?: true
   total_reviews?: true
@@ -119,8 +107,6 @@ export type EmployeeProfileAvgAggregateInputType = {
 }
 
 export type EmployeeProfileSumAggregateInputType = {
-  latitude?: true
-  longitude?: true
   experience_years?: true
   rating?: true
   total_reviews?: true
@@ -134,8 +120,6 @@ export type EmployeeProfileMinAggregateInputType = {
   user_id?: true
   date_of_birth?: true
   address?: true
-  latitude?: true
-  longitude?: true
   experience_years?: true
   bio?: true
   profile_photo_url?: true
@@ -153,8 +137,6 @@ export type EmployeeProfileMaxAggregateInputType = {
   user_id?: true
   date_of_birth?: true
   address?: true
-  latitude?: true
-  longitude?: true
   experience_years?: true
   bio?: true
   profile_photo_url?: true
@@ -172,8 +154,6 @@ export type EmployeeProfileCountAggregateInputType = {
   user_id?: true
   date_of_birth?: true
   address?: true
-  latitude?: true
-  longitude?: true
   experience_years?: true
   bio?: true
   profile_photo_url?: true
@@ -278,8 +258,6 @@ export type EmployeeProfileGroupByOutputType = {
   user_id: string
   date_of_birth: Date | null
   address: string | null
-  latitude: number | null
-  longitude: number | null
   experience_years: number | null
   bio: string | null
   profile_photo_url: string | null
@@ -320,8 +298,6 @@ export type EmployeeProfileWhereInput = {
   user_id?: Prisma.UuidFilter<"EmployeeProfile"> | string
   date_of_birth?: Prisma.DateTimeNullableFilter<"EmployeeProfile"> | Date | string | null
   address?: Prisma.StringNullableFilter<"EmployeeProfile"> | string | null
-  latitude?: Prisma.FloatNullableFilter<"EmployeeProfile"> | number | null
-  longitude?: Prisma.FloatNullableFilter<"EmployeeProfile"> | number | null
   experience_years?: Prisma.IntNullableFilter<"EmployeeProfile"> | number | null
   bio?: Prisma.StringNullableFilter<"EmployeeProfile"> | string | null
   profile_photo_url?: Prisma.StringNullableFilter<"EmployeeProfile"> | string | null
@@ -347,8 +323,6 @@ export type EmployeeProfileOrderByWithRelationInput = {
   user_id?: Prisma.SortOrder
   date_of_birth?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
-  latitude?: Prisma.SortOrderInput | Prisma.SortOrder
-  longitude?: Prisma.SortOrderInput | Prisma.SortOrder
   experience_years?: Prisma.SortOrderInput | Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   profile_photo_url?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -377,8 +351,6 @@ export type EmployeeProfileWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.EmployeeProfileWhereInput | Prisma.EmployeeProfileWhereInput[]
   date_of_birth?: Prisma.DateTimeNullableFilter<"EmployeeProfile"> | Date | string | null
   address?: Prisma.StringNullableFilter<"EmployeeProfile"> | string | null
-  latitude?: Prisma.FloatNullableFilter<"EmployeeProfile"> | number | null
-  longitude?: Prisma.FloatNullableFilter<"EmployeeProfile"> | number | null
   experience_years?: Prisma.IntNullableFilter<"EmployeeProfile"> | number | null
   bio?: Prisma.StringNullableFilter<"EmployeeProfile"> | string | null
   profile_photo_url?: Prisma.StringNullableFilter<"EmployeeProfile"> | string | null
@@ -404,8 +376,6 @@ export type EmployeeProfileOrderByWithAggregationInput = {
   user_id?: Prisma.SortOrder
   date_of_birth?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
-  latitude?: Prisma.SortOrderInput | Prisma.SortOrder
-  longitude?: Prisma.SortOrderInput | Prisma.SortOrder
   experience_years?: Prisma.SortOrderInput | Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   profile_photo_url?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -431,8 +401,6 @@ export type EmployeeProfileScalarWhereWithAggregatesInput = {
   user_id?: Prisma.UuidWithAggregatesFilter<"EmployeeProfile"> | string
   date_of_birth?: Prisma.DateTimeNullableWithAggregatesFilter<"EmployeeProfile"> | Date | string | null
   address?: Prisma.StringNullableWithAggregatesFilter<"EmployeeProfile"> | string | null
-  latitude?: Prisma.FloatNullableWithAggregatesFilter<"EmployeeProfile"> | number | null
-  longitude?: Prisma.FloatNullableWithAggregatesFilter<"EmployeeProfile"> | number | null
   experience_years?: Prisma.IntNullableWithAggregatesFilter<"EmployeeProfile"> | number | null
   bio?: Prisma.StringNullableWithAggregatesFilter<"EmployeeProfile"> | string | null
   profile_photo_url?: Prisma.StringNullableWithAggregatesFilter<"EmployeeProfile"> | string | null
@@ -449,8 +417,6 @@ export type EmployeeProfileCreateInput = {
   id?: string
   date_of_birth?: Date | string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
   experience_years?: number | null
   bio?: string | null
   profile_photo_url?: string | null
@@ -476,8 +442,6 @@ export type EmployeeProfileUncheckedCreateInput = {
   user_id: string
   date_of_birth?: Date | string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
   experience_years?: number | null
   bio?: string | null
   profile_photo_url?: string | null
@@ -501,8 +465,6 @@ export type EmployeeProfileUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -528,8 +490,6 @@ export type EmployeeProfileUncheckedUpdateInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -554,8 +514,6 @@ export type EmployeeProfileCreateManyInput = {
   user_id: string
   date_of_birth?: Date | string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
   experience_years?: number | null
   bio?: string | null
   profile_photo_url?: string | null
@@ -572,8 +530,6 @@ export type EmployeeProfileUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -591,8 +547,6 @@ export type EmployeeProfileUncheckedUpdateManyInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -615,8 +569,6 @@ export type EmployeeProfileCountOrderByAggregateInput = {
   user_id?: Prisma.SortOrder
   date_of_birth?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  latitude?: Prisma.SortOrder
-  longitude?: Prisma.SortOrder
   experience_years?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   profile_photo_url?: Prisma.SortOrder
@@ -630,8 +582,6 @@ export type EmployeeProfileCountOrderByAggregateInput = {
 }
 
 export type EmployeeProfileAvgOrderByAggregateInput = {
-  latitude?: Prisma.SortOrder
-  longitude?: Prisma.SortOrder
   experience_years?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   total_reviews?: Prisma.SortOrder
@@ -645,8 +595,6 @@ export type EmployeeProfileMaxOrderByAggregateInput = {
   user_id?: Prisma.SortOrder
   date_of_birth?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  latitude?: Prisma.SortOrder
-  longitude?: Prisma.SortOrder
   experience_years?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   profile_photo_url?: Prisma.SortOrder
@@ -664,8 +612,6 @@ export type EmployeeProfileMinOrderByAggregateInput = {
   user_id?: Prisma.SortOrder
   date_of_birth?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  latitude?: Prisma.SortOrder
-  longitude?: Prisma.SortOrder
   experience_years?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   profile_photo_url?: Prisma.SortOrder
@@ -679,8 +625,6 @@ export type EmployeeProfileMinOrderByAggregateInput = {
 }
 
 export type EmployeeProfileSumOrderByAggregateInput = {
-  latitude?: Prisma.SortOrder
-  longitude?: Prisma.SortOrder
   experience_years?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   total_reviews?: Prisma.SortOrder
@@ -706,14 +650,6 @@ export type EmployeeProfileUpdateOneRequiredWithoutEarningsNestedInput = {
   upsert?: Prisma.EmployeeProfileUpsertWithoutEarningsInput
   connect?: Prisma.EmployeeProfileWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeProfileUpdateToOneWithWhereWithoutEarningsInput, Prisma.EmployeeProfileUpdateWithoutEarningsInput>, Prisma.EmployeeProfileUncheckedUpdateWithoutEarningsInput>
-}
-
-export type NullableFloatFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
 }
 
 export type NullableIntFieldUpdateOperationsInput = {
@@ -870,8 +806,6 @@ export type EmployeeProfileCreateWithoutEarningsInput = {
   id?: string
   date_of_birth?: Date | string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
   experience_years?: number | null
   bio?: string | null
   profile_photo_url?: string | null
@@ -896,8 +830,6 @@ export type EmployeeProfileUncheckedCreateWithoutEarningsInput = {
   user_id: string
   date_of_birth?: Date | string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
   experience_years?: number | null
   bio?: string | null
   profile_photo_url?: string | null
@@ -936,8 +868,6 @@ export type EmployeeProfileUpdateWithoutEarningsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -962,8 +892,6 @@ export type EmployeeProfileUncheckedUpdateWithoutEarningsInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -986,8 +914,6 @@ export type EmployeeProfileCreateWithoutEmployee_skillsInput = {
   id?: string
   date_of_birth?: Date | string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
   experience_years?: number | null
   bio?: string | null
   profile_photo_url?: string | null
@@ -1012,8 +938,6 @@ export type EmployeeProfileUncheckedCreateWithoutEmployee_skillsInput = {
   user_id: string
   date_of_birth?: Date | string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
   experience_years?: number | null
   bio?: string | null
   profile_photo_url?: string | null
@@ -1052,8 +976,6 @@ export type EmployeeProfileUpdateWithoutEmployee_skillsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1078,8 +1000,6 @@ export type EmployeeProfileUncheckedUpdateWithoutEmployee_skillsInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1102,8 +1022,6 @@ export type EmployeeProfileCreateWithoutFavorite_workersInput = {
   id?: string
   date_of_birth?: Date | string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
   experience_years?: number | null
   bio?: string | null
   profile_photo_url?: string | null
@@ -1128,8 +1046,6 @@ export type EmployeeProfileUncheckedCreateWithoutFavorite_workersInput = {
   user_id: string
   date_of_birth?: Date | string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
   experience_years?: number | null
   bio?: string | null
   profile_photo_url?: string | null
@@ -1168,8 +1084,6 @@ export type EmployeeProfileUpdateWithoutFavorite_workersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1194,8 +1108,6 @@ export type EmployeeProfileUncheckedUpdateWithoutFavorite_workersInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1218,8 +1130,6 @@ export type EmployeeProfileCreateWithoutJob_applicationsInput = {
   id?: string
   date_of_birth?: Date | string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
   experience_years?: number | null
   bio?: string | null
   profile_photo_url?: string | null
@@ -1244,8 +1154,6 @@ export type EmployeeProfileUncheckedCreateWithoutJob_applicationsInput = {
   user_id: string
   date_of_birth?: Date | string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
   experience_years?: number | null
   bio?: string | null
   profile_photo_url?: string | null
@@ -1284,8 +1192,6 @@ export type EmployeeProfileUpdateWithoutJob_applicationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1310,8 +1216,6 @@ export type EmployeeProfileUncheckedUpdateWithoutJob_applicationsInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1334,8 +1238,6 @@ export type EmployeeProfileCreateWithoutShiftsInput = {
   id?: string
   date_of_birth?: Date | string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
   experience_years?: number | null
   bio?: string | null
   profile_photo_url?: string | null
@@ -1360,8 +1262,6 @@ export type EmployeeProfileUncheckedCreateWithoutShiftsInput = {
   user_id: string
   date_of_birth?: Date | string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
   experience_years?: number | null
   bio?: string | null
   profile_photo_url?: string | null
@@ -1400,8 +1300,6 @@ export type EmployeeProfileUpdateWithoutShiftsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1426,8 +1324,6 @@ export type EmployeeProfileUncheckedUpdateWithoutShiftsInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1450,8 +1346,6 @@ export type EmployeeProfileCreateWithoutAssigned_jobInput = {
   id?: string
   date_of_birth?: Date | string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
   experience_years?: number | null
   bio?: string | null
   profile_photo_url?: string | null
@@ -1476,8 +1370,6 @@ export type EmployeeProfileUncheckedCreateWithoutAssigned_jobInput = {
   user_id: string
   date_of_birth?: Date | string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
   experience_years?: number | null
   bio?: string | null
   profile_photo_url?: string | null
@@ -1516,8 +1408,6 @@ export type EmployeeProfileUpdateWithoutAssigned_jobInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1542,8 +1432,6 @@ export type EmployeeProfileUncheckedUpdateWithoutAssigned_jobInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1566,8 +1454,6 @@ export type EmployeeProfileCreateWithoutReceived_reviewsInput = {
   id?: string
   date_of_birth?: Date | string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
   experience_years?: number | null
   bio?: string | null
   profile_photo_url?: string | null
@@ -1592,8 +1478,6 @@ export type EmployeeProfileUncheckedCreateWithoutReceived_reviewsInput = {
   user_id: string
   date_of_birth?: Date | string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
   experience_years?: number | null
   bio?: string | null
   profile_photo_url?: string | null
@@ -1632,8 +1516,6 @@ export type EmployeeProfileUpdateWithoutReceived_reviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1658,8 +1540,6 @@ export type EmployeeProfileUncheckedUpdateWithoutReceived_reviewsInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1682,8 +1562,6 @@ export type EmployeeProfileCreateWithoutUserInput = {
   id?: string
   date_of_birth?: Date | string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
   experience_years?: number | null
   bio?: string | null
   profile_photo_url?: string | null
@@ -1707,8 +1585,6 @@ export type EmployeeProfileUncheckedCreateWithoutUserInput = {
   id?: string
   date_of_birth?: Date | string | null
   address?: string | null
-  latitude?: number | null
-  longitude?: number | null
   experience_years?: number | null
   bio?: string | null
   profile_photo_url?: string | null
@@ -1748,8 +1624,6 @@ export type EmployeeProfileUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1773,8 +1647,6 @@ export type EmployeeProfileUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   experience_years?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   profile_photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1884,8 +1756,6 @@ export type EmployeeProfileSelect<ExtArgs extends runtime.Types.Extensions.Inter
   user_id?: boolean
   date_of_birth?: boolean
   address?: boolean
-  latitude?: boolean
-  longitude?: boolean
   experience_years?: boolean
   bio?: boolean
   profile_photo_url?: boolean
@@ -1912,8 +1782,6 @@ export type EmployeeProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   user_id?: boolean
   date_of_birth?: boolean
   address?: boolean
-  latitude?: boolean
-  longitude?: boolean
   experience_years?: boolean
   bio?: boolean
   profile_photo_url?: boolean
@@ -1932,8 +1800,6 @@ export type EmployeeProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   user_id?: boolean
   date_of_birth?: boolean
   address?: boolean
-  latitude?: boolean
-  longitude?: boolean
   experience_years?: boolean
   bio?: boolean
   profile_photo_url?: boolean
@@ -1952,8 +1818,6 @@ export type EmployeeProfileSelectScalar = {
   user_id?: boolean
   date_of_birth?: boolean
   address?: boolean
-  latitude?: boolean
-  longitude?: boolean
   experience_years?: boolean
   bio?: boolean
   profile_photo_url?: boolean
@@ -1966,7 +1830,7 @@ export type EmployeeProfileSelectScalar = {
   updated_at?: boolean
 }
 
-export type EmployeeProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "user_id" | "date_of_birth" | "address" | "latitude" | "longitude" | "experience_years" | "bio" | "profile_photo_url" | "rating" | "total_reviews" | "total_jobs" | "total_hours" | "total_earned" | "created_at" | "updated_at", ExtArgs["result"]["employeeProfile"]>
+export type EmployeeProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "user_id" | "date_of_birth" | "address" | "experience_years" | "bio" | "profile_photo_url" | "rating" | "total_reviews" | "total_jobs" | "total_hours" | "total_earned" | "created_at" | "updated_at", ExtArgs["result"]["employeeProfile"]>
 export type EmployeeProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   employee_skills?: boolean | Prisma.EmployeeProfile$employee_skillsArgs<ExtArgs>
@@ -2002,8 +1866,6 @@ export type $EmployeeProfilePayload<ExtArgs extends runtime.Types.Extensions.Int
     user_id: string
     date_of_birth: Date | null
     address: string | null
-    latitude: number | null
-    longitude: number | null
     experience_years: number | null
     bio: string | null
     profile_photo_url: string | null
@@ -2449,8 +2311,6 @@ export interface EmployeeProfileFieldRefs {
   readonly user_id: Prisma.FieldRef<"EmployeeProfile", 'String'>
   readonly date_of_birth: Prisma.FieldRef<"EmployeeProfile", 'DateTime'>
   readonly address: Prisma.FieldRef<"EmployeeProfile", 'String'>
-  readonly latitude: Prisma.FieldRef<"EmployeeProfile", 'Float'>
-  readonly longitude: Prisma.FieldRef<"EmployeeProfile", 'Float'>
   readonly experience_years: Prisma.FieldRef<"EmployeeProfile", 'Int'>
   readonly bio: Prisma.FieldRef<"EmployeeProfile", 'String'>
   readonly profile_photo_url: Prisma.FieldRef<"EmployeeProfile", 'String'>

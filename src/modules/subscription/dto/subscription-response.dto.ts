@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { SubscriptionPlanType, SubscriptionStatus } from '@prisma';
+import { SubscriptionPlanType, SubscriptionStatus, UserRole } from '@prisma';
 
 export class PaymentConfigDataDto {
   @ApiProperty({
@@ -112,4 +112,21 @@ export class CurrentSubscriptionStateDto {
 export class StripeWebhookReceivedDto {
   @ApiProperty({ example: true })
   received: boolean;
+}
+
+export class SubscriptionPricingDataDto {
+  @ApiProperty({ enum: UserRole, enumName: 'UserRole' })
+  userType: UserRole;
+
+  @ApiProperty({ enum: SubscriptionPlanType, enumName: 'SubscriptionPlanType' })
+  planType: SubscriptionPlanType;
+
+  @ApiProperty({ example: '3.99' })
+  amount: string;
+
+  @ApiProperty({ example: 'USD' })
+  currency: string;
+
+  @ApiProperty({ example: 'monthly' })
+  billingCycle: string;
 }

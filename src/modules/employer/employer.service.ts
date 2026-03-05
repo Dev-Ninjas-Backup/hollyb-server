@@ -65,6 +65,56 @@ export class EmployerService {
     return `${String(hour12).padStart(2, '0')}:${minutes} ${suffix}`;
   }
 
+  private toBoolean(value: unknown): boolean {
+    if (value === undefined || value === null) {
+      return false;
+    }
+
+    if (typeof value === 'boolean') {
+      return value;
+    }
+
+    if (Array.isArray(value)) {
+      return this.toBoolean(value[0]);
+    }
+
+    if (typeof value === 'number') {
+      return value === 1;
+    }
+
+    if (typeof value === 'string') {
+      const normalizedValue = value.trim().toLowerCase();
+      if (['true', '1', 'yes', 'on'].includes(normalizedValue)) {
+        return true;
+      }
+      if (['false', '0', 'no', 'off', ''].includes(normalizedValue)) {
+        return false;
+      }
+    }
+
+    return false;
+  }
+
+  private async syncExpiredJobsStatus(userId: string) {
+    const now = new Date();
+    now.setUTCHours(0, 0, 0, 0);
+
+    await this.prisma.client.job.updateMany({
+      where: {
+        employer: { user_id: userId },
+        expire_date: {
+          lt: now,
+        },
+        status: {
+          notIn: [JobStatus.closed, JobStatus.completed, JobStatus.cancelled],
+        },
+      },
+      data: {
+        status: JobStatus.closed,
+      },
+    });
+  }
+
   /**
    * Create a new job posting
    */
@@ -184,10 +234,7 @@ export class EmployerService {
       description: dto.description,
       job_responsibilities: dto.job_responsibilities,
       requirements: dto.requirements,
-      is_urgent:
-        dto.is_urgent !== undefined && dto.is_urgent !== null
-          ? Boolean(dto.is_urgent)
-          : false,
+      is_urgent: this.toBoolean(dto.is_urgent),
       job_category: dto.job_category || null,
       job_date: dto.job_date ? new Date(dto.job_date) : null,
       expire_date: expireDate,
@@ -247,24 +294,7 @@ export class EmployerService {
   ) {
     const skip = (page - 1) * limit;
 
-    // Update jobs to 'closed' status if expire_date has passed
-    const now = new Date();
-    now.setUTCHours(0, 0, 0, 0);
-
-    await this.prisma.client.job.updateMany({
-      where: {
-        employer: { user_id: userId },
-        expire_date: {
-          lt: now,
-        },
-        status: {
-          notIn: ['closed', 'completed', 'cancelled'],
-        },
-      },
-      data: {
-        status: 'closed',
-      },
-    });
+    await this.syncExpiredJobsStatus(userId);
 
     const whereConditions: any = { employer: { user_id: userId } };
 
@@ -324,6 +354,68 @@ export class EmployerService {
         limit,
         totalJobs,
         totalPages: Math.ceil(totalJobs / limit),
+      },
+    };
+  }
+
+  async getStats(userId: string) {
+    const employerProfile = await this.prisma.client.employerProfile.findUnique(
+      {
+        where: { user_id: userId },
+        select: { id: true },
+      },
+    );
+
+    if (!employerProfile) {
+      throw new ResourceNotFoundException('Employer profile', userId);
+    }
+
+    await this.syncExpiredJobsStatus(userId);
+
+    const [activeJobs, completedJobs, favouriteWorkers, totalHires] =
+      await this.prisma.client.$transaction([
+        this.prisma.client.job.count({
+          where: {
+            employer_id: employerProfile.id,
+            status: {
+              in: [JobStatus.open, JobStatus.assigned],
+            },
+          },
+        }),
+        this.prisma.client.job.count({
+          where: {
+            employer_id: employerProfile.id,
+            status: JobStatus.completed,
+          },
+        }),
+        this.prisma.client.favoriteWorker.count({
+          where: {
+            employer_id: employerProfile.id,
+          },
+        }),
+        this.prisma.client.jobApplication.count({
+          where: {
+            job: {
+              employer_id: employerProfile.id,
+            },
+            status: {
+              in: [
+                JobApplicationStatus.accepted,
+                JobApplicationStatus.confirmed,
+              ],
+            },
+          },
+        }),
+      ]);
+
+    return {
+      success: true,
+      message: 'Employer stats retrieved successfully',
+      data: {
+        activeJobs,
+        completedJobs,
+        favouriteWorkers,
+        totalHires,
       },
     };
   }
@@ -491,7 +583,7 @@ export class EmployerService {
     if (dto.requirements !== undefined)
       updateData.requirements = dto.requirements;
     if (dto.is_urgent !== undefined)
-      updateData.is_urgent = Boolean(dto.is_urgent);
+      updateData.is_urgent = this.toBoolean(dto.is_urgent);
     if (dto.job_category !== undefined)
       updateData.job_category = dto.job_category;
     if (dto.start_time !== undefined)
@@ -969,6 +1061,234 @@ export class EmployerService {
         limit,
         totalReviews,
         totalPages: Math.ceil(totalReviews / limit),
+      },
+    };
+  }
+
+  /**
+   * Add an employee to favorites
+   */
+  async addFavoriteEmployee(userId: string, employeeId: string) {
+    // Get employer profile
+    const employerProfile = await this.prisma.client.employerProfile.findUnique(
+      {
+        where: { user_id: userId },
+        select: { id: true },
+      },
+    );
+
+    if (!employerProfile) {
+      throw new ResourceNotFoundException('Employer profile', userId);
+    }
+
+    // Verify employee exists
+    const employee = await this.prisma.client.employeeProfile.findUnique({
+      where: { id: employeeId },
+      select: { id: true },
+    });
+
+    if (!employee) {
+      throw new ResourceNotFoundException('Employee profile', employeeId);
+    }
+
+    // Check if already favorited
+    const existingFavorite = await this.prisma.client.favoriteWorker.findUnique(
+      {
+        where: {
+          employer_id_employee_id: {
+            employer_id: employerProfile.id,
+            employee_id: employeeId,
+          },
+        },
+      },
+    );
+
+    if (existingFavorite) {
+      throw new BusinessException(
+        'This employee is already in your favorites',
+        HttpStatus.CONFLICT,
+      );
+    }
+
+    // Add to favorites
+    const favorite = await this.prisma.client.favoriteWorker.create({
+      data: {
+        employer_id: employerProfile.id,
+        employee_id: employeeId,
+      },
+      include: {
+        employee: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                full_name: true,
+                email: true,
+              },
+            },
+            employee_skills: {
+              include: {
+                skill: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return {
+      success: true,
+      message: 'Employee added to favorites successfully',
+      data: favorite,
+    };
+  }
+
+  /**
+   * Remove an employee from favorites
+   */
+  async removeFavoriteEmployee(userId: string, employeeId: string) {
+    // Get employer profile
+    const employerProfile = await this.prisma.client.employerProfile.findUnique(
+      {
+        where: { user_id: userId },
+        select: { id: true },
+      },
+    );
+
+    if (!employerProfile) {
+      throw new ResourceNotFoundException('Employer profile', userId);
+    }
+
+    // Check if favorite exists
+    const favorite = await this.prisma.client.favoriteWorker.findUnique({
+      where: {
+        employer_id_employee_id: {
+          employer_id: employerProfile.id,
+          employee_id: employeeId,
+        },
+      },
+    });
+
+    if (!favorite) {
+      throw new ResourceNotFoundException(
+        'Favorite employee',
+        `employer_id: ${employerProfile.id}, employee_id: ${employeeId}`,
+      );
+    }
+
+    // Remove from favorites
+    await this.prisma.client.favoriteWorker.delete({
+      where: {
+        id: favorite.id,
+      },
+    });
+
+    return {
+      success: true,
+      message: 'Employee removed from favorites successfully',
+    };
+  }
+
+  /**
+   * Get all favorite employees with pagination
+   */
+  async getFavoriteEmployees(
+    userId: string,
+    page: number = 1,
+    limit: number = 10,
+  ) {
+    // Get employer profile
+    const employerProfile = await this.prisma.client.employerProfile.findUnique(
+      {
+        where: { user_id: userId },
+        select: { id: true },
+      },
+    );
+
+    if (!employerProfile) {
+      throw new ResourceNotFoundException('Employer profile', userId);
+    }
+
+    const skip = (page - 1) * limit;
+
+    const [favorites, totalFavorites] = await this.prisma.client.$transaction([
+      this.prisma.client.favoriteWorker.findMany({
+        where: {
+          employer_id: employerProfile.id,
+        },
+        include: {
+          employee: {
+            include: {
+              user: {
+                select: {
+                  id: true,
+                  full_name: true,
+                  email: true,
+                },
+              },
+              employee_skills: {
+                include: {
+                  skill: true,
+                },
+              },
+            },
+          },
+        },
+        orderBy: {
+          created_at: 'desc',
+        },
+        skip,
+        take: limit,
+      }),
+      this.prisma.client.favoriteWorker.count({
+        where: {
+          employer_id: employerProfile.id,
+        },
+      }),
+    ]);
+
+    return {
+      success: true,
+      message: 'Favorite employees retrieved successfully',
+      data: favorites,
+      paginationInfo: {
+        page,
+        limit,
+        totalFavorites,
+        totalPages: Math.ceil(totalFavorites / limit),
+      },
+    };
+  }
+
+  /**
+   * Check if an employee is in favorites
+   */
+  async isFavoriteEmployee(userId: string, employeeId: string) {
+    // Get employer profile
+    const employerProfile = await this.prisma.client.employerProfile.findUnique(
+      {
+        where: { user_id: userId },
+        select: { id: true },
+      },
+    );
+
+    if (!employerProfile) {
+      throw new ResourceNotFoundException('Employer profile', userId);
+    }
+
+    const favorite = await this.prisma.client.favoriteWorker.findUnique({
+      where: {
+        employer_id_employee_id: {
+          employer_id: employerProfile.id,
+          employee_id: employeeId,
+        },
+      },
+    });
+
+    return {
+      success: true,
+      data: {
+        isFavorite: !!favorite,
       },
     };
   }

@@ -42,8 +42,6 @@ export type JobMinAggregateOutputType = {
   title: string | null
   company_name: string | null
   description: string | null
-  job_responsibilities: string | null
-  requirements: string | null
   fileId: string | null
   is_urgent: boolean | null
   status: $Enums.JobStatus | null
@@ -66,8 +64,6 @@ export type JobMaxAggregateOutputType = {
   title: string | null
   company_name: string | null
   description: string | null
-  job_responsibilities: string | null
-  requirements: string | null
   fileId: string | null
   is_urgent: boolean | null
   status: $Enums.JobStatus | null
@@ -126,8 +122,6 @@ export type JobMinAggregateInputType = {
   title?: true
   company_name?: true
   description?: true
-  job_responsibilities?: true
-  requirements?: true
   fileId?: true
   is_urgent?: true
   status?: true
@@ -150,8 +144,6 @@ export type JobMaxAggregateInputType = {
   title?: true
   company_name?: true
   description?: true
-  job_responsibilities?: true
-  requirements?: true
   fileId?: true
   is_urgent?: true
   status?: true
@@ -285,8 +277,8 @@ export type JobGroupByOutputType = {
   title: string
   company_name: string
   description: string | null
-  job_responsibilities: string | null
-  requirements: string | null
+  job_responsibilities: string[]
+  requirements: string[]
   fileId: string | null
   is_urgent: boolean
   status: $Enums.JobStatus
@@ -332,8 +324,8 @@ export type JobWhereInput = {
   title?: Prisma.StringFilter<"Job"> | string
   company_name?: Prisma.StringFilter<"Job"> | string
   description?: Prisma.StringNullableFilter<"Job"> | string | null
-  job_responsibilities?: Prisma.StringNullableFilter<"Job"> | string | null
-  requirements?: Prisma.StringNullableFilter<"Job"> | string | null
+  job_responsibilities?: Prisma.StringNullableListFilter<"Job">
+  requirements?: Prisma.StringNullableListFilter<"Job">
   fileId?: Prisma.StringNullableFilter<"Job"> | string | null
   is_urgent?: Prisma.BoolFilter<"Job"> | boolean
   status?: Prisma.EnumJobStatusFilter<"Job"> | $Enums.JobStatus
@@ -363,8 +355,8 @@ export type JobOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   company_name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  job_responsibilities?: Prisma.SortOrderInput | Prisma.SortOrder
-  requirements?: Prisma.SortOrderInput | Prisma.SortOrder
+  job_responsibilities?: Prisma.SortOrder
+  requirements?: Prisma.SortOrder
   fileId?: Prisma.SortOrderInput | Prisma.SortOrder
   is_urgent?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -391,7 +383,6 @@ export type JobOrderByWithRelationInput = {
 export type JobWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   fileId?: string
-  assigned_employee_id?: string
   AND?: Prisma.JobWhereInput | Prisma.JobWhereInput[]
   OR?: Prisma.JobWhereInput[]
   NOT?: Prisma.JobWhereInput | Prisma.JobWhereInput[]
@@ -399,8 +390,8 @@ export type JobWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"Job"> | string
   company_name?: Prisma.StringFilter<"Job"> | string
   description?: Prisma.StringNullableFilter<"Job"> | string | null
-  job_responsibilities?: Prisma.StringNullableFilter<"Job"> | string | null
-  requirements?: Prisma.StringNullableFilter<"Job"> | string | null
+  job_responsibilities?: Prisma.StringNullableListFilter<"Job">
+  requirements?: Prisma.StringNullableListFilter<"Job">
   is_urgent?: Prisma.BoolFilter<"Job"> | boolean
   status?: Prisma.EnumJobStatusFilter<"Job"> | $Enums.JobStatus
   job_category?: Prisma.EnumJobCategoryNullableFilter<"Job"> | $Enums.JobCategory | null
@@ -413,6 +404,7 @@ export type JobWhereUniqueInput = Prisma.AtLeast<{
   location?: Prisma.StringNullableFilter<"Job"> | string | null
   created_at?: Prisma.DateTimeFilter<"Job"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Job"> | Date | string
+  assigned_employee_id?: Prisma.UuidNullableFilter<"Job"> | string | null
   file?: Prisma.XOR<Prisma.FileInstanceNullableScalarRelationFilter, Prisma.FileInstanceWhereInput> | null
   assigned_employee?: Prisma.XOR<Prisma.EmployeeProfileNullableScalarRelationFilter, Prisma.EmployeeProfileWhereInput> | null
   review?: Prisma.XOR<Prisma.ReviewNullableScalarRelationFilter, Prisma.ReviewWhereInput> | null
@@ -420,7 +412,7 @@ export type JobWhereUniqueInput = Prisma.AtLeast<{
   job_applications?: Prisma.JobApplicationListRelationFilter
   shifts?: Prisma.JobShiftListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
-}, "id" | "fileId" | "assigned_employee_id">
+}, "id" | "fileId">
 
 export type JobOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -428,8 +420,8 @@ export type JobOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   company_name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  job_responsibilities?: Prisma.SortOrderInput | Prisma.SortOrder
-  requirements?: Prisma.SortOrderInput | Prisma.SortOrder
+  job_responsibilities?: Prisma.SortOrder
+  requirements?: Prisma.SortOrder
   fileId?: Prisma.SortOrderInput | Prisma.SortOrder
   is_urgent?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -460,8 +452,8 @@ export type JobScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"Job"> | string
   company_name?: Prisma.StringWithAggregatesFilter<"Job"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Job"> | string | null
-  job_responsibilities?: Prisma.StringNullableWithAggregatesFilter<"Job"> | string | null
-  requirements?: Prisma.StringNullableWithAggregatesFilter<"Job"> | string | null
+  job_responsibilities?: Prisma.StringNullableListFilter<"Job">
+  requirements?: Prisma.StringNullableListFilter<"Job">
   fileId?: Prisma.StringNullableWithAggregatesFilter<"Job"> | string | null
   is_urgent?: Prisma.BoolWithAggregatesFilter<"Job"> | boolean
   status?: Prisma.EnumJobStatusWithAggregatesFilter<"Job"> | $Enums.JobStatus
@@ -483,8 +475,8 @@ export type JobCreateInput = {
   title: string
   company_name: string
   description?: string | null
-  job_responsibilities?: string | null
-  requirements?: string | null
+  job_responsibilities?: Prisma.JobCreatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobCreaterequirementsInput | string[]
   is_urgent?: boolean
   status?: $Enums.JobStatus
   job_category?: $Enums.JobCategory | null
@@ -512,8 +504,8 @@ export type JobUncheckedCreateInput = {
   title: string
   company_name: string
   description?: string | null
-  job_responsibilities?: string | null
-  requirements?: string | null
+  job_responsibilities?: Prisma.JobCreatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobCreaterequirementsInput | string[]
   fileId?: string | null
   is_urgent?: boolean
   status?: $Enums.JobStatus
@@ -539,8 +531,8 @@ export type JobUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.JobUpdatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobUpdaterequirementsInput | string[]
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   job_category?: Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput | $Enums.JobCategory | null
@@ -568,8 +560,8 @@ export type JobUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.JobUpdatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobUpdaterequirementsInput | string[]
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
@@ -596,8 +588,8 @@ export type JobCreateManyInput = {
   title: string
   company_name: string
   description?: string | null
-  job_responsibilities?: string | null
-  requirements?: string | null
+  job_responsibilities?: Prisma.JobCreatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobCreaterequirementsInput | string[]
   fileId?: string | null
   is_urgent?: boolean
   status?: $Enums.JobStatus
@@ -619,8 +611,8 @@ export type JobUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.JobUpdatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobUpdaterequirementsInput | string[]
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   job_category?: Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput | $Enums.JobCategory | null
@@ -641,8 +633,8 @@ export type JobUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.JobUpdatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobUpdaterequirementsInput | string[]
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
@@ -677,6 +669,14 @@ export type JobNullableScalarRelationFilter = {
 export type JobScalarRelationFilter = {
   is?: Prisma.JobWhereInput
   isNot?: Prisma.JobWhereInput
+}
+
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
 }
 
 export type JobCountOrderByAggregateInput = {
@@ -714,8 +714,6 @@ export type JobMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   company_name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  job_responsibilities?: Prisma.SortOrder
-  requirements?: Prisma.SortOrder
   fileId?: Prisma.SortOrder
   is_urgent?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -738,8 +736,6 @@ export type JobMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   company_name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  job_responsibilities?: Prisma.SortOrder
-  requirements?: Prisma.SortOrder
   fileId?: Prisma.SortOrder
   is_urgent?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -905,6 +901,24 @@ export type JobUpdateOneRequiredWithoutShiftsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.JobUpdateToOneWithWhereWithoutShiftsInput, Prisma.JobUpdateWithoutShiftsInput>, Prisma.JobUncheckedUpdateWithoutShiftsInput>
 }
 
+export type JobCreatejob_responsibilitiesInput = {
+  set: string[]
+}
+
+export type JobCreaterequirementsInput = {
+  set: string[]
+}
+
+export type JobUpdatejob_responsibilitiesInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type JobUpdaterequirementsInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
 export type EnumJobStatusFieldUpdateOperationsInput = {
   set?: $Enums.JobStatus
 }
@@ -948,8 +962,8 @@ export type JobCreateWithoutAssigned_employeeInput = {
   title: string
   company_name: string
   description?: string | null
-  job_responsibilities?: string | null
-  requirements?: string | null
+  job_responsibilities?: Prisma.JobCreatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobCreaterequirementsInput | string[]
   is_urgent?: boolean
   status?: $Enums.JobStatus
   job_category?: $Enums.JobCategory | null
@@ -976,8 +990,8 @@ export type JobUncheckedCreateWithoutAssigned_employeeInput = {
   title: string
   company_name: string
   description?: string | null
-  job_responsibilities?: string | null
-  requirements?: string | null
+  job_responsibilities?: Prisma.JobCreatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobCreaterequirementsInput | string[]
   fileId?: string | null
   is_urgent?: boolean
   status?: $Enums.JobStatus
@@ -1018,60 +1032,6 @@ export type JobUpdateWithWhereUniqueWithoutAssigned_employeeInput = {
   data: Prisma.XOR<Prisma.JobUpdateWithoutAssigned_employeeInput, Prisma.JobUncheckedUpdateWithoutAssigned_employeeInput>
 }
 
-<<<<<<< HEAD
-export type JobUpdateWithoutAssigned_employeeInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  company_name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
-  job_category?: Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput | $Enums.JobCategory | null
-  job_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expire_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  totalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  file?: Prisma.FileInstanceUpdateOneWithoutJobNestedInput
-  review?: Prisma.ReviewUpdateOneWithoutJobNestedInput
-  employer?: Prisma.EmployerProfileUpdateOneRequiredWithoutJobsNestedInput
-  job_applications?: Prisma.JobApplicationUpdateManyWithoutJobNestedInput
-  shifts?: Prisma.JobShiftUpdateManyWithoutJobNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutJobNestedInput
-}
-
-export type JobUncheckedUpdateWithoutAssigned_employeeInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  employer_id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  company_name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
-  job_category?: Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput | $Enums.JobCategory | null
-  job_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expire_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  start_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  end_time?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  totalAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  review?: Prisma.ReviewUncheckedUpdateOneWithoutJobNestedInput
-  job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutJobNestedInput
-  shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutJobNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutJobNestedInput
-=======
 export type JobUpdateManyWithWhereWithoutAssigned_employeeInput = {
   where: Prisma.JobScalarWhereInput
   data: Prisma.XOR<Prisma.JobUpdateManyMutationInput, Prisma.JobUncheckedUpdateManyWithoutAssigned_employeeInput>
@@ -1086,8 +1046,8 @@ export type JobScalarWhereInput = {
   title?: Prisma.StringFilter<"Job"> | string
   company_name?: Prisma.StringFilter<"Job"> | string
   description?: Prisma.StringNullableFilter<"Job"> | string | null
-  job_responsibilities?: Prisma.StringNullableFilter<"Job"> | string | null
-  requirements?: Prisma.StringNullableFilter<"Job"> | string | null
+  job_responsibilities?: Prisma.StringNullableListFilter<"Job">
+  requirements?: Prisma.StringNullableListFilter<"Job">
   fileId?: Prisma.StringNullableFilter<"Job"> | string | null
   is_urgent?: Prisma.BoolFilter<"Job"> | boolean
   status?: Prisma.EnumJobStatusFilter<"Job"> | $Enums.JobStatus
@@ -1102,7 +1062,6 @@ export type JobScalarWhereInput = {
   created_at?: Prisma.DateTimeFilter<"Job"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Job"> | Date | string
   assigned_employee_id?: Prisma.UuidNullableFilter<"Job"> | string | null
->>>>>>> 27fe7be6b7d87024ffaadfaf53691c00e8191ff4
 }
 
 export type JobCreateWithoutEmployerInput = {
@@ -1110,8 +1069,8 @@ export type JobCreateWithoutEmployerInput = {
   title: string
   company_name: string
   description?: string | null
-  job_responsibilities?: string | null
-  requirements?: string | null
+  job_responsibilities?: Prisma.JobCreatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobCreaterequirementsInput | string[]
   is_urgent?: boolean
   status?: $Enums.JobStatus
   job_category?: $Enums.JobCategory | null
@@ -1137,8 +1096,8 @@ export type JobUncheckedCreateWithoutEmployerInput = {
   title: string
   company_name: string
   description?: string | null
-  job_responsibilities?: string | null
-  requirements?: string | null
+  job_responsibilities?: Prisma.JobCreatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobCreaterequirementsInput | string[]
   fileId?: string | null
   is_urgent?: boolean
   status?: $Enums.JobStatus
@@ -1190,8 +1149,8 @@ export type JobCreateWithoutFileInput = {
   title: string
   company_name: string
   description?: string | null
-  job_responsibilities?: string | null
-  requirements?: string | null
+  job_responsibilities?: Prisma.JobCreatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobCreaterequirementsInput | string[]
   is_urgent?: boolean
   status?: $Enums.JobStatus
   job_category?: $Enums.JobCategory | null
@@ -1218,8 +1177,8 @@ export type JobUncheckedCreateWithoutFileInput = {
   title: string
   company_name: string
   description?: string | null
-  job_responsibilities?: string | null
-  requirements?: string | null
+  job_responsibilities?: Prisma.JobCreatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobCreaterequirementsInput | string[]
   is_urgent?: boolean
   status?: $Enums.JobStatus
   job_category?: $Enums.JobCategory | null
@@ -1260,8 +1219,8 @@ export type JobUpdateWithoutFileInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.JobUpdatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobUpdaterequirementsInput | string[]
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   job_category?: Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput | $Enums.JobCategory | null
@@ -1288,8 +1247,8 @@ export type JobUncheckedUpdateWithoutFileInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.JobUpdatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobUpdaterequirementsInput | string[]
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   job_category?: Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput | $Enums.JobCategory | null
@@ -1314,8 +1273,8 @@ export type JobCreateWithoutJob_applicationsInput = {
   title: string
   company_name: string
   description?: string | null
-  job_responsibilities?: string | null
-  requirements?: string | null
+  job_responsibilities?: Prisma.JobCreatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobCreaterequirementsInput | string[]
   is_urgent?: boolean
   status?: $Enums.JobStatus
   job_category?: $Enums.JobCategory | null
@@ -1342,8 +1301,8 @@ export type JobUncheckedCreateWithoutJob_applicationsInput = {
   title: string
   company_name: string
   description?: string | null
-  job_responsibilities?: string | null
-  requirements?: string | null
+  job_responsibilities?: Prisma.JobCreatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobCreaterequirementsInput | string[]
   fileId?: string | null
   is_urgent?: boolean
   status?: $Enums.JobStatus
@@ -1384,8 +1343,8 @@ export type JobUpdateWithoutJob_applicationsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.JobUpdatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobUpdaterequirementsInput | string[]
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   job_category?: Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput | $Enums.JobCategory | null
@@ -1412,8 +1371,8 @@ export type JobUncheckedUpdateWithoutJob_applicationsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.JobUpdatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobUpdaterequirementsInput | string[]
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
@@ -1438,8 +1397,8 @@ export type JobCreateWithoutShiftsInput = {
   title: string
   company_name: string
   description?: string | null
-  job_responsibilities?: string | null
-  requirements?: string | null
+  job_responsibilities?: Prisma.JobCreatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobCreaterequirementsInput | string[]
   is_urgent?: boolean
   status?: $Enums.JobStatus
   job_category?: $Enums.JobCategory | null
@@ -1466,8 +1425,8 @@ export type JobUncheckedCreateWithoutShiftsInput = {
   title: string
   company_name: string
   description?: string | null
-  job_responsibilities?: string | null
-  requirements?: string | null
+  job_responsibilities?: Prisma.JobCreatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobCreaterequirementsInput | string[]
   fileId?: string | null
   is_urgent?: boolean
   status?: $Enums.JobStatus
@@ -1508,8 +1467,8 @@ export type JobUpdateWithoutShiftsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.JobUpdatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobUpdaterequirementsInput | string[]
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   job_category?: Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput | $Enums.JobCategory | null
@@ -1536,8 +1495,8 @@ export type JobUncheckedUpdateWithoutShiftsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.JobUpdatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobUpdaterequirementsInput | string[]
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
@@ -1562,8 +1521,8 @@ export type JobCreateWithoutPaymentsInput = {
   title: string
   company_name: string
   description?: string | null
-  job_responsibilities?: string | null
-  requirements?: string | null
+  job_responsibilities?: Prisma.JobCreatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobCreaterequirementsInput | string[]
   is_urgent?: boolean
   status?: $Enums.JobStatus
   job_category?: $Enums.JobCategory | null
@@ -1590,8 +1549,8 @@ export type JobUncheckedCreateWithoutPaymentsInput = {
   title: string
   company_name: string
   description?: string | null
-  job_responsibilities?: string | null
-  requirements?: string | null
+  job_responsibilities?: Prisma.JobCreatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobCreaterequirementsInput | string[]
   fileId?: string | null
   is_urgent?: boolean
   status?: $Enums.JobStatus
@@ -1632,8 +1591,8 @@ export type JobUpdateWithoutPaymentsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.JobUpdatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobUpdaterequirementsInput | string[]
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   job_category?: Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput | $Enums.JobCategory | null
@@ -1660,8 +1619,8 @@ export type JobUncheckedUpdateWithoutPaymentsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.JobUpdatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobUpdaterequirementsInput | string[]
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
@@ -1686,8 +1645,8 @@ export type JobCreateWithoutReviewInput = {
   title: string
   company_name: string
   description?: string | null
-  job_responsibilities?: string | null
-  requirements?: string | null
+  job_responsibilities?: Prisma.JobCreatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobCreaterequirementsInput | string[]
   is_urgent?: boolean
   status?: $Enums.JobStatus
   job_category?: $Enums.JobCategory | null
@@ -1714,8 +1673,8 @@ export type JobUncheckedCreateWithoutReviewInput = {
   title: string
   company_name: string
   description?: string | null
-  job_responsibilities?: string | null
-  requirements?: string | null
+  job_responsibilities?: Prisma.JobCreatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobCreaterequirementsInput | string[]
   fileId?: string | null
   is_urgent?: boolean
   status?: $Enums.JobStatus
@@ -1756,8 +1715,8 @@ export type JobUpdateWithoutReviewInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.JobUpdatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobUpdaterequirementsInput | string[]
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   job_category?: Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput | $Enums.JobCategory | null
@@ -1784,8 +1743,8 @@ export type JobUncheckedUpdateWithoutReviewInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.JobUpdatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobUpdaterequirementsInput | string[]
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
@@ -1803,8 +1762,6 @@ export type JobUncheckedUpdateWithoutReviewInput = {
   job_applications?: Prisma.JobApplicationUncheckedUpdateManyWithoutJobNestedInput
   shifts?: Prisma.JobShiftUncheckedUpdateManyWithoutJobNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutJobNestedInput
-<<<<<<< HEAD
-=======
 }
 
 export type JobCreateManyAssigned_employeeInput = {
@@ -1813,8 +1770,8 @@ export type JobCreateManyAssigned_employeeInput = {
   title: string
   company_name: string
   description?: string | null
-  job_responsibilities?: string | null
-  requirements?: string | null
+  job_responsibilities?: Prisma.JobCreatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobCreaterequirementsInput | string[]
   fileId?: string | null
   is_urgent?: boolean
   status?: $Enums.JobStatus
@@ -1835,8 +1792,8 @@ export type JobUpdateWithoutAssigned_employeeInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.JobUpdatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobUpdaterequirementsInput | string[]
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   job_category?: Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput | $Enums.JobCategory | null
@@ -1863,8 +1820,8 @@ export type JobUncheckedUpdateWithoutAssigned_employeeInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.JobUpdatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobUpdaterequirementsInput | string[]
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
@@ -1890,8 +1847,8 @@ export type JobUncheckedUpdateManyWithoutAssigned_employeeInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.JobUpdatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobUpdaterequirementsInput | string[]
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
@@ -1905,7 +1862,6 @@ export type JobUncheckedUpdateManyWithoutAssigned_employeeInput = {
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
->>>>>>> 27fe7be6b7d87024ffaadfaf53691c00e8191ff4
 }
 
 export type JobCreateManyEmployerInput = {
@@ -1913,8 +1869,8 @@ export type JobCreateManyEmployerInput = {
   title: string
   company_name: string
   description?: string | null
-  job_responsibilities?: string | null
-  requirements?: string | null
+  job_responsibilities?: Prisma.JobCreatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobCreaterequirementsInput | string[]
   fileId?: string | null
   is_urgent?: boolean
   status?: $Enums.JobStatus
@@ -1936,8 +1892,8 @@ export type JobUpdateWithoutEmployerInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.JobUpdatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobUpdaterequirementsInput | string[]
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   job_category?: Prisma.NullableEnumJobCategoryFieldUpdateOperationsInput | $Enums.JobCategory | null
@@ -1963,8 +1919,8 @@ export type JobUncheckedUpdateWithoutEmployerInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.JobUpdatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobUpdaterequirementsInput | string[]
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
@@ -1990,8 +1946,8 @@ export type JobUncheckedUpdateManyWithoutEmployerInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   company_name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  job_responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  job_responsibilities?: Prisma.JobUpdatejob_responsibilitiesInput | string[]
+  requirements?: Prisma.JobUpdaterequirementsInput | string[]
   fileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_urgent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
@@ -2206,8 +2162,8 @@ export type $JobPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     title: string
     company_name: string
     description: string | null
-    job_responsibilities: string | null
-    requirements: string | null
+    job_responsibilities: string[]
+    requirements: string[]
     fileId: string | null
     is_urgent: boolean
     status: $Enums.JobStatus
@@ -2657,8 +2613,8 @@ export interface JobFieldRefs {
   readonly title: Prisma.FieldRef<"Job", 'String'>
   readonly company_name: Prisma.FieldRef<"Job", 'String'>
   readonly description: Prisma.FieldRef<"Job", 'String'>
-  readonly job_responsibilities: Prisma.FieldRef<"Job", 'String'>
-  readonly requirements: Prisma.FieldRef<"Job", 'String'>
+  readonly job_responsibilities: Prisma.FieldRef<"Job", 'String[]'>
+  readonly requirements: Prisma.FieldRef<"Job", 'String[]'>
   readonly fileId: Prisma.FieldRef<"Job", 'String'>
   readonly is_urgent: Prisma.FieldRef<"Job", 'Boolean'>
   readonly status: Prisma.FieldRef<"Job", 'JobStatus'>
