@@ -10,6 +10,12 @@ import {
 } from 'class-validator';
 
 export class UpdateProfileDto {
+  @ApiPropertyOptional({ type: 'string', format: 'binary' })
+  @IsOptional()
+  @Transform(({ value }) => (value === '' ? undefined : value))
+  @IsString()
+  profilePhoto?: string;
+
   @ApiPropertyOptional({ example: 'Masud Rana', default: 'John Doe' })
   @IsOptional()
   @IsString()
@@ -79,4 +85,6 @@ export class UpdateProfileDto {
   @IsArray()
   @IsString({ each: true })
   skills?: string[];
+
+  
 }
