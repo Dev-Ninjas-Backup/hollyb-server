@@ -54,6 +54,7 @@ export class ProfileService {
         : user.employer_profile
           ? {
               companyName: user.employer_profile.company_name,
+              dateOfBirth: user.employer_profile.date_of_birth,
               address: user.employer_profile.address,
               profilePhotoUrl: user.employer_profile.profile_photo_url,
             }
@@ -156,12 +157,18 @@ export class ProfileService {
         where: { user_id: userId },
         update: {
           company_name: dto.companyName,
+          date_of_birth: dto.dateOfBirth
+            ? new Date(dto.dateOfBirth)
+            : undefined,
           address: dto.address,
           profile_photo_url: profilePhotoUrl,
         },
         create: {
           user_id: userId,
           company_name: dto.companyName,
+          date_of_birth: dto.dateOfBirth
+            ? new Date(dto.dateOfBirth)
+            : undefined,
           address: dto.address,
           profile_photo_url: profilePhotoUrl,
         },
@@ -204,6 +211,7 @@ export class ProfileService {
         : updatedUser.employer_profile
           ? {
               companyName: updatedUser.employer_profile.company_name,
+              dateOfBirth: updatedUser.employer_profile.date_of_birth,
               address: updatedUser.employer_profile.address,
               profilePhotoUrl: updatedUser.employer_profile.profile_photo_url,
             }
