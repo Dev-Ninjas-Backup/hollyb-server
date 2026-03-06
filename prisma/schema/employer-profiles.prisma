@@ -4,6 +4,7 @@ model EmployerProfile {
   company_name      String?
   address           String?
   profile_photo_url String?
+  date_of_birth     DateTime? @db.Date
   rating            Float    @default(0)
   total_reviews     Int      @default(0)
   total_hires       Int      @default(0)
