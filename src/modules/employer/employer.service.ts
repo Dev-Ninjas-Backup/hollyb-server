@@ -321,6 +321,13 @@ export class EmployerService {
             url: true,
           },
         },
+        assigned_employee_id: true,
+        review: {
+          select: {
+            id: true,
+            rating: true,
+          }
+        },
         start_time: true,
         end_time: true,
         amount: true,
@@ -331,6 +338,7 @@ export class EmployerService {
             job_applications: true,
           },
         },
+        updated_at: true,
       },
       orderBy: { created_at: 'desc' },
       skip,
@@ -439,6 +447,8 @@ export class EmployerService {
           },
         },
         file: true,
+        review: true,
+        shifts: true
       },
     });
 
@@ -1062,6 +1072,98 @@ export class EmployerService {
         totalReviews,
         totalPages: Math.ceil(totalReviews / limit),
       },
+    };
+  }
+
+  async getEmployeeById(userId: string, employeeId: string) {
+    const employerProfile = await this.prisma.client.employerProfile.findUnique(
+      {
+        where: { user_id: userId },
+        select: { id: true },
+      },
+    );
+
+    if (!employerProfile) {
+      throw new ResourceNotFoundException('Employer profile', userId);
+    }
+
+    const employee = await this.prisma.client.employeeProfile.findUnique({
+      where: { id: employeeId },
+      include: {
+        user: {
+          select: {
+            id: true,
+            full_name: true,
+            email: true,
+            role: true,
+            account_status: true,
+            is_active: true,
+            is_verified: true,
+            isNotify: true,
+            is_deleted: true,
+            last_active_at: true,
+            last_login_at: true,
+            created_at: true,
+            updated_at: true,
+            documents: true,
+            background_checks: true,
+          },
+        },
+        employee_skills: {
+          include: {
+            skill: true,
+          },
+        },
+        _count: {
+          select: {
+            received_reviews: true,
+            assigned_job: {
+              where: {
+                status: JobStatus.completed,
+              }
+            }
+          }
+        },
+        assigned_job: {
+          where: {
+            status: JobStatus.completed,
+          },
+          select: {
+            updated_at: true,
+          },
+          orderBy: {
+            updated_at: 'desc',
+          },
+          take: 1,
+        },
+        received_reviews: {
+          include: {
+            job: {
+              select: {
+                id: true,
+                title: true,
+                company_name: true,
+                status: true,
+                job_date: true,
+              },
+            },
+          },
+          orderBy: {
+            created_at: 'desc',
+          },
+        },
+        favorite_workers: true,
+      },
+    });
+
+    if (!employee) {
+      throw new ResourceNotFoundException('Employee profile', employeeId);
+    }
+
+    return {
+      success: true,
+      message: 'Employee details retrieved successfully',
+      data: employee,
     };
   }
 

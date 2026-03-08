@@ -14,11 +14,13 @@ import {
   Query,
   Param,
   Patch,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiBody,
   ApiConsumes,
+  ApiParam,
   ApiOperation,
   ApiQuery,
   ApiResponse,
@@ -396,6 +398,31 @@ export class EmployerController {
       employeeId,
       jobId,
     );
+  }
+
+  @Get('employees/:employeeId')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('employer')
+  @ApiOperation({ summary: 'Get employee details by employee id' })
+  @ApiParam({
+    name: 'employeeId',
+    type: String,
+    description: 'Employee profile id (uuid)',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Employee details retrieved successfully',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Employee profile not found',
+  })
+  async getEmployeeById(
+    @Req() req: AuthenticatedRequest,
+    @Param('employeeId', new ParseUUIDPipe()) employeeId: string,
+  ) {
+    return this.employerService.getEmployeeById(req.user.sub, employeeId);
   }
 
   // ==================== FAVORITE EMPLOYEES ENDPOINTS ====================
