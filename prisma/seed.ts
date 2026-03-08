@@ -102,6 +102,9 @@ async function main() {
     } else {
       console.error('❌ Error creating admin user:', error);
     }
+
+    // Bubble up the failure so CI/container startup can fail loudly.
+    throw error;
   }
 }
 

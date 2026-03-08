@@ -28,6 +28,7 @@ COPY --from=builder --chown=nestjs:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=nestjs:nodejs /app/dist ./dist
 COPY --from=builder --chown=nestjs:nodejs /app/prisma ./prisma
 COPY --from=builder --chown=nestjs:nodejs /app/package.json ./package.json
+COPY --from=builder --chown=nestjs:nodejs /app/prisma.config.ts ./prisma.config.ts
 USER nestjs
 EXPOSE 5000
-CMD ["node", "dist/src/main.js"]
+CMD ["npm", "run", "start:docker"]

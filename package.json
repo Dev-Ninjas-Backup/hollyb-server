@@ -15,14 +15,14 @@
     "start": "npm run prisma:generate:clean && npx prisma migrate deploy && npm run prisma:seed && npm run format:fix && npm run ci:fix && node dist/main",
     "dev": "npm run prisma:generate:clean && npx prisma migrate deploy && npm run prisma:seed && npx nest start --watch",
     "start:prod": "node dist/main",
-    "start:docker": "prisma migrate deploy && npm run prisma:seed && node dist/main",
+    "start:docker": "npx prisma migrate deploy && npm run prisma:seed && node dist/src/main.js",
     "prisma:validate": "npx prisma validate",
     "prisma:format": "npx prisma format",
     "prisma:generate": "npm run prisma:generate:clean",
     "prisma:push": "npx prisma db push",
     "prisma:migrate": "npx prisma migrate deploy",
     "prisma:reset": "npx prisma migrate reset",
-    "prisma:seed": "npx tsx prisma/seed.ts",
+    "prisma:seed": "tsx prisma/seed.ts",
     "prisma:studio": "npx prisma studio",
     "ci:check": "npm run format && npm run lint && npm run db:validate && npm run build && npm run start",
     "ci:fix": "npm run format:fix",
@@ -60,6 +60,7 @@
     "rxjs": "^7.8.1",
     "socket.io": "^4.8.3",
     "stripe": "^20.3.1",
+    "tsx": "^4.20.5",
     "zod": "^4.3.6"
   },
   "devDependencies": {
@@ -94,7 +95,7 @@
     "typescript-eslint": "^8.20.0"
   },
   "prisma": {
-    "seed": "npx tsx prisma/seed.ts"
+    "seed": "tsx prisma/seed.ts"
   },
   "jest": {
     "moduleFileExtensions": [
