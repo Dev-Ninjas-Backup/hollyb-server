@@ -27,7 +27,7 @@ services:
           - db
 
   server:
-    image: ${DOCKER_USER}/${PACKAGE_NAME}:${PACKAGE_VERSION}
+    image: ${DOCKER_USERNAME}/${PACKAGE_NAME}:${PACKAGE_VERSION}
     container_name: ${PACKAGE_NAME}_server
     restart: unless-stopped
     profiles:
