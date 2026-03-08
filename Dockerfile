@@ -15,7 +15,8 @@ COPY prisma.config.ts ./
 COPY tsconfig*.json ./
 COPY nest-cli.json ./
 COPY src ./src
-RUN pnpm run build
+RUN npx prisma generate
+RUN pnpm nest build
 RUN pnpm prune --prod
 
 FROM node:20-alpine AS runner
@@ -28,6 +29,7 @@ COPY --from=builder --chown=nestjs:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=nestjs:nodejs /app/dist ./dist
 COPY --from=builder --chown=nestjs:nodejs /app/prisma ./prisma
 COPY --from=builder --chown=nestjs:nodejs /app/package.json ./package.json
+COPY --from=builder --chown=nestjs:nodejs /app/prisma.config.ts ./prisma.config.ts
 USER nestjs
 EXPOSE 5000
-CMD ["node", "dist/main.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy && node dist/main.js"]
