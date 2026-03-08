@@ -67,6 +67,6 @@ async function bootstrap() {
   await app.listen(PORT, '0.0.0.0');
   console.log(`Server running on PORT ${PORT}`);
   console.log(`Local access:   http://localhost:${PORT}/api-docs`);
-  console.log(`Network access: http://10.10.10.64:${PORT}/api-docs`);
+  console.log(`Network access: http://10.10.10.32:${PORT}/api-docs`);
 }
 bootstrap();

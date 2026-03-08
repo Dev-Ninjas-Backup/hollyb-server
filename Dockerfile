@@ -1,59 +1,33 @@
-# ====== BUILD STAGE ======
-FROM node:24-slim AS builder
-
-# Enable corepack and activate pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
-
-# Set working directory
+FROM node:20-alpine AS base
 WORKDIR /app
+RUN corepack enable && corepack prepare pnpm@10.0.0 --activate
 
-# Install system dependencies for build
-RUN apt update && apt install -y openssl
-
-# Copy package, lock file & prisma folder
+FROM base AS deps
 COPY package.json pnpm-lock.yaml ./
-COPY prisma.config.ts ./
+RUN pnpm install --frozen-lockfile
+
+FROM base AS builder
+ENV NODE_ENV=production
+COPY --from=deps /app/node_modules ./node_modules
+COPY package.json pnpm-lock.yaml ./
 COPY prisma ./prisma
+COPY prisma.config.ts ./
+COPY tsconfig*.json ./
+COPY nest-cli.json ./
+COPY src ./src
+RUN pnpm run build
+RUN pnpm prune --prod
 
-# Allow pnpm to build packages
-RUN pnpm config set allowed-builds '*' -g
-
-# Install dependencies
-RUN pnpm install --frozen-lockfile
-
-# Copy rest of the project files
-COPY . .
-
-# Generate Prisma client (dummy DATABASE_URL for build time)
-RUN DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy" pnpm prisma generate
-
-# Build the app (NestJS -> dist/)
-RUN pnpm build
-
-# ====== PRODUCTION STAGE ======
-FROM node:24-slim AS production
-
-# Enable corepack and activate pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
-
-# Set working directory
+FROM node:20-alpine AS runner
 WORKDIR /app
-
-# Install system dependencies needed at runtime
-RUN apt update && apt install -y openssl curl
-
-# Copy necessary files from builder stage
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/pnpm-lock.yaml ./pnpm-lock.yaml
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/prisma.config.ts ./
-COPY --from=builder /app/prisma ./prisma
-
-# Install dependencies
-RUN pnpm install --frozen-lockfile
-
-# Expose the port
+ENV NODE_ENV=production
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nestjs
+RUN apk add --no-cache openssl
+COPY --from=builder --chown=nestjs:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=nestjs:nodejs /app/dist ./dist
+COPY --from=builder --chown=nestjs:nodejs /app/prisma ./prisma
+COPY --from=builder --chown=nestjs:nodejs /app/package.json ./package.json
+USER nestjs
 EXPOSE 5000
-
-# Run the app
-CMD ["pnpm", "start"]
+CMD ["node", "dist/main.js"]
