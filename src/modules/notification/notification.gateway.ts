@@ -44,7 +44,9 @@ export enum NotificationEventsEnum {
   // === Admin Specific Events ===
   USER_CREATED = 'notification:user_created', // Server -> Admin: new user registered
   USER_VERIFIED = 'notification:user_verified', // Server -> Admin: user verified their account
+  SUBSCRIPTION_SUCCESS = 'notification:subscription_success', // Server -> Admin + User: successful subscription
 }
+
 
 /**
  * Notification Type Enum - Types of notifications in the system
@@ -62,6 +64,8 @@ export enum NotificationTypeEnum {
   JOB_ACCEPTED = 'job_accepted',
   JOB_REJECTED = 'job_rejected',
   JOB_COMPLETED = 'job_completed',
+  JOB_ASSIGNED = 'job_assigned',
+  JOB_STARTING_SOON = 'job_starting_soon',
 
   // Message related
   MESSAGE = 'message',
@@ -78,6 +82,10 @@ export enum NotificationTypeEnum {
 
   // System related
   SYSTEM = 'system',
+
+  // Subscription related
+  SUBSCRIPTION_ACTIVATED = 'subscription_activated',
+  SUBSCRIPTION_RENEWED = 'subscription_renewed',
   SYSTEM_ALERT = 'system_alert',
   ACCOUNT_STATUS = 'account_status',
 }
