@@ -26,14 +26,6 @@ import { SocketAuthMiddleware } from '@/common/jwt/socket-auth.middleware';
   ],
   controllers: [NotificationController],
   providers: [
-    {
-      provide: 'NotificationService',
-      useClass: NotificationService,
-    },
-    {
-      provide: 'NotificationGateway',
-      useClass: NotificationGateway,
-    },
     NotificationService,
     NotificationGateway,
     // JobNotificationScheduler, // Uncomment after installing @nestjs/schedule
