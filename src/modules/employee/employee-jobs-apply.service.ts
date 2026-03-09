@@ -428,12 +428,12 @@ export class EmployeeJobsApplyService {
       );
     }
 
-    if (now > scheduledEndAt) {
-      throw new BusinessException(
-        'Shift time is already over. Check-in is not allowed now.',
-        HttpStatus.BAD_REQUEST,
-      );
-    }
+    // if (now > scheduledEndAt) {
+    //   throw new BusinessException(
+    //     'Shift time is already over. Check-in is not allowed now.',
+    //     HttpStatus.BAD_REQUEST,
+    //   );
+    // }
 
     const existingShift = await this.prisma.client.jobShift.findUnique({
       where: {
