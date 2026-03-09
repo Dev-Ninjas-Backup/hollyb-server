@@ -31,7 +31,7 @@ export class NotificationService {
 
   constructor(
     private readonly prisma: PrismaService,
-    @Inject(forwardRef(() => 'NotificationGateway'))
+    @Inject(forwardRef(() => NotificationGateway))
     private readonly notificationGateway: NotificationGateway,
   ) {}
 
