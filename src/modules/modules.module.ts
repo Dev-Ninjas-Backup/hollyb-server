@@ -11,21 +11,22 @@ import { AdminModule } from './admin/admin.module';
 import { EmployerModule } from './employer/employer.module';
 import { EmployeeModule } from './employee/employee.module';
 
-const devOnlyImports =
-  process.env.NODE_ENV === 'development' ? [DevToolsModule] : [];
+// const devOnlyImports =
+//   process.env.NODE_ENV === 'development' ? [DevToolsModule] : [];
 
 @Module({
   imports: [
     AuthModule,
     PrismaModule,
-    ...devOnlyImports,
+    // ...devOnlyImports,
+    DevToolsModule,
     ProfileModule,
     PrivateMessageModule,
     NotificationModule,
     SubscriptionModule,
     AdminModule,
     EmployerModule,
-    EmployeeModule,
+    EmployeeModule
   ],
 })
 export class ModulesModule {}
