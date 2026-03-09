@@ -85,6 +85,4 @@ export class UpdateProfileDto {
   @IsArray()
   @IsString({ each: true })
   skills?: string[];
-
-  
 }

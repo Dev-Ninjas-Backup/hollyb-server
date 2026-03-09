@@ -62,7 +62,10 @@ export class ProfileService {
 
     const { password_hash: _passwordHash, ...safeUser } = user;
 
-    return ResponseHelper.success({ ...safeUser, profile }, 'Profile fetched successfully');
+    return ResponseHelper.success(
+      { ...safeUser, profile },
+      'Profile fetched successfully',
+    );
   }
 
   async updateMe(

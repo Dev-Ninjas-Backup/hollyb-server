@@ -326,7 +326,7 @@ export class EmployerService {
           select: {
             id: true,
             rating: true,
-          }
+          },
         },
         start_time: true,
         end_time: true,
@@ -448,7 +448,7 @@ export class EmployerService {
         },
         file: true,
         review: true,
-        shifts: true
+        shifts: true,
       },
     });
 
@@ -1120,9 +1120,9 @@ export class EmployerService {
             assigned_job: {
               where: {
                 status: JobStatus.completed,
-              }
-            }
-          }
+              },
+            },
+          },
         },
         assigned_job: {
           where: {
