@@ -244,4 +244,194 @@ export class NotificationService {
       },
     });
   }
+
+  /**
+   * Notify user and admins when subscription is successful
+   */
+  async notifySubscriptionSuccess(
+    userId: string,
+    planType: string,
+    isRenewal: boolean = false,
+  ): Promise<void> {
+    try {
+      const user = await this.prisma.client.user.findUnique({
+        where: { id: userId },
+        select: {
+          id: true,
+          full_name: true,
+          email: true,
+          role: true,
+        },
+      });
+
+      if (!user) {
+        this.logger.warn(`User ${userId} not found for subscription notification`);
+        return;
+      }
+
+      const actionText = isRenewal ? 'renewed' : 'activated';
+      const notificationType = isRenewal
+        ? NotificationTypeEnum.SUBSCRIPTION_RENEWED
+        : NotificationTypeEnum.SUBSCRIPTION_ACTIVATED;
+
+      // Notify the user
+      await this.createNotification({
+        type: notificationType,
+        title: `Subscription ${actionText}`,
+        message: `Your ${planType} subscription has been successfully ${actionText}. You now have full access to all features.`,
+        meta: {
+          userId: user.id,
+          planType,
+          timestamp: new Date().toISOString(),
+          isRenewal,
+        },
+        userIds: [userId],
+      });
+
+      // Notify all admins
+      const admins = await this.prisma.client.user.findMany({
+        where: {
+          role: UserRole.admin,
+          is_active: true,
+          is_deleted: false,
+        },
+        select: { id: true },
+      });
+
+      if (admins.length > 0) {
+        const adminIds = admins.map((admin) => admin.id);
+        await this.createNotification({
+          type: notificationType,
+          title: `User Subscription ${actionText}`,
+          message: `${user.role} user "${user.full_name}" (${user.email || 'No email'}) has ${actionText} their ${planType} subscription.`,
+          meta: {
+            userId: user.id,
+            userName: user.full_name,
+            userEmail: user.email,
+            userRole: user.role,
+            planType,
+            timestamp: new Date().toISOString(),
+            isRenewal,
+          },
+          userIds: adminIds,
+        });
+
+        // Also emit directly to admin room
+        this.notificationGateway.sendToAdmins(
+          NotificationEventsEnum.SUBSCRIPTION_SUCCESS,
+          {
+            userId: user.id,
+            userName: user.full_name,
+            userEmail: user.email,
+            userRole: user.role,
+            planType,
+            message: `${user.full_name} ${actionText} ${planType} subscription`,
+            timestamp: new Date().toISOString(),
+            isRenewal,
+          },
+        );
+      }
+
+      this.logger.log(
+        `Subscription ${actionText} notification sent to user ${userId} and admins`,
+      );
+    } catch (error) {
+      this.logger.error(
+        `Failed to send subscription notification: ${error.message}`,
+      );
+    }
+  }
+
+  /**
+   * Notify employee when assigned to a job
+   */
+  async notifyEmployeeAssignment(
+    employeeUserId: string,
+    jobId: string,
+    jobTitle: string,
+    employerName: string,
+  ): Promise<void> {
+    try {
+      await this.createNotification({
+        type: NotificationTypeEnum.JOB_ASSIGNED,
+        title: 'Job Assignment',
+        message: `You have been assigned to "${jobTitle}" by ${employerName}. Please prepare for your upcoming shift.`,
+        meta: {
+          jobId,
+          jobTitle,
+          employerName,
+          timestamp: new Date().toISOString(),
+        },
+        userIds: [employeeUserId],
+      });
+
+      this.logger.log(`Job assignment notification sent to employee ${employeeUserId}`);
+    } catch (error) {
+      this.logger.error(
+        `Failed to send job assignment notification: ${error.message}`,
+      );
+    }
+  }
+
+  /**
+   * Notify employee when job is starting soon (30 minutes before)
+   */
+  async notifyJobStartingSoon(
+    employeeUserId: string,
+    jobId: string,
+    jobTitle: string,
+    startTime: Date,
+  ): Promise<void> {
+    try {
+      await this.createNotification({
+        type: NotificationTypeEnum.JOB_STARTING_SOON,
+        title: 'Job Starting Soon',
+        message: `Your job "${jobTitle}" is starting soon. Please be ready to check in.`,
+        meta: {
+          jobId,
+          jobTitle,
+          startTime: startTime.toISOString(),
+          timestamp: new Date().toISOString(),
+        },
+        userIds: [employeeUserId],
+      });
+
+      this.logger.log(`Job starting soon notification sent to employee ${employeeUserId}`);
+    } catch (error) {
+      this.logger.error(
+        `Failed to send job starting soon notification: ${error.message}`,
+      );
+    }
+  }
+
+  /**
+   * Notify employer when job is completed
+   */
+  async notifyJobCompleted(
+    employerUserId: string,
+    jobId: string,
+    jobTitle: string,
+    employeeName: string,
+  ): Promise<void> {
+    try {
+      await this.createNotification({
+        type: NotificationTypeEnum.JOB_COMPLETED,
+        title: 'Job Completed',
+        message: `${employeeName} has completed the job "${jobTitle}". You can now review and process payment.`,
+        meta: {
+          jobId,
+          jobTitle,
+          employeeName,
+          timestamp: new Date().toISOString(),
+        },
+        userIds: [employerUserId],
+      });
+
+      this.logger.log(`Job completion notification sent to employer ${employerUserId}`);
+    } catch (error) {
+      this.logger.error(
+        `Failed to send job completion notification: ${error.message}`,
+      );
+    }
+  }
 }

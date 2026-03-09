@@ -15,6 +15,7 @@ import {
 } from '@prisma';
 import { S3UploadService } from '@/common/upload/s3-upload.service';
 import { SubscriptionService } from '../subscription/subscription.service';
+import { NotificationService } from '../notification/notification.service';
 import { CreateReviewJobDto } from './dto/review-completed-job.dto';
 
 @Injectable()
@@ -23,6 +24,7 @@ export class EmployerService {
     private readonly prisma: PrismaService,
     private readonly s3UploadService: S3UploadService,
     private readonly subscriptionService: SubscriptionService,
+    private readonly notificationService: NotificationService,
   ) {}
 
   private parseTimeToDate(time: string): Date {
@@ -738,7 +740,15 @@ export class EmployerService {
     const employerProfile = await this.prisma.client.employerProfile.findUnique(
       {
         where: { user_id: userId },
-        select: { id: true },
+        select: {
+          id: true,
+          user: {
+            select: {
+              id: true,
+              full_name: true,
+            },
+          },
+        },
       },
     );
 
@@ -752,6 +762,7 @@ export class EmployerService {
         job: {
           select: {
             id: true,
+            title: true,
             employer_id: true,
             status: true,
             assigned_employee_id: true,
@@ -760,8 +771,10 @@ export class EmployerService {
         employee: {
           select: {
             id: true,
+            user_id: true,
             user: {
               select: {
+                id: true,
                 full_name: true,
               },
             },
@@ -838,6 +851,14 @@ export class EmployerService {
         },
       }),
     ]);
+
+    // Send notification to employee about job assignment
+    await this.notificationService.notifyEmployeeAssignment(
+      application.employee.user_id,
+      application.job.id,
+      application.job.title,
+      employerProfile.user.full_name,
+    );
 
     return {
       success: true,
