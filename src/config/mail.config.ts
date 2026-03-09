@@ -15,7 +15,7 @@ export const getMailConfig = (): MailConfig => {
   return {
     host: process.env.SMTP_HOST || 'smtp.gmail.com',
     port: Number(process.env.SMTP_PORT) || 587,
-    secure: isProduction,
+    secure: false,
     auth: {
       user: process.env.SMTP_USER as string,
       pass: process.env.SMTP_PASS as string,

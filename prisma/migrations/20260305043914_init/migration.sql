@@ -126,8 +126,6 @@ CREATE TABLE "employee_profiles" (
     "user_id" UUID NOT NULL,
     "date_of_birth" DATE,
     "address" TEXT,
-    "latitude" DOUBLE PRECISION,
-    "longitude" DOUBLE PRECISION,
     "experience_years" INTEGER,
     "bio" TEXT,
     "profile_photo_url" TEXT,
@@ -157,8 +155,6 @@ CREATE TABLE "employer_profiles" (
     "user_id" UUID NOT NULL,
     "company_name" TEXT,
     "address" TEXT,
-    "latitude" DOUBLE PRECISION,
-    "longitude" DOUBLE PRECISION,
     "profile_photo_url" TEXT,
     "rating" DOUBLE PRECISION NOT NULL DEFAULT 0,
     "total_reviews" INTEGER NOT NULL DEFAULT 0,
@@ -239,8 +235,8 @@ CREATE TABLE "jobs" (
     "title" TEXT NOT NULL,
     "company_name" TEXT NOT NULL,
     "description" TEXT,
-    "job_responsibilities" TEXT,
-    "requirements" TEXT,
+    "job_responsibilities" TEXT[],
+    "requirements" TEXT[],
     "fileId" TEXT,
     "is_urgent" BOOLEAN NOT NULL DEFAULT false,
     "status" "JobStatus" NOT NULL DEFAULT 'open',
@@ -471,9 +467,6 @@ CREATE UNIQUE INDEX "job_skills_job_id_skill_id_key" ON "job_skills"("job_id", "
 
 -- CreateIndex
 CREATE UNIQUE INDEX "jobs_fileId_key" ON "jobs"("fileId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "jobs_assigned_employee_id_key" ON "jobs"("assigned_employee_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "user_notifications_userId_notificationId_key" ON "user_notifications"("userId", "notificationId");

@@ -34,10 +34,10 @@ export class SettingsService {
           select: {
             id: true,
             full_name: true,
-            email: true
-          }
-        }
-      }
+            email: true,
+          },
+        },
+      },
     });
 
     if (!settings) {
@@ -90,8 +90,8 @@ export class SettingsService {
       select: {
         id: true,
         workspaceName: true,
-        Timezone: true
-      }
+        Timezone: true,
+      },
     });
 
     return updatedSettings;
@@ -126,8 +126,8 @@ export class SettingsService {
         id: true,
         two_factor_authentication_enabled: true,
         system_alerts_enabled: true,
-        email_notifications_enabled: true
-      }
+        email_notifications_enabled: true,
+      },
     });
 
     return updatedSettings;

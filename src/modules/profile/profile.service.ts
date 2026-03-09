@@ -40,7 +40,7 @@ export class ProfileService {
       [];
 
     const profile =
-      user.role === 'employee'
+      user.role === UserRole.employee
         ? user.employee_profile
           ? {
               dateOfBirth: user.employee_profile.date_of_birth,
@@ -54,20 +54,16 @@ export class ProfileService {
         : user.employer_profile
           ? {
               companyName: user.employer_profile.company_name,
+              dateOfBirth: user.employer_profile.date_of_birth,
               address: user.employer_profile.address,
               profilePhotoUrl: user.employer_profile.profile_photo_url,
             }
           : null;
 
+    const { password_hash: _passwordHash, ...safeUser } = user;
+
     return ResponseHelper.success(
-      {
-        id: user.id,
-        fullName: user.full_name,
-        email: user.email,
-        role: user.role,
-        isNotify: user.isNotify,
-        profile,
-      },
+      { ...safeUser, profile },
       'Profile fetched successfully',
     );
   }
@@ -164,19 +160,72 @@ export class ProfileService {
         where: { user_id: userId },
         update: {
           company_name: dto.companyName,
+          date_of_birth: dto.dateOfBirth
+            ? new Date(dto.dateOfBirth)
+            : undefined,
           address: dto.address,
           profile_photo_url: profilePhotoUrl,
         },
         create: {
           user_id: userId,
           company_name: dto.companyName,
+          date_of_birth: dto.dateOfBirth
+            ? new Date(dto.dateOfBirth)
+            : undefined,
           address: dto.address,
           profile_photo_url: profilePhotoUrl,
         },
       });
     }
 
-    return this.getMe(userId);
+    const updatedUser = await this.prismaService.client.user.findUnique({
+      where: { id: userId },
+      include: {
+        employee_profile: {
+          include: {
+            employee_skills: { include: { skill: true } },
+          },
+        },
+        employer_profile: true,
+      },
+    });
+
+    if (!updatedUser) {
+      throw new ResourceNotFoundException('User', userId);
+    }
+
+    const skills =
+      updatedUser.employee_profile?.employee_skills.map(
+        (item) => item.skill.name,
+      ) ?? [];
+
+    const profile =
+      updatedUser.role === UserRole.employee
+        ? updatedUser.employee_profile
+          ? {
+              dateOfBirth: updatedUser.employee_profile.date_of_birth,
+              address: updatedUser.employee_profile.address,
+              experienceYears: updatedUser.employee_profile.experience_years,
+              bio: updatedUser.employee_profile.bio,
+              profilePhotoUrl: updatedUser.employee_profile.profile_photo_url,
+              skills,
+            }
+          : null
+        : updatedUser.employer_profile
+          ? {
+              companyName: updatedUser.employer_profile.company_name,
+              dateOfBirth: updatedUser.employer_profile.date_of_birth,
+              address: updatedUser.employer_profile.address,
+              profilePhotoUrl: updatedUser.employer_profile.profile_photo_url,
+            }
+          : null;
+
+    const { password_hash: _passwordHash, ...safeUser } = updatedUser;
+
+    return ResponseHelper.success(
+      { ...safeUser, profile },
+      'Profile updated successfully',
+    );
   }
 
   async getNotify(userId: string) {

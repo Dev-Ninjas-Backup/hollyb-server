@@ -3,9 +3,8 @@ model EmployerProfile {
   user_id           String   @unique @db.Uuid
   company_name      String?
   address           String?
-  latitude          Float?
-  longitude         Float?
   profile_photo_url String?
+  date_of_birth     DateTime? @db.Date
   rating            Float    @default(0)
   total_reviews     Int      @default(0)
   total_hires       Int      @default(0)
