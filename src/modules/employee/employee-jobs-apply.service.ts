@@ -8,6 +8,7 @@ import {
 import { BusinessException } from '@/common/exceptions/business.exception';
 import { PrismaService } from '@/prisma/prisma.service';
 import { SubscriptionService } from '@/modules/subscription/subscription.service';
+import { NotificationService } from '@/modules/notification/notification.service';
 import { ApplyJobDto } from './dto/apply-job.dto';
 import { GetAppliedJobsQueryDto } from './dto/get-applied-jobs-query.dto';
 
@@ -16,6 +17,7 @@ export class EmployeeJobsApplyService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly subscriptionService: SubscriptionService,
+    private readonly notificationService: NotificationService,
   ) {}
 
   private formatTime12h(time: Date | null | undefined): string | null {
@@ -579,6 +581,25 @@ export class EmployeeJobsApplyService {
       jobId,
     );
 
+    // Fetch more job details including employer info
+    const jobWithEmployer = await this.prisma.client.job.findUnique({
+      where: { id: jobId },
+      select: {
+        id: true,
+        title: true,
+        employer: {
+          select: {
+            user_id: true,
+            user: {
+              select: {
+                full_name: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
     const { requiredWorkSeconds } = this.getShiftSchedule(
       job.job_date,
       job.start_time,
@@ -659,6 +680,22 @@ export class EmployeeJobsApplyService {
         },
       }),
     ]);
+
+    // Get employee name for notification
+    const employee = await this.prisma.client.user.findUnique({
+      where: { id: userId },
+      select: { full_name: true },
+    });
+
+    // Send notification to employer about job completion
+    if (jobWithEmployer?.employer && employee) {
+      await this.notificationService.notifyJobCompleted(
+        jobWithEmployer.employer.user_id,
+        job.id,
+        jobWithEmployer.title,
+        employee.full_name,
+      );
+    }
 
     return {
       success: true,

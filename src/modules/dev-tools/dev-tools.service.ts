@@ -14,9 +14,9 @@ export class DevToolsService {
   ) {}
 
   async getAllUsersForDevelopment() {
-    if (process.env.NODE_ENV !== 'development') {
-      throw new BusinessException('Not found', HttpStatus.NOT_FOUND);
-    }
+    // if (process.env.NODE_ENV !== 'development') {
+    //   throw new BusinessException('Not found', HttpStatus.NOT_FOUND);
+    // }
 
     const users = await this.prismaService.client.user.findMany({
       orderBy: { created_at: 'desc' },

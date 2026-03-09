@@ -13,6 +13,7 @@ import {
 } from '@prisma';
 import { DirectPaymentDto } from './dto/direct-payment.dto';
 import { RenewSubscriptionDto } from './dto/renew-subscription.dto';
+import { NotificationService } from '@/modules/notification/notification.service';
 
 @Injectable()
 export class SubscriptionService {
@@ -28,6 +29,7 @@ export class SubscriptionService {
   constructor(
     private readonly configService: ConfigService,
     private readonly prisma: PrismaService,
+    private readonly notificationService: NotificationService,
   ) {
     const secretKey =
       this.configService.getOrThrow<string>('STRIPE_SECRET_KEY');
@@ -132,7 +134,14 @@ export class SubscriptionService {
       this.logger.log(
         `Direct payment processed for user ${userId}: ${dto.planType}`,
       );
+// Send notification to user and admins
+      await this.notificationService.notifySubscriptionSuccess(
+        userId,
+        dto.planType,
+        false,
+      );
 
+      
       return {
         success: true,
         message:
@@ -267,6 +276,13 @@ export class SubscriptionService {
 
       this.logger.log(
         `Subscription renewed for user ${userId}: ${existingSubscription.plan_type}`,
+      );
+
+      // Send notification to user and admins
+      await this.notificationService.notifySubscriptionSuccess(
+        userId,
+        existingSubscription.plan_type,
+        true,
       );
 
       return {
