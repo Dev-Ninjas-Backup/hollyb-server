@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification WebSocket Gateway Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #34495e;
+            font-size: 2em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #2980b9;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #16a085;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-family: 'Courier New', monospace;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .meta-info {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+
+        .meta-info strong {
+            color: #2c3e50;
+        }
+
+        pre {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+
+        code {
+            background-color: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e74c3c;
+            font-size: 0.9em;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: #ecf0f1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        table th {
+            background-color: #3498db;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
+        .badge-required {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .badge-optional {
+            background-color: #95a5a6;
+            color: white;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .note strong {
+            color: #856404;
+        }
+
+        .info-box {
+            background-color: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .success-box {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background-color: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid #ecf0f1;
+            margin: 30px 0;
+        }
+
+        .toc {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+
+        .toc h2 {
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            margin-left: 0;
+        }
+
+        .toc li {
+            margin-bottom: 5px;
+        }
+
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .arrow {
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            pre {
+                padding: 15px;
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Notification WebSocket Gateway Documentation</h1>
+        
+        <div class="meta-info">
+            <p><strong>Namespace:</strong> <code>/notifications</code></p>
+            <p><strong>Authentication:</strong> JWT Bearer token required in <code>authorization</code> header or <code>auth.token</code></p>
+        </div>
+
+        <div class="toc">
+            <h2>Table of Contents</h2>
+            <ul>
+                <li><a href="#connection">Connection</a></li>
+                <li><a href="#events-overview">Events Overview</a></li>
+                <li><a href="#events-detail">Events Detail</a></li>
+                <li><a href="#new-notification-flows">New Notification Flows</a></li>
+                <li><a href="#notification-types">Notification Types</a></li>
+                <li><a href="#user-roles">User Roles & Rooms</a></li>
+                <li><a href="#frontend-guide">Frontend Integration Guide</a></li>
+                <li><a href="#testing">Testing Notifications</a></li>
+                <li><a href="#setup">Setup Instructions</a></li>
+                <li><a href="#best-practices">Best Practices</a></li>
+            </ul>
+        </div>
+
+        <section id="connection" class="section">
+            <h2>Connection</h2>
+            <pre><code>// Using Socket.IO client
+const socket = io('http://localhost:5056/notifications', {
+  extraHeaders: {
+    authorization: 'Bearer YOUR_JWT_TOKEN'
+  }
+});
+
+// OR using auth object
+const socket = io('http://localhost:5056/notifications', {
+  auth: {
+    token: 'Bearer YOUR_JWT_TOKEN'
+  }
+});</code></pre>
+        </section>
+
+        <hr>
+
+        <section id="events-overview" class="section">
+            <h2>Events Overview</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Client Emit Event</th>
+                        <th>Server Response Event</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><em>(on connect)</em></td>
+                        <td><code>notification:connected</code></td>
+                        <td>Connection established</td>
+                    </tr>
+                    <tr>
+                        <td><em>(on connect)</em></td>
+                        <td><code>notification:list</code></td>
+                        <td>Auto-sends notification list</td>
+                    </tr>
+                    <tr>
+                        <td><code>notification:load</code></td>
+                        <td><code>notification:list</code></td>
+                        <td>Load notifications with pagination</td>
+                    </tr>
+                    <tr>
+                        <td><code>notification:load_more</code></td>
+                        <td><code>notification:list</code></td>
+                        <td>Load more notifications</td>
+                    </tr>
+                    <tr>
+                        <td><code>notification:mark_read</code></td>
+                        <td><code>notification:read</code>, <code>notification:unread_count</code></td>
+                        <td>Mark notification(s) as read</td>
+                    </tr>
+                    <tr>
+                        <td><code>notification:mark_all_read</code></td>
+                        <td><code>notification:read</code>, <code>notification:unread_count</code></td>
+                        <td>Mark all notifications as read</td>
+                    </tr>
+                    <tr>
+                        <td><code>notification:delete</code></td>
+                        <td><code>notification:deleted</code></td>
+                        <td>Delete a notification</td>
+                    </tr>
+                    <tr>
+                        <td><em>(server initiated)</em></td>
+                        <td><code>notification:new</code></td>
+                        <td>New notification received</td>
+                    </tr>
+                    <tr>
+                        <td><em>(server initiated)</em></td>
+                        <td><code>notification:unread_count</code></td>
+                        <td>Unread count update</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <hr>
+
+        <section id="events-detail" class="section">
+            <h2>Events Detail</h2>
+
+            <h3>1. Connection Events</h3>
+
+            <h4>notification:connected <span class="arrow">(Server → Client)</span></h4>
+            <p>Emitted immediately after successful connection and authentication.</p>
+            <p><strong>Output:</strong></p>
+            <pre><code>{
+  "userId": "a676ad5a-b549-41e2-b27c-1189cf88236d",
+  "socketId": "socket_id_here",
+  "message": "Connected to notification service",
+  "unreadCount": 5
+}</code></pre>
+            <p><strong>Description:</strong></p>
+            <ul>
+                <li>User is automatically joined to their personal room (using <code>userId</code>)</li>
+                <li>Admin users are additionally joined to <code>admin_room</code> for admin-specific notifications</li>
+                <li>Initial notification list is sent automatically after connection</li>
+            </ul>
+
+            <h4>notification:error <span class="arrow">(Server → Client)</span></h4>
+            <p>Emitted when any error occurs during notification operations.</p>
+            <p><strong>Output:</strong></p>
+            <pre><code>{
+  "message": "Error description"
+}</code></pre>
+
+            <h4>notification:success <span class="arrow">(Server → Client)</span></h4>
+            <p>Emitted when a notification operation succeeds.</p>
+            <p><strong>Output:</strong></p>
+            <pre><code>{
+  "message": "Operation successful"
+}</code></pre>
+
+            <hr>
+
+            <h3>2. Notification List Events</h3>
+
+            <h4>notification:load <span class="arrow">(Client → Server)</span></h4>
+            <p>Request to load notifications with pagination.</p>
+            <p><strong>Input:</strong></p>
+            <pre><code>{
+  "page": 1,
+  "limit": 20
+}</code></pre>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>page</code></td>
+                        <td>number</td>
+                        <td><span class="badge badge-optional">No</span></td>
+                        <td>Page number (default: 1)</td>
+                    </tr>
+                    <tr>
+                        <td><code>limit</code></td>
+                        <td>number</td>
+                        <td><span class="badge badge-optional">No</span></td>
+                        <td>Items per page (default: 20)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Listener:</strong> <code>notification:list</code></p>
+
+            <h4>notification:list <span class="arrow">(Server → Client)</span></h4>
+            <p>Response containing paginated list of notifications.</p>
+            <p><strong>Output:</strong></p>
+            <pre><code>{
+  "data": [
+    {
+      "id": "notif-uuid",
+      "userNotificationId": "user-notif-uuid",
+      "type": "user_created",
+      "title": "New User Registered",
+      "message": "A new employee user \"John Doe\" (john@example.com) has registered.",
+      "meta": {
+        "userId": "user-uuid",
+        "userName": "John Doe",
+        "userEmail": "john@example.com",
+        "userRole": "employee",
+        "timestamp": "2026-02-19T10:30:00.000Z"
+      },
+      "read": false,
+      "createdAt": "2026-02-19T10:30:00.000Z"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "limit": 20,
+    "total": 45,
+    "totalPages": 3
+  }
+}</code></pre>
+
+            <hr>
+
+            <h3>3. Real-time Notification Events</h3>
+
+            <h4>notification:new <span class="arrow">(Server → Client)</span></h4>
+            <p>Emitted to user(s) when a new notification is created for them.</p>
+            <p><strong>Output:</strong></p>
+            <pre><code>{
+  "id": "notif-uuid",
+  "type": "job_applied",
+  "title": "New Job Application",
+  "message": "Jane Doe has applied for your job posting 'Waiter Position'",
+  "meta": {
+    "jobId": "job-uuid",
+    "jobTitle": "Waiter Position",
+    "applicantId": "user-uuid",
+    "applicantName": "Jane Doe",
+    "timestamp": "2026-02-19T10:30:00.000Z"
+  },
+  "read": false,
+  "createdAt": "2026-02-19T10:30:00.000Z"
+}</code></pre>
+            <p><strong>Description:</strong></p>
+            <ul>
+                <li>Sent automatically to targeted users when notifications are created</li>
+                <li>Multiple users can receive the same notification</li>
+                <li>Admin-specific notifications are sent to all users in <code>admin_room</code></li>
+            </ul>
+
+            <hr>
+
+            <h3>4. Read/Unread Events</h3>
+
+            <h4>notification:mark_read <span class="arrow">(Client → Server)</span></h4>
+            <p>Mark one or more notifications as read.</p>
+            <p><strong>Input:</strong></p>
+            <pre><code>{
+  "notificationIds": ["notif-uuid-1", "notif-uuid-2"]
+}</code></pre>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>notificationIds</code></td>
+                        <td>UUID[]</td>
+                        <td><span class="badge badge-required">Yes</span></td>
+                        <td>Array of notification IDs to mark as read</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Listeners:</strong></p>
+            <ul>
+                <li><code>notification:read</code> (confirmation)</li>
+                <li><code>notification:unread_count</code> (updated count)</li>
+            </ul>
+
+            <h4>notification:unread_count <span class="arrow">(Server → Client)</span></h4>
+            <p>Response containing unread notification count.</p>
+            <p><strong>Output:</strong></p>
+            <pre><code>{
+  "count": 5
+}</code></pre>
+            <p><strong>Description:</strong></p>
+            <ul>
+                <li>Automatically sent after connection</li>
+                <li>Automatically sent after marking notifications as read</li>
+                <li>Can be requested at any time</li>
+                <li>Updates in real-time when new notifications arrive</li>
+            </ul>
+
+            <hr>
+
+            <h3>5. Delete Events</h3>
+
+            <h4>notification:delete <span class="arrow">(Client → Server)</span></h4>
+            <p>Delete a notification for the authenticated user.</p>
+            <p><strong>Input:</strong></p>
+            <pre><code>{
+  "notificationId": "notif-uuid"
+}</code></pre>
+
+            <h4>notification:deleted <span class="arrow">(Server → Client)</span></h4>
+            <p>Confirmation that notification has been deleted.</p>
+            <p><strong>Output:</strong></p>
+            <pre><code>{
+  "notificationId": "notif-uuid",
+  "success": true
+}</code></pre>
+
+            <hr>
+
+            <h3>6. Admin-Specific Events</h3>
+
+            <h4>notification:user_created <span class="arrow">(Server → Admin)</span></h4>
+            <p>Emitted to all admins when a new user registers.</p>
+            <p><strong>Output:</strong></p>
+            <pre><code>{
+  "userId": "user-uuid",
+  "userName": "John Doe",
+  "userEmail": "john@example.com",
+  "userRole": "employee",
+  "message": "New employee registered: John Doe",
+  "timestamp": "2026-02-19T10:30:00.000Z"
+}</code></pre>
+
+            <h4>notification:user_verified <span class="arrow">(Server → Admin)</span></h4>
+            <p>Emitted to all admins when a user verifies their account.</p>
+            <p><strong>Output:</strong></p>
+            <pre><code>{
+  "userId": "user-uuid",
+  "userName": "John Doe",
+  "userEmail": "john@example.com",
+  "userRole": "employee",
+  "message": "User verified: John Doe",
+  "timestamp": "2026-02-19T10:30:00.000Z"
+}</code></pre>
+
+            <h4>notification:subscription_success <span class="arrow">(Server → Admin)</span></h4>
+            <p>Emitted to all admins when a user successfully subscribes or renews their subscription.</p>
+            <p><strong>Output:</strong></p>
+            <pre><code>{
+  "userId": "user-uuid",
+  "userName": "John Doe",
+  "userEmail": "john@example.com",
+  "userRole": "employee",
+  "planType": "employee_premium",
+  "message": "John Doe activated employee_premium subscription",
+  "timestamp": "2026-02-19T10:30:00.000Z",
+  "isRenewal": false
+}</code></pre>
+        </section>
+
+        <hr>
+
+        <section id="new-notification-flows" class="section">
+            <h2>New Notification Flows</h2>
+
+            <h3>1. Subscription Success Notifications</h3>
+            <p><strong>When:</strong> Employee or Employer successfully subscribes or renews a subscription</p>
+            <p><strong>Recipients:</strong></p>
+            <ul>
+                <li>The user who subscribed (confirmation)</li>
+                <li>All SuperAdmins (for monitoring)</li>
+            </ul>
+
+            <div class="success-box">
+                <strong>To User:</strong>
+                <pre><code>{
+  "type": "subscription_activated",
+  "title": "Subscription activated",
+  "message": "Your employee_premium subscription has been successfully activated. You now have full access to all features.",
+  "meta": {
+    "userId": "user-uuid",
+    "planType": "employee_premium",
+    "timestamp": "2026-03-10T10:30:00.000Z",
+    "isRenewal": false
+  }
+}</code></pre>
+            </div>
+
+            <div class="info-box">
+                <strong>To Admins:</strong>
+                <pre><code>{
+  "type": "subscription_activated",
+  "title": "User Subscription activated",
+  "message": "employee user \"John Doe\" (john@example.com) has activated their employee_premium subscription.",
+  "meta": {
+    "userId": "user-uuid",
+    "userName": "John Doe",
+    "userEmail": "john@example.com",
+    "userRole": "employee",
+    "planType": "employee_premium",
+    "timestamp": "2026-03-10T10:30:00.000Z",
+    "isRenewal": false
+  }
+}</code></pre>
+            </div>
+
+            <hr>
+
+            <h3>2. Employee Assignment Notification</h3>
+            <p><strong>When:</strong> Employer accepts a job application and assigns an employee to a job</p>
+            <p><strong>Recipients:</strong> The assigned employee</p>
+            <p><strong>Notification Details:</strong></p>
+            <pre><code>{
+  "type": "job_assigned",
+  "title": "Job Assignment",
+  "message": "You have been assigned to \"Waiter Position\" by John's Restaurant. Please prepare for your upcoming shift.",
+  "meta": {
+    "jobId": "job-uuid",
+    "jobTitle": "Waiter Position",
+    "employerName": "John's Restaurant",
+    "timestamp": "2026-03-10T10:30:00.000Z"
+  }
+}</code></pre>
+            <p><strong>Frontend Action:</strong></p>
+            <ul>
+                <li>Show notification toast/alert</li>
+                <li>Update job status in UI</li>
+                <li>Navigate to job details if notification clicked</li>
+            </ul>
+
+            <hr>
+
+            <h3>3. Job Starting Soon Notification</h3>
+            <p><strong>When:</strong> Automated scheduler detects a job starting within 30 minutes (runs every 5 minutes)</p>
+            <p><strong>Recipients:</strong> The assigned employee</p>
+            <p><strong>Notification Details:</strong></p>
+            <pre><code>{
+  "type": "job_starting_soon",
+  "title": "Job Starting Soon",
+  "message": "Your job \"Waiter Position\" is starting soon. Please be ready to check in.",
+  "meta": {
+    "jobId": "job-uuid",
+    "jobTitle": "Waiter Position",
+    "startTime": "2026-03-10T14:00:00.000Z",
+    "timestamp": "2026-03-10T13:30:00.000Z"
+  }
+}</code></pre>
+            <p><strong>Frontend Action:</strong></p>
+            <ul>
+                <li>Show push notification or in-app alert</li>
+                <li>Display countdown timer</li>
+                <li>Provide quick access to check-in screen</li>
+            </ul>
+
+            <div class="note">
+                <strong>Note:</strong> To enable this feature:
+                <ol>
+                    <li>Install <code>@nestjs/schedule</code> package: <code>pnpm install @nestjs/schedule</code></li>
+                    <li>Uncomment the scheduler in <code>notification.module.ts</code></li>
+                    <li>The scheduler checks every 5 minutes for jobs starting 25-35 minutes from now</li>
+                </ol>
+            </div>
+
+            <hr>
+
+            <h3>4. Job Completion Notification</h3>
+            <p><strong>When:</strong> Employee marks a job as complete</p>
+            <p><strong>Recipients:</strong> The employer who posted the job</p>
+            <p><strong>Notification Details:</strong></p>
+            <pre><code>{
+  "type": "job_completed",
+  "title": "Job Completed",
+  "message": "Jane Doe has completed the job \"Waiter Position\". You can now review and process payment.",
+  "meta": {
+    "jobId": "job-uuid",
+    "jobTitle": "Waiter Position",
+    "employeeName": "Jane Doe",
+    "timestamp": "2026-03-10T18:00:00.000Z"
+  }
+}</code></pre>
+            <p><strong>Frontend Action:</strong></p>
+            <ul>
+                <li>Show notification to employer</li>
+                <li>Prompt for payment processing</li>
+                <li>Provide quick access to review screen</li>
+            </ul>
+        </section>
+
+        <hr>
+
+        <section id="notification-types" class="section">
+            <h2>Notification Types</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Typical Recipients</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>user_created</code></td>
+                        <td>New user registered</td>
+                        <td>Admins</td>
+                    </tr>
+                    <tr>
+                        <td><code>user_verified</code></td>
+                        <td>User verified account</td>
+                        <td>Admins</td>
+                    </tr>
+                    <tr>
+                        <td><code>user_updated</code></td>
+                        <td>User profile updated</td>
+                        <td>User, Admins</td>
+                    </tr>
+                    <tr>
+                        <td><code>subscription_activated</code></td>
+                        <td>Subscription successfully activated</td>
+                        <td>User, Admins</td>
+                    </tr>
+                    <tr>
+                        <td><code>subscription_renewed</code></td>
+                        <td>Subscription successfully renewed</td>
+                        <td>User, Admins</td>
+                    </tr>
+                    <tr>
+                        <td><code>job_created</code></td>
+                        <td>New job posted</td>
+                        <td>Employees (matching criteria)</td>
+                    </tr>
+                    <tr>
+                        <td><code>job_update</code></td>
+                        <td>Job details updated</td>
+                        <td>Job applicants, assigned workers</td>
+                    </tr>
+                    <tr>
+                        <td><code>job_applied</code></td>
+                        <td>User applied for job</td>
+                        <td>Employer</td>
+                    </tr>
+                    <tr>
+                        <td><code>job_assigned</code></td>
+                        <td>Employee assigned to job</td>
+                        <td>Employee</td>
+                    </tr>
+                    <tr>
+                        <td><code>job_accepted</code></td>
+                        <td>Job application accepted</td>
+                        <td>Employee</td>
+                    </tr>
+                    <tr>
+                        <td><code>job_rejected</code></td>
+                        <td>Job application rejected</td>
+                        <td>Employee</td>
+                    </tr>
+                    <tr>
+                        <td><code>job_starting_soon</code></td>
+                        <td>Job starting within 30 minutes</td>
+                        <td>Assigned Employee</td>
+                    </tr>
+                    <tr>
+                        <td><code>job_completed</code></td>
+                        <td>Job completed</td>
+                        <td>Employer</td>
+                    </tr>
+                    <tr>
+                        <td><code>message</code></td>
+                        <td>Generic message</td>
+                        <td>Specific user(s)</td>
+                    </tr>
+                    <tr>
+                        <td><code>new_message</code></td>
+                        <td>New chat message</td>
+                        <td>Recipient</td>
+                    </tr>
+                    <tr>
+                        <td><code>payment</code></td>
+                        <td>Generic payment notification</td>
+                        <td>User</td>
+                    </tr>
+                    <tr>
+                        <td><code>payment_received</code></td>
+                        <td>Payment received</td>
+                        <td>Recipient</td>
+                    </tr>
+                    <tr>
+                        <td><code>payment_sent</code></td>
+                        <td>Payment sent</td>
+                        <td>Sender</td>
+                    </tr>
+                    <tr>
+                        <td><code>review</code></td>
+                        <td>Generic review notification</td>
+                        <td>User</td>
+                    </tr>
+                    <tr>
+                        <td><code>new_review</code></td>
+                        <td>New review posted</td>
+                        <td>Reviewed user</td>
+                    </tr>
+                    <tr>
+                        <td><code>system</code></td>
+                        <td>System notification</td>
+                        <td>All users or specific users</td>
+                    </tr>
+                    <tr>
+                        <td><code>system_alert</code></td>
+                        <td>Critical system alert</td>
+                        <td>All users</td>
+                    </tr>
+                    <tr>
+                        <td><code>account_status</code></td>
+                        <td>Account status change</td>
+                        <td>User</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <hr>
+
+        <section id="user-roles" class="section">
+            <h2>User Roles & Rooms</h2>
+
+            <h3>Personal Room</h3>
+            <p>Every connected user automatically joins a room identified by their <code>userId</code>:</p>
+            <pre><code>// Server-side (automatic)
+client.join(userId);
+
+// Notifications sent to specific user
+server.to(userId).emit('notification:new', notification);</code></pre>
+
+            <h3>Admin Room</h3>
+            <p>Admin users automatically join the <code>admin_room</code> for admin-specific notifications:</p>
+            <pre><code>// Server-side (automatic for admins)
+if (user.role === UserRole.admin) {
+  client.join('admin_room');
+}
+
+// Notifications sent to all admins
+server.to('admin_room').emit('notification:user_created', data);</code></pre>
+
+            <h3>Notification Flow</h3>
+            <h4>Creating and Sending Notifications</h4>
+            <pre><code>// Server-side (from any service)
+await notificationService.createNotification({
+  type: 'job_applied',
+  title: 'New Job Application',
+  message: 'Jane Doe has applied for your job posting',
+  meta: {
+    jobId: 'job-uuid',
+    applicantId: 'user-uuid',
+    // ... additional data
+  },
+  userIds: ['employer-uuid'] // Recipients
+});</code></pre>
+            <p><strong>What happens:</strong></p>
+            <ol>
+                <li>Notification record created in database</li>
+                <li>UserNotification records created for each recipient</li>
+                <li><code>notification:new</code> event emitted to all online recipients</li>
+                <li>Recipients' unread counts automatically updated</li>
+            </ol>
+        </section>
+
+        <hr>
+
+        <section id="frontend-guide" class="section">
+            <h2>Complete Frontend Integration Guide</h2>
+
+            <h3>Basic Setup</h3>
+            <pre><code>import { io } from 'socket.io-client';
+
+// Initialize socket connection
+const notificationSocket = io('http://localhost:5056/notifications', {
+  auth: {
+    token: 'Bearer YOUR_JWT_TOKEN'
+  }
+});
+
+// Connection handlers
+notificationSocket.on('connect', () => {
+  console.log('Connected to notification service');
+});
+
+notificationSocket.on('disconnect', () => {
+  console.log('Disconnected from notification service');
+});
+
+notificationSocket.on('notification:connected', (data) => {
+  console.log('Notification service ready:', data);
+  // Update UI with unread count: data.unreadCount
+});</code></pre>
+
+            <h3>Listening to New Notifications</h3>
+            <pre><code>// Listen for all notification types
+notificationSocket.on('notification:new', (notification) => {
+  console.log('New notification:', notification);
+  
+  // Show toast/alert based on notification type
+  switch (notification.type) {
+    case 'subscription_activated':
+    case 'subscription_renewed':
+      showSuccessToast(notification.title, notification.message);
+      break;
+      
+    case 'job_assigned':
+      showInfoToast(notification.title, notification.message);
+      navigateToJob(notification.meta.jobId);
+      break;
+      
+    case 'job_starting_soon':
+      showUrgentAlert(notification.title, notification.message);
+      showCheckInPrompt(notification.meta.jobId);
+      break;
+      
+    case 'job_completed':
+      showSuccessToast(notification.title, notification.message);
+      if (userRole === 'employer') {
+        promptForReview(notification.meta.jobId);
+      }
+      break;
+      
+    default:
+      showNotification(notification.title, notification.message);
+  }
+  
+  addNotificationToList(notification);
+  playNotificationSound();
+  incrementNotificationBadge();
+});</code></pre>
+
+            <h3>Managing Notification Badges</h3>
+            <pre><code>// Listen for unread count updates
+notificationSocket.on('notification:unread_count', (data) => {
+  updateNotificationBadge(data.count);
+});
+
+// Mark single notification as read
+function markAsRead(notificationId) {
+  notificationSocket.emit('notification:mark_read', {
+    notificationIds: [notificationId]
+  });
+}
+
+// Mark all as read
+function markAllAsRead() {
+  notificationSocket.emit('notification:mark_all_read');
+}</code></pre>
+
+            <h3>React Hook Example</h3>
+            <pre><code>import { useEffect, useState } from 'react';
+import { io, Socket } from 'socket.io-client';
+
+interface Notification {
+  id: string;
+  type: string;
+  title: string;
+  message: string;
+  meta: any;
+  read: boolean;
+  createdAt: Date;
+}
+
+export function useNotifications(token: string) {
+  const [socket, setSocket] = useState&lt;Socket | null&gt;(null);
+  const [notifications, setNotifications] = useState&lt;Notification[]&gt;([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [connected, setConnected] = useState(false);
+
+  useEffect(() => {
+    const notificationSocket = io('http://localhost:5056/notifications', {
+      auth: { token: `Bearer ${token}` }
+    });
+
+    notificationSocket.on('connect', () => setConnected(true));
+    notificationSocket.on('disconnect', () => setConnected(false));
+
+    notificationSocket.on('notification:connected', (data) => {
+      setUnreadCount(data.unreadCount);
+    });
+
+    notificationSocket.on('notification:new', (notification) => {
+      setNotifications(prev => [notification, ...prev]);
+      setUnreadCount(prev => prev + 1);
+      showToast(notification.title, notification.message);
+    });
+
+    setSocket(notificationSocket);
+
+    return () => {
+      notificationSocket.disconnect();
+    };
+  }, [token]);
+
+  const markAsRead = (notificationIds: string[]) => {
+    socket?.emit('notification:mark_read', { notificationIds });
+  };
+
+  const markAllAsRead = () => {
+    socket?.emit('notification:mark_all_read');
+  };
+
+  return {
+    connected,
+    notifications,
+    unreadCount,
+    markAsRead,
+    markAllAsRead
+  };
+}</code></pre>
+        </section>
+
+        <hr>
+
+        <section id="testing" class="section">
+            <h2>Testing Notifications</h2>
+
+            <h3>1. Test Subscription Notification</h3>
+            <pre><code># Subscribe as employee or employer
+curl -X POST http://localhost:5056/subscription/direct-payment \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "planType": "employee_premium",
+    "paymentMethodId": "pm_xxx"
+  }'
+
+# Expected: User and all admins receive notification</code></pre>
+
+            <h3>2. Test Employee Assignment</h3>
+            <pre><code># Accept job application as employer
+curl -X PATCH http://localhost:5056/employer/applications/:applicationId/accept \
+  -H "Authorization: Bearer EMPLOYER_TOKEN"
+
+# Expected: Assigned employee receives notification</code></pre>
+
+            <h3>3. Test Job Starting Soon</h3>
+            <pre><code># Create a job with start time 30 minutes from now
+# Wait for scheduler (runs every 5 minutes)
+# Expected: Assigned employee receives notification 30 mins before start</code></pre>
+
+            <h3>4. Test Job Completion</h3>
+            <pre><code># Mark job as complete as employee
+curl -X POST http://localhost:5056/employee/jobs/:jobId/mark-as-complete \
+  -H "Authorization: Bearer EMPLOYEE_TOKEN"
+
+# Expected: Employer receives completion notification</code></pre>
+        </section>
+
+        <hr>
+
+        <section id="setup" class="section">
+            <h2>Setup Instructions</h2>
+
+            <h3>Backend Setup</h3>
+            <ol>
+                <li>
+                    <strong>Install Schedule Package (for job start notifications)</strong>
+                    <pre><code>pnpm install @nestjs/schedule</code></pre>
+                </li>
+                <li>
+                    <strong>Enable Scheduler</strong>
+                    <ul>
+                        <li>Open <code>src/modules/notification/notification.module.ts</code></li>
+                        <li>Uncomment <code>ScheduleModule.forRoot()</code> in imports</li>
+                        <li>Uncomment <code>JobNotificationScheduler</code> in providers</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Verify Socket.IO Server is Running</strong>
+                    <ul>
+                        <li>The notification gateway runs on namespace <code>/notifications</code></li>
+                        <li>Ensure WebSocket server is accessible</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3>Frontend Setup</h3>
+            <ol>
+                <li>
+                    <strong>Install Socket.IO Client</strong>
+                    <pre><code>npm install socket.io-client
+# or
+yarn add socket.io-client
+# or
+pnpm add socket.io-client</code></pre>
+                </li>
+                <li>
+                    <strong>Connect to Notification Service</strong>
+                    <ul>
+                        <li>Use the connection examples above</li>
+                        <li>Pass JWT token in auth or extraHeaders</li>
+                        <li>Listen for relevant events based on user role</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Handle Notification Types</strong>
+                    <ul>
+                        <li>Implement UI components for different notification types</li>
+                        <li>Show appropriate alerts/toasts for urgent notifications</li>
+                        <li>Provide quick actions (navigate to job, mark as read, etc.)</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <hr>
+
+        <section id="best-practices" class="section">
+            <h2>Best Practices</h2>
+
+            <h3>1. Authentication</h3>
+            <ul>
+                <li>Always include JWT token when connecting</li>
+                <li>Reconnect with new token if it expires</li>
+                <li>Handle authentication errors gracefully</li>
+            </ul>
+
+            <h3>2. Performance</h3>
+            <ul>
+                <li>Load notifications with pagination (20 per page recommended)</li>
+                <li>Mark notifications as read when viewed</li>
+                <li>Delete old notifications to keep database clean</li>
+            </ul>
+
+            <h3>3. User Experience</h3>
+            <ul>
+                <li>Show visual indicators for unread notifications</li>
+                <li>Play sounds for important notifications (job starting soon)</li>
+                <li>Provide push notifications for mobile apps</li>
+                <li>Allow users to mute/customize notification preferences</li>
+            </ul>
+
+            <h3>4. Error Handling</h3>
+            <ul>
+                <li>Handle socket disconnections</li>
+                <li>Implement retry logic with exponential backoff</li>
+                <li>Show offline indicators when disconnected</li>
+                <li>Queue notifications when offline and sync when reconnected</li>
+            </ul>
+
+            <h3>5. Admin Monitoring</h3>
+            <ul>
+                <li>Admins should see all user lifecycle events</li>
+                <li>Track subscription events for revenue monitoring</li>
+                <li>Monitor system health via notification delivery rates</li>
+            </ul>
+        </section>
+
+        <hr>
+
+        <section class="section">
+            <h2>Security</h2>
+            <ul>
+                <li><strong>Authentication:</strong> JWT token required for connection (validated by middleware)</li>
+                <li><strong>Authorization:</strong> Users can only access their own notifications</li>
+                <li><strong>Admin Access:</strong> Admin room only accessible to users with <code>admin</code> role</li>
+                <li><strong>Data Isolation:</strong> Notifications are user-specific and properly filtered</li>
+                <li><strong>Input Validation:</strong> All client inputs are validated before processing</li>
+            </ul>
+        </section>
+
+        <hr>
+
+        <section class="section">
+            <h2>Database Schema Reference</h2>
+            <h3>Notification Table</h3>
+            <pre><code>model Notification {
+  id        String   @id @default(uuid())
+  type      String
+  title     String
+  message   String
+  meta      Json?
+  createdAt DateTime @default(now())
+  
+  users     UserNotification[]
+}</code></pre>
+
+            <h3>UserNotification Table</h3>
+            <pre><code>model UserNotification {
+  id             String   @id @default(uuid())
+  userId         String
+  notificationId String
+  read           Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  
+  user         User         @relation(...)
+  notification Notification @relation(...)
+}</code></pre>
+        </section>
+
+        <hr>
+
+        <section class="section">
+            <h2>Version History</h2>
+            <ul>
+                <li><strong>v1.0</strong> (2026-02-19): Initial notification system implementation
+                    <ul>
+                        <li>Basic notification CRUD operations</li>
+                        <li>Real-time notification delivery</li>
+                        <li>Read/unread status management</li>
+                        <li>Admin-specific notifications</li>
+                        <li>Pagination support</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <div style="margin-top: 50px; padding: 20px; background-color: #f8f9fa; border-radius: 5px; text-align: center;">
+            <p style="color: #6c757d; font-size: 0.9em; margin: 0;">
+                Generated from NOTIFICATION_EVENTS.md | Last Updated: March 10, 2026
+            </p>
+        </div>
+    </div>
+</body>
+</html>
