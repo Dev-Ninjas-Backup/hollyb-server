@@ -4,6 +4,7 @@ model User {
   email          String?       @unique
   role           UserRole
   password_hash  String?
+  phone          String?       @unique
   account_status AccountStatus
   is_active      Boolean       @default(true)
   is_verified    Boolean       @default(false)
