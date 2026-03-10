@@ -1,6 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
   AccountStatus,
+  DocumentType,
+  ReviewStatus,
   SubscriptionPlanType,
   SubscriptionStatus,
   UserRole,
@@ -215,6 +217,37 @@ export class AdminActiveSubscriptionDto {
   status: SubscriptionStatus;
 }
 
+export class DocumentDto {
+  @ApiProperty({ example: '550e8400-e29b-41d4-a716-446655440033' })
+  id: string;
+
+  @ApiProperty({
+    enum: DocumentType,
+    enumName: 'DocumentType',
+    example: DocumentType.profile_photo,
+  })
+  type: DocumentType;
+
+  @ApiProperty({ example: 'https://example.com/documents/photo.jpg' })
+  fileUrl: string;
+
+  @ApiProperty({
+    enum: ReviewStatus,
+    enumName: 'ReviewStatus',
+    example: ReviewStatus.approved,
+  })
+  status: ReviewStatus;
+
+  @ApiProperty({ example: 'Document is not clear', nullable: true })
+  rejectionReason: string | null;
+
+  @ApiProperty({ example: '2026-02-15T10:00:00.000Z' })
+  uploadedAt: Date;
+
+  @ApiProperty({ example: '2026-02-16T10:00:00.000Z', nullable: true })
+  reviewedAt: Date | null;
+}
+
 export class AdminBackgroundCheckDetailDto {
   @ApiProperty({ example: '550e8400-e29b-41d4-a716-446655440000' })
   id: string;
@@ -266,4 +299,11 @@ export class AdminBackgroundCheckDetailDto {
     description: 'Active subscription if exists',
   })
   activeSubscription?: AdminActiveSubscriptionDto | null;
+
+  @ApiProperty({
+    type: [DocumentDto],
+    description: 'All uploaded documents for the user',
+    isArray: true,
+  })
+  documents: DocumentDto[];
 }
