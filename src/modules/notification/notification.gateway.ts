@@ -12,7 +12,7 @@ import {
 import { Server, Socket } from 'socket.io';
 import { WEBSOCKET_CORS_CONFIG } from '@/common/constants/cors.constant';
 import { SocketAuthMiddleware } from '@/common/jwt/socket-auth.middleware';
-import type { NotificationService } from './notification.service';
+import { NotificationService } from './notification.service';
 import { UserRole } from '@prisma';
 
 /**
@@ -102,9 +102,7 @@ export class NotificationGateway
   private readonly logger = new Logger(NotificationGateway.name);
 
   constructor(
-    @Inject(
-      forwardRef(() => require('./notification.service').NotificationService),
-    )
+    @Inject(forwardRef(() => NotificationService))
     private readonly notificationService: NotificationService,
     private readonly socketAuthMiddleware: SocketAuthMiddleware,
   ) {}

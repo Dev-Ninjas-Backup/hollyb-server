@@ -21,6 +21,11 @@ export class UpdateProfileDto {
   @IsString()
   fullName?: string;
 
+  @ApiPropertyOptional({ example: '+8801712345678', default: '+1234567890' })
+  @IsOptional()
+  @IsString()
+  phoneNumber?: string;
+
   @ApiPropertyOptional({ example: 'Hollyb Ltd', default: 'My Company Ltd' })
   @IsOptional()
   @IsString()

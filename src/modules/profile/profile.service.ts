@@ -63,7 +63,7 @@ export class ProfileService {
     const { password_hash: _passwordHash, ...safeUser } = user;
 
     return ResponseHelper.success(
-      { ...safeUser, profile },
+      { ...safeUser, profile, phone: user.phone },
       'Profile fetched successfully',
     );
   }
@@ -82,11 +82,15 @@ export class ProfileService {
       throw new ResourceNotFoundException('User', userId);
     }
 
-    const userUpdateData = dto.fullName
-      ? { full_name: dto.fullName }
-      : undefined;
+    const userUpdateData: any = {};
+    if (dto.fullName) {
+      userUpdateData.full_name = dto.fullName;
+    }
+    if (dto.phoneNumber !== undefined) {
+      userUpdateData.phone = dto.phoneNumber;
+    }
 
-    if (userUpdateData) {
+    if (Object.keys(userUpdateData).length > 0) {
       await this.prismaService.client.user.update({
         where: { id: userId },
         data: userUpdateData,
@@ -223,7 +227,7 @@ export class ProfileService {
     const { password_hash: _passwordHash, ...safeUser } = updatedUser;
 
     return ResponseHelper.success(
-      { ...safeUser, profile },
+      { ...safeUser, profile, phone: updatedUser.phone },
       'Profile updated successfully',
     );
   }
