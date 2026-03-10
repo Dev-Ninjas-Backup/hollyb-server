@@ -1117,6 +1117,7 @@ export class EmployerService {
             full_name: true,
             email: true,
             role: true,
+            phone: true,
             account_status: true,
             is_active: true,
             is_verified: true,
@@ -1150,7 +1151,7 @@ export class EmployerService {
             status: JobStatus.completed,
           },
           select: {
-            company_name: true,
+            title: true,
             updated_at: true,
           },
           orderBy: {
