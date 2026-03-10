@@ -225,25 +225,63 @@ export class JobsService {
                 id: true,
                 full_name: true,
                 email: true,
+                phone: true,
+                is_verified: true,
+                last_active_at: true,
+                created_at: true,
               },
             },
+            _count: {
+              select: {
+                jobs: true,
+              }
+            },
+            jobs: {
+              select: {
+                id: true,
+                title: true,
+                status: true,
+                created_at: true,
+              },
+              orderBy: {
+                created_at: 'desc',
+              },
+              take: 3
+            }
           },
         },
         assigned_employee: {
           select: {
             id: true,
+            address: true,
+            experience_years: true,
             user: {
               select: {
                 id: true,
                 full_name: true,
                 email: true,
+                phone: true,
               },
             },
+            assigned_job: true,
+            date_of_birth: true,
+            created_at: true,
             employee_skills: {
               include: {
                 skill: true,
               },
             },
+            _count: {
+              select: {
+                assigned_job: {
+                  where: {
+                    status: JobStatus.completed,
+                  }
+                },
+                received_reviews: true,
+              }
+            },
+            rating: true,
           },
         },
         job_applications: {
@@ -256,6 +294,7 @@ export class JobsService {
                     id: true,
                     full_name: true,
                     email: true,
+                    phone: true,
                   },
                 },
               },
@@ -280,6 +319,7 @@ export class JobsService {
         },
         file: true,
       },
+
     });
 
     if (!job) {

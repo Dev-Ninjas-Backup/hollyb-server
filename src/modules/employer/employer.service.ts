@@ -1150,6 +1150,7 @@ export class EmployerService {
             status: JobStatus.completed,
           },
           select: {
+            company_name: true,
             updated_at: true,
           },
           orderBy: {
