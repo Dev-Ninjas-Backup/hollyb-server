@@ -164,6 +164,18 @@ export class BackgroundCheckService {
             notes: true,
           },
         },
+        documents: {
+          orderBy: { uploaded_at: 'desc' },
+          select: {
+            id: true,
+            type: true,
+            file_url: true,
+            status: true,
+            rejection_reason: true,
+            uploaded_at: true,
+            reviewed_at: true,
+          },
+        },
         employee_profile: {
           select: {
             id: true,
@@ -231,6 +243,15 @@ export class BackgroundCheckService {
       dateChecked: row.created_at,
       joinedAt: row.created_at,
       lastActiveAt: row.last_active_at,
+      documents: row.documents.map((doc) => ({
+        id: doc.id,
+        type: doc.type,
+        fileUrl: doc.file_url,
+        status: doc.status,
+        rejectionReason: doc.rejection_reason,
+        uploadedAt: doc.uploaded_at,
+        reviewedAt: doc.reviewed_at,
+      })),
     };
 
     if (row.role === UserRole.employee && row.employee_profile) {
