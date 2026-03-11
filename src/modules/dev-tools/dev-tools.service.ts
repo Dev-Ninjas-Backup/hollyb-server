@@ -2,7 +2,6 @@ import { HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '@/prisma/prisma.service';
-import { BusinessException } from '@/common/exceptions/business.exception';
 import { ResponseHelper } from '@/common/utils/response.helper';
 
 @Injectable()
@@ -14,9 +13,6 @@ export class DevToolsService {
   ) {}
 
   async getAllUsersForDevelopment() {
-    // if (process.env.NODE_ENV !== 'development') {
-    //   throw new BusinessException('Not found', HttpStatus.NOT_FOUND);
-    // }
 
     const users = await this.prismaService.client.user.findMany({
       orderBy: { created_at: 'desc' },
