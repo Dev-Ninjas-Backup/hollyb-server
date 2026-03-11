@@ -148,6 +148,7 @@ export class BackgroundCheckService {
         full_name: true,
         email: true,
         role: true,
+        phone: true,
         is_verified: true,
         account_status: true,
         created_at: true,

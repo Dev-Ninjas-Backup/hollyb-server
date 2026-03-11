@@ -434,4 +434,20 @@ export class NotificationService {
       );
     }
   }
+
+  async getNotifications(userId: string) {
+    return this.prisma.client.user.findMany({
+      where: {
+        id: userId,
+      },
+      select: {
+        notifications: true
+      },
+      orderBy: {
+        created_at: 'desc',
+      },
+    });
+  }
+
+  async checkUserSettings() {}
 }
