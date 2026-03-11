@@ -94,17 +94,20 @@ Response containing list of conversations.
     "participant": {
       "id": "user-uuid",
       "full_name": "John Doe",
-      "email": "john@example.com"
+      "email": "john@example.com",
+      "updated_at": "2026-02-19T09:15:00.000Z"
     },
     "lastMessage": {
       "id": "msg-uuid",
       "content": "Hello!",
       "type": "TEXT",
+      "updatedAt": "2026-02-19T10:30:00.000Z",
       "createdAt": "2026-02-19T10:30:00.000Z",
       "sender": {
         "id": "user-uuid",
         "full_name": "John Doe",
-        "email": "john@example.com"
+        "email": "john@example.com",
+        "updated_at": "2026-02-19T09:15:00.000Z"
       },
       "file": null,
       "status": "READ"
