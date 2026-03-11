@@ -299,6 +299,7 @@ export class PrivateChatService {
                   id: true,
                   full_name: true,
                   email: true,
+                  updated_at: true,
                 },
               },
               file: true,
@@ -313,6 +314,7 @@ export class PrivateChatService {
               id: true,
               full_name: true,
               email: true,
+              updated_at: true,
             },
           },
           receiver: {
@@ -320,6 +322,7 @@ export class PrivateChatService {
               id: true,
               full_name: true,
               email: true,
+              updated_at: true,
             },
           },
           messages: {
@@ -351,6 +354,7 @@ export class PrivateChatService {
               id: chat.lastMessage.id,
               content: chat.lastMessage.content,
               type: chat.lastMessage.type,
+              updatedAt: chat.lastMessage.updatedAt,
               createdAt: chat.lastMessage.createdAt,
               sender: chat.lastMessage.sender,
               file: chat.lastMessage.file,

@@ -441,7 +441,16 @@ export class NotificationService {
         id: userId,
       },
       select: {
-        notifications: true
+        notifications: {
+          select: {
+            notification: true,
+            read: true,
+            id: true,
+          },
+          orderBy: {
+            createdAt: 'desc',
+          },
+        },
       },
       orderBy: {
         created_at: 'desc',
