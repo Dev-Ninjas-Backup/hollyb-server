@@ -298,6 +298,7 @@ export class PrivateChatService {
                 select: {
                   id: true,
                   full_name: true,
+                  role: true,
                   email: true,
                   updated_at: true,
                 },
