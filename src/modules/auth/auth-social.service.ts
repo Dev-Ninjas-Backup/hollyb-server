@@ -35,10 +35,14 @@ export class AuthSocialService {
     return this.socialLogin(dto, AuthProvider.facebook, 'facebook.com');
   }
 
+  async appleLogin(dto: SocialLoginDto) {
+    return this.socialLogin(dto, AuthProvider.apple, 'apple.com');
+  }
+
   private async socialLogin(
     dto: SocialLoginDto,
     provider: AuthProvider,
-    expectedProvider: 'google.com' | 'facebook.com',
+    expectedProvider: 'google.com' | 'facebook.com' | 'apple.com',
   ) {
     const decodedToken = await this.verifyFirebaseToken(dto.idToken);
     const firebaseData: unknown = decodedToken.firebase;
@@ -155,7 +159,7 @@ export class AuthSocialService {
           provider,
         },
       },
-      `${provider === AuthProvider.google ? 'Google' : 'Facebook'} login successful`,
+      `${provider === AuthProvider.google ? 'Google' : provider === AuthProvider.facebook ? 'Facebook' : 'Apple'} login successful`,
     );
   }
 

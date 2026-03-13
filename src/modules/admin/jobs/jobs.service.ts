@@ -234,7 +234,7 @@ export class JobsService {
             _count: {
               select: {
                 jobs: true,
-              }
+              },
             },
             jobs: {
               select: {
@@ -246,8 +246,8 @@ export class JobsService {
               orderBy: {
                 created_at: 'desc',
               },
-              take: 3
-            }
+              take: 3,
+            },
           },
         },
         assigned_employee: {
@@ -276,10 +276,10 @@ export class JobsService {
                 assigned_job: {
                   where: {
                     status: JobStatus.completed,
-                  }
+                  },
                 },
                 received_reviews: true,
-              }
+              },
             },
             rating: true,
           },
@@ -319,7 +319,6 @@ export class JobsService {
         },
         file: true,
       },
-
     });
 
     if (!job) {

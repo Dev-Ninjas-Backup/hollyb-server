@@ -121,6 +121,7 @@
             <select id="provider">
               <option value="google" selected>google</option>
               <option value="facebook">facebook</option>
+              <option value="apple">apple</option>
             </select>
           </div>
         </div>
@@ -134,6 +135,7 @@
           <button id="initFirebase" class="secondary">Initialize Firebase</button>
           <button id="googlePopup">Google Popup Login</button>
           <button id="facebookPopup" class="secondary">Facebook Popup Login</button>
+          <button id="applePopup" class="secondary">Apple Popup Login</button>
         </div>
         <div class="hint">Popup login successful হলে Firebase ID token auto-fill হবে এবং social API call করা যাবে।</div>
       </div>
@@ -146,6 +148,7 @@
           <button id="callProvider">Call Selected Provider API</button>
           <button id="callGoogle" class="secondary">Call /google</button>
           <button id="callFacebook" class="secondary">Call /facebook</button>
+          <button id="callApple" class="secondary">Call /apple</button>
         </div>
       </div>
 
@@ -160,6 +163,7 @@
       import {
         FacebookAuthProvider,
         GoogleAuthProvider,
+        OAuthProvider,
         getAuth,
         signInWithPopup,
       } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
@@ -231,7 +235,9 @@
           const providerInstance =
             provider === 'google'
               ? new GoogleAuthProvider()
-              : new FacebookAuthProvider();
+              : provider === 'facebook'
+                ? new FacebookAuthProvider()
+                : new OAuthProvider('apple.com');
           const credential = await signInWithPopup(auth, providerInstance);
           const token = await credential.user.getIdToken(true);
           idTokenEl.value = token;
@@ -244,9 +250,11 @@
       document.getElementById('initFirebase').addEventListener('click', initFirebase);
       document.getElementById('googlePopup').addEventListener('click', () => popupLogin('google'));
       document.getElementById('facebookPopup').addEventListener('click', () => popupLogin('facebook'));
+      document.getElementById('applePopup').addEventListener('click', () => popupLogin('apple'));
       document.getElementById('callProvider').addEventListener('click', () => callSocialApi(providerEl.value));
       document.getElementById('callGoogle').addEventListener('click', () => callSocialApi('google'));
       document.getElementById('callFacebook').addEventListener('click', () => callSocialApi('facebook'));
+      document.getElementById('callApple').addEventListener('click', () => callSocialApi('apple'));
     </script>
   </body>
 </html>

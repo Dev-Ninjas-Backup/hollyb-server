@@ -26,7 +26,7 @@ import { EmployeeModule } from './employee/employee.module';
     SubscriptionModule,
     AdminModule,
     EmployerModule,
-    EmployeeModule
+    EmployeeModule,
   ],
 })
 export class ModulesModule {}

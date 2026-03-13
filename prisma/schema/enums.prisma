@@ -14,6 +14,7 @@ enum AccountStatus {
 enum AuthProvider {
   google
   facebook
+  apple
   credentials
 }
 

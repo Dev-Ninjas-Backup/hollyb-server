@@ -117,10 +117,7 @@ export class JobNotificationScheduler {
   /**
    * Combine job date and start time into a single datetime
    */
-  private combineDateTime(
-    jobDate: Date | null,
-    startTime: Date | null,
-  ): Date {
+  private combineDateTime(jobDate: Date | null, startTime: Date | null): Date {
     if (!jobDate || !startTime) {
       return new Date();
     }

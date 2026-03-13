@@ -14,13 +14,13 @@ import { SocketAuthMiddleware } from '@/common/jwt/socket-auth.middleware';
  * 1. Install @nestjs/schedule: pnpm install @nestjs/schedule
  * 2. Uncomment the ScheduleModule.forRoot() import
  * 3. Uncomment JobNotificationScheduler in providers
- * 
+ *
  * The scheduler will check every 5 minutes for jobs starting within 30 minutes
  * and send notifications to assigned employees via socket.io
  */
 @Module({
   imports: [
-    JwtModule.register({}), 
+    JwtModule.register({}),
     ConfigModule,
     // ScheduleModule.forRoot(), // Uncomment after installing @nestjs/schedule
   ],

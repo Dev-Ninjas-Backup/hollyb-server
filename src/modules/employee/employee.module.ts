@@ -11,7 +11,12 @@ import { SubscriptionModule } from '../subscription/subscription.module';
 import { EmployeeService } from './employee.service';
 
 @Module({
-  imports: [PrismaModule, JwtModule.register({}), SubscriptionModule, NotificationModule],
+  imports: [
+    PrismaModule,
+    JwtModule.register({}),
+    SubscriptionModule,
+    NotificationModule,
+  ],
   providers: [
     EmployeeService,
     EmployeeJobsApplyService,

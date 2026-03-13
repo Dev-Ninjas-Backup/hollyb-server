@@ -47,7 +47,6 @@ export enum NotificationEventsEnum {
   SUBSCRIPTION_SUCCESS = 'notification:subscription_success', // Server -> Admin + User: successful subscription
 }
 
-
 /**
  * Notification Type Enum - Types of notifications in the system
  */

@@ -141,6 +141,21 @@ export class AuthController {
     return this.authSocialService.facebookLogin(dto);
   }
 
+  @Post('apple')
+  @ApiOperation({
+    summary: 'Apple login',
+    description:
+      'Authenticate user with Apple ID token. Creates new account if user does not exist.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Login successful. Returns access token.',
+  })
+  @ApiResponse({ status: 401, description: 'Invalid Apple token.' })
+  appleLogin(@Body() dto: SocialLoginDto) {
+    return this.authSocialService.appleLogin(dto);
+  }
+
   @Post('forgot-password')
   @ApiOperation({
     summary: 'Request password reset',

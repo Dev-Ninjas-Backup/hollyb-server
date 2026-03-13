@@ -265,7 +265,9 @@ export class NotificationService {
       });
 
       if (!user) {
-        this.logger.warn(`User ${userId} not found for subscription notification`);
+        this.logger.warn(
+          `User ${userId} not found for subscription notification`,
+        );
         return;
       }
 
@@ -365,7 +367,9 @@ export class NotificationService {
         userIds: [employeeUserId],
       });
 
-      this.logger.log(`Job assignment notification sent to employee ${employeeUserId}`);
+      this.logger.log(
+        `Job assignment notification sent to employee ${employeeUserId}`,
+      );
     } catch (error) {
       this.logger.error(
         `Failed to send job assignment notification: ${error.message}`,
@@ -396,7 +400,9 @@ export class NotificationService {
         userIds: [employeeUserId],
       });
 
-      this.logger.log(`Job starting soon notification sent to employee ${employeeUserId}`);
+      this.logger.log(
+        `Job starting soon notification sent to employee ${employeeUserId}`,
+      );
     } catch (error) {
       this.logger.error(
         `Failed to send job starting soon notification: ${error.message}`,
@@ -427,7 +433,9 @@ export class NotificationService {
         userIds: [employerUserId],
       });
 
-      this.logger.log(`Job completion notification sent to employer ${employerUserId}`);
+      this.logger.log(
+        `Job completion notification sent to employer ${employerUserId}`,
+      );
     } catch (error) {
       this.logger.error(
         `Failed to send job completion notification: ${error.message}`,

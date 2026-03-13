@@ -134,14 +134,13 @@ export class SubscriptionService {
       this.logger.log(
         `Direct payment processed for user ${userId}: ${dto.planType}`,
       );
-// Send notification to user and admins
+      // Send notification to user and admins
       await this.notificationService.notifySubscriptionSuccess(
         userId,
         dto.planType,
         false,
       );
 
-      
       return {
         success: true,
         message:

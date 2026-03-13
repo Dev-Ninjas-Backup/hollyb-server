@@ -13,7 +13,6 @@ export class DevToolsService {
   ) {}
 
   async getAllUsersForDevelopment() {
-
     const users = await this.prismaService.client.user.findMany({
       orderBy: { created_at: 'desc' },
     });

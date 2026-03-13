@@ -8,7 +8,12 @@ import { EmployerController } from './employer.controller';
 import { SubscriptionModule } from '../subscription/subscription.module';
 
 @Module({
-  imports: [PrismaModule, JwtModule.register({}), SubscriptionModule, NotificationModule],
+  imports: [
+    PrismaModule,
+    JwtModule.register({}),
+    SubscriptionModule,
+    NotificationModule,
+  ],
   controllers: [EmployerController],
   providers: [EmployerService, JwtAuthGuard],
 })
