@@ -78,6 +78,7 @@ jobs:
           source: 'compose.yaml'
           target: '/home/${{ secrets.VPS_USER }}/server'
           strip_components: 0
+          
       # - name: Copy Caddy File
       #   uses: appleboy/scp-action@v0.1.7
       #   with:
