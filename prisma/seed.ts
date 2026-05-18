@@ -101,78 +101,132 @@ async function seedAdmin() {
 }
 
 async function seedDemoAccounts() {
-  const demoPassword = process.env.DEMO_PASSWORD?.trim() ?? '12345678';
-  const hashedPassword = await bcrypt.hash(demoPassword, 10);
+  try {
+    const demoPassword = process.env.DEMO_PASSWORD?.trim() ?? '12345678';
+    const hashedPassword = await bcrypt.hash(demoPassword, 10);
 
-  // ── Demo Employer ──────────────────────────────────────────
-  const employerEmail = 'demo_employer@hollyb.com';
-  const existingEmployer = await prisma.user.findUnique({
-    where: { email: employerEmail },
-  });
+    console.log('🔄 Starting demo accounts seed...');
 
-  if (existingEmployer) {
-    console.log(`✅ Demo employer already exists. Skipping creation.`);
-  } else {
-    const employer = await prisma.user.create({
-      data: {
-        full_name: 'Demo Employer',
-        email: employerEmail,
-        role: UserRole.employer,
-        password_hash: hashedPassword,
-        account_status: AccountStatus.active,
-        is_active: true,
-        is_verified: true,
-        isNotify: false,
-        is_deleted: false,
-        is_demo: true,
-      },
-    });
-    console.log(`✅ Demo employer created!`);
-    console.log(`   Email: ${employer.email}`);
-    console.log(`   ID:    ${employer.id}`);
-  }
+    // ── Demo Employer ──────────────────────────────────────────
+    try {
+      const employerEmail = 'demo_employer@hollyb.com';
+      const existingEmployer = await prisma.user.findUnique({
+        where: { email: employerEmail },
+      });
 
-  // ── Demo Employee ──────────────────────────────────────────
-  const employeeEmail = 'demo_employee@hollyb.com';
-  const existingEmployee = await prisma.user.findUnique({
-    where: { email: employeeEmail },
-  });
+      if (existingEmployer) {
+        console.log(`✅ Demo employer already exists. Skipping creation.`);
+        console.log(`   Email: ${existingEmployer.email}`);
+        console.log(`   ID:    ${existingEmployer.id}`);
+      } else {
+        const employer = await prisma.user.create({
+          data: {
+            full_name: 'Demo Employer',
+            email: employerEmail,
+            role: UserRole.employer,
+            password_hash: hashedPassword,
+            account_status: AccountStatus.active,
+            is_active: true,
+            is_verified: true,
+            isNotify: false,
+            is_deleted: false,
+            is_demo: true,
+          },
+        });
+        console.log(`✅ Demo employer created successfully!`);
+        console.log(`   Email: ${employer.email}`);
+        console.log(`   ID:    ${employer.id}`);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('❌ Error creating demo employer:', error.message);
+      } else {
+        console.error('❌ Error creating demo employer:', error);
+      }
+      throw error;
+    }
 
-  if (existingEmployee) {
-    console.log(`✅ Demo employee already exists. Skipping creation.`);
-  } else {
-    const employee = await prisma.user.create({
-      data: {
-        full_name: 'Demo Employee',
-        email: employeeEmail,
-        role: UserRole.employee,
-        password_hash: hashedPassword,
-        account_status: AccountStatus.active,
-        is_active: true,
-        is_verified: true,
-        isNotify: false,
-        is_deleted: false,
-        is_demo: true,
-      },
-    });
-    console.log(`✅ Demo employee created!`);
-    console.log(`   Email: ${employee.email}`);
-    console.log(`   ID:    ${employee.id}`);
+    // ── Demo Employee ──────────────────────────────────────────
+    try {
+      const employeeEmail = 'demo_employee@hollyb.com';
+      const existingEmployee = await prisma.user.findUnique({
+        where: { email: employeeEmail },
+      });
+
+      if (existingEmployee) {
+        console.log(`✅ Demo employee already exists. Skipping creation.`);
+        console.log(`   Email: ${existingEmployee.email}`);
+        console.log(`   ID:    ${existingEmployee.id}`);
+      } else {
+        const employee = await prisma.user.create({
+          data: {
+            full_name: 'Demo Employee',
+            email: employeeEmail,
+            role: UserRole.employee,
+            password_hash: hashedPassword,
+            account_status: AccountStatus.active,
+            is_active: true,
+            is_verified: true,
+            isNotify: false,
+            is_deleted: false,
+            is_demo: true,
+          },
+        });
+        console.log(`✅ Demo employee created successfully!`);
+        console.log(`   Email: ${employee.email}`);
+        console.log(`   ID:    ${employee.id}`);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('❌ Error creating demo employee:', error.message);
+      } else {
+        console.error('❌ Error creating demo employee:', error);
+      }
+      throw error;
+    }
+
+    console.log('✅ Demo accounts seed completed!');
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error('❌ Error in seedDemoAccounts:', error.message);
+    } else {
+      console.error('❌ Error in seedDemoAccounts:', error);
+    }
+    throw error;
   }
 }
 
 async function main() {
-  await seedAdmin();
-  await seedDemoAccounts();
+  console.log('🚀 Starting database seed...');
+  console.log(`📌 Database URL: ${connectionString?.substring(0, 50)}...`);
+  console.log(`📌 Node Environment: ${process.env.NODE_ENV || 'not set'}`);
+
+  try {
+    await seedAdmin();
+  } catch (error) {
+    console.error('❌ Admin seed failed. Stopping.');
+    throw error;
+  }
+
+  try {
+    await seedDemoAccounts();
+  } catch (error) {
+    console.error('❌ Demo accounts seed failed. Stopping.');
+    throw error;
+  }
 }
 
 main()
   .then(async () => {
-    console.log('✅ Seed completed successfully!');
+    console.log('\n✅ Seed completed successfully!');
+    console.log('📋 Summary:');
+    console.log('   - Admin user (for platform management)');
+    console.log('   - Demo employer (for testing employer features)');
+    console.log('   - Demo employee (for testing employee features)');
     await prisma.$disconnect();
   })
   .catch(async (e) => {
-    console.error('❌ Seed failed:', e);
+    console.error('\n❌ Seed failed:', e);
     await prisma.$disconnect();
     process.exit(1);
   });
