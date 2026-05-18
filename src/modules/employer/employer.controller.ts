@@ -32,6 +32,8 @@ import { UpdateJobDto } from './dto/update-job.dto';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { RolesGuard } from '@/common/guards/roles.guard';
 import { Roles } from '@/common/decorators/roles.decorator';
+import { SubscriptionGuard } from '@/common/guards/subscription.guard';
+import { SubscriptionRequired } from '@/common/decorators/subscription-required.decorator';
 import { CreateReviewJobDto } from './dto/review-completed-job.dto';
 import { AddFavoriteEmployeeDto } from './dto/manage-favorite.dto';
 
@@ -89,10 +91,11 @@ export class EmployerController {
 
   // Create a new job posting
   @Post('job/create')
+  @SubscriptionRequired()
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard, SubscriptionGuard)
   @Roles('employer')
-  @ApiOperation({ summary: 'Create a new job posting' })
+  @ApiOperation({ summary: 'Create a new job posting (requires active subscription)' })
   @UseInterceptors(FileFieldsInterceptor([{ name: 'file', maxCount: 1 }]))
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -251,10 +254,11 @@ export class EmployerController {
 
   // Update a job posting
   @Patch('jobs/:id')
+  @SubscriptionRequired()
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, SubscriptionGuard)
   @ApiOperation({
-    summary: 'Update a job posting (cannot change start_date or end_date)',
+    summary: 'Update a job posting (cannot change start_date or end_date, requires active subscription)',
   })
   @UseInterceptors(FileFieldsInterceptor([{ name: 'file', maxCount: 1 }]))
   @ApiConsumes('multipart/form-data')
@@ -300,11 +304,12 @@ export class EmployerController {
   }
 
   @Post('applications/:applicationId/accept')
+  @SubscriptionRequired()
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard, SubscriptionGuard)
   @Roles('employer')
   @ApiOperation({
-    summary: 'Accept job application and assign employee to job',
+    summary: 'Accept job application and assign employee to job (requires active subscription)',
   })
   @ApiResponse({
     status: 201,

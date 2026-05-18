@@ -53,32 +53,34 @@ services:
     networks:
       - hollyb_network
 
-  # caddy:
-  #   image: caddy:2-alpine
-  #   container_name: ${PACKAGE_NAME}_caddy
-  #   restart: unless-stopped
-  #   profiles:
-  #     - prod
-  #   ports:
-  #     - '80:80'
-  #     - '443:443'
-  #     - '443:443/udp'
-  #   volumes:
-  #     - ./Caddyfile:/etc/caddy/Caddyfile
-  #     - caddy_data:/data
-  #     - caddy_config:/config
-  #   depends_on:
-  #     server:
-  #       condition: service_healthy
-  #   networks:
-  #     - hollyb_network
-  #     - hollyb_shared_network
+  caddy:
+    image: caddy:2-alpine
+    container_name: ${PACKAGE_NAME}_caddy
+    restart: unless-stopped
+    profiles:
+      - prod
+    ports:
+      - '80:80'
+      - '443:443'
+      - '443:443/udp'
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      server:
+        condition: service_healthy
+    networks:
+      - hollyb_network
+      - hollyb_shared_network
 
 networks:
   hollyb_network:
     driver: bridge
+  hollyb_shared_network:
+    driver: bridge
 
 volumes:
   postgres_data:
-  # caddy_data:
-  # caddy_config:
+  caddy_data:
+  caddy_config:

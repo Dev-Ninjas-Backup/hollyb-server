@@ -120,8 +120,10 @@ export class EmployyeJobsApplyController {
   }
 
   @Post(':jobId/check-in')
+  @SubscriptionRequired()
+  @UseGuards(SubscriptionGuard)
   @ApiOperation({
-    summary: 'Check in to assigned shift',
+    summary: 'Check in to assigned shift (requires active employee subscription)',
   })
   @ApiParam({
     name: 'jobId',
@@ -137,8 +139,10 @@ export class EmployyeJobsApplyController {
   }
 
   @Post(':jobId/check-out')
+  @SubscriptionRequired()
+  @UseGuards(SubscriptionGuard)
   @ApiOperation({
-    summary: 'Check out from assigned shift',
+    summary: 'Check out from assigned shift (requires active employee subscription)',
   })
   @ApiParam({
     name: 'jobId',
@@ -154,8 +158,10 @@ export class EmployyeJobsApplyController {
   }
 
   @Post(':jobId/mark-as-complete')
+  @SubscriptionRequired()
+  @UseGuards(SubscriptionGuard)
   @ApiOperation({
-    summary: 'Mark assigned shift as completed',
+    summary: 'Mark assigned shift as completed (requires active employee subscription)',
   })
   @ApiParam({
     name: 'jobId',
