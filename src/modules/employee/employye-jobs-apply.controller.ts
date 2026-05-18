@@ -4,6 +4,8 @@ import {
 } from '@/common/guards/jwt-auth.guard';
 import { Roles } from '@/common/decorators/roles.decorator';
 import { RolesGuard } from '@/common/guards/roles.guard';
+import { SubscriptionGuard } from '@/common/guards/subscription.guard';
+import { SubscriptionRequired } from '@/common/decorators/subscription-required.decorator';
 import {
   Body,
   Controller,
@@ -37,6 +39,8 @@ export class EmployyeJobsApplyController {
   ) {}
 
   @Post(':jobId/apply')
+  @SubscriptionRequired()
+  @UseGuards(SubscriptionGuard)
   @ApiOperation({
     summary: 'Apply to a job (requires active employee subscription)',
   })

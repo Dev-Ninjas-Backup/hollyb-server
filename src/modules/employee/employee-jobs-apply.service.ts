@@ -1,13 +1,7 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import {
-  SubscriptionPlanType,
-  JobStatus,
-  JobApplicationStatus,
-  ShiftStatus,
-} from '@prisma';
+import { JobStatus, JobApplicationStatus, ShiftStatus } from '@prisma';
 import { BusinessException } from '@/common/exceptions/business.exception';
 import { PrismaService } from '@/prisma/prisma.service';
-import { SubscriptionService } from '@/modules/subscription/subscription.service';
 import { NotificationService } from '@/modules/notification/notification.service';
 import { ApplyJobDto } from './dto/apply-job.dto';
 import { GetAppliedJobsQueryDto } from './dto/get-applied-jobs-query.dto';
@@ -16,7 +10,6 @@ import { GetAppliedJobsQueryDto } from './dto/get-applied-jobs-query.dto';
 export class EmployeeJobsApplyService {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly subscriptionService: SubscriptionService,
     private readonly notificationService: NotificationService,
   ) {}
 
@@ -45,19 +38,6 @@ export class EmployeeJobsApplyService {
       throw new BusinessException(
         'Employee profile not found',
         HttpStatus.NOT_FOUND,
-      );
-    }
-
-    const hasActiveSubscription =
-      await this.subscriptionService.checkActiveSubscription(
-        userId,
-        SubscriptionPlanType.employee_premium,
-      );
-
-    if (!hasActiveSubscription) {
-      throw new BusinessException(
-        'Active subscription required. Please subscribe before applying to jobs.',
-        HttpStatus.FORBIDDEN,
       );
     }
 
@@ -257,7 +237,7 @@ export class EmployeeJobsApplyService {
         this.prisma.client.jobApplication.count({ where }),
       ]);
 
-    const data = appliedJobs.map((item) => {
+    const data = appliedJobs.map((item: any) => {
       const isCompleted =
         item.status === JobApplicationStatus.rejected ||
         item.status === JobApplicationStatus.withdrawn ||

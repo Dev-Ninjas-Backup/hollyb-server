@@ -12,7 +12,7 @@ if (!connectionString) {
 const adapter = new PrismaPg({ connectionString });
 const prisma = new PrismaClient({ adapter });
 
-async function main() {
+async function seedAdmin() {
   const adminEmail = process.env.ADMIN_EMAIL?.trim();
   const adminPassword = process.env.ADMIN_PASSWORD?.trim();
 
@@ -24,7 +24,6 @@ async function main() {
   }
 
   try {
-    // Check if admin already exists
     const existingAdmin = await prisma.user.findUnique({
       where: { email: adminEmail },
     });
@@ -34,7 +33,6 @@ async function main() {
         `✅ Admin user already exists with email: ${adminEmail}. Skipping creation.`,
       );
 
-      // Check if settings exist, if not create them
       const existingSettings = await prisma.setting.findFirst();
       if (!existingSettings) {
         const setting = await prisma.setting.create({
@@ -56,11 +54,8 @@ async function main() {
       return;
     }
 
-    // Hash the admin password using bcryptjs
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(adminPassword, saltRounds);
+    const hashedPassword = await bcrypt.hash(adminPassword, 10);
 
-    // Create admin user
     const admin = await prisma.user.create({
       data: {
         full_name: 'Admin User',
@@ -81,7 +76,6 @@ async function main() {
     console.log(`   Status: ${admin.account_status}`);
     console.log(`   ID: ${admin.id}`);
 
-    // Create Setting for the admin
     const setting = await prisma.setting.create({
       data: {
         workspaceName: 'Hollyb',
@@ -102,10 +96,74 @@ async function main() {
     } else {
       console.error('❌ Error creating admin user:', error);
     }
-
-    // Bubble up the failure so CI/container startup can fail loudly.
     throw error;
   }
+}
+
+async function seedDemoAccounts() {
+  const demoPassword = process.env.DEMO_PASSWORD?.trim() ?? '12345678';
+  const hashedPassword = await bcrypt.hash(demoPassword, 10);
+
+  // ── Demo Employer ──────────────────────────────────────────
+  const employerEmail = 'demo_employer@hollyb.com';
+  const existingEmployer = await prisma.user.findUnique({
+    where: { email: employerEmail },
+  });
+
+  if (existingEmployer) {
+    console.log(`✅ Demo employer already exists. Skipping creation.`);
+  } else {
+    const employer = await prisma.user.create({
+      data: {
+        full_name: 'Demo Employer',
+        email: employerEmail,
+        role: UserRole.employer,
+        password_hash: hashedPassword,
+        account_status: AccountStatus.active,
+        is_active: true,
+        is_verified: true,
+        isNotify: false,
+        is_deleted: false,
+        is_demo: true,
+      },
+    });
+    console.log(`✅ Demo employer created!`);
+    console.log(`   Email: ${employer.email}`);
+    console.log(`   ID:    ${employer.id}`);
+  }
+
+  // ── Demo Employee ──────────────────────────────────────────
+  const employeeEmail = 'demo_employee@hollyb.com';
+  const existingEmployee = await prisma.user.findUnique({
+    where: { email: employeeEmail },
+  });
+
+  if (existingEmployee) {
+    console.log(`✅ Demo employee already exists. Skipping creation.`);
+  } else {
+    const employee = await prisma.user.create({
+      data: {
+        full_name: 'Demo Employee',
+        email: employeeEmail,
+        role: UserRole.employee,
+        password_hash: hashedPassword,
+        account_status: AccountStatus.active,
+        is_active: true,
+        is_verified: true,
+        isNotify: false,
+        is_deleted: false,
+        is_demo: true,
+      },
+    });
+    console.log(`✅ Demo employee created!`);
+    console.log(`   Email: ${employee.email}`);
+    console.log(`   ID:    ${employee.id}`);
+  }
+}
+
+async function main() {
+  await seedAdmin();
+  await seedDemoAccounts();
 }
 
 main()
