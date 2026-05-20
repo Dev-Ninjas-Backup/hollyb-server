@@ -110,16 +110,14 @@ async function seedDemoAccounts() {
     // ── Demo Employer ──────────────────────────────────────────
     try {
       const employerEmail = 'demo_employer@hollyb.com';
-      const existingEmployer = await prisma.user.findUnique({
+      let employer = await prisma.user.findUnique({
         where: { email: employerEmail },
+        include: { employer_profile: true },
       });
 
-      if (existingEmployer) {
-        console.log(`✅ Demo employer already exists. Skipping creation.`);
-        console.log(`   Email: ${existingEmployer.email}`);
-        console.log(`   ID:    ${existingEmployer.id}`);
-      } else {
-        const employer = await prisma.user.create({
+      // Create user if doesn't exist
+      if (!employer) {
+        employer = await prisma.user.create({
           data: {
             full_name: 'Demo Employer',
             email: employerEmail,
@@ -132,10 +130,35 @@ async function seedDemoAccounts() {
             is_deleted: false,
             is_demo: true,
           },
+          include: { employer_profile: true },
         });
         console.log(`✅ Demo employer created successfully!`);
         console.log(`   Email: ${employer.email}`);
         console.log(`   ID:    ${employer.id}`);
+      } else {
+        console.log(`✅ Demo employer already exists.`);
+        console.log(`   Email: ${employer.email}`);
+        console.log(`   ID:    ${employer.id}`);
+      }
+
+      // Create profile if doesn't exist
+      if (!employer.employer_profile) {
+        const employerProfile = await prisma.employerProfile.create({
+          data: {
+            user_id: employer.id,
+            company_name: 'Demo Company',
+            address: null,
+            profile_photo_url: null,
+            date_of_birth: null,
+          },
+        });
+        console.log(`✅ Employer profile created successfully!`);
+        console.log(`   Profile ID: ${employerProfile.id}`);
+        console.log(`   Company: ${employerProfile.company_name}`);
+      } else {
+        console.log(`✅ Employer profile already exists.`);
+        console.log(`   Profile ID: ${employer.employer_profile.id}`);
+        console.log(`   Company: ${employer.employer_profile.company_name || 'N/A'}`);
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -149,16 +172,14 @@ async function seedDemoAccounts() {
     // ── Demo Employee ──────────────────────────────────────────
     try {
       const employeeEmail = 'demo_employee@hollyb.com';
-      const existingEmployee = await prisma.user.findUnique({
+      let employee = await prisma.user.findUnique({
         where: { email: employeeEmail },
+        include: { employee_profile: true },
       });
 
-      if (existingEmployee) {
-        console.log(`✅ Demo employee already exists. Skipping creation.`);
-        console.log(`   Email: ${existingEmployee.email}`);
-        console.log(`   ID:    ${existingEmployee.id}`);
-      } else {
-        const employee = await prisma.user.create({
+      // Create user if doesn't exist
+      if (!employee) {
+        employee = await prisma.user.create({
           data: {
             full_name: 'Demo Employee',
             email: employeeEmail,
@@ -171,10 +192,36 @@ async function seedDemoAccounts() {
             is_deleted: false,
             is_demo: true,
           },
+          include: { employee_profile: true },
         });
         console.log(`✅ Demo employee created successfully!`);
         console.log(`   Email: ${employee.email}`);
         console.log(`   ID:    ${employee.id}`);
+      } else {
+        console.log(`✅ Demo employee already exists.`);
+        console.log(`   Email: ${employee.email}`);
+        console.log(`   ID:    ${employee.id}`);
+      }
+
+      // Create profile if doesn't exist
+      if (!employee.employee_profile) {
+        const employeeProfile = await prisma.employeeProfile.create({
+          data: {
+            user_id: employee.id,
+            date_of_birth: null,
+            address: null,
+            experience_years: 0,
+            bio: null,
+            profile_photo_url: null,
+          },
+        });
+        console.log(`✅ Employee profile created successfully!`);
+        console.log(`   Profile ID: ${employeeProfile.id}`);
+        console.log(`   Experience: ${employeeProfile.experience_years} years`);
+      } else {
+        console.log(`✅ Employee profile already exists.`);
+        console.log(`   Profile ID: ${employee.employee_profile.id}`);
+        console.log(`   Experience: ${employee.employee_profile.experience_years || '0'} years`);
       }
     } catch (error) {
       if (error instanceof Error) {
