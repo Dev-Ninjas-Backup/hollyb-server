@@ -95,7 +95,9 @@ export class EmployerController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard, SubscriptionGuard)
   @Roles('employer')
-  @ApiOperation({ summary: 'Create a new job posting (requires active subscription)' })
+  @ApiOperation({
+    summary: 'Create a new job posting (requires active subscription)',
+  })
   @UseInterceptors(FileFieldsInterceptor([{ name: 'file', maxCount: 1 }]))
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -258,7 +260,8 @@ export class EmployerController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, SubscriptionGuard)
   @ApiOperation({
-    summary: 'Update a job posting (cannot change start_date or end_date, requires active subscription)',
+    summary:
+      'Update a job posting (cannot change start_date or end_date, requires active subscription)',
   })
   @UseInterceptors(FileFieldsInterceptor([{ name: 'file', maxCount: 1 }]))
   @ApiConsumes('multipart/form-data')
@@ -309,7 +312,8 @@ export class EmployerController {
   @UseGuards(JwtAuthGuard, RolesGuard, SubscriptionGuard)
   @Roles('employer')
   @ApiOperation({
-    summary: 'Accept job application and assign employee to job (requires active subscription)',
+    summary:
+      'Accept job application and assign employee to job (requires active subscription)',
   })
   @ApiResponse({
     status: 201,

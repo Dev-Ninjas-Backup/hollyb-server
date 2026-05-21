@@ -158,7 +158,9 @@ async function seedDemoAccounts() {
       } else {
         console.log(`✅ Employer profile already exists.`);
         console.log(`   Profile ID: ${employer.employer_profile.id}`);
-        console.log(`   Company: ${employer.employer_profile.company_name || 'N/A'}`);
+        console.log(
+          `   Company: ${employer.employer_profile.company_name || 'N/A'}`,
+        );
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -221,7 +223,9 @@ async function seedDemoAccounts() {
       } else {
         console.log(`✅ Employee profile already exists.`);
         console.log(`   Profile ID: ${employee.employee_profile.id}`);
-        console.log(`   Experience: ${employee.employee_profile.experience_years || '0'} years`);
+        console.log(
+          `   Experience: ${employee.employee_profile.experience_years || '0'} years`,
+        );
       }
     } catch (error) {
       if (error instanceof Error) {
