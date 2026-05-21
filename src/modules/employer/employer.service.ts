@@ -6,12 +6,7 @@ import {
 } from '@/common/exceptions/business.exception';
 import { CreateJobDto } from './dto/create-job.dto';
 import { UpdateJobDto } from './dto/update-job.dto';
-import {
-  Prisma,
-  FileType,
-  JobStatus,
-  JobApplicationStatus,
-} from '@prisma';
+import { Prisma, FileType, JobStatus, JobApplicationStatus } from '@prisma';
 import { S3UploadService } from '@/common/upload/s3-upload.service';
 import { NotificationService } from '../notification/notification.service';
 import { CreateReviewJobDto } from './dto/review-completed-job.dto';
