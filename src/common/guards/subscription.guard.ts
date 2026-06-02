@@ -59,7 +59,7 @@ export class SubscriptionGuard implements CanActivate {
     });
 
     if (!latestSubscription) {
-      response.send('Active subscription required');
+      response.status(HttpStatus.FORBIDDEN).send('Active subscription required');
       return false;
     }
 
@@ -67,7 +67,7 @@ export class SubscriptionGuard implements CanActivate {
     const isExpired = now > latestSubscription.end_date;
 
     if (latestSubscription.status !== SubscriptionStatus.active || isExpired) {
-      response.send('Active subscription required');
+      response.status(HttpStatus.FORBIDDEN).send('Active subscription required');
       return false;
     }
 
