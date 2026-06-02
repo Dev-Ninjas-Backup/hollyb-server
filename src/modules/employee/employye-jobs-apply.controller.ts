@@ -49,6 +49,14 @@ export class EmployyeJobsApplyController {
     type: String,
     description: 'Job id (uuid)',
   })
+    @ApiResponse({
+    status: 201,
+    description: 'Job application submitted successfully',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Active subscription required to apply',
+  })
   applyToJob(
     @Req() req: AuthenticatedRequest,
     @Param('jobId') jobId: string,
