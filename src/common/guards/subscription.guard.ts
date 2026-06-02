@@ -4,6 +4,7 @@ import {
   ExecutionContext,
   HttpStatus,
 } from '@nestjs/common';
+import { Response } from 'express';
 import { PrismaService } from '@/prisma/prisma.service';
 import { SubscriptionStatus } from '@prisma';
 import { BusinessException } from '@/common/exceptions/business.exception';
@@ -15,6 +16,7 @@ export class SubscriptionGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<AuthenticatedRequest>();
+    const response = context.switchToHttp().getResponse<Response>();
     const userId = request.user?.sub;
 
     if (!userId) {
@@ -57,20 +59,16 @@ export class SubscriptionGuard implements CanActivate {
     });
 
     if (!latestSubscription) {
-      throw new BusinessException(
-        'Active subscription required',
-        HttpStatus.FORBIDDEN,
-      );
+      response.status(HttpStatus.FORBIDDEN).send('Active subscription required');
+      return false;
     }
 
     const now = new Date();
     const isExpired = now > latestSubscription.end_date;
 
     if (latestSubscription.status !== SubscriptionStatus.active || isExpired) {
-      throw new BusinessException(
-        'Active subscription required',
-        HttpStatus.FORBIDDEN,
-      );
+      response.status(HttpStatus.FORBIDDEN).send('Active subscription required');
+      return false;
     }
 
     return true;
