@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { BusinessException } from '@/common/exceptions/business.exception';
+import sharp from 'sharp';
+import * as path from 'path';
 
 @Injectable()
 export class S3UploadService {
@@ -24,15 +26,34 @@ export class S3UploadService {
   }
 
   async uploadFile(userId: string, file: Express.Multer.File, folder: string) {
-    const sanitizedName = file.originalname.replace(/[^a-zA-Z0-9._-]/g, '_');
+    let buffer = file.buffer;
+    let mimetype = file.mimetype;
+    let originalname = file.originalname;
+
+    if (file.mimetype.startsWith('image/')) {
+      try {
+        buffer = await sharp(file.buffer)
+          .webp({ quality: 80 })
+          .toBuffer();
+        mimetype = 'image/webp';
+        
+        const ext = path.extname(file.originalname);
+        const nameWithoutExt = ext ? file.originalname.slice(0, -ext.length) : file.originalname;
+        originalname = `${nameWithoutExt}.webp`;
+      } catch (error) {
+        // Fallback to original file if compression fails
+      }
+    }
+
+    const sanitizedName = originalname.replace(/[^a-zA-Z0-9._-]/g, '_');
     const key = `${this.uploadDir}/${folder}/${userId}/${Date.now()}-${sanitizedName}`;
 
     await this.s3Client.send(
       new PutObjectCommand({
         Bucket: this.bucketName,
         Key: key,
-        Body: file.buffer,
-        ContentType: file.mimetype,
+        Body: buffer,
+        ContentType: mimetype,
       }),
     );
 

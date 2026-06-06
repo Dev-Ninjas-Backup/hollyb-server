@@ -89,7 +89,6 @@ export class ProfileDocumentsController {
   @UseInterceptors(
     FileInterceptor('file', {
       storage: memoryStorage(),
-      limits: { fileSize: 5 * 1024 * 1024 },
     }),
   )
   uploadProfilePhoto(
@@ -140,7 +139,6 @@ export class ProfileDocumentsController {
       ],
       {
         storage: memoryStorage(),
-        limits: { fileSize: 5 * 1024 * 1024 },
       },
     ),
   )
@@ -194,7 +192,6 @@ export class ProfileDocumentsController {
       ],
       {
         storage: memoryStorage(),
-        limits: { fileSize: 5 * 1024 * 1024 },
       },
     ),
   )
@@ -248,7 +245,6 @@ export class ProfileDocumentsController {
       ],
       {
         storage: memoryStorage(),
-        limits: { fileSize: 5 * 1024 * 1024 },
       },
     ),
   )
@@ -304,7 +300,6 @@ export class ProfileDocumentsController {
   @UseInterceptors(
     FileInterceptor('file', {
       storage: memoryStorage(),
-      limits: { fileSize: 5 * 1024 * 1024 },
     }),
   )
   uploadUtilityBill(
