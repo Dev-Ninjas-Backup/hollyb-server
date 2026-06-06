@@ -40,6 +40,12 @@ export class S3UploadService {
         const ext = path.extname(file.originalname);
         const nameWithoutExt = ext ? file.originalname.slice(0, -ext.length) : file.originalname;
         originalname = `${nameWithoutExt}.webp`;
+
+        // Update the file object properties in-place for callers
+        file.buffer = buffer;
+        file.mimetype = mimetype;
+        file.originalname = originalname;
+        file.size = buffer.length;
       } catch (error) {
         // Fallback to original file if compression fails
       }
