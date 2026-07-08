@@ -79,15 +79,15 @@ jobs:
           target: '/home/${{ secrets.VPS_USER }}/server'
           strip_components: 0
           
-      - name: Copy Caddy File
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          password: ${{ secrets.VPS_PASSWORD }}
-          source: 'Caddyfile'
-          target: '/home/${{ secrets.VPS_USER }}/server'
-          strip_components: 0
+      # - name: Copy Caddy File
+      #   uses: appleboy/scp-action@v0.1.7
+      #   with:
+      #     host: ${{ secrets.VPS_HOST }}
+      #     username: ${{ secrets.VPS_USER }}
+      #     password: ${{ secrets.VPS_PASSWORD }}
+      #     source: 'Caddyfile'
+      #     target: '/home/${{ secrets.VPS_USER }}/server'
+      #     strip_components: 0
       
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
