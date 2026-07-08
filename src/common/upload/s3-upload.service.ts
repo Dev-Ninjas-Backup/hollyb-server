@@ -67,7 +67,10 @@ export class S3UploadService {
   }
 
   async uploadProfilePhoto(userId: string, file: Express.Multer.File) {
-    if (!file.mimetype.startsWith('image/')) {
+    const isImage = file.mimetype.startsWith('image/');
+    const isVideo = file.mimetype.startsWith('video/');
+
+    if (!isImage && !isVideo) {
       throw new BusinessException('Invalid file type');
     }
 

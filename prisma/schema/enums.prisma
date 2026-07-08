@@ -34,6 +34,8 @@ enum DocumentType {
   trade_license_back
   trade_license
   utility_bill
+  driving_license_front
+  driving_license_back
 }
 
 enum ReviewStatus {

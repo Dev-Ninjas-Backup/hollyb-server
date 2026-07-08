@@ -61,7 +61,7 @@ export class ProfileDocumentsController {
   @ApiOperation({
     summary: 'Upload profile photo',
     description:
-      'Upload or update user profile photo. Maximum file size: 5MB. Supported formats: JPG, PNG.',
+      'Upload or update user profile photo. Supported formats: Any image or video.',
   })
   @ApiResponse({
     status: 201,
@@ -105,7 +105,7 @@ export class ProfileDocumentsController {
   @ApiOperation({
     summary: 'Upload trade license',
     description:
-      'Upload trade license document (front and back sides). Required for employer accounts. Maximum file size per file: 5MB.',
+      'Upload trade license document (front and back sides). Required for employer accounts.',
   })
   @ApiResponse({
     status: 201,
@@ -161,7 +161,7 @@ export class ProfileDocumentsController {
   @ApiOperation({
     summary: 'Upload National ID (NID)',
     description:
-      'Upload National ID card (front and back sides). Required for identity verification. Maximum file size per file: 5MB.',
+      'Upload National ID card (front and back sides). Required for identity verification.',
   })
   @ApiResponse({ status: 201, description: 'NID uploaded successfully.' })
   @ApiResponse({
@@ -210,11 +210,64 @@ export class ProfileDocumentsController {
     );
   }
 
+  @Post('driving-license')
+  @ApiOperation({
+    summary: 'Upload Driving License',
+    description:
+      'Upload Driving License document (front and back sides). Alternative to NID for identity verification.',
+  })
+  @ApiResponse({ status: 201, description: 'Driving License uploaded successfully.' })
+  @ApiResponse({
+    status: 400,
+    description: 'Invalid file format, missing files, or file too large.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing token.',
+  })
+  @ApiBearerAuth()
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        front: { type: 'string', format: 'binary' },
+        back: { type: 'string', format: 'binary' },
+      },
+    },
+  })
+  @UseGuards(JwtAuthGuard)
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        { name: 'front', maxCount: 1 },
+        { name: 'back', maxCount: 1 },
+      ],
+      {
+        storage: memoryStorage(),
+      },
+    ),
+  )
+  uploadDrivingLicense(
+    @Req() req: AuthenticatedRequest,
+    @UploadedFiles()
+    files?: {
+      front?: Express.Multer.File[];
+      back?: Express.Multer.File[];
+    },
+  ) {
+    return this.profileDocumentsService.uploadDrivingLicense(
+      req.user.sub,
+      files?.front?.[0] as Express.Multer.File,
+      files?.back?.[0] as Express.Multer.File,
+    );
+  }
+
   @Post('passport')
   @ApiOperation({
     summary: 'Upload passport',
     description:
-      'Upload passport document (front and back sides). Alternative to NID for identity verification. Maximum file size per file: 5MB.',
+      'Upload passport document (front and back sides). Alternative to NID for identity verification.',
   })
   @ApiResponse({ status: 201, description: 'Passport uploaded successfully.' })
   @ApiResponse({
@@ -267,7 +320,7 @@ export class ProfileDocumentsController {
   @ApiOperation({
     summary: 'Upload utility bill',
     description:
-      'Upload utility bill for address verification. Include bill file and address information. Maximum file size: 5MB.',
+      'Upload utility bill for address verification. Include bill file and address information.',
   })
   @ApiResponse({
     status: 201,

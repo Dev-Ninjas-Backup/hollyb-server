@@ -55,7 +55,7 @@ export class ProfileController {
   @ApiOperation({
     summary: 'Update user profile',
     description:
-      'Update authenticated user profile information including optional profile photo upload. Maximum file size: 5MB.',
+      'Update authenticated user profile information including optional profile photo upload.',
   })
   @ApiResponse({ status: 200, description: 'Profile updated successfully.' })
   @ApiResponse({ status: 400, description: 'Invalid input or file too large.' })

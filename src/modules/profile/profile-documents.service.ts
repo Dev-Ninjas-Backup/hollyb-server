@@ -122,6 +122,43 @@ export class ProfileDocumentsService {
     );
   }
 
+  async uploadDrivingLicense(
+    userId: string,
+    front: Express.Multer.File,
+    back: Express.Multer.File,
+  ) {
+    await this.ensureUser(userId);
+    this.ensureDocumentFile(front);
+    this.ensureDocumentFile(back);
+
+    const frontUrl = await this.s3UploadService.uploadFile(
+      userId,
+      front,
+      `documents/${DocumentType.driving_license_front}`,
+    );
+    const backUrl = await this.s3UploadService.uploadFile(
+      userId,
+      back,
+      `documents/${DocumentType.driving_license_back}`,
+    );
+
+    const frontDoc = await this.saveDocument(
+      userId,
+      DocumentType.driving_license_front,
+      frontUrl,
+    );
+    const backDoc = await this.saveDocument(
+      userId,
+      DocumentType.driving_license_back,
+      backUrl,
+    );
+
+    return ResponseHelper.created(
+      { front: this.mapDocument(frontDoc), back: this.mapDocument(backDoc) },
+      'Driving license uploaded successfully',
+    );
+  }
+
   async uploadPassport(
     userId: string,
     front: Express.Multer.File,
@@ -206,7 +243,10 @@ export class ProfileDocumentsService {
       throw new BusinessException('File is required');
     }
 
-    if (!file.mimetype.startsWith('image/')) {
+    const isImage = file.mimetype.startsWith('image/');
+    const isVideo = file.mimetype.startsWith('video/');
+
+    if (!isImage && !isVideo) {
       throw new BusinessException('Invalid file type');
     }
   }
@@ -217,9 +257,10 @@ export class ProfileDocumentsService {
     }
 
     const isImage = file.mimetype.startsWith('image/');
+    const isVideo = file.mimetype.startsWith('video/');
     const isPdf = file.mimetype === 'application/pdf';
 
-    if (!isImage && !isPdf) {
+    if (!isImage && !isVideo && !isPdf) {
       throw new BusinessException('Invalid file type');
     }
   }

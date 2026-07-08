@@ -1,2 +1,12 @@
+allowBuilds:
+  '@firebase/util': false
+  '@nestjs/core': false
+  '@prisma/engines': false
+  '@scarf/scarf': false
+  esbuild: false
+  prisma: false
+  protobufjs: false
+  sharp: false
+  unrs-resolver: false
 onlyBuiltDependencies:
   - sharp
