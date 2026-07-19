@@ -57,6 +57,26 @@ export class ProfileDocumentsController {
     return this.profileDocumentsService.getMyDocuments(req.user.sub);
   }
 
+  @Get('document-complete')
+  @ApiOperation({
+    summary: 'Get document completion score',
+    description:
+      'Calculates a completion score based on 6 documents. Each document type contributes 16.67 to the total score of 100.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Document completion score retrieved successfully.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing token.',
+  })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  getDocumentCompletionScore(@Req() req: AuthenticatedRequest) {
+    return this.profileDocumentsService.getDocumentCompletionScore(req.user.sub);
+  }
+
   @Post('profile-photo')
   @ApiOperation({
     summary: 'Upload profile photo',

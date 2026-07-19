@@ -28,6 +28,49 @@ export class ProfileDocumentsService {
     );
   }
 
+  async getDocumentCompletionScore(userId: string) {
+    await this.ensureUser(userId);
+    const documents = await this.prismaService.client.document.findMany({
+      where: { user_id: userId },
+    });
+
+    const documentTypes = documents.map((doc) => doc.type);
+
+    let filledFields = 0;
+    
+    if (documentTypes.includes(DocumentType.profile_photo)) filledFields++;
+    
+    if (
+      documentTypes.includes(DocumentType.trade_license_front) ||
+      documentTypes.includes(DocumentType.trade_license_back) ||
+      documentTypes.includes(DocumentType.trade_license)
+    ) filledFields++;
+
+    if (
+      documentTypes.includes(DocumentType.nid_front) ||
+      documentTypes.includes(DocumentType.nid_back)
+    ) filledFields++;
+
+    if (
+      documentTypes.includes(DocumentType.driving_license_front) ||
+      documentTypes.includes(DocumentType.driving_license_back)
+    ) filledFields++;
+
+    if (
+      documentTypes.includes(DocumentType.passport_front) ||
+      documentTypes.includes(DocumentType.passport_back)
+    ) filledFields++;
+
+    if (documentTypes.includes(DocumentType.utility_bill)) filledFields++;
+
+    const score = filledFields === 6 ? 100 : Number((filledFields * 16.67).toFixed(2));
+
+    return ResponseHelper.success(
+      { score, filledFields, totalFields: 6 },
+      'Document completion score fetched successfully',
+    );
+  }
+
   async uploadProfilePhoto(userId: string, file: Express.Multer.File) {
     const user = await this.ensureUser(userId);
     this.ensureImageFile(file);
