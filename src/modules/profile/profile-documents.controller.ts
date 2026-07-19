@@ -3,6 +3,8 @@ import {
   Controller,
   Get,
   Post,
+  Delete,
+  Param,
   Req,
   UploadedFile,
   UploadedFiles,
@@ -385,5 +387,31 @@ export class ProfileDocumentsController {
       file as Express.Multer.File,
       dto.address,
     );
+  }
+
+  @Delete(':ids')
+  @ApiOperation({
+    summary: 'Delete one or more documents',
+    description: 'Delete a specific document or multiple documents by their IDs (comma-separated).',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Documents deleted successfully.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Document(s) not found.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing token.',
+  })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  deleteDocument(
+    @Req() req: AuthenticatedRequest,
+    @Param('ids') ids: string,
+  ) {
+    return this.profileDocumentsService.deleteDocument(req.user.sub, ids);
   }
 }

@@ -71,6 +71,38 @@ export class ProfileDocumentsService {
     );
   }
 
+  async deleteDocument(userId: string, documentIds: string) {
+    await this.ensureUser(userId);
+    const ids = documentIds.split(',').map((id) => id.trim()).filter(Boolean);
+
+    if (ids.length === 0) {
+      throw new BusinessException('No document IDs provided');
+    }
+
+    const documents = await this.prismaService.client.document.findMany({
+      where: { id: { in: ids } },
+    });
+
+    if (documents.length === 0) {
+      throw new ResourceNotFoundException('Documents', documentIds);
+    }
+
+    const unauthorized = documents.some((doc) => doc.user_id !== userId);
+    if (unauthorized) {
+      throw new BusinessException('Unauthorized to delete one or more documents');
+    }
+
+    for (const doc of documents) {
+      await this.s3UploadService.deleteFile(doc.file_url);
+    }
+
+    await this.prismaService.client.document.deleteMany({
+      where: { id: { in: ids } },
+    });
+
+    return ResponseHelper.success(null, 'Documents deleted successfully');
+  }
+
   async uploadProfilePhoto(userId: string, file: Express.Multer.File) {
     const user = await this.ensureUser(userId);
     this.ensureImageFile(file);

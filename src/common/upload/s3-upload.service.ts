@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { PutObjectCommand, DeleteObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { BusinessException } from '@/common/exceptions/business.exception';
 import sharp from 'sharp';
 import * as path from 'path';
@@ -75,5 +75,21 @@ export class S3UploadService {
     }
 
     return this.uploadFile(userId, file, 'profiles');
+  }
+
+  async deleteFile(fileUrl: string) {
+    if (!fileUrl) return;
+    try {
+      const url = new URL(fileUrl);
+      const key = decodeURIComponent(url.pathname.substring(1));
+      await this.s3Client.send(
+        new DeleteObjectCommand({
+          Bucket: this.bucketName,
+          Key: key,
+        }),
+      );
+    } catch (error) {
+      // Ignore if parsing URL fails or deletion fails
+    }
   }
 }
