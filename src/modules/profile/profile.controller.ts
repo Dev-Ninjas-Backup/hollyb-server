@@ -186,4 +186,25 @@ export class ProfileController {
   deleteMe(@Req() req: AuthenticatedRequest) {
     return this.profileService.deleteMe(req.user.sub);
   }
+
+  @Delete('hard-delete')
+  @ApiOperation({
+    summary: 'Hard delete current user',
+    description:
+      'Permanently delete authenticated user account, revoke all active tokens, and clear all data and associated files from the system.',
+  })
+  @ApiResponse({
+    status: 200,
+    description:
+      'Account and all associated data permanently deleted successfully.',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing token.',
+  })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  hardDeleteMe(@Req() req: AuthenticatedRequest) {
+    return this.profileService.hardDeleteMe(req.user.sub);
+  }
 }

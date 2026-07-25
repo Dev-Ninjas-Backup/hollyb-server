@@ -508,4 +508,118 @@ export class ProfileService {
 
     return ResponseHelper.success(null, 'Account deleted successfully');
   }
+
+  async hardDeleteMe(userId: string) {
+    const user = await this.prismaService.client.user.findUnique({
+      where: { id: userId },
+      include: {
+        documents: true,
+        employee_profile: {
+          select: {
+            id: true,
+            profile_photo_url: true,
+          },
+        },
+        employer_profile: {
+          select: {
+            id: true,
+            profile_photo_url: true,
+          },
+        },
+      },
+    });
+
+    if (!user) {
+      throw new ResourceNotFoundException('User', userId);
+    }
+
+    const urlsToDelete = new Set<string>();
+    const fileInstanceIdsToDelete = new Set<string>();
+
+    if (user.documents?.length) {
+      for (const doc of user.documents) {
+        if (doc.file_url) {
+          urlsToDelete.add(doc.file_url);
+        }
+      }
+    }
+
+    if (user.employee_profile?.profile_photo_url) {
+      urlsToDelete.add(user.employee_profile.profile_photo_url);
+    }
+
+    if (user.employer_profile?.profile_photo_url) {
+      urlsToDelete.add(user.employer_profile.profile_photo_url);
+    }
+
+    if (user.employer_profile) {
+      const jobsWithFiles = await this.prismaService.client.job.findMany({
+        where: {
+          employer_id: user.employer_profile.id,
+          fileId: { not: null },
+        },
+        select: {
+          fileId: true,
+          file: {
+            select: { id: true, url: true },
+          },
+        },
+      });
+      for (const job of jobsWithFiles) {
+        if (job.file?.url) {
+          urlsToDelete.add(job.file.url);
+        }
+        if (job.fileId) {
+          fileInstanceIdsToDelete.add(job.fileId);
+        }
+      }
+    }
+
+    const messagesWithFiles =
+      await this.prismaService.client.privateMessage.findMany({
+        where: {
+          senderId: userId,
+          fileId: { not: null },
+        },
+        select: {
+          fileId: true,
+          file: {
+            select: { id: true, url: true },
+          },
+        },
+      });
+    for (const msg of messagesWithFiles) {
+      if (msg.file?.url) {
+        urlsToDelete.add(msg.file.url);
+      }
+      if (msg.fileId) {
+        fileInstanceIdsToDelete.add(msg.fileId);
+      }
+    }
+
+    for (const url of urlsToDelete) {
+      if (url) {
+        await this.s3UploadService.deleteFile(url);
+      }
+    }
+
+    await this.prismaService.client.$transaction(async (tx) => {
+      if (fileInstanceIdsToDelete.size > 0) {
+        await tx.fileInstance.deleteMany({
+          where: {
+            id: { in: Array.from(fileInstanceIdsToDelete) },
+          },
+        });
+      }
+
+      await tx.user.delete({
+        where: { id: userId },
+      });
+    });
+
+    return ResponseHelper.success(
+      null,
+      'Account and all associated data permanently deleted successfully',
+    );
+  }
 }

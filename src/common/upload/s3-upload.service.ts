@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { PutObjectCommand, DeleteObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import {
+  PutObjectCommand,
+  DeleteObjectCommand,
+  S3Client,
+} from '@aws-sdk/client-s3';
 import { BusinessException } from '@/common/exceptions/business.exception';
 import sharp from 'sharp';
 import * as path from 'path';
@@ -32,13 +36,13 @@ export class S3UploadService {
 
     if (file.mimetype.startsWith('image/')) {
       try {
-        buffer = await sharp(file.buffer)
-          .webp({ quality: 80 })
-          .toBuffer();
+        buffer = await sharp(file.buffer).webp({ quality: 80 }).toBuffer();
         mimetype = 'image/webp';
-        
+
         const ext = path.extname(file.originalname);
-        const nameWithoutExt = ext ? file.originalname.slice(0, -ext.length) : file.originalname;
+        const nameWithoutExt = ext
+          ? file.originalname.slice(0, -ext.length)
+          : file.originalname;
         originalname = `${nameWithoutExt}.webp`;
 
         // Update the file object properties in-place for callers

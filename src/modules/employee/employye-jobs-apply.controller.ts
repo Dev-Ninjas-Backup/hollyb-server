@@ -49,7 +49,7 @@ export class EmployyeJobsApplyController {
     type: String,
     description: 'Job id (uuid)',
   })
-    @ApiResponse({
+  @ApiResponse({
     status: 201,
     description: 'Job application submitted successfully',
   })

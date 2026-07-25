@@ -76,7 +76,9 @@ export class ProfileDocumentsController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   getDocumentCompletionScore(@Req() req: AuthenticatedRequest) {
-    return this.profileDocumentsService.getDocumentCompletionScore(req.user.sub);
+    return this.profileDocumentsService.getDocumentCompletionScore(
+      req.user.sub,
+    );
   }
 
   @Post('profile-photo')
@@ -238,7 +240,10 @@ export class ProfileDocumentsController {
     description:
       'Upload Driving License document (front and back sides). Alternative to NID for identity verification.',
   })
-  @ApiResponse({ status: 201, description: 'Driving License uploaded successfully.' })
+  @ApiResponse({
+    status: 201,
+    description: 'Driving License uploaded successfully.',
+  })
   @ApiResponse({
     status: 400,
     description: 'Invalid file format, missing files, or file too large.',
@@ -392,7 +397,8 @@ export class ProfileDocumentsController {
   @Delete(':ids')
   @ApiOperation({
     summary: 'Delete one or more documents',
-    description: 'Delete a specific document or multiple documents by their IDs (comma-separated).',
+    description:
+      'Delete a specific document or multiple documents by their IDs (comma-separated).',
   })
   @ApiResponse({
     status: 200,
@@ -408,10 +414,7 @@ export class ProfileDocumentsController {
   })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  deleteDocument(
-    @Req() req: AuthenticatedRequest,
-    @Param('ids') ids: string,
-  ) {
+  deleteDocument(@Req() req: AuthenticatedRequest, @Param('ids') ids: string) {
     return this.profileDocumentsService.deleteDocument(req.user.sub, ids);
   }
 }

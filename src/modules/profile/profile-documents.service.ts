@@ -37,33 +37,38 @@ export class ProfileDocumentsService {
     const documentTypes = documents.map((doc) => doc.type);
 
     let filledFields = 0;
-    
+
     if (documentTypes.includes(DocumentType.profile_photo)) filledFields++;
-    
+
     if (
       documentTypes.includes(DocumentType.trade_license_front) ||
       documentTypes.includes(DocumentType.trade_license_back) ||
       documentTypes.includes(DocumentType.trade_license)
-    ) filledFields++;
+    )
+      filledFields++;
 
     if (
       documentTypes.includes(DocumentType.nid_front) ||
       documentTypes.includes(DocumentType.nid_back)
-    ) filledFields++;
+    )
+      filledFields++;
 
     if (
       documentTypes.includes(DocumentType.driving_license_front) ||
       documentTypes.includes(DocumentType.driving_license_back)
-    ) filledFields++;
+    )
+      filledFields++;
 
     if (
       documentTypes.includes(DocumentType.passport_front) ||
       documentTypes.includes(DocumentType.passport_back)
-    ) filledFields++;
+    )
+      filledFields++;
 
     if (documentTypes.includes(DocumentType.utility_bill)) filledFields++;
 
-    const score = filledFields === 6 ? 100 : Number((filledFields * 16.67).toFixed(2));
+    const score =
+      filledFields === 6 ? 100 : Number((filledFields * 16.67).toFixed(2));
 
     return ResponseHelper.success(
       { score, filledFields, totalFields: 6 },
@@ -73,7 +78,10 @@ export class ProfileDocumentsService {
 
   async deleteDocument(userId: string, documentIds: string) {
     await this.ensureUser(userId);
-    const ids = documentIds.split(',').map((id) => id.trim()).filter(Boolean);
+    const ids = documentIds
+      .split(',')
+      .map((id) => id.trim())
+      .filter(Boolean);
 
     if (ids.length === 0) {
       throw new BusinessException('No document IDs provided');
@@ -89,7 +97,9 @@ export class ProfileDocumentsService {
 
     const unauthorized = documents.some((doc) => doc.user_id !== userId);
     if (unauthorized) {
-      throw new BusinessException('Unauthorized to delete one or more documents');
+      throw new BusinessException(
+        'Unauthorized to delete one or more documents',
+      );
     }
 
     for (const doc of documents) {
