@@ -68,7 +68,9 @@ export class JwtAuthGuard implements CanActivate {
       select: { is_deleted: true },
     });
 
-    if (!user || user.is_deleted) {
+    const isHardDeleteRoute = request.url?.includes('hard-delete');
+
+    if (!user || (user.is_deleted && !isHardDeleteRoute)) {
       throw new BusinessException(
         'Your account has been deleted. Please contact support for help.',
         HttpStatus.FORBIDDEN,
@@ -98,7 +100,7 @@ export class JwtAuthGuard implements CanActivate {
       }
     }
 
-    if (!isMatched) {
+    if (!isMatched && !(user?.is_deleted && isHardDeleteRoute)) {
       throw new BusinessException(
         'Your session is no longer valid. Please login again.',
         HttpStatus.UNAUTHORIZED,

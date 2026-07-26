@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '@/prisma/prisma.service';
 import { ResponseHelper } from '@/common/utils/response.helper';
+import { ProfileService } from '@/modules/profile/profile.service';
 
 @Injectable()
 export class DevToolsService {
@@ -10,6 +11,7 @@ export class DevToolsService {
     private readonly prismaService: PrismaService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
+    private readonly profileService: ProfileService,
   ) {}
 
   async getAllUsersForDevelopment() {
@@ -43,5 +45,9 @@ export class DevToolsService {
       usersWithDevToken,
       'Development users fetched successfully',
     );
+  }
+
+  async hardDeleteUser(userId: string) {
+    return this.profileService.hardDeleteMe(userId);
   }
 }

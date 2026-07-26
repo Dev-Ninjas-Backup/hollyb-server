@@ -11,5 +11,6 @@ import { ProfileDocumentsController } from './profile-documents.controller';
   imports: [PrismaModule, JwtModule.register({})],
   providers: [ProfileService, ProfileDocumentsService, JwtAuthGuard],
   controllers: [ProfileController, ProfileDocumentsController],
+  exports: [ProfileService],
 })
 export class ProfileModule {}
