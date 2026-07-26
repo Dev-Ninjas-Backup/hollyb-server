@@ -8,7 +8,10 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { compare } from 'bcryptjs';
 import { PrismaService } from '@/prisma/prisma.service';
-import { BusinessException } from '@/common/exceptions/business.exception';
+import {
+  BusinessException,
+  ResourceNotFoundException,
+} from '@/common/exceptions/business.exception';
 import type { Request } from 'express';
 
 export type AuthenticatedRequest = Request & {
@@ -70,7 +73,11 @@ export class JwtAuthGuard implements CanActivate {
 
     const isHardDeleteRoute = request.url?.includes('hard-delete');
 
-    if (!user || (user.is_deleted && !isHardDeleteRoute)) {
+    if (!user) {
+      throw new ResourceNotFoundException('User', payload.sub);
+    }
+
+    if (user.is_deleted && !isHardDeleteRoute) {
       throw new BusinessException(
         'Your account has been deleted. Please contact support for help.',
         HttpStatus.FORBIDDEN,
